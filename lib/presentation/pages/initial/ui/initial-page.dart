@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_player/presentation/pages/initial/widgets/bottom-navbar/custom_bottom_nav_bar_widget.dart';
 import 'package:open_player/presentation/pages/video/ui/video-page.dart';
+import '../../../../logic/bottom_nav_bar_cubit/bottom_nav_bar_cubit.dart';
 import '../../audio/main/ui/audio-page.dart';
 import '../../settings/setting/ui/setting-page.dart';
 
@@ -12,27 +14,28 @@ class InitialPage extends StatefulWidget {
 }
 
 class _InitialPageState extends State<InitialPage> {
-  int index = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          //--------- Pages ---------------///
-          _pages[index],
+      body: BlocBuilder<BottomNavBarCubit, BottomNavBarState>(
+        builder: (context, state) {
+          return Stack(
+            children: [
+              //--------- Pages ---------------///
+              _pages[state.index],
 
-          //---------- Bottom Nav Bar----------//
-          CustomBottomNavBarWidget(
-            index: index,
-          ),
-        ],
+              //---------- Bottom Nav Bar----------//
+              const CustomBottomNavBarWidget(),
+            ],
+          );
+        },
       ),
     );
   }
 
   //--------- Pages ---------------//
   final _pages = [
-    const AudioPage(),
+    AudioPage(),
     const VideosPage(),
     const SettingPage(),
   ];

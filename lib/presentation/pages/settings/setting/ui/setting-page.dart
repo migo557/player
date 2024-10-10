@@ -1,6 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
+import 'package:open_player/presentation/pages/settings/setting/widgets/setting_black_mode_switch_list_tile_widget.dart';
+import 'package:open_player/presentation/pages/settings/setting/widgets/setting_change_theme_list_tile_widget.dart';
+import 'package:open_player/presentation/pages/settings/setting/widgets/setting_dark_mode_button_widget.dart';
+import 'package:open_player/presentation/pages/settings/setting/widgets/setting_material3_switch_list_tile_widget.dart';
+import 'package:open_player/presentation/pages/settings/setting/widgets/setting_toggle_default_theme_switch_list_tile_widget.dart';
+import '../../../../../logic/theme_cubit/theme_cubit.dart';
 import '../widgets/license_widget.dart';
 import '../widgets/settings_list_tile_widget.dart';
 
@@ -26,7 +33,7 @@ class _SettingPageState extends State<SettingPage> {
             children: [
               ///?-------------------   TOP SETTING HEADING  -----------------------------///
               SizedBox(
-                height: mqHeight* 0.1,
+                height: mqHeight * 0.1,
                 width: double.infinity,
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
@@ -38,46 +45,39 @@ class _SettingPageState extends State<SettingPage> {
               ),
 
               ///!-------------------Theme SECTION-----------------------------///
-              const Row(
+              Row(
                 children: [
-                  Text(
+                  const Text(
                     "  APPEARANCE ",
                     style: TextStyle(fontSize: 25, letterSpacing: 1),
                   ),
-                  Icon(CupertinoIcons.color_filter)
+                  Icon(
+                    CupertinoIcons.color_filter,
+                    color: Theme.of(context).primaryColor,
+                  )
                 ],
               ),
 
-              const SizedBox(
-                height: 10,
+              const Gap(
+                10,
               ),
 
-              ///!-------------------Accent Color Switch Tile-----------------------------///
-              ListTile(
-                title: const Text("Accent Color"),
-                trailing: CircleAvatar(
-                  radius: 15,
-                  backgroundColor: Theme.of(context).primaryColor,
-                ),
-                onTap: () {},
-              ),
+              ///!-------------------Default Theme Switch Tile-----------------------------///
+              const SettingToggleDefaultThemeSwitchListTileWidget(),
 
-              ///!-------------------Dark Mode Switch Tile-----------------------------///
-              SwitchListTile(
-                  value: false,
-                  onChanged: (value) {},
-                  title: const Text("Dark Mode")),
+              //!-------------------Change Theme Switch Tile-----------------------------///
+              const SettingChangeThemeSwitchListTileWidget(),
 
-              ///!-------------------Black Mode Switch Tile-----------------------------///
-              Visibility(
-                visible: true,
-                child: SwitchListTile(
-                    value: false,
-                    onChanged: (value) {},
-                    title: const Text("Black Mode")),
-              ),
+              //!-------------------- Use Material Switch Tile -------------------------//
+              const SettingMaterial3SwitchListTileWidget(),
 
-              SizedBox(height: mqHeight * 0.02),
+              //!-------------------Dark Mode Switch Tile-----------------------------///
+              const SettingDarkModeButtonWidget(),
+
+              //!-------------------Black Mode Switch Tile-----------------------------///
+              const SettingBlackModeSwitchListTileWidget(),
+
+              Gap(mqHeight * 0.02),
 
               ///?-------------------GENERAL SECTION-----------------------------///
               const Text(
@@ -85,7 +85,7 @@ class _SettingPageState extends State<SettingPage> {
                 style: TextStyle(fontSize: 30, letterSpacing: 1.5),
               ),
 
-              SizedBox(height: mqHeight * 0.02),
+              Gap(mqHeight * 0.02),
 
               ///!-------------------Profile-----------------------------///
               SettingsListTileWidget(
@@ -132,7 +132,7 @@ class _SettingPageState extends State<SettingPage> {
               SettingsListTileWidget(
                   title: "About", iconData: CupertinoIcons.info, onTap: () {}),
 
-              SizedBox(height: mqHeight * 0.2),
+              Gap(mqHeight * 0.2),
             ],
           ),
         ),

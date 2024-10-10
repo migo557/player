@@ -27,6 +27,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Copyright (c) 2024 Furqan Uddin
+Copyright (c) 2024 Open Player
+Developer : Furqan Uddin
+Email : frkudn@protonmail.com
 """;
 }

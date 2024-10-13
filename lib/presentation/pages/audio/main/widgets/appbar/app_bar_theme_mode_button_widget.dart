@@ -10,7 +10,7 @@ class AppBarThemeModeButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      iconSize: 40,
+      iconSize: 30,
       onPressed: () {
         context.read<ThemeCubit>().toggleThemeMode();
       },

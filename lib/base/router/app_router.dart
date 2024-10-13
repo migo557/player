@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:open_player/presentation/pages/settings/change-theme/ui/change-theme-page.dart';
 
 import '../../presentation/pages/initial/ui/initial-page.dart';
-import '../../presentation/pages/settings/setting/ui/setting-page.dart';
+import '../../presentation/pages/settings/setting/ui/setting_page.dart';
 import 'app_routes.dart';
 
 class AppRouter {

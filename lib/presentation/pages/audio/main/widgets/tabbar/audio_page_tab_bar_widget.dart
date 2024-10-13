@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/logic/audio_page_tab_bar_cubit/audio_page_tab_bar_cubit.dart';
 
 class AudioPageTabBarWidget extends StatelessWidget {
@@ -10,7 +11,7 @@ class AudioPageTabBarWidget extends StatelessWidget {
     final double mqWidth = MediaQuery.sizeOf(context).width;
     final double mqHeight = MediaQuery.sizeOf(context).height;
     return SliverAppBar(
-      toolbarHeight: mqHeight * 0.05,
+      toolbarHeight: mqHeight * 0.062,
       pinned: true,
       actions: [
         Expanded(
@@ -20,14 +21,15 @@ class AudioPageTabBarWidget extends StatelessWidget {
                       .read<AudioPageTabBarCubit>()
                       .changeIndex(tabIndex: value);
                 },
-                tabs: const [
+                tabs:  const [
               Tab(
+                
                 text: "Songs",
-                icon: Icon(Icons.library_music_outlined),
+                icon: Icon(HugeIcons.strokeRoundedMusicNoteSquare02),
               ),
               Tab(
                 text: "Artists",
-                icon: Icon(Icons.library_music_outlined),
+                icon: Icon(HugeIcons.strokeRoundedMusicNoteSquare01),
               ),
               Tab(
                 text: "Albums",
@@ -35,7 +37,12 @@ class AudioPageTabBarWidget extends StatelessWidget {
               ),
               Tab(
                 text: "Playlists",
-                icon: Icon(Icons.playlist_play_outlined),
+                icon: Icon(HugeIcons.strokeRoundedPlayList),
+              ),
+
+              Tab(
+                text: "Folders",
+                icon: Icon(HugeIcons.strokeRoundedFolder01),
               ),
             ]))
       ],

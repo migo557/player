@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/presentation/pages/initial/widgets/bottom-navbar/bottom_nav_bar_button_widget.dart';
 
 import '../../../../../logic/bottom_nav_bar_cubit/bottom_nav_bar_cubit.dart';
@@ -21,23 +22,30 @@ class CustomBottomNavBarWidget extends StatelessWidget {
           builder: (context, state) {
             int index = state.index;
             return Positioned(
-              //------Margin Bottom is  5% of Screen Height  --------//
-              bottom: mqHeight * 0.05,
-              //------Margin Left is  10% of Screen Width  --------//
-              left: mqWidth * 0.1,
-              //------Margin Right is  10% of Screen Width  --------//
-              right: mqWidth * 0.1,
+              //------Default Margin Bottom is  5% of Screen Height  --------//
+              bottom: mqHeight * themeState.bottomNavBarPositionFromBottom,
+              //------Default Margin Left is  10% of Screen Width  --------//
+              left: mqWidth * themeState.bottomNavBarPositionFromLeft,
+              //------Default Margin Right is  10% of Screen Width  --------//
+              right: themeState.isDefaultBottomNavBarPosition
+                  ? mqWidth * themeState.bottomNavBarPositionFromLeft
+                  : null,
+              // top: mqHeight* themeState.bottomNavBarPositionFromTop,
               child: Container(
-                  //---Height is 5% of Screen Height -----///
-                  height: mqHeight * 0.04,
-                  //---Width is 80% of Screen Width -----///
-                  width: mqWidth * 0.8,
+                  //---Default Height is 5% of Screen Height -----///
+                  height: mqHeight * themeState.bottomNavBarHeight,
+                  //---Default Width is 80% of Screen Width -----///
+                  width: mqWidth * themeState.bottomNavBarWidth,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
+                      color: themeState.isDefaultBottomNavBarBgColor
+                          ? Theme.of(context).scaffoldBackgroundColor
+                          : Color(themeState.customBottomNavBarBgColor),
                       borderRadius: BorderRadius.circular(50),
-                      boxShadow:  [
+                      boxShadow: [
                         BoxShadow(
-                          color: themeState.isDarkMode?Colors.white54:Colors.black45,
+                          color: themeState.isDarkMode
+                              ? Colors.white54
+                              : Colors.black45,
                           blurRadius: 3,
                         ),
                       ]),
@@ -47,21 +55,21 @@ class CustomBottomNavBarWidget extends StatelessWidget {
                     children: [
                       //--- Audio Button ---//
                       BottomNavBarButtonWidget(
-                        icon: Icons.music_note,
+                        icon: HugeIcons.strokeRoundedMusicNote02,
                         isSelected: index == 0,
                         pageIndex: 0,
                       ),
 
                       //--- Video Button ---//
                       BottomNavBarButtonWidget(
-                        icon: Icons.video_collection,
+                        icon: HugeIcons.strokeRoundedFolderVideo,
                         isSelected: index == 1,
                         pageIndex: 1,
                       ),
 
                       //--- Settings Button ---//
                       BottomNavBarButtonWidget(
-                          icon: Icons.settings,
+                          icon: HugeIcons.strokeRoundedSettings05,
                           isSelected: index == 2,
                           pageIndex: 2),
                     ],

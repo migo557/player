@@ -19,7 +19,7 @@ class BottomNavBarButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, ThemeState>(
-      builder: (context, state) {
+      builder: (context, themeState) {
         return Expanded(
           child: IconButton(
             enableFeedback: true,
@@ -28,8 +28,7 @@ class BottomNavBarButtonWidget extends StatelessWidget {
                   ? Theme.of(context).secondaryHeaderColor
                   : Colors.transparent),
             ),
-            // color: isSelected ? Theme.of(context).primaryColor : null,
-            iconSize: 35,
+            iconSize: 24,
             onPressed: () {
               context.read<BottomNavBarCubit>().changeIndex(index: pageIndex);
 

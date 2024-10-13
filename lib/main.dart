@@ -1,9 +1,7 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_player/base/theme/themes.dart';
 import 'package:open_player/presentation/pages/initial/ui/initial-page.dart';
-
 import 'base/di/dependency_injection.dart';
 import 'data/bloc_providers/bloc_providers.dart';
 import 'logic/theme_cubit/theme_cubit.dart';
@@ -26,35 +24,11 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: myBlocProviders(),
       child: BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, state) {
+        builder: (context, themeState) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: state.defaultTheme
-                ? state.isDarkMode
-                    ? AppThemes.defaultDarkTheme.copyWith(
-                        scaffoldBackgroundColor:
-                            state.isBlackMode ? Colors.black : null,
-                        appBarTheme: AppBarTheme(
-                            backgroundColor:
-                                state.isBlackMode ? Colors.black : null),
-                      )
-                    : AppThemes.defaultLightTheme
-                : state.isDarkMode
-                    ? FlexThemeData.dark(
-                            useMaterial3: state.useMaterial3,
-                            scheme: state.flexScheme)
-                        .copyWith(
-                        scaffoldBackgroundColor:
-                            state.isBlackMode ? Colors.black : null,
-                        appBarTheme: AppBarTheme(
-                          backgroundColor:
-                              state.isBlackMode ? Colors.black : null,
-                        ),
-                      )
-                    : FlexThemeData.light(
-                        useMaterial3: state.useMaterial3,
-                        scheme: state.flexScheme),
-            title: 'Open Player',
+            theme: locator<AppThemes>().themes(themeState),
+            title: "Open Player",
             home: const InitialPage(),
           );
         },

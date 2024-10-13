@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_player/base/assets/fonts/app-fonts.dart';
+import 'package:open_player/base/di/dependency_injection.dart';
 import 'package:open_player/base/theme/themes.dart';
 
 import '../../../../../logic/theme_cubit/theme_cubit.dart';
@@ -21,12 +22,14 @@ class ChangeThemePage extends StatelessWidget {
             builder: (context, state) {
               return Expanded(
                 child: ListView.builder(
-                  itemCount: AppThemes.flexThemes.length,
+                  itemCount: locator<AppThemes>().flexThemes.length,
                   itemBuilder: (context, index) => ListTile(
                     visualDensity: VisualDensity.comfortable,
                     onTap: () {
                       context.read<ThemeCubit>().changeFlexScheme(
-                          flexScheme: AppThemes.flexThemes[index].flexScheme);
+                          flexScheme: locator<AppThemes>()
+                              .flexThemes[index]
+                              .flexScheme);
                       context.read<ThemeCubit>().changeFlexIndex(index);
                       Navigator.pop(context);
                     },
@@ -34,15 +37,26 @@ class ChangeThemePage extends StatelessWidget {
                     selected: state.flexIndex == index,
                     selectedTileColor: Theme.of(context).focusColor,
                     title: Text(
-                      AppThemes.flexThemes[index].title.toUpperCase(),
+                      locator<AppThemes>()
+                          .flexThemes[index]
+                          .title
+                          .toUpperCase(),
                       style: const TextStyle(
                         fontFamily: AppFonts.poppins,
                       ),
                     ),
                     trailing: CircleAvatar(
                       backgroundColor: state.isDarkMode
-                          ? AppThemes.flexThemes[index].flexColor.dark.primary
-                          : AppThemes.flexThemes[index].flexColor.light.primary,
+                          ? locator<AppThemes>()
+                              .flexThemes[index]
+                              .flexColor
+                              .dark
+                              .primary
+                          : locator<AppThemes>()
+                              .flexThemes[index]
+                              .flexColor
+                              .light
+                              .primary,
                     ),
                   ),
                 ),

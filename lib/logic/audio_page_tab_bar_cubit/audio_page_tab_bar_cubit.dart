@@ -7,6 +7,6 @@ class AudioPageTabBarCubit extends Cubit<AudioPageTabBarState> {
   AudioPageTabBarCubit() : super(AudioPageTabBarState(tabIndex: 0));
 
   changeIndex({required int tabIndex}) {
-    emit(state.copyWith(tabIndex));
+    emit(state.copyWith(index: tabIndex));
   }
 }

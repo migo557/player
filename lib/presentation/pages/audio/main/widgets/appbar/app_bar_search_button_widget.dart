@@ -5,6 +5,6 @@ class AppBarSearchButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(iconSize: 40, onPressed: () {}, icon: const Icon(Icons.search),);
+    return IconButton(iconSize: 30, onPressed: () {}, icon: const Icon(Icons.search),);
   }
 }

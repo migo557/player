@@ -16,6 +16,7 @@ class SettingChangeThemeSwitchListTileWidget extends StatelessWidget {
         return Visibility(
           visible: !state.defaultTheme,
           child: ListTile(
+            leading: const Icon(Icons.color_lens),
             title: const Text("Change Theme"),
             trailing: CircleAvatar(
               radius: 15,

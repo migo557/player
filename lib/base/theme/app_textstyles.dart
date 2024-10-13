@@ -3,9 +3,9 @@ import 'package:open_player/base/assets/fonts/app-fonts.dart';
 
 class AppTextStyles {
   static const greeting1 =
-      TextStyle(fontSize: 40, fontFamily: AppFonts.poppins);
+      TextStyle(fontSize: 23, fontFamily: AppFonts.poppins);
   static const profileName1 = TextStyle(
-    fontSize: 20,
+    fontSize: 16,
   );
   static const tabBarSelectedLabelStyleLightMode = TextStyle(
     fontSize: 20,

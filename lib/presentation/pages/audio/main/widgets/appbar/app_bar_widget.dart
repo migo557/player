@@ -13,7 +13,9 @@ class AudioPageAppBarWidget extends StatelessWidget {
     final double mqWidth = MediaQuery.sizeOf(context).width;
     final double mqHeight = MediaQuery.sizeOf(context).height;
     return SliverAppBar(
-      toolbarHeight: mqHeight * 0.15,
+      elevation: 0,
+    
+      toolbarHeight: mqHeight * 0.13,
       floating: true,
       actions: [
         Expanded(
@@ -47,17 +49,14 @@ class AudioPageAppBarWidget extends StatelessWidget {
               //---- Search Button -----//
               const AppBarSearchButtonWidget(),
 
-              //------- Space -----//
-              SizedBox(
-                width: mqWidth * 0.02,
-              ),
+              
 
               //---- ThemeMode Button -----//
               const AppBarThemeModeButtonWidget(),
 
               //------- Space -----//
               SizedBox(
-                width: mqWidth * 0.02,
+                width: mqWidth * 0.01,
               ),
             ],
           ),

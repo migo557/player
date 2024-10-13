@@ -14,7 +14,7 @@ class AppBarProfileImageWidget extends StatelessWidget {
       },
       child: const CircleAvatar(
         minRadius: 20,
-        maxRadius: 40,
+        maxRadius: 28,
         backgroundImage: AssetImage(AppImages.defaultProfile),
       ),
     );

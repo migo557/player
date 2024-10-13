@@ -1,24 +1,105 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:open_player/base/assets/fonts/app-fonts.dart';
 
 import '../../data/models/theme-look-model.dart';
+import '../../logic/theme_cubit/theme_cubit.dart';
 
 class AppThemes {
+  //------ Select/Choose Theme -------------//
+  themes(ThemeState themeState) {
+    return themeState.defaultTheme
+        ? themeState.isDarkMode
+            ? _defaultDarkTheme(themeState: themeState)
+            : _defaultLightTheme(themeState: themeState)
+        : themeState.isDarkMode
+            ? _flexDarkTheme(themeState: themeState)
+            : _flexLightTheme(themeState: themeState);
+  }
+
   //--- Default Light Theme ---//
+  _defaultLightTheme({required ThemeState themeState}) {
+    return ThemeData().copyWith(
+      scaffoldBackgroundColor: Colors.white,
+      visualDensity: themeState.visualDensity,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.pinkAccent,
+        primary: Colors.pink,
+        contrastLevel: themeState.contrastLevel,
+      ),
+      tabBarTheme: const TabBarTheme(
+        unselectedLabelStyle: TextStyle(fontSize: 10),
+        labelStyle: TextStyle(fontSize: 11, fontFamily: AppFonts.poppins),
+      ),
+    );
+  }
 
-  static final defaultLightTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.white,
-    useMaterial3: true
-  );
+  //--- Default Dark Theme ---//
+  _defaultDarkTheme({required ThemeState themeState}) {
+    return ThemeData.dark().copyWith(
+      scaffoldBackgroundColor: themeState.isBlackMode ? Colors.black : null,
+      appBarTheme: AppBarTheme(
+        backgroundColor: themeState.isBlackMode ? Colors.black : null,
+      ),
+      visualDensity: themeState.visualDensity,
+      colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.pinkAccent,
+          primary: Colors.pink,
+          brightness: Brightness.dark,
+          contrastLevel: themeState.contrastLevel),
+      tabBarTheme: const TabBarTheme(
+        unselectedLabelStyle: TextStyle(fontSize: 10),
+        labelStyle: TextStyle(fontSize: 11, fontFamily: AppFonts.poppins),
+      ),
+    );
+  }
 
-  //--- Default Light Theme ---//
+  //------- Flex Dark Theme---------//
+  _flexDarkTheme({required ThemeState themeState}) {
+    return FlexThemeData.dark(
+      useMaterial3: themeState.useMaterial3,
+      scheme: themeState.flexScheme,
+      visualDensity: themeState.visualDensity,
+      appBarBackground: themeState.isDefaultAppBarColor
+          ? themeState.isBlackMode
+              ? Colors.black
+              : null
+          : Color(themeState.customAppBarColor),
+    ).copyWith(
+      scaffoldBackgroundColor: themeState.isBlackMode
+          ? Colors.black
+          : themeState.isDefaultScaffoldColor
+              ? null
+              : Color(themeState.customScaffoldColor),
+      tabBarTheme: const TabBarTheme(
+        unselectedLabelStyle: TextStyle(fontSize: 10),
+        labelStyle: TextStyle(fontSize: 11, fontFamily: AppFonts.poppins),
+      ),
+    );
+  }
 
-  static final defaultDarkTheme = ThemeData.dark(
-    useMaterial3: true
-  );
+  //-------- Flex Light Theme -------------//
+  _flexLightTheme({required ThemeState themeState}) {
+    return FlexThemeData.light(
+      useMaterial3: themeState.useMaterial3,
+      scheme: themeState.flexScheme,
+      visualDensity: themeState.visualDensity,
+      scaffoldBackground: themeState.isDefaultScaffoldColor
+          ? null
+          : Color(themeState.customScaffoldColor),
+      appBarBackground: themeState.isDefaultAppBarColor
+          ? null
+          : Color(themeState.customAppBarColor),
+    ).copyWith(
+      tabBarTheme: const TabBarTheme(
+        unselectedLabelStyle: TextStyle(fontSize: 10),
+        labelStyle: TextStyle(fontSize: 11, fontFamily: AppFonts.poppins),
+      ),
+    );
+  }
 
   //---  Flex Themes ---//
-  static final flexThemes = [
+  final List flexThemes = [
     ThemeLookModel(
       title: FlexScheme.amber.name,
       flexScheme: FlexScheme.amber,

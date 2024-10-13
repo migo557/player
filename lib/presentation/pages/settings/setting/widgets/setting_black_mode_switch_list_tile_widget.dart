@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 
 class SettingBlackModeSwitchListTileWidget extends StatelessWidget {
@@ -19,7 +20,15 @@ class SettingBlackModeSwitchListTileWidget extends StatelessWidget {
               onChanged: (value) {
                 context.read<ThemeCubit>().toggleBlackMode();
               },
-              title: const Text("Black Mode")),
+              title: const Row(
+                children: [
+                 Icon(
+                    HugeIcons.strokeRoundedBlackHole,
+                  ) ,
+                  Gap(10),
+                  Text("Black Mode"),
+                ],
+              )),
         );
       },
     );

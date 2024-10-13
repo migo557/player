@@ -5,7 +5,7 @@ class AudioPageTabBarState extends Equatable {
 
   int tabIndex;
 
-  copyWith(index) {
+  copyWith({index}) {
     return AudioPageTabBarState(tabIndex: index ?? this.tabIndex);
   }
 

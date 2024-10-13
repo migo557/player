@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:open_player/base/assets/fonts/app-fonts.dart';
 import 'package:open_player/base/assets/images/app-images.dart';
 
 class SongsPage extends StatelessWidget {
@@ -6,21 +8,85 @@ class SongsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size mq = MediaQuery.sizeOf(context);
     return SliverList.builder(
       itemCount: _dummyList.length,
       itemBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListTile(
-          visualDensity: VisualDensity.comfortable,
-          leading: const CircleAvatar(
-            backgroundImage: AssetImage(AppImages.defaultProfile),
-          ),
-          title: Text(_dummyList[index]["title"]),
-          subtitle: Text(_dummyList[index]["artist"]),
-          trailing:
-              IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
-        ),
-      ),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: SizedBox(
+            height: mq.height * 0.076,
+            width: mq.width,
+            child: Row(
+              children: [
+                //----- Music Icon
+                const CircleAvatar(
+                  backgroundImage: AssetImage(AppImages.defaultProfile),
+                  radius: 25,
+                ),
+                const Gap(10),
+
+                ///-------- Music Bubble
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      // color: Colors.blue,
+                      boxShadow: const [
+                        BoxShadow(
+                            blurRadius: 1,
+                            spreadRadius: 2,
+                            blurStyle: BlurStyle.outer)
+                      ],
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: Stack(
+                      children: [
+                        //------------ Music Cover
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              image: const DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(AppImages.defaultProfile),
+                                  opacity: 0.25)),
+                        ),
+
+                        //---------- Music Data
+                        Row(
+                          children: [
+                            const Gap(20),
+
+                            ///--------- Music Title & Artist
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(_dummyList[index]["title"], style:  const TextStyle(
+                                  fontFamily: AppFonts.poppins,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16
+                                ),),
+                                Text(_dummyList[index]["artist"],
+                              style:  const TextStyle(
+                                fontSize: 11,
+                                ),),
+                              ],
+                            ),
+                            const Spacer(),
+
+                            ///--------- More Icon Button
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.more_vert),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }

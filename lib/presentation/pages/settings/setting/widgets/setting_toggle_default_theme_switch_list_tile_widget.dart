@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 
 class SettingToggleDefaultThemeSwitchListTileWidget extends StatelessWidget {
@@ -17,7 +18,15 @@ class SettingToggleDefaultThemeSwitchListTileWidget extends StatelessWidget {
             onChanged: (value) {
               context.read<ThemeCubit>().toggleDefaultTheme();
             },
-            title: const Text("Custom Themes"));
+            title: Row(
+              children: [
+                HugeIcon(icon: HugeIcons.strokeRoundedColors, color: Theme.of(context).iconTheme.color!),
+                const Gap(10),
+                const Text("Custom Themes"),
+              ],
+            ),
+            
+            );
       },
     );
   }

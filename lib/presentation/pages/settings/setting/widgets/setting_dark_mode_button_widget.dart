@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 
 class SettingDarkModeButtonWidget extends StatelessWidget {
@@ -16,7 +17,13 @@ class SettingDarkModeButtonWidget extends StatelessWidget {
             onChanged: (value) {
               context.read<ThemeCubit>().toggleThemeMode();
             },
-            title: const Text("Dark Mode"));
+            title:  const Row(
+            children: [
+              const Icon(Icons.dark_mode),
+                  Gap(10),
+                Text("Dark Mode"),
+              ],
+            ),);
       },
     );
   }

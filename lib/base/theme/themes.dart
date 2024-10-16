@@ -2,8 +2,8 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:open_player/base/assets/fonts/app-fonts.dart';
 
+import '../../logic/theme_cubit/theme_state.dart';
 import '../../data/models/theme-look-model.dart';
-import '../../logic/theme_cubit/theme_cubit.dart';
 
 class AppThemes {
   //------ Select/Choose Theme -------------//
@@ -58,7 +58,7 @@ class AppThemes {
   _flexDarkTheme({required ThemeState themeState}) {
     return FlexThemeData.dark(
       useMaterial3: themeState.useMaterial3,
-      scheme: themeState.flexScheme,
+      scheme: flexThemes[themeState.flexThemeListIndex].flexScheme,
       visualDensity: themeState.visualDensity,
       appBarBackground: themeState.isDefaultAppBarColor
           ? themeState.isBlackMode
@@ -82,7 +82,7 @@ class AppThemes {
   _flexLightTheme({required ThemeState themeState}) {
     return FlexThemeData.light(
       useMaterial3: themeState.useMaterial3,
-      scheme: themeState.flexScheme,
+      scheme: flexThemes[themeState.flexThemeListIndex].flexScheme,
       visualDensity: themeState.visualDensity,
       scaffoldBackground: themeState.isDefaultScaffoldColor
           ? null
@@ -99,7 +99,7 @@ class AppThemes {
   }
 
   //---  Flex Themes ---//
-  final List flexThemes = [
+  final List<ThemeLookModel> flexThemes = [
     ThemeLookModel(
       title: FlexScheme.amber.name,
       flexScheme: FlexScheme.amber,

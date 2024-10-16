@@ -5,6 +5,7 @@ import 'package:open_player/presentation/pages/initial/widgets/bottom-navbar/bot
 
 import '../../../../../logic/bottom_nav_bar_cubit/bottom_nav_bar_cubit.dart';
 import '../../../../../logic/theme_cubit/theme_cubit.dart';
+import '../../../../../logic/theme_cubit/theme_state.dart';
 
 class CustomBottomNavBarWidget extends StatelessWidget {
   const CustomBottomNavBarWidget({

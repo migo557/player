@@ -4,6 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 
+import '../../../../../logic/theme_cubit/theme_state.dart';
+
 class SettingBlackModeSwitchListTileWidget extends StatelessWidget {
   const SettingBlackModeSwitchListTileWidget({
     super.key,

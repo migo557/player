@@ -8,5 +8,11 @@
     "objectbox",
     "rxdart",
     "Uddin"
+  ],
+  "folder-customization.folders": [
+    {
+      "path": "open_player/lib/presentation/",
+      "color": "foldercustomization.AnsiColor197"
+    }
   ]
 }

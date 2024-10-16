@@ -5,7 +5,7 @@ import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 
 ///?----------------   B L O C   P R O V I D E R S   -------------///
 ///////////////////////////////////////////////////////////////////
-myBlocProviders() {
+ myBlocProviders() {
   return [
     BlocProvider(
       create: (context) => BottomNavBarCubit(),

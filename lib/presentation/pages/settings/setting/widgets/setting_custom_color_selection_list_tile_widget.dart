@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:open_player/base/theme/colors_palates.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
+import 'package:open_player/logic/theme_cubit/theme_state.dart';
 
 class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
   const SettingCustomColorSelectionListTileWidget(

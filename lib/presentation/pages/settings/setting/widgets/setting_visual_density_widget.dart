@@ -4,6 +4,8 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_visual_density_list_tile_button_widget.dart';
 
+import '../../../../../logic/theme_cubit/theme_state.dart';
+
 class SettingVisualDensityWidget extends StatelessWidget {
   const SettingVisualDensityWidget({
     super.key,

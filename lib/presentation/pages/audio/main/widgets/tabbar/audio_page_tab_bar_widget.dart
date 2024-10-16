@@ -8,7 +8,6 @@ class AudioPageTabBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double mqWidth = MediaQuery.sizeOf(context).width;
     final double mqHeight = MediaQuery.sizeOf(context).height;
     return SliverAppBar(
       toolbarHeight: mqHeight * 0.062,

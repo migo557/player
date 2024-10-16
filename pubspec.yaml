@@ -48,16 +48,20 @@ dependencies:
   flex_color_scheme: ^7.3.1
   path_provider: ^2.1.4
   hugeicons: ^0.0.7
-  objectbox: ^4.0.2
-  objectbox_generator:
-  objectbox_flutter_libs:
   audiotags: ^1.4.1
-  # flutter_media_metadata: ^1.0.0+1
+  go_router: ^14.3.0
+  objectbox: ^4.0.2
+  objectbox_flutter_libs: any
+  flutter_slidable: ^3.1.1
+  hive: ^2.2.3
+  # flutter_media_metadata: 
   # metadata_god:
+  flutter_media_metadata_new: ^0.0.4  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -65,6 +69,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  build_runner: ^2.4.13
+  objectbox_generator: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

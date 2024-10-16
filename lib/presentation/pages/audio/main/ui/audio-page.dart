@@ -24,7 +24,7 @@ class AudioPage extends StatelessWidget {
         },
         builder: (context, state) {
           return DefaultTabController(
-            length: 4,
+            length: 5,
             child: CustomScrollView(
               controller: locator.get<ScrollController>(),
               slivers: [

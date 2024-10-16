@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 
+import '../../../../../logic/theme_cubit/theme_state.dart';
+
 class SettingDarkModeButtonWidget extends StatelessWidget {
   const SettingDarkModeButtonWidget({
     super.key,
@@ -19,7 +21,7 @@ class SettingDarkModeButtonWidget extends StatelessWidget {
             },
             title:  const Row(
             children: [
-              const Icon(Icons.dark_mode),
+              Icon(Icons.dark_mode),
                   Gap(10),
                 Text("Dark Mode"),
               ],

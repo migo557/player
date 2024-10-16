@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_player/base/db/hive/hive.dart';
+import 'package:open_player/base/db/objectbox/object_box.dart';
 import 'package:open_player/base/theme/themes.dart';
-import 'package:open_player/presentation/pages/initial/ui/initial-page.dart';
-import 'base/di/dependency_injection.dart';
-import 'data/bloc_providers/bloc_providers.dart';
-import 'logic/theme_cubit/theme_cubit.dart';
+import 'package:open_player/base/di/dependency_injection.dart';
+import 'package:open_player/base/router/app_router.dart';
+import 'package:open_player/data/bloc_providers/bloc_providers.dart';
+import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
+import 'package:open_player/logic/theme_cubit/theme_state.dart';
+
+late MyObjectBoxDB objectbox;
 
 void main() async {
-  // Ensure that widget binding is initialized
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize dependency injection
-  await initializeLocator(); // This should initialize all dependencies
+  await initializeLocator();
+
+  // Create ObjectBox instance
+  // objectbox = await MyObjectBoxDB.create();
+
+  // Initialize ObjectBoxes
+  // MyObjectBoxes.init(objectbox);
+
+  // Initialize Hive database and register custom adapters
+  await MyHiveDB.initializeHive();
+  
 
   runApp(const MyApp());
 }
@@ -25,11 +38,11 @@ class MyApp extends StatelessWidget {
       providers: myBlocProviders(),
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, themeState) {
-          return MaterialApp(
+          return MaterialApp.router(
+            routerConfig: router,
             debugShowCheckedModeBanner: false,
             theme: locator<AppThemes>().themes(themeState),
             title: "Open Player",
-            home: const InitialPage(),
           );
         },
       ),

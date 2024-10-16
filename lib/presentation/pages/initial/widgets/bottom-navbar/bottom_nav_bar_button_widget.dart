@@ -5,6 +5,7 @@ import '../../../../../logic/bottom_nav_bar_cubit/bottom_nav_bar_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../logic/theme_cubit/theme_cubit.dart';
+import '../../../../../logic/theme_cubit/theme_state.dart';
 
 class BottomNavBarButtonWidget extends StatelessWidget {
   const BottomNavBarButtonWidget(

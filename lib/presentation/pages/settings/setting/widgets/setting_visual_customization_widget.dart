@@ -13,6 +13,7 @@ import 'package:open_player/presentation/pages/settings/setting/widgets/setting_
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_visual_density_widget.dart';
 
 import '../../../../../logic/theme_cubit/theme_cubit.dart';
+import '../../../../../logic/theme_cubit/theme_state.dart';
 
 class SettingVisualCustomizationWidget extends StatelessWidget {
   const SettingVisualCustomizationWidget({

@@ -5,6 +5,7 @@ import 'package:open_player/base/di/dependency_injection.dart';
 import 'package:open_player/base/theme/themes.dart';
 
 import '../../../../../logic/theme_cubit/theme_cubit.dart';
+import '../../../../../logic/theme_cubit/theme_state.dart';
 
 class ChangeThemePage extends StatelessWidget {
   const ChangeThemePage({super.key});
@@ -26,15 +27,15 @@ class ChangeThemePage extends StatelessWidget {
                   itemBuilder: (context, index) => ListTile(
                     visualDensity: VisualDensity.comfortable,
                     onTap: () {
-                      context.read<ThemeCubit>().changeFlexScheme(
-                          flexScheme: locator<AppThemes>()
-                              .flexThemes[index]
-                              .flexScheme);
+                      // context.read<ThemeCubit>().changeFlexScheme(
+                      //     flexScheme: locator<AppThemes>()
+                      //         .flexThemes[index]
+                      //         .flexScheme);
                       context.read<ThemeCubit>().changeFlexIndex(index);
                       Navigator.pop(context);
                     },
                     leading: Text("$index"),
-                    selected: state.flexIndex == index,
+                    selected: state.flexThemeListIndex == index,
                     selectedTileColor: Theme.of(context).focusColor,
                     title: Text(
                       locator<AppThemes>()

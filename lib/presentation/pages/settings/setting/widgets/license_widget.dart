@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-
 import '../../../../../base/contents/app_contents.dart';
+import '../../../../common/texty.dart';
 import 'settings_list_tile_widget.dart';
 
 class LicenseWidget extends StatelessWidget {
@@ -12,27 +12,37 @@ class LicenseWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SettingsListTileWidget(
-      title: "License",
+      en: "License",
+      ar: "ترخيص",
+      es: "Licencia",
+      fr: "Licence",
+      hi: "लाइसेंस",
+      ur: "لائسنس",
+      zh: "许可证",
       iconData: Icons.description,
       onTap: () {
-
-
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
             title: const Text('Licenses'),
-            content: const SingleChildScrollView(
+            content: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'MIT License:\n',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  Text(
-                    AppContents.mitLicenses,
+                  Texty(
+                    en: AppContents.mitLicensesEn,
+                    ur: AppContents.mitLicensesUr,
+                    ar: AppContents.mitLicensesAr,
+                    es: AppContents.mitLicensesEs,
+                    fr: AppContents.mitLicensesFr,
+                    hi: AppContents.mitLicensesHi,
+                    
                     textAlign: TextAlign.start,
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
                   // Add more licenses as needed
                 ],
@@ -42,7 +52,7 @@ class LicenseWidget extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   showDialog(
-                    context: context,
+                      context: context,
                       builder: (p0) => const AboutDialog(
                             applicationVersion: "1.0",
                           ));

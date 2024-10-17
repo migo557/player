@@ -28,8 +28,8 @@ class AppThemes {
         contrastLevel: themeState.contrastLevel,
       ),
       tabBarTheme: const TabBarTheme(
-        unselectedLabelStyle: TextStyle(fontSize: 10),
-        labelStyle: TextStyle(fontSize: 11, fontFamily: AppFonts.poppins),
+        unselectedLabelStyle: TextStyle(fontSize: 7),
+        labelStyle: TextStyle(fontSize: 8, fontFamily: AppFonts.poppins, fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -48,8 +48,11 @@ class AppThemes {
           brightness: Brightness.dark,
           contrastLevel: themeState.contrastLevel),
       tabBarTheme: const TabBarTheme(
-        unselectedLabelStyle: TextStyle(fontSize: 10),
-        labelStyle: TextStyle(fontSize: 11, fontFamily: AppFonts.poppins),
+        unselectedLabelStyle: TextStyle(fontSize: 7),
+        labelStyle: TextStyle(
+            fontSize: 8,
+            fontFamily: AppFonts.poppins,
+            fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -72,8 +75,11 @@ class AppThemes {
               ? null
               : Color(themeState.customScaffoldColor),
       tabBarTheme: const TabBarTheme(
-        unselectedLabelStyle: TextStyle(fontSize: 10),
-        labelStyle: TextStyle(fontSize: 11, fontFamily: AppFonts.poppins),
+       unselectedLabelStyle: TextStyle(fontSize: 7),
+        labelStyle: TextStyle(
+            fontSize: 8,
+            fontFamily: AppFonts.poppins,
+            fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -92,8 +98,11 @@ class AppThemes {
           : Color(themeState.customAppBarColor),
     ).copyWith(
       tabBarTheme: const TabBarTheme(
-        unselectedLabelStyle: TextStyle(fontSize: 10),
-        labelStyle: TextStyle(fontSize: 11, fontFamily: AppFonts.poppins),
+      unselectedLabelStyle: TextStyle(fontSize: 7),
+        labelStyle: TextStyle(
+            fontSize: 8,
+            fontFamily: AppFonts.poppins,
+            fontWeight: FontWeight.w500),
       ),
     );
   }

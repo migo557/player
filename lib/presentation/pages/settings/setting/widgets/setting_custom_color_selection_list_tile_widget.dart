@@ -4,18 +4,39 @@ import 'package:gap/gap.dart';
 import 'package:open_player/base/theme/colors_palates.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
+import 'package:open_player/presentation/common/texty.dart';
 
 class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
   const SettingCustomColorSelectionListTileWidget(
       {super.key,
-      required this.tileLabel,
+      required this.tileLabelEn,
+       this.tileLabelUr,
+       this.tileLabelEs,
+       this.tileLabelHi,
+       this.tileLabelFr,
+       this.tileLabelPs,
+       this.tileLabelRu,
+       this.tileLabelKr,
+       this.tileLabelAr,
+       this.tileLabelZh,
       required this.isDefaultThemeColor,
       required this.customColor,
       required this.defaultThemeColor,
       required this.resetToDefaultThemeColorButton,
       required this.selectColorOnTap});
 
-  final String tileLabel;
+  final String tileLabelEn;
+  final String? tileLabelUr;
+  final String? tileLabelHi;
+  final String? tileLabelAr;
+  final String? tileLabelFr;
+
+  final String? tileLabelEs;
+  final String? tileLabelPs;
+  final String? tileLabelRu;
+  final String? tileLabelKr;
+  final String? tileLabelZh;
+
   final bool isDefaultThemeColor;
   final Color defaultThemeColor;
   final Color customColor;
@@ -29,7 +50,17 @@ class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
         return Visibility(
           visible: !themeState.defaultTheme,
           child: ListTile(
-            title: Text(tileLabel),
+            title: Texty(
+              en: tileLabelEn,
+              ar: tileLabelAr,
+              es: tileLabelEs,
+              fr: tileLabelFr,
+              hi: tileLabelHi,
+              kr: tileLabelKr,
+              ru: tileLabelRu,
+              ps: tileLabelPs,
+              zh: tileLabelZh,
+            ),
             trailing: Container(
               height: 35,
               width: 35,
@@ -64,10 +95,10 @@ class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
                                   crossAxisCount: 6),
                           itemBuilder: (context, index) => GestureDetector(
                             onTap: () {
-                              final int  color = AppColors.colorHexCodesList[index];
+                              final int color =
+                                  AppColors.colorHexCodesList[index];
                               Navigator.pop(context);
                               return selectColorOnTap(colorCode: color);
-                              
                             },
                             child: CircleAvatar(
                               backgroundColor:
@@ -93,5 +124,3 @@ class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
     );
   }
 }
-
-

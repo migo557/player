@@ -2,8 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_media_metadata_new/file_meta_data.dart';
-import 'package:flutter_media_metadata_new/flutter_media_metadata_new.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../models/audio_music_model.dart';
@@ -52,29 +50,30 @@ class AudioProvider {
   /// If an error occurs during metadata extraction, it logs the error and returns null.
   Future<AudioFileModel?> _extractMetadata(String filePath) async {
     try {
-      final FileMetaData fileMetadata =
-          await FlutterMediaMetadataNew.getMetadata(filePath);
-      return AudioFileModel(
-          trackName: fileMetadata.trackName ?? "Unknown Name",
-          albumName: fileMetadata.albumName ?? "Unknown",
-          trackArtistNames: fileMetadata.trackArtistNames ?? ["Unknown"],
-          albumArtistName: fileMetadata.albumArtistName ?? "Unknown",
-          albumArt: fileMetadata.albumArt,
-          authorName: fileMetadata.authorName ?? "Unknwon",
-          bitrate: fileMetadata.bitrate ?? 0,
-          albumLength: fileMetadata.albumLength ?? 0,
-          discNumber: fileMetadata.discNumber ?? 0,
-          filePath: filePath,
-          genre: fileMetadata.genre ?? "Unknwon",
-          mimeType: fileMetadata.mimeType ?? "Unknwon",
-          trackDuration: fileMetadata.trackDuration ?? 0,
-          trackNumber: fileMetadata.trackNumber ?? 0,
-          writerName: fileMetadata.writerName ?? "Unknwon",
-          year: fileMetadata.year ?? 0000);
+      // final FileMetaData fileMetadata =
+      // await FlutterMediaMetadataNew.getMetadata(filePath);
+      // return AudioFileModel(
+      //     trackName: fileMetadata.trackName ?? "Unknown Name",
+      //     albumName: fileMetadata.albumName ?? "Unknown",
+      //     trackArtistNames: fileMetadata.trackArtistNames ?? ["Unknown"],
+      //     albumArtistName: fileMetadata.albumArtistName ?? "Unknown",
+      //     albumArt: fileMetadata.albumArt,
+      //     authorName: fileMetadata.authorName ?? "Unknwon",
+      //     bitrate: fileMetadata.bitrate ?? 0,
+      //     albumLength: fileMetadata.albumLength ?? 0,
+      //     discNumber: fileMetadata.discNumber ?? 0,
+      //     filePath: filePath,
+      //     genre: fileMetadata.genre ?? "Unknwon",
+      //     mimeType: fileMetadata.mimeType ?? "Unknwon",
+      //     trackDuration: fileMetadata.trackDuration ?? 0,
+      //     trackNumber: fileMetadata.trackNumber ?? 0,
+      //     writerName: fileMetadata.writerName ?? "Unknwon",
+      //     year: fileMetadata.year ?? 0000);
     } catch (e) {
       log('Error fetching metadata for $filePath: $e');
       return null;
     }
+    return null;
   }
 }
 

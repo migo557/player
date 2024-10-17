@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
+import 'package:open_player/presentation/common/texty.dart';
 
 import '../../../../../logic/theme_cubit/theme_state.dart';
 
@@ -24,11 +25,23 @@ class SettingMaterial3SwitchListTileWidget extends StatelessWidget {
               },
               title: const Row(
                 children: [
-                 Icon(
+                  Icon(
                     HugeIcons.strokeRoundedAndroid,
                   ),
                   Gap(10),
-                  Text("Material3 "),
+                  Texty(
+                     en: "Material3",
+                      ar: "ماتيريل3",
+                      es: "Material3",
+                      fr: "Material3",
+                      hi: "Material3",
+                      ur: "Material3",
+                      zh: "Material3",
+                      ps: "Material3",
+                      kr: "Material3",
+                      ru: "Material3"
+
+                  ),
                 ],
               )),
         );

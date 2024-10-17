@@ -54,9 +54,14 @@ dependencies:
   objectbox_flutter_libs: any
   flutter_slidable: ^3.1.1
   hive: ^2.2.3
+  # toggle_switch: ^2.3.0
+  intl: ^0.19.0
+  # font_awesome_flutter: ^10.7.0
+  flutter_svg: ^2.0.10+1
+  animated_toggle_switch: ^0.8.3
   # flutter_media_metadata: 
   # metadata_god:
-  flutter_media_metadata_new: ^0.0.4  
+  # flutter_media_metadata_new: ^0.0.4  
 
 dev_dependencies:
   flutter_test:
@@ -85,7 +90,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-    - assets/svgs/
+    - assets/svgs/flags/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

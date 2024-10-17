@@ -13,6 +13,11 @@
     {
       "path": "open_player/lib/presentation/",
       "color": "foldercustomization.AnsiColor197"
+    },
+    {
+      "path": "open_player/lib/presentation/pages/",
+      "color": "foldercustomization.AnsiColor199",
+      "badge": "🖌️"
     }
   ]
 }

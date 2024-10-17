@@ -15,9 +15,12 @@ class MyHiveDB {
       await Future.wait([
         //! Open the library box
         Hive.openBox('theme'),
+        //! Open the language box
+        Hive.openBox('language'),
       ]).then(
         (value) {
           MyHiveBoxes.themeBox = value[0];
+          MyHiveBoxes.languageBox = value[1];
         },
       );
 
@@ -31,10 +34,13 @@ class MyHiveDB {
 ///!----------------    MyHive Boxes
 class MyHiveBoxes {
   static late Box themeBox;
+  static late Box languageBox;
 }
 
 ///!---------------      MyHive Keys
 class MyHiveKeys {
+  static const String defaultLanguage = "app_locale";
+
   static const String profilePicHiveKey = "hive_profile_pic";
   static const String profileUsernameHiveKey = "hive_username";
   static const String isDarkMode = "dm";

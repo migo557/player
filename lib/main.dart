@@ -9,6 +9,8 @@ import 'package:open_player/data/bloc_providers/bloc_providers.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
 
+import 'base/services/notification/notification_services.dart';
+
 // late MyObjectBoxDB objectbox;
 
 void main() async {
@@ -25,6 +27,13 @@ void main() async {
 
   // Initialize Hive database and register custom adapters
   await MyHiveDB.initializeHive();
+
+
+    // Set up notification services
+  await NotificationService().initNotification();
+
+  // Set up JustAudioBackground services
+  await NotificationService().initJustAUdioBackgroundNotification();
 
   // Set preferred screen orientations
   // clog.info('Setting preferred orientations');

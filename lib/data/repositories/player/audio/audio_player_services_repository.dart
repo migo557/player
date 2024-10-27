@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:color_log/color_log.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../logic/audio_player_bloc/audio_player_bloc.dart';
@@ -57,9 +58,20 @@ final class AudioPlayerServices implements AudioPlayerServicesRepository {
       clog.debug("AudioPlayer LoadingState");
       emit(AudioPlayerLoadingState());
       final ConcatenatingAudioSource playlist = ConcatenatingAudioSource(
-          children: event.pathList
+          children: event.audioList
               .map(
-                (path) => ProgressiveAudioSource(Uri.file(path)),
+                (audio) {
+       final MediaItem mediaItem = MediaItem(
+            artist: "unknown",
+            playable: true,
+            duration: audioPlayer.duration,
+            displayTitle: audio.title,
+            id: audio.title,
+            album: "unknown",
+            title: audio.title,
+            
+          );
+                  return ProgressiveAudioSource(Uri.file(audio.path),tag: mediaItem);},
               )
               .toList());
 

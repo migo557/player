@@ -30,18 +30,19 @@ class SongsPage extends StatelessWidget {
                 addAutomaticKeepAlives: true,
                 itemBuilder: (context, index) {
                   String songTitle = audioState.songs[index].title;
-                  final pathList = audioState.songs
-                      .map(
-                        (e) => e.path,
-                      )
-                      .toList();
+
                   return GestureDetector(
                     onTap: () {
+                      context.read<AudioPlayerBloc>().add(
+                          AudioPlayerInitializeEvent(
+                              initialMediaIndex: index,
+                              audioList: audioState.songs));
                       context
-                          .read<AudioPlayerBloc>()
-                          .add(AudioPlayerInitializeEvent(pathList: pathList,initialMediaIndex: index));
-                      context.read<NowPlayingMediaCubit>().init(audioList: audioState.songs);
-                      context.push(AppRoutes.audioPlayerRoute,);
+                          .read<NowPlayingMediaCubit>()
+                          .init(audioList: audioState.songs);
+                      context.push(
+                        AppRoutes.audioPlayerRoute,
+                      );
                     },
                     child: Card(
                       color: themeState.isDarkMode

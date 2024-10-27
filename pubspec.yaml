@@ -68,6 +68,8 @@ dependencies:
   media_kit_libs_android_video: 
   logger: ^2.4.0
   flutter_hooks: ^0.20.5
+  just_audio_background: ^0.0.1-beta.13
+  flutter_local_notifications: ^17.2.4
   # floating: ^4.0.1
   # flutter_media_metadata: 
   # metadata_god:

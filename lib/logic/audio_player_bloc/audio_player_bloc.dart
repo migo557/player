@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:just_audio/just_audio.dart';
 import '../../base/di/dependency_injection.dart';
+import '../../data/models/audio_model.dart';
 import '../../data/models/audioplayercombinedstream_model.dart';
 import '../../data/repositories/player/audio/audio_player_services_repository.dart';
 part 'audio_player_event.dart';

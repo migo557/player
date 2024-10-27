@@ -6,12 +6,12 @@ sealed class AudioPlayerEvent extends Equatable {
 
 class AudioPlayerInitializeEvent extends AudioPlayerEvent {
   const AudioPlayerInitializeEvent(
-      {required this.pathList, required this.initialMediaIndex});
-  final List<String> pathList;
+      { required this.initialMediaIndex, required this.audioList});
   final int initialMediaIndex;
+  final List<AudioModel> audioList;
 
   @override
-  List<Object?> get props => [pathList, initialMediaIndex];
+  List<Object?> get props => [ initialMediaIndex, audioList];
 }
 
 class AudioPlayerPlayPauseToggleEvent extends AudioPlayerEvent {

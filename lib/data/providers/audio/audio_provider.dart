@@ -1,11 +1,9 @@
-import 'dart:developer';
 import 'dart:io';
+import 'dart:isolate';
+import 'package:color_log/color_log.dart';
+import 'package:path/path.dart' as path;
 
-import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
-
-import '../../models/audio_music_model.dart';
-
+/// A provider class that handles audio file operations
 class AudioProvider {
   /// A list of supported audio file formats.
   static const List<String> _supportedFormats = [
@@ -18,86 +16,97 @@ class AudioProvider {
     '.wma'
   ];
 
-  /// Fetches audio files from external storage directories and extracts their metadata.
-  ///
-  /// Returns a list of [AudioFileModel] containing metadata for each audio file found.
-  /// This operation can be time-consuming due to file scanning and metadata extraction,
-  /// so it should be called from an asynchronous context.
-  Future<List<AudioFileModel>> fetchAudioFilesWithMetadata() async {
-    List<AudioFileModel> audioFiles = [];
-    List<Directory>? directories = await getExternalStorageDirectories();
 
-    // Check if directories were retrieved successfully
-    if (directories != null && directories.isNotEmpty) {
+  /// Fetches all audio file paths from external storage directories
+  /// Returns a list of audio file paths
+  Future<List<String>> fetchAllAudioFilePaths() async {
+    List<String> audioFiles = [];
+
+    // Define potential directories
+    List<Directory> directories = [
+      Directory("/storage/emulated/0/"), // Internal storage
+      Directory("/storage/sdcard1/"), // External storage
+      Directory("/storage/extsd/") // SD card
+    ];
+
+    try {
+      // Create a list to store all futures from isolates
+      List<Future<List<String>>> futures = [];
+
       for (var directory in directories) {
-        // Use compute to run the file scanning in a separate isolate
-        List<String> files = await compute(scanAudioFiles, directory.path);
-        for (var filePath in files) {
-          final audioFile = await _extractMetadata(filePath);
-          if (audioFile != null) {
-            audioFiles.add(audioFile);
-          }
+        // Check if the directory exists before scanning
+        if (await directory.exists()) {
+          clog.info("ExternalStorageDirectory Path: ${directory.path}");
+          futures.add(_scanInIsolate(directory.path));
+        } else {
+          clog.warning("Directory does not exist: ${directory.path}");
         }
       }
+
+      // Wait for all isolates to complete and combine results
+      final results = await Future.wait(futures);
+      for (var result in results) {
+        audioFiles.addAll(result);
+      }
+    } catch (e) {
+      clog.error('Error in fetchAllAudioFilePaths: ${e.toString()}');
     }
 
     return audioFiles;
   }
 
-  /// Extracts metadata from a given audio file.
-  ///
-  /// Takes the file path as input and returns an [AudioFileModel] containing its metadata.
-  /// If an error occurs during metadata extraction, it logs the error and returns null.
-  Future<AudioFileModel?> _extractMetadata(String filePath) async {
+  /// Creates an isolate to scan for audio files in the given directory
+  /// Returns a future that completes with the list of audio paths
+  Future<List<String>> _scanInIsolate(String directoryPath) async {
+    final receivePort = ReceivePort();
+
     try {
-      // final FileMetaData fileMetadata =
-      // await FlutterMediaMetadataNew.getMetadata(filePath);
-      // return AudioFileModel(
-      //     trackName: fileMetadata.trackName ?? "Unknown Name",
-      //     albumName: fileMetadata.albumName ?? "Unknown",
-      //     trackArtistNames: fileMetadata.trackArtistNames ?? ["Unknown"],
-      //     albumArtistName: fileMetadata.albumArtistName ?? "Unknown",
-      //     albumArt: fileMetadata.albumArt,
-      //     authorName: fileMetadata.authorName ?? "Unknwon",
-      //     bitrate: fileMetadata.bitrate ?? 0,
-      //     albumLength: fileMetadata.albumLength ?? 0,
-      //     discNumber: fileMetadata.discNumber ?? 0,
-      //     filePath: filePath,
-      //     genre: fileMetadata.genre ?? "Unknwon",
-      //     mimeType: fileMetadata.mimeType ?? "Unknwon",
-      //     trackDuration: fileMetadata.trackDuration ?? 0,
-      //     trackNumber: fileMetadata.trackNumber ?? 0,
-      //     writerName: fileMetadata.writerName ?? "Unknwon",
-      //     year: fileMetadata.year ?? 0000);
+      await Isolate.spawn(
+          scanAudioFiles, [receivePort.sendPort, directoryPath]);
+
+      // Get the result from the isolate
+      final result = await receivePort.first as List<String>;
+      return result;
     } catch (e) {
-      log('Error fetching metadata for $filePath: $e');
-      return null;
+      clog.error('Error in _scanInIsolate: ${e.toString()}');
+      return [];
+    } finally {
+      receivePort.close();
     }
-    return null;
   }
 }
 
-/// Scans a directory for audio files with supported formats.
-///
-/// Takes the root path of the directory as input and returns a list of file paths
-/// for audio files found within that directory. The scanning is done recursively
-/// to include files in subdirectories. If an error occurs, it logs the error.
-List<String> scanAudioFiles(String rootPath) {
+/// The isolate worker function that scans for audio files
+/// Args should contain [SendPort, String] where String is the directory path
+void scanAudioFiles(List<dynamic> args) {
   List<String> audioFilePaths = [];
-  Directory directory = Directory(rootPath);
+  SendPort sendPort = args[0];
+  final directoryPath = args[1];
+
   try {
-    // List all files in the directory and its subdirectories
-    directory.listSync(recursive: true, followLinks: false).forEach((entity) {
-      if (entity is File) {
-        String extension = entity.path.split('.').last.toLowerCase();
-        // Check if the file's extension is in the supported formats list
-        if (AudioProvider._supportedFormats.contains('.$extension')) {
+    _scanDirectory(Directory(directoryPath), audioFilePaths);
+    sendPort.send(audioFilePaths);
+  } catch (e) {
+    clog.error('Error in scanAudioFiles isolate: $e');
+  }
+}
+
+void _scanDirectory(Directory directory, List<String> audioFilePaths) {
+  try {
+    if (directory.path.contains('/Android')) return;
+
+    directory.listSync(recursive: false, followLinks: false).forEach((entity) {
+      if (entity is Directory) {
+        _scanDirectory(entity, audioFilePaths);
+      } else if (entity is File) {
+        String ext = path.extension(entity.path).toLowerCase();
+        if (AudioProvider._supportedFormats.contains(ext)) {
           audioFilePaths.add(entity.path);
         }
       }
     });
   } catch (e) {
-    log('Error scanning directory: $e');
+    clog.error('Error scanning directory ${directory.path}: $e');
   }
-  return audioFilePaths;
 }
+

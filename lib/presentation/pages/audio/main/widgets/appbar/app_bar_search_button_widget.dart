@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class AppBarSearchButtonWidget extends StatelessWidget {
-  const AppBarSearchButtonWidget({super.key});
+import '../../../../../../base/router/app_routes.dart';
+
+class AudioPageAppBarSearchButtonWidget extends StatelessWidget {
+  const AudioPageAppBarSearchButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(iconSize: 30, onPressed: () {}, icon: const Icon(Icons.search),);
+    return IconButton(
+      iconSize: 30,
+      onPressed: () {
+         GoRouter.of(context).push(AppRoutes.searchAudiosRoute);
+      },
+      icon: const Icon(Icons.search),
+    );
   }
 }

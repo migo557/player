@@ -1,49 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:open_player/base/db/hive/hive.dart';
-import 'package:open_player/base/theme/colors_palates.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit() : super(loadInitialThemeState());
-
-  // Load initial theme state from from Hive
-  static ThemeState loadInitialThemeState() {
-    final themeBox = MyHiveBoxes.themeBox;
-    return ThemeState(
-      defaultTheme: themeBox.get(MyHiveKeys.defaultTheme) ?? true,
-      useMaterial3: themeBox.get(MyHiveKeys.useMaterial3) ?? true,
-      isBlackMode: themeBox.get(MyHiveKeys.isBlackMode) ?? false,
-      isDarkMode: themeBox.get(MyHiveKeys.isDarkMode) ?? false,
-      flexThemeListIndex: themeBox.get(MyHiveKeys.flexThemeListIndex) ?? 0,
-      contrastLevel: themeBox.get(MyHiveKeys.contrastLevel) ?? 0.5,
-      visualDensity: VisualDensity.comfortable,
-      isDefaultScaffoldColor:
-          themeBox.get(MyHiveKeys.isDefaultScaffoldColor) ?? true,
-      isDefaultAppBarColor:
-          themeBox.get(MyHiveKeys.isDefaultAppBarColor) ?? true,
-      isDefaultBottomNavBarBgColor:
-          themeBox.get(MyHiveKeys.isDefaultBottomNavBarBgColor) ?? true,
-      customScaffoldColor: themeBox.get(MyHiveKeys.customScaffoldColor) ??
-          AppColors.colorHexCodesList[0],
-      customAppBarColor: themeBox.get(MyHiveKeys.customAppBarColor) ??
-          AppColors.colorHexCodesList[0],
-      customBottomNavBarBgColor:
-          themeBox.get(MyHiveKeys.customBottomNavBarBgColor) ??
-              AppColors.colorHexCodesList[0],
-      bottomNavBarPositionFromBottom:
-          themeBox.get(MyHiveKeys.bottomNavBarPositionFromBottom) ?? 0.05,
-      bottomNavBarPositionFromLeft:
-          themeBox.get(MyHiveKeys.bottomNavBarPositionFromLeft) ?? 0.1,
-      isDefaultBottomNavBarPosition:
-          themeBox.get(MyHiveKeys.isDefaultBottomNavBarPosition) ?? true,
-      bottomNavBarHeight: themeBox.get(MyHiveKeys.bottomNavBarHeight) ?? 0.045,
-      bottomNavBarWidth: themeBox.get(MyHiveKeys.bottomNavBarWidth) ?? 0.8,
-      isHoldBottomNavBarCirclePositionButton:
-          themeBox.get(MyHiveKeys.isHoldBottomNavBarCirclePositionButton) ??
-              false,
-    );
-  }
+  ThemeCubit() : super(ThemeState.initial());
 
   // Toggle theme mode (dark/light)
   void toggleThemeMode() {
@@ -55,8 +16,16 @@ class ThemeCubit extends Cubit<ThemeState> {
     MyHiveBoxes.themeBox.put(MyHiveKeys.isBlackMode, false);
   }
 
-  changeFlexIndex(int index) {
-    emit(state.copyWith(flexThemeListIndex: index));
+  changeprimaryColor(int color) {
+    emit(state.copyWith(primaryColor: color));
+
+    MyHiveBoxes.themeBox.put(MyHiveKeys.primaryColor, color);
+  }
+
+  changeprimaryColorListIndex(int index) {
+    emit(state.copyWith(primaryColorListIndex: index));
+
+    MyHiveBoxes.themeBox.put(MyHiveKeys.primaryColorListIndex, index);
   }
 
   toggleDefaultTheme() {
@@ -64,7 +33,6 @@ class ThemeCubit extends Cubit<ThemeState> {
     emit(state.copyWith(
       defaultTheme: isDefault,
     ));
-
     // Update Theme in Hive
     MyHiveBoxes.themeBox.put(MyHiveKeys.defaultTheme, isDefault);
   }
@@ -76,7 +44,7 @@ class ThemeCubit extends Cubit<ThemeState> {
   }
 
   toggleBlackMode() {
-    bool isBlackMode =  !state.isBlackMode;
+    bool isBlackMode = !state.isBlackMode;
     emit(state.copyWith(isBlackMode: isBlackMode));
     // Update in Hive
     MyHiveBoxes.themeBox.put(MyHiveKeys.isBlackMode, isBlackMode);
@@ -89,11 +57,12 @@ class ThemeCubit extends Cubit<ThemeState> {
   }
 
   toggleMaterial3() {
+    bool isMaterial3 = !state.useMaterial3;
     emit(
-      state.copyWith(useMaterial3: state.useMaterial3),
+      state.copyWith(useMaterial3: isMaterial3),
     );
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.useMaterial3, state.useMaterial3);
+    MyHiveBoxes.themeBox.put(MyHiveKeys.useMaterial3, isMaterial3);
   }
 
   changeContrastLevel(double contrast) {
@@ -107,14 +76,14 @@ class ThemeCubit extends Cubit<ThemeState> {
     emit(state.copyWith(visualDensity: visualDensity));
   }
 
-  changeScaffoldBgColor(int colorCode) {
+  changeScaffoldBgColor(int colorCode) async {
     emit(state.copyWith(
         customScaffoldColor: colorCode, isDefaultScaffoldColor: false));
 
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.customScaffoldColor, colorCode);
+    await MyHiveBoxes.themeBox.put(MyHiveKeys.customScaffoldColor, colorCode);
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultScaffoldColor, false);
+    await MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultScaffoldColor, false);
   }
 
   changeAppBarColor(int colorCode) {
@@ -181,6 +150,22 @@ class ThemeCubit extends Cubit<ThemeState> {
     MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarWidth, 0.08);
   }
 
+  resetToDefaultBottomNavBarRotation() {
+    emit(state.copyWith(
+      bottomNavBarRotation: 0,
+      bottomNavBarIconRotation: 0,
+      isDefaultBottomNavBarIconRotation: true,
+      isDefaultBottomNavBarRotation: true,
+    ));
+    // Update in Hive
+    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarRotation, null);
+    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarIconRotation, null);
+
+    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarRotation, true);
+    MyHiveBoxes.themeBox
+        .put(MyHiveKeys.isDefaultBottomNavBarIconRotation, true);
+  }
+
   changeBottomNavBarPositionTop() {
     double? bottomNavBarPositionFromBottom =
         state.bottomNavBarPositionFromBottom <= 0.95
@@ -200,9 +185,7 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   changeBottomNavBarPositionLeft() {
     double? bottomNavBarPositionFromLeft =
-        state.bottomNavBarPositionFromLeft >= 0.01
-            ? state.bottomNavBarPositionFromLeft - 0.01
-            : 0;
+        state.bottomNavBarPositionFromLeft - 0.01;
     emit(
       state.copyWith(
           isDefaultBottomNavBarPosition: false,
@@ -216,9 +199,7 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   changeBottomNavBarPositionRight() {
     double? bottomNavBarPositionFromLeft =
-        state.bottomNavBarPositionFromLeft <= 0.95
-            ? state.bottomNavBarPositionFromLeft + 0.01
-            : 0;
+        state.bottomNavBarPositionFromLeft + 0.01;
     emit(state.copyWith(
       isDefaultBottomNavBarPosition: false,
       bottomNavBarPositionFromLeft: bottomNavBarPositionFromLeft,
@@ -249,11 +230,53 @@ class ThemeCubit extends Cubit<ThemeState> {
   increaseBottomNavBarWidth() {
     final double width = state.bottomNavBarWidth;
     final double updatedWidth =
-        width < 1.0 ? state.bottomNavBarWidth + 0.03 : state.bottomNavBarWidth;
+        width < 2.0 ? state.bottomNavBarWidth + 0.03 : state.bottomNavBarWidth;
     emit(state.copyWith(bottomNavBarWidth: updatedWidth));
 
     // Update in Hive
     MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarWidth, updatedWidth);
+  }
+
+// Update Rotation
+  updateBottomNavigationBarRotationToRight() {
+    double newValueOfNav = state.bottomNavBarRotation + 0.01;
+    double newValueofNavIcon = state.bottomNavBarIconRotation - 0.01;
+
+    emit(state.copyWith(
+        bottomNavBarRotation: newValueOfNav,
+        bottomNavBarIconRotation: newValueofNavIcon,
+        isDefaultBottomNavBarRotation: false,
+        isDefaultBottomNavBarIconRotation: false));
+
+    // Update in Hive
+    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarRotation, newValueOfNav);
+    MyHiveBoxes.themeBox
+        .put(MyHiveKeys.bottomNavBarIconRotation, newValueofNavIcon);
+
+    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarRotation, false);
+    MyHiveBoxes.themeBox
+        .put(MyHiveKeys.isDefaultBottomNavBarIconRotation, false);
+  }
+
+  // Update Rotation
+  updateBottomNavigationBarRotationToLeft() {
+    double newValueOfNav = state.bottomNavBarRotation - 0.01;
+    double newValueOfIcon = state.bottomNavBarIconRotation + 0.01;
+
+    emit(state.copyWith(
+        bottomNavBarRotation: newValueOfNav,
+        bottomNavBarIconRotation: newValueOfIcon,
+        isDefaultBottomNavBarRotation: false,
+        isDefaultBottomNavBarIconRotation: false));
+
+    // Update in Hive
+    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarRotation, newValueOfNav);
+    MyHiveBoxes.themeBox
+        .put(MyHiveKeys.bottomNavBarIconRotation, newValueOfIcon);
+
+    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarRotation, false);
+    MyHiveBoxes.themeBox
+        .put(MyHiveKeys.isDefaultBottomNavBarIconRotation, false);
   }
 
   decreaseBottomNavBarWidth() {
@@ -313,6 +336,8 @@ class ThemeCubit extends Cubit<ThemeState> {
         bottomNavBarPositionFromLeft: 0.1,
         bottomNavBarHeight: 0.045,
         bottomNavBarWidth: 0.8,
+        bottomNavBarIconRotation: 0,
+       bottomNavBarRotation: 0,
       ),
     );
 

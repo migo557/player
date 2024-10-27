@@ -36,7 +36,7 @@ class SettingChangeBottomNavBarBgColorTileWidget extends StatelessWidget {
             context.read<ThemeCubit>().resetToDefaultBottomNavBarBgColor();
             Navigator.pop(context);
           },
-          customColor: Color(themeState.customBottomNavBarBgColor),
+          customColor: themeState.customBottomNavBarBgColor != null? Color(themeState.customBottomNavBarBgColor!):null,
         );
       },
     );

@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:open_player/base/language/app_languages.dart';
+import 'package:open_player/base/services/language/app_languages.dart';
 import 'package:open_player/base/router/app_routes.dart';
 import 'package:open_player/logic/greeting/greeting_cubit.dart';
 import 'package:open_player/logic/language_cubit/language_cubit.dart';

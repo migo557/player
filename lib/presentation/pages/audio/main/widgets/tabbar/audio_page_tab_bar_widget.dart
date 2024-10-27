@@ -13,6 +13,7 @@ class AudioPageTabBarWidget extends StatelessWidget {
 
     return SliverAppBar(
       toolbarHeight: mqHeight * 0.062,
+      automaticallyImplyLeading: false,
       pinned: true,
       actions: [
         Expanded(
@@ -21,7 +22,6 @@ class AudioPageTabBarWidget extends StatelessWidget {
               final String lanCode = lanState.languageCode;
 
               return TabBar(
-              
                 onTap: (value) {
                   context
                       .read<AudioPageTabBarCubit>()
@@ -30,17 +30,26 @@ class AudioPageTabBarWidget extends StatelessWidget {
                 tabs: [
                   Tab(
                     text: _getTabText(lanCode, "Songs", "گانے", "गाने", "أغاني",
-                        " canciones", "Chansons", "Сборники", "لعبات"),
+                        "canciones", "Chansons", "Сборники", "لعبات", "歌曲"),
                     icon: const Icon(HugeIcons.strokeRoundedMusicNoteSquare02),
                   ),
                   Tab(
-                    text: _getTabText(lanCode, "Artists", "فنکار", "कलाकार",
-                        "فنانون", "Artistas", "Artistes", "Исполнители", "예술가"),
+                    text: _getTabText(
+                        lanCode,
+                        "Artists",
+                        "فنکار",
+                        "कलाकार",
+                        "فنانون",
+                        "Artistas",
+                        "Artistes",
+                        "Исполнители",
+                        "예술가",
+                        "艺术家"),
                     icon: const Icon(HugeIcons.strokeRoundedMusicNoteSquare01),
                   ),
                   Tab(
                     text: _getTabText(lanCode, "Albums", "البم", "एल्बम",
-                        "ألبومات", "Álbumes", "Albums", "Альбомы", "앨범"),
+                        "ألبومات", "Álbumes", "Albums", "Альбомы", "앨범", "专辑"),
                     icon: const Icon(Icons.album),
                   ),
                   Tab(
@@ -53,12 +62,13 @@ class AudioPageTabBarWidget extends StatelessWidget {
                         "Listas de reproducción",
                         "Playlists",
                         "Плейлисты",
-                        "재생 목록"),
+                        "재생 목록",
+                        "播放列表"),
                     icon: const Icon(HugeIcons.strokeRoundedPlayList),
                   ),
                   Tab(
                     text: _getTabText(lanCode, "Folders", "فولڈر", "फोल्डर",
-                        "مجلدات", "Carpetas", "Dossiers", "Папки", "폴더"),
+                        "مجلدات", "Carpetas", "Dossiers", "Папки", "폴더", "文件夹"),
                     icon: const Icon(HugeIcons.strokeRoundedFolder01),
                   ),
                 ],
@@ -71,15 +81,17 @@ class AudioPageTabBarWidget extends StatelessWidget {
   }
 
   String _getTabText(
-      String langCode,
-      String enText,
-      String urText,
-      String hiText,
-      String arText,
-      String esText,
-      String frText,
-      String ruText,
-      String krText) {
+    String langCode,
+    String enText, // English
+    String urText, // Urdu
+    String hiText, // Hindi
+    String arText, // Arabic
+    String esText, // Spanish
+    String frText, // French
+    String ruText, // Russian
+    String krText, // Korean
+    String zhText, // Chinese
+  ) {
     switch (langCode) {
       case 'ur':
         return urText;
@@ -95,6 +107,8 @@ class AudioPageTabBarWidget extends StatelessWidget {
         return ruText;
       case 'ko':
         return krText;
+      case "zh":
+        return zhText;
       default:
         return enText;
     }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_custom_color_selection_list_tile_widget.dart';
 
@@ -38,9 +39,9 @@ class SettingChangeAppBarColorBackgroundTileWidget extends StatelessWidget {
             context
                 .read<ThemeCubit>()
                 .resetToDefaultAppBarColor();
-            Navigator.pop(context);
+            context.pop();
           },
-          customColor: Color(themeState.customAppBarColor),
+          customColor:themeState.customAppBarColor!=null? Color(themeState.customAppBarColor!):null,
         );
       },
     );

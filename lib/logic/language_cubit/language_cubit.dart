@@ -12,10 +12,7 @@ class LanguageCubit extends Cubit<LanguageState> {
   /// Creates a [LanguageCubit] and initializes the state with the default
   /// language from Hive, or defaults to English ("en") if not set.
   LanguageCubit()
-      : super(LanguageState(
-            languageCode:
-                MyHiveBoxes.languageBox.get(MyHiveKeys.defaultLanguage) ??
-                    "en"));
+      : super(LanguageState.initial());
 
   /// Changes the current language to the specified [languageCode].
   ///

@@ -69,7 +69,9 @@ class _SettingPageState extends State<SettingPage> {
                     kr: "프로필",
                     ru: "Профиль",
                     iconData: HugeIcons.strokeRoundedProfile02,
-                    onTap: () {},
+                    onTap: () {
+                      GoRouter.of(context).push(AppRoutes.userProfileRoute);
+                    },
                   ),
 
                   _divider(),
@@ -107,7 +109,9 @@ class _SettingPageState extends State<SettingPage> {
                     kr: "이퀄라이저",
                     ru: "Эквалайзер",
                     iconData: Icons.equalizer,
-                    onTap: () {},
+                    onTap: () {
+                      context.push(AppRoutes.audioPlayerRoute);
+                    },
                   ),
 
                   _divider(),

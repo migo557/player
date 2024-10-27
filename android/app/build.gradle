@@ -15,6 +15,11 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    ///------ Newly Added code for Media Kit -------------------///
+    packagingOptions {
+        pickFirst 'lib/x86_64/libmedia_kit_native_event_loop.so'
+    }    
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
@@ -24,10 +29,11 @@ android {
         applicationId = "com.example.open_player"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        minSdk = 22
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        multiDexEnabled true         
     }
 
     buildTypes {
@@ -35,10 +41,21 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
+
         }
+
     }
 }
 
 flutter {
     source = "../.."
+}
+
+//-------------- New Code For Media Kit ------------------------///
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.10.3'
+    testImplementation 'org.mockito:mockito-core:5.0.0'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }

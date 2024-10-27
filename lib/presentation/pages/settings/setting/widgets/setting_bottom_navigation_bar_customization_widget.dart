@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:open_player/base/assets/fonts/app-fonts.dart';
+import 'package:open_player/base/assets/fonts/app_fonts.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
 import 'package:open_player/presentation/common/texty.dart';
@@ -23,16 +23,21 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
       builder: (context, themeState) {
         return ExpansionTile(
           title: const Texty(
-              en: "Bottom Navigation Bar",
-              ar: "شريط التنقل السفلي",
-              es: "Barra de navegación inferior",
-              fr: "Barre de navigation inférieure",
-              hi: "नीचे नेविगेशन बार",
-              kr: "하단 내비게이션 바",
-              ps: "د لاندې نیویگیشن بار",
-              ru: "Нижняя навигационная панель",
-              ur: "نیچے نیویگیشن بار",
-              zh: "底部导航栏"),
+            en: "Bottom Navigation Bar",
+            ar: "شريط التنقل السفلي",
+            es: "Barra de navegación inferior",
+            fr: "Barre de navigation inférieure",
+            hi: "नीचे नेविगेशन बार",
+            kr: "하단 내비게이션 바",
+            ps: "د لاندې نیویگیشن بار",
+            ru: "Нижняя навигационная панель",
+            ur: "نیچے نیویگیشن بار",
+            zh: "底部导航栏",
+            style: TextStyle(
+                fontSize: 13,
+                fontFamily: AppFonts.poppins,
+                fontWeight: FontWeight.bold),
+          ),
           children: [
             //--------- Change Bottom Nav Background Color
             const SettingChangeBottomNavBarBgColorTileWidget(),
@@ -151,18 +156,18 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Texty(
-                  en: "Hold the circle slightly and move it vertically or horizontally",
-                  ar: "أمسك الدائرة برفق وانقلها عموديًا أو أفقيًا",
-                  es: "Sostén ligeramente el círculo y muévelo vertical u horizontalmente",
-                  fr: "Tenez légèrement le cercle et déplacez-le verticalement ou horizontalement",
-                  hi: "गेंद को हल्का सा पकड़ें और इसे ऊर्ध्वाधर या क्षैतिज रूप से खिसकाएँ",
-                  kr: "원을 살짝 잡고 수직 또는 수평으로 이동하세요",
-                  ps: "د دایرې په نرمو سره نیولو او عمودی یا افقی حرکت کولو",
-                  ru: "Держите круг слегка и перемещайте его вертикально или горизонтально",
-                  ur: "گولے کو ہلکا سا پکڑیں اور اسے عمودی یا افقی طور پر حرکت دیں",
-                  zh: "轻轻握住圆圈并垂直或水平移动",
-                  textAlign: TextAlign.center,
-                  ),
+                en: "Hold the circle slightly and move it vertically or horizontally",
+                ar: "أمسك الدائرة برفق وانقلها عموديًا أو أفقيًا",
+                es: "Sostén ligeramente el círculo y muévelo vertical u horizontalmente",
+                fr: "Tenez légèrement le cercle et déplacez-le verticalement ou horizontalement",
+                hi: "गेंद को हल्का सा पकड़ें और इसे ऊर्ध्वाधर या क्षैतिज रूप से खिसकाएँ",
+                kr: "원을 살짝 잡고 수직 또는 수평으로 이동하세요",
+                ps: "د دایرې په نرمو سره نیولو او عمودی یا افقی حرکت کولو",
+                ru: "Держите круг слегка и перемещайте его вертикально или горизонтально",
+                ur: "گولے کو ہلکا سا پکڑیں اور اسے عمودی یا افقی طور پر حرکت دیں",
+                zh: "轻轻握住圆圈并垂直或水平移动",
+                textAlign: TextAlign.center,
+              ),
             ),
             const Gap(10),
             GestureDetector(
@@ -212,8 +217,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                     themeState.isHoldBottomNavBarCirclePositionButton ? 50 : 30,
                 backgroundColor:
                     themeState.isHoldBottomNavBarCirclePositionButton
-                        ? Theme.of(context).indicatorColor
-                        : Theme.of(context).primaryColor,
+                        ? Colors.transparent
+                        : Color(themeState.primaryColor),
                 child: HugeIcon(
                     icon: HugeIcons.strokeRoundedNavigation01,
                     color: Theme.of(context).iconTheme.color!),
@@ -348,6 +353,56 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
               ],
             ),
             const Gap(20),
+
+            ///------------------- Transform ----------------//
+
+            const Texty(
+              en: "Transform",
+              style: TextStyle(
+                  fontFamily: AppFonts.poppins,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
+            ),
+            const Gap(20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Texty(
+                    en: "Rotation",
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CircleAvatar(
+                        child: IconButton(
+                          onPressed: () {
+                            context
+                                .read<ThemeCubit>()
+                                .updateBottomNavigationBarRotationToLeft();
+                          },
+                          icon: const Icon(Icons.rotate_left),
+                        ),
+                      ),
+                     const Gap(20),
+                      CircleAvatar(
+                        child: IconButton(
+                          onPressed: () {
+                            context
+                                .read<ThemeCubit>()
+                                .updateBottomNavigationBarRotationToRight();
+                          },
+                          icon: const Icon(Icons.rotate_right),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+
+            const Gap(20),
             const Texty(
               en: "Reset To default",
               ar: "إعادة تعيين إلى الافتراضي",
@@ -367,7 +422,6 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                 children: [
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      fixedSize: Size(mqSize.width * 0.45, 30),
                       textStyle: const TextStyle(fontSize: 12),
                     ),
                     onPressed: () {
@@ -391,7 +445,6 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                   ),
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      fixedSize: Size(mqSize.width * 0.45, 30),
                       textStyle: const TextStyle(fontSize: 12),
                     ),
                     onPressed: () {
@@ -412,6 +465,22 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                       zh: "大小",
                     ),
                     icon: const Icon(HugeIcons.strokeRoundedResize01),
+                  ),
+
+                   ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 12),
+                    ),
+                    onPressed: () {
+                      context
+                          .read<ThemeCubit>()
+                          .resetToDefaultBottomNavBarRotation();
+                    },
+                    label: const Texty(
+                      en: "Rotation",
+                     
+                    ),
+                    icon: const Icon(Icons.rotate_90_degrees_cw_sharp),
                   ),
                 ],
               ),

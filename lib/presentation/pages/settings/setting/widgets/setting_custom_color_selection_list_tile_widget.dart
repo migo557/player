@@ -39,7 +39,7 @@ class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
 
   final bool isDefaultThemeColor;
   final Color defaultThemeColor;
-  final Color customColor;
+  final Color? customColor;
   final Function({required int colorCode}) selectColorOnTap;
   final Function() resetToDefaultThemeColorButton;
 
@@ -103,12 +103,6 @@ class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
                             child: CircleAvatar(
                               backgroundColor:
                                   Color(AppColors.colorHexCodesList[index]),
-                              child: isDefaultThemeColor
-                                  ? null
-                                  : customColor ==
-                                          AppColors.colorHexCodesList[index]
-                                      ? const Text("Selected")
-                                      : null,
                             ),
                           ),
                         ),

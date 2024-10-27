@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:open_player/base/assets/fonts/app-fonts.dart';
+import 'package:open_player/base/assets/fonts/app_fonts.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/utils/snackbars/custom_snackbars.dart';
 

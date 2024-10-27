@@ -1,0 +1,52 @@
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:open_player/base/assets/images/app-images.dart';
+import 'package:open_player/logic/user_data/user_data_cubit.dart';
+import 'package:open_player/logic/user_data/user_data_state.dart';
+
+class UserProfileCircleAvatarWidget extends StatelessWidget {
+  const UserProfileCircleAvatarWidget({
+    super.key,
+    required this.changeButtonOnPressed,
+    required this.tempImage,
+  });
+
+ final Function()? changeButtonOnPressed;
+ final XFile? tempImage;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        BlocBuilder<UserDataCubit, UserDataState>(
+          builder: (context, userState) {
+            return CircleAvatar(
+              minRadius: 60,
+              maxRadius: 90,
+              backgroundImage: tempImage != null
+                  ? FileImage(File(tempImage!.path))
+                  : userState.profileImagePath != null
+                      ? FileImage(File(userState.profileImagePath!))
+                      : const AssetImage(AppImages.defaultProfile),
+            );
+          },
+        ),
+
+        //-------- Profile Pic Change Button ----------//
+        Positioned(
+          bottom: 1,
+          right: 15,
+          child: CircleAvatar(
+            child: IconButton(
+              onPressed: changeButtonOnPressed,
+              icon: const Icon(HugeIcons.strokeRoundedImageAdd01),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

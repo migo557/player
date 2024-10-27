@@ -33,8 +33,9 @@ class SettingChangeScaffoldColorTileWidget extends StatelessWidget {
           },
           selectColorOnTap: ({required colorCode}) {
             context.read<ThemeCubit>().changeScaffoldBgColor(colorCode);
+             
           },
-          customColor: Color(themeState.customScaffoldColor),
+          customColor:themeState.customScaffoldColor!=null? Color(themeState.customScaffoldColor!):null,
         );
       },
     );

@@ -16,7 +16,7 @@ class SettingDarkModeButtonWidget extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         return SwitchListTile(
-          value: state.isDarkMode ?? false,
+          value: state.isDarkMode,
           onChanged: (value) {
             context.read<ThemeCubit>().toggleThemeMode();
           },

@@ -32,7 +32,7 @@ class SettingChangeThemeSwitchListTileWidget extends StatelessWidget {
                 ru: "Изменить тему"),
             trailing: CircleAvatar(
               radius: 15,
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Color(state.primaryColor),
             ),
             onTap: () {
               Navigator.push(

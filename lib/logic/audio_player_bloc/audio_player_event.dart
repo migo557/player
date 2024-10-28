@@ -62,13 +62,7 @@ class AudioPlayerPreviousEvent extends AudioPlayerEvent {
   List<Object?> get props => [];
 }
 
-class AudioPlayerVolumeSetEvent extends AudioPlayerEvent {
-  const AudioPlayerVolumeSetEvent({required this.volumeLevel});
 
-  final double volumeLevel;
-  @override
-  List<Object?> get props => [volumeLevel];
-}
 
 class AudioPlayerDisposeEvent extends AudioPlayerEvent {
   @override

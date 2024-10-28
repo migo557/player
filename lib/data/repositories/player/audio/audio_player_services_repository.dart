@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:color_log/color_log.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:rxdart/rxdart.dart';
@@ -10,78 +9,67 @@ import 'package:rxdart/rxdart.dart';
 import '../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 import '../../../models/audioplayercombinedstream_model.dart';
 
-/// Abstract repository for audio player services.
 abstract class AudioPlayerServicesRepository {
-  /// Toggles play/pause state of the audio player.
   Future<void> playPauseAudio();
-
-  /// Method to handle MusicPlayerInitializeEvent and Play Music.
-  FutureOr<void> initializeEvent(
+  Future<void> initializeEvent(
       Emitter<AudioPlayerState> emit, AudioPlayerInitializeEvent event);
-
-  FutureOr<void> nextEvent(
+  Future<void> nextEvent(
       Emitter<AudioPlayerState> emit, AudioPlayerNextEvent event);
-
-  FutureOr<void> previousEvent(
+  Future<void> previousEvent(
       Emitter<AudioPlayerState> emit, AudioPlayerPreviousEvent event);
-
-  FutureOr<void> seekEvent(
+  Future<void> seekEvent(
       Emitter<AudioPlayerState> emit, AudioPlayerSeekEvent event);
+
+  // Add these recommended methods
+  // Future<void> dispose();
+  // Future<void> setVolume(double volume);
+  // Future<void> setSpeed(double speed);
+  // Stream<Duration?> get positionStream;
+  // Stream<Duration?> get bufferedPositionStream;
 }
 
-/// Implementation of the [AudioPlayerServicesRepository] using the Just Audio package.
 final class AudioPlayerServices implements AudioPlayerServicesRepository {
-  /// Creates an instance of [AudioPlayerServices].
-  ///
-  /// Requires an [AudioPlayer] instance to control audio playback.
   AudioPlayerServices({required this.audioPlayer});
 
   final AudioPlayer audioPlayer;
 
   @override
-  Future<void> playPauseAudio() async {
-    // Check if the audio is currently playing
-    if (audioPlayer.playing) {
-      // Pause the audio if it is currently playing
-      await audioPlayer.pause();
-    } else {
-      // Play the audio if it is currently paused
-      await audioPlayer.play();
-    }
-  }
-
-  /// Method to handle MusicPlayerInitializeEvent and Play Music.
-  @override
-  FutureOr<void> initializeEvent(
+  Future<void> initializeEvent(
       Emitter<AudioPlayerState> emit, AudioPlayerInitializeEvent event) async {
     try {
-      clog.debug("AudioPlayer LoadingState");
       emit(AudioPlayerLoadingState());
-      final ConcatenatingAudioSource playlist = ConcatenatingAudioSource(
-          children: event.audioList
-              .map(
-                (audio) {
-       final MediaItem mediaItem = MediaItem(
-            artist: "unknown",
-            playable: true,
-            duration: audioPlayer.duration,
-            displayTitle: audio.title,
-            id: audio.title,
-            album: "unknown",
-            title: audio.title,
+
+      final playlist = ConcatenatingAudioSource(
+        children: event.audioList.map((audio) {
+          return ProgressiveAudioSource(
+            Uri.file(audio.path),
+            tag: MediaItem(
+              id:  audio.title, // Use a unique ID if available
+              album:  'Unknown Album',
+              title: audio.title,
+              artist:  'Unknown Artist',
+              duration: audioPlayer.duration, // Add if available
+              artUri:  null,
+              playable: true,
             
+            ),
           );
-                  return ProgressiveAudioSource(Uri.file(audio.path),tag: mediaItem);},
-              )
-              .toList());
+        }).toList(),
+      );
 
-      audioPlayer.setAudioSource(playlist);
-      audioPlayer.seek(const Duration(seconds: 0),
-          index: event.initialMediaIndex);
-      audioPlayer.play();
+      // Add error handling for setAudioSource
+       audioPlayer
+          .setAudioSource(
+        playlist,
+        initialIndex: event.initialMediaIndex,
+        initialPosition: Duration.zero,
+      )
+          .catchError((error) {
+         clog.error('Error loading audio source: $error');
+      });
 
-      //! Combine the position and duration and Buffered streams
-      final combinedStream = Rx.combineLatest9(
+      // Create a more robust combined stream with error handling
+      final combinedStream = Rx.combineLatestList([
         audioPlayer.playingStream,
         audioPlayer.positionStream,
         audioPlayer.durationStream,
@@ -91,48 +79,91 @@ final class AudioPlayerServices implements AudioPlayerServicesRepository {
         audioPlayer.loopModeStream,
         audioPlayer.shuffleModeEnabledStream,
         audioPlayer.currentIndexStream,
-        (playing, position, duration, buffered, processing, speed, loopMode,
-                shuffleModeEnabled, currentIndex) =>
-            AudioPlayerCombinedStream(
-                playing: playing,
-                position: position,
-                duration: duration,
-                bufferedPosition: buffered,
-                processingState: processing,
-                speed: speed,
-                loopMode: loopMode,
-                shuffleModeEnabled: shuffleModeEnabled,
-                currentIndex: currentIndex),
-      ).publish().autoConnect();
+      ])
+          .map((values) {
+            return AudioPlayerCombinedStream(
+              playing: values[0] as bool,
+              position: values[1] as Duration,
+              duration: values[2] as Duration?,
+              bufferedPosition: values[3] as Duration,
+              processingState: values[4] as ProcessingState,
+              speed: values[5] as double,
+              loopMode: values[6] as LoopMode,
+              shuffleModeEnabled: values[7] as bool,
+              currentIndex: values[8] as int?,
+            );
+          })
+          .handleError((error) {
+            emit(AudioPlayerErrorState(errorMessage: error.toString()));
+          })
+          .publish()
+          .autoConnect();
 
       emit(AudioPlayerSuccessState(
-          audioPlayer: audioPlayer,
-          audioPlayerCombinedStream: combinedStream,
-          isSeeking: false,
-          seekingPosition: 0));
+        audioPlayer: audioPlayer,
+        audioPlayerCombinedStream: combinedStream,
+        isSeeking: false,
+        seekingPosition: 0,
+      ));
 
-      clog.checkSuccess(true, "AudioPlayer SuccessState");
+      await audioPlayer.play();
     } catch (e) {
       emit(AudioPlayerErrorState(errorMessage: e.toString()));
-      clog.debug(e.toString());
     }
   }
 
   @override
-  FutureOr<void> nextEvent(
+  Future<void> playPauseAudio() async {
+    try {
+      if (audioPlayer.playing) {
+        await audioPlayer.pause();
+      } else {
+        await audioPlayer.play();
+      }
+    } catch (e) {
+      clog.error('Error toggling playback: $e');
+    }
+  }
+
+  @override
+  Future<void> nextEvent(
       Emitter<AudioPlayerState> emit, AudioPlayerNextEvent event) async {
-    await audioPlayer.seekToNext();
+    try {
+      if (await audioPlayer.hasNext) {
+        await audioPlayer.seekToNext();
+      }
+    } catch (e) {
+      clog.error('Error seeking to next track: $e');
+    }
   }
 
   @override
-  FutureOr<void> previousEvent(
+  Future<void> previousEvent(
       Emitter<AudioPlayerState> emit, AudioPlayerPreviousEvent event) async {
-    await audioPlayer.seekToPrevious();
+    try {
+      if (await audioPlayer.hasPrevious) {
+        await audioPlayer.seekToPrevious();
+      }
+    } catch (e) {
+      clog.error('Error seeking to previous track: $e');
+    }
   }
 
   @override
-  FutureOr<void> seekEvent(
+  Future<void> seekEvent(
       Emitter<AudioPlayerState> emit, AudioPlayerSeekEvent event) async {
-    audioPlayer.seek(Duration(seconds: event.position.toInt()));
+    try {
+      await audioPlayer.seek(Duration(seconds: event.position.toInt()));
+    } catch (e) {
+      clog.error('Error seeking to position: $e');
+    }
   }
+
+  // Add dispose method to clean up resources
+  @override
+  Future<void> dispose() async {
+    await audioPlayer.dispose();
+  }
+  
+
 }

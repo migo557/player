@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:open_player/base/assets/fonts/app_fonts.dart';
 import 'package:open_player/base/assets/images/app-images.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/logic/now_playing_media_cubit/now_playing_media_cubit.dart';
+import 'package:open_player/presentation/pages/players/audio/ui/audio_player.dart';
 
 import '../../../../../../base/router/app_routes.dart';
 import '../../../../../../logic/audio_bloc/audios_bloc.dart';
@@ -40,14 +42,17 @@ class SongsPage extends StatelessWidget {
                       context
                           .read<NowPlayingMediaCubit>()
                           .init(audioList: audioState.songs);
-                      context.push(
-                        AppRoutes.audioPlayerRoute,
+
+                      ///!-----Show Player Screen ----///
+                      showModalBottomSheet(
+                        showDragHandle: false,
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (context) => const AudioPlayerPage(),
                       );
                     },
                     child: Card(
-                      color: themeState.isDarkMode
-                          ? Theme.of(context).colorScheme.onPrimaryContainer
-                          : Theme.of(context).colorScheme.onPrimaryContainer,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       child: Container(

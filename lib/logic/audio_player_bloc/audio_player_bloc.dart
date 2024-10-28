@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import '../../base/di/dependency_injection.dart';
 import '../../data/models/audio_model.dart';
@@ -21,6 +22,8 @@ class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
     on<AudioPlayerIsSeekingToggleEvent>(_audioPlayerIsSeekingToggleEvent);
     on<AudioPlayerShuffleEvent>(_audioPlayerShuffleEvent);
     on<AudioPlayerRepeatToggleEvent>(_audioPlayerRepeatToggleEvent);
+    on<AudioPlayerForwardEvent>(_audioPlayerForwardEvent);
+    on<AudioPlayerBackwardEvent>(_audioPlayerBackwardEvent);
   }
 
   /// Method to handle MusicPlayerInitializeEvent and Play Audio.
@@ -76,6 +79,26 @@ class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
     }
     if (loop == LoopMode.off) {
       await audioPlayer.setLoopMode(LoopMode.all);
+    }
+  }
+
+  FutureOr<void> _audioPlayerForwardEvent(
+      AudioPlayerForwardEvent event, Emitter<AudioPlayerState> emit) async {
+    final position = audioPlayer.position.inSeconds;
+    if (position + 10 < audioPlayer.duration!.inSeconds) {
+      await audioPlayer.seek(
+        Duration(seconds: position + 10),
+      );
+    }
+  }
+
+  FutureOr<void> _audioPlayerBackwardEvent(
+      AudioPlayerBackwardEvent event, Emitter<AudioPlayerState> emit) async {
+    final position = audioPlayer.position.inSeconds;
+    if (position - 10 > 0) {
+      await audioPlayer.seek(
+        Duration(seconds: position - 10),
+      );
     }
   }
 }

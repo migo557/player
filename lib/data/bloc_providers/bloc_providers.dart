@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:open_player/base/di/dependency_injection.dart';
 import 'package:open_player/data/repositories/user/user_repository.dart';
 import 'package:open_player/data/repositories/videos/video_repository.dart';
@@ -15,6 +16,7 @@ import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
 
 import '../../base/services/user/storage_services.dart';
 import '../../logic/audio_bloc/audios_bloc.dart';
+import '../../logic/volume_cubit/volume_cubit.dart';
 import '../repositories/audio/audio_repository.dart';
 
 ///?----------------   B L O C   P R O V I D E R S   -------------///
@@ -37,7 +39,7 @@ myBlocProviders() {
       create: (context) =>
           GreetingCubit(languageCubit: locator<LanguageCubit>()),
     ),
-       BlocProvider(
+    BlocProvider(
       create: (context) =>
           AudiosBloc(audioRepository: locator<AudioRepository>()),
     ),
@@ -50,14 +52,17 @@ myBlocProviders() {
           userRepository: locator<UserRepository>(),
           storageService: StorageService()),
     ),
-        BlocProvider(
+    BlocProvider(
       create: (context) => AudioPlayerBloc(),
     ),
     BlocProvider(
       create: (context) => VideoPlayerBloc(),
     ),
-     BlocProvider(
+    BlocProvider(
       create: (context) => NowPlayingMediaCubit(),
+    ),
+    BlocProvider(
+      create: (context) => VolumeCubit(audioPlayer: locator<AudioPlayer>()),
     )
   ];
 }

@@ -1,12 +1,12 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:color_log/color_log.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
+import 'package:open_player/data/models/custom_audio_source_model.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../logic/audio_player_bloc/audio_player_bloc.dart';
+import '../../../models/audio_model.dart';
 import '../../../models/audioplayercombinedstream_model.dart';
 
 abstract class AudioPlayerServicesRepository {
@@ -19,13 +19,6 @@ abstract class AudioPlayerServicesRepository {
       Emitter<AudioPlayerState> emit, AudioPlayerPreviousEvent event);
   Future<void> seekEvent(
       Emitter<AudioPlayerState> emit, AudioPlayerSeekEvent event);
-
-  // Add these recommended methods
-  // Future<void> dispose();
-  // Future<void> setVolume(double volume);
-  // Future<void> setSpeed(double speed);
-  // Stream<Duration?> get positionStream;
-  // Stream<Duration?> get bufferedPositionStream;
 }
 
 final class AudioPlayerServices implements AudioPlayerServicesRepository {
@@ -39,36 +32,21 @@ final class AudioPlayerServices implements AudioPlayerServicesRepository {
     try {
       emit(AudioPlayerLoadingState());
 
-      final playlist = ConcatenatingAudioSource(
-        children: event.audioList.map((audio) {
-          return ProgressiveAudioSource(
-            Uri.file(audio.path),
-            tag: MediaItem(
-              id:  audio.title, // Use a unique ID if available
-              album:  'Unknown Album',
-              title: audio.title,
-              artist:  'Unknown Artist',
-              duration: audioPlayer.duration, // Add if available
-              artUri:  null,
-              playable: true,
-            
-            ),
-          );
-        }).toList(),
-      );
+      final audiosource = CustomAudioSource.createPlaylist(event.audioList);
 
       // Add error handling for setAudioSource
-       audioPlayer
+      audioPlayer
           .setAudioSource(
-        playlist,
+        audiosource,
         initialIndex: event.initialMediaIndex,
         initialPosition: Duration.zero,
       )
           .catchError((error) {
-         clog.error('Error loading audio source: $error');
+        clog.error('Error loading audio source: $error');
+        emit(AudioPlayerErrorState(errorMessage: error.toString()));
       });
 
-      // Create a more robust combined stream with error handling
+      // Create a robust combined stream with error handling
       final combinedStream = Rx.combineLatestList([
         audioPlayer.playingStream,
         audioPlayer.positionStream,
@@ -101,12 +79,15 @@ final class AudioPlayerServices implements AudioPlayerServicesRepository {
 
       emit(AudioPlayerSuccessState(
         audioPlayer: audioPlayer,
+        audiosource: audiosource,
+        audios: event.audioList,
         audioPlayerCombinedStream: combinedStream,
         isSeeking: false,
         seekingPosition: 0,
+  
       ));
 
-      await audioPlayer.play();
+      audioPlayer.play();
     } catch (e) {
       emit(AudioPlayerErrorState(errorMessage: e.toString()));
     }
@@ -164,6 +145,4 @@ final class AudioPlayerServices implements AudioPlayerServicesRepository {
   Future<void> dispose() async {
     await audioPlayer.dispose();
   }
-  
-
 }

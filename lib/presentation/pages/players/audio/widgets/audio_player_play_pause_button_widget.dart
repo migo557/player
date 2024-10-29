@@ -6,9 +6,17 @@ import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/presentation/common/nothing_widget.dart';
 
 class AudioPlayerPlayPauseButtonWidget extends StatelessWidget {
-  const AudioPlayerPlayPauseButtonWidget({
+  AudioPlayerPlayPauseButtonWidget({
     super.key,
+    this.iconSize,
+    this.playIcon,
+    this.pauseIcon
   });
+
+  double? iconSize;
+  IconData? playIcon;
+  IconData? pauseIcon;
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +30,8 @@ class AudioPlayerPlayPauseButtonWidget extends StatelessWidget {
           return StreamBuilder(
               stream: state.audioPlayerCombinedStream,
               builder: (context, snapshot) {
-                  bool isPlay = snapshot.data?.playing??false;
-                   return IconButton(
+                bool isPlay = snapshot.data?.playing ?? false;
+                return IconButton(
                   onPressed: () {
                     clog.debug("Play Pause Button is pressed");
                     context
@@ -31,12 +39,11 @@ class AudioPlayerPlayPauseButtonWidget extends StatelessWidget {
                         .add(AudioPlayerPlayPauseToggleEvent());
                   },
                   color: Colors.white,
-                  iconSize: 40,
-                  icon:   Icon(isPlay
-                      ? HugeIcons.strokeRoundedPause
-                      : HugeIcons.strokeRoundedPlay),
+                  iconSize: iconSize ?? 40,
+                  icon: Icon(isPlay
+                      ?pauseIcon?? HugeIcons.strokeRoundedPause
+                      :playIcon?? HugeIcons.strokeRoundedPlay),
                 );
-           
               });
         } else {
           return nothing;

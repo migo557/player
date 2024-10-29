@@ -23,7 +23,6 @@ class AudioPlayerActionsButtonsWidget extends StatelessWidget {
         builder: (context, successState) {
           if (successState is AudioPlayerSuccessState) {
             bool hasNext = successState.audioPlayer.hasNext;
-
             bool hasPrevious = successState.audioPlayer.hasPrevious;
 
             return Row(
@@ -46,27 +45,9 @@ class AudioPlayerActionsButtonsWidget extends StatelessWidget {
                         icon: const Icon(HugeIcons.strokeRoundedShuffle),
                       );
                     }),
-                IconButton(
-                  onPressed: () {
-                    clog.debug("Previous Button is pressed");
-                    context
-                        .read<AudioPlayerBloc>()
-                        .add(AudioPlayerPreviousEvent());
-                  },
-                  color: hasPrevious ? Colors.white : Colors.grey,
-                  iconSize: 25,
-                  icon: const Icon(HugeIcons.strokeRoundedPrevious),
-                ),
-                const AudioPlayerPlayPauseButtonWidget(),
-                IconButton(
-                  onPressed: () {
-                    clog.debug("Next Button is pressed");
-                    context.read<AudioPlayerBloc>().add(AudioPlayerNextEvent());
-                  },
-                  color: hasNext ? Colors.white : Colors.grey,
-                  iconSize: 25,
-                  icon: const Icon(HugeIcons.strokeRoundedNext),
-                ),
+                AudioPlayerPreviousButtonWidget(),
+                 AudioPlayerPlayPauseButtonWidget(),
+                AudioPlayerNextButtonWidget(),
                 StreamBuilder(
                     stream: successState.audioPlayerCombinedStream,
                     builder: (context, snapshot) {
@@ -75,7 +56,7 @@ class AudioPlayerActionsButtonsWidget extends StatelessWidget {
                       return IconButton(
                         onPressed: () {
                           clog.debug(" Repeat Button is pressed");
-                           context
+                          context
                               .read<AudioPlayerBloc>()
                               .add(AudioPlayerRepeatToggleEvent());
                         },
@@ -97,6 +78,50 @@ class AudioPlayerActionsButtonsWidget extends StatelessWidget {
           }
         },
       ),
+    );
+  }
+}
+
+class AudioPlayerNextButtonWidget extends StatelessWidget {
+   AudioPlayerNextButtonWidget({
+    super.key,
+    this.iconSize
+  });
+
+double? iconSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        clog.debug("Next Button is pressed");
+        context.read<AudioPlayerBloc>().add(AudioPlayerNextEvent());
+      },
+      color:  Colors.white ,
+      iconSize:iconSize?? 25,
+      icon: const Icon(HugeIcons.strokeRoundedNext),
+    );
+  }
+}
+
+class AudioPlayerPreviousButtonWidget extends StatelessWidget {
+  AudioPlayerPreviousButtonWidget({
+    super.key, this.iconSize});
+
+  double? iconSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        clog.debug("Previous Button is pressed");
+        context
+            .read<AudioPlayerBloc>()
+            .add(AudioPlayerPreviousEvent());
+      },
+      color: Colors.white ,
+      iconSize:iconSize?? 25,
+      icon: const Icon(HugeIcons.strokeRoundedPrevious),
     );
   }
 }

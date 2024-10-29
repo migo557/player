@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/app_fonts.dart';
 import 'package:open_player/base/router/app_routes.dart';
+import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
 
 class VideoPageAllVideosViewWidget extends StatelessWidget {
@@ -35,10 +36,12 @@ class VideoPageAllVideosViewWidget extends StatelessWidget {
             itemCount: state.videos.length,
             itemBuilder: (context, index) => ListTile(
               onTap: () {
-                List  data = [
-                   index,
+                context.read<AudioPlayerBloc>().add(AudioPlayerStopEvent());
+                List data = [
+                  index,
                   state.videos,
                 ];
+
                 GoRouter.of(context)
                     .push(AppRoutes.videoPlayerRoute, extra: data);
               },

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import '../../base/di/dependency_injection.dart';
 import '../../data/models/audio_model.dart';
@@ -24,6 +23,8 @@ class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
     on<AudioPlayerRepeatToggleEvent>(_audioPlayerRepeatToggleEvent);
     on<AudioPlayerForwardEvent>(_audioPlayerForwardEvent);
     on<AudioPlayerBackwardEvent>(_audioPlayerBackwardEvent);
+    on<AudioPlayerStopEvent>(_audioPlayerStopEvent);
+    on<AudioPlayerDisposeEvent>(_audioPlayerDispose);
   }
 
   /// Method to handle MusicPlayerInitializeEvent and Play Audio.
@@ -101,4 +102,14 @@ class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
       );
     }
   }
+
+  FutureOr<void> _audioPlayerStopEvent(
+      AudioPlayerStopEvent event, Emitter<AudioPlayerState> emit) async {
+    await audioPlayer.stop();
+  }
+
+  FutureOr<void> _audioPlayerDispose(
+      AudioPlayerDisposeEvent event, Emitter<AudioPlayerState> emit) async{
+        await audioPlayer.dispose();
+      }
 }

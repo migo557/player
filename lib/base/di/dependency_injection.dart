@@ -23,8 +23,8 @@ initializeLocator() {
     locator.registerSingleton<AppThemes>(AppThemes());
     clog.checkSuccess(true, "AppThemes registred");
 
-    locator.registerSingleton<ScrollController>(ScrollController());
-    log('ScrollController registered');
+   locator.registerSingleton<ScrollController>(ScrollController());
+    clog.checkSuccess(true,'ScrollController registered');
 
     // Register AudioProvider
     locator.registerLazySingleton<AudioProvider>(() => AudioProvider());

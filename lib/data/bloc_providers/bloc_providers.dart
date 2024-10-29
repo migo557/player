@@ -8,12 +8,10 @@ import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/logic/bottom_nav_bar_cubit/bottom_nav_bar_cubit.dart';
 import 'package:open_player/logic/greeting/greeting_cubit.dart';
 import 'package:open_player/logic/language_cubit/language_cubit.dart';
-import 'package:open_player/logic/now_playing_media_cubit/now_playing_media_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/user_data/user_data_cubit.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
 import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
-
 import '../../base/services/user/storage_services.dart';
 import '../../logic/audio_bloc/audios_bloc.dart';
 import '../../logic/volume_cubit/volume_cubit.dart';
@@ -57,9 +55,6 @@ myBlocProviders() {
     ),
     BlocProvider(
       create: (context) => VideoPlayerBloc(),
-    ),
-    BlocProvider(
-      create: (context) => NowPlayingMediaCubit(),
     ),
     BlocProvider(
       create: (context) => VolumeCubit(audioPlayer: locator<AudioPlayer>()),

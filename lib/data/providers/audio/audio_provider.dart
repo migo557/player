@@ -16,7 +16,6 @@ class AudioProvider {
     '.wma'
   ];
 
-
   /// Fetches all audio file paths from external storage directories
   /// Returns a list of audio file paths
   Future<List<String>> fetchAllAudioFilePaths() async {
@@ -109,4 +108,3 @@ void _scanDirectory(Directory directory, List<String> audioFilePaths) {
     clog.error('Error scanning directory ${directory.path}: $e');
   }
 }
-

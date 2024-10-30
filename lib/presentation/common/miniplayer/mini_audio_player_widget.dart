@@ -9,6 +9,7 @@ import 'package:open_player/presentation/pages/players/audio/widgets/audio_playe
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_position_and_duration_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_previous_button_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_seek_bar_widget.dart';
+import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_thumbnail_card_widget.dart';
 import 'package:open_player/utils/duration/formatDuration.dart';
 
 import '../../../base/assets/fonts/app_fonts.dart';
@@ -34,7 +35,7 @@ class MiniAudioPlayerWidget extends StatelessWidget {
         return FadeInDown(
           duration: const Duration(milliseconds: 500),
           child: SizedBox(
-            height: mq.height * 0.16,
+            height: mq.height * 0.163,
             width: mq.width,
             child: StreamBuilder(
                 stream: playerState.audioPlayerCombinedStream,
@@ -54,108 +55,115 @@ class MiniAudioPlayerWidget extends StatelessWidget {
                         builder: (context) => const AudioPlayerPage(),
                       );
                     },
-                    onVerticalDragUpdate: (details) {
-                      context
-                          .read<VolumeCubit>()
-                          .changeAudioPlayerVolume(details: details);
-                    },
                     child: Card(
                       color: Theme.of(context).colorScheme.primary,
                       margin: EdgeInsets.zero,
                       child: Padding(
-                        padding: EdgeInsets.only(
-                          top: mq.height * 0.05,
-                          left: 10,
-                          right: 10,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 5,
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                //----- Thumbnail ----------//
-                                if (!playerState.isSeeking)
-                                  const CircleAvatar(
-                                    maxRadius: 23,
-                                    minRadius: 20,
-                                    backgroundImage:
-                                        AssetImage(AppImages.defaultProfile),
-                                  ),
-          
-                                ///------------ Seeking Position --------//
-                                if (playerState.isSeeking)
-                                  CircleAvatar(
-                                    radius: 23,
-                                    child: Text(
-                                      formatDuration(
-                                        Duration(
-                                          seconds:
-                                              playerState.seekingPosition.toInt(),
-                                        ),
-                                      ),
-                                      style: const TextStyle(
-                                          fontSize: 12, color: Colors.white),
-                                    ),
-                                  ),
-          
-                                const Gap(10),
-          
-                                ///--------------- Music Title ------------------//
-                                Expanded(
-                                  child: Text(
-                                    title,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontFamily: AppFonts.poppins,
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-          
-                                ///------------- Buttons -------------///
-                                const Gap(10),
-                                AudioPlayerPreviousButtonWidget(),
-                                AudioPlayerPlayPauseButtonWidget(
-                                  iconSize: 30,
-                                  pauseIcon: CupertinoIcons.pause_circle,
-                                  playIcon: CupertinoIcons.play_circle,
-                                ),
-                                AudioPlayerNextButtonWidget(),
-                              ],
-                            ),
-          
-                            //--------- Next Section
-                            const Expanded(
-                              child: Row(
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              //-------- Upper Section ---------///
+                              Row(
                                 children: [
-                                  //------ Position
-                                  AudioPlayerPositionAndDurationWidget(
-                                    showDuration: false,
-                                    enablePadding: false,
-                                  ),
-          
-                                  //----------- Slider
-                                  Expanded(
-                                    child: SliderTheme(
-                                        data: SliderThemeData(
-                                          activeTrackColor: Colors.white,
-                                          thumbColor: Colors.white,
+                                  //----- Thumbnail ----------//
+                                  if (!playerState.isSeeking)
+                                    AudioPlayerThumbnailCardWidget(
+                                      horizontalPadding: 0,
+                                      height: mq.height * 0.05,
+                                      width: mq.height * 0.05,
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+
+                                  ///------------ Seeking Position --------//
+                                  if (playerState.isSeeking)
+                                    CircleAvatar(
+                                      radius: 23,
+                                      child: Text(
+                                        formatDuration(
+                                          Duration(
+                                            seconds: playerState.seekingPosition
+                                                .toInt(),
+                                          ),
                                         ),
-                                        child: AudioPlayerSeekBarWidget()),
+                                        style: const TextStyle(
+                                            fontSize: 12, color: Colors.white),
+                                      ),
+                                    ),
+
+                                  const Gap(10),
+
+                                  ///--------------- Music Title ------------------//
+                                  Expanded(
+                                    child: Text(
+                                      title,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontFamily: AppFonts.poppins,
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
                                   ),
-          
-                                  //------- Duration
-                                  AudioPlayerPositionAndDurationWidget(
-                                    showPosition: false,
-                                    enablePadding: false,
-                                  ),
+
+                                  ///------------- Buttons Row -------------///
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const AudioPlayerPreviousButtonWidget(),
+                                      AudioPlayerPlayPauseButtonWidget(
+                                        iconSize: 30,
+                                        pauseIcon: CupertinoIcons.pause_circle,
+                                        playIcon: CupertinoIcons.play_circle,
+                                      ),
+                                      const AudioPlayerNextButtonWidget(),
+                                    ],
+                                  )
                                 ],
                               ),
-                            ),
-                          ],
+
+                              //--------- Bottom Section
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                child: Row(
+                                  children: [
+                                    //------ Position
+                                    AudioPlayerPositionAndDurationWidget(
+                                      showDuration: false,
+                                      enablePadding: false,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+
+                                    //----------- Slider
+                                    Flexible(
+                                      child: SliderTheme(
+                                          data: SliderThemeData(
+                                            activeTrackColor: Colors.white,
+                                            thumbShape: RoundSliderThumbShape(
+                                                enabledThumbRadius: 6),
+                                            thumbColor: Colors.white,
+                                          ),
+                                          child: AudioPlayerSeekBarWidget()),
+                                    ),
+
+                                    //------- Duration
+                                    AudioPlayerPositionAndDurationWidget(
+                                      showPosition: false,
+                                      enablePadding: false,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

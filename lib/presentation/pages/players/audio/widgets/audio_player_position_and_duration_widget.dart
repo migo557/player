@@ -7,11 +7,19 @@ import '../../../../../utils/duration/formatDuration.dart';
 
 class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
   const AudioPlayerPositionAndDurationWidget(
-      {super.key, this.showPosition = true, this.showDuration = true, this.enablePadding = true});
+      {super.key,
+      this.showPosition = true,
+      this.showDuration = true,
+      this.enablePadding = true,
+      this.fontSize,
+      this.fontWeight
+      });
 
   final bool showPosition;
   final bool showDuration;
   final bool enablePadding;
+  final double? fontSize;
+  final FontWeight? fontWeight;
   @override
   Widget build(BuildContext context) {
     final Size mq = MediaQuery.sizeOf(context);
@@ -26,13 +34,18 @@ class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
           return StreamBuilder(
               stream: successState.audioPlayerCombinedStream,
               builder: (context, snapshot) {
-                Duration position = snapshot.data?.position ?? successState.audioPlayer.position;
-                Duration duration = snapshot.data?.duration ?? successState.audioPlayer.duration??Duration.zero;
+                Duration position = snapshot.data?.position ??
+                    successState.audioPlayer.position;
+                Duration duration = snapshot.data?.duration ??
+                    successState.audioPlayer.duration ??
+                    Duration.zero;
 
                 return Padding(
-                  padding: enablePadding? EdgeInsets.symmetric(
-                    horizontal: mq.width * 0.03,
-                  ):EdgeInsets.zero,
+                  padding: enablePadding
+                      ? EdgeInsets.symmetric(
+                          horizontal: mq.width * 0.03,
+                        )
+                      : EdgeInsets.zero,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -40,14 +53,21 @@ class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
                       if (showPosition)
                         Text(
                           formatDuration(position),
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: fontSize,
+                            fontWeight: fontWeight,
+                          ),
                         ),
 
                       //--     Duration
                       if (showDuration)
                         Text(
                           formatDuration(duration),
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: fontSize,
+                              fontWeight: fontWeight),
                         ),
                     ],
                   ),

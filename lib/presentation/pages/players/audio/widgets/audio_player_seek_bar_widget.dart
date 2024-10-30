@@ -11,6 +11,7 @@ class AudioPlayerSeekBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.sizeOf(context);
     return BlocSelector<AudioPlayerBloc, AudioPlayerState,
         AudioPlayerSuccessState?>(
       selector: (state) {
@@ -28,6 +29,7 @@ class AudioPlayerSeekBarWidget extends StatelessWidget {
                     Duration.zero;
 
                 return Slider(
+                  
                   onChangeEnd: (p) {
                     context
                         .read<AudioPlayerBloc>()

@@ -20,7 +20,7 @@ class AudioPlayerCenterStackWidget extends StatelessWidget {
       child: Stack(
         children: [
           //-------- Thumbnail Card --------//
-          AudioPlayerThumbnailCardWidget(mq: mq),
+          const AudioPlayerThumbnailCardWidget(),
 
           //----     -- Gesture Detectors
           const AudioPlayerGestureDetectorsBoxes(),

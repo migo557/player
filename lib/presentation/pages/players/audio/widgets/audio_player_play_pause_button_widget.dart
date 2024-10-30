@@ -7,17 +7,12 @@ import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/presentation/common/nothing_widget.dart';
 
 class AudioPlayerPlayPauseButtonWidget extends StatelessWidget {
-  AudioPlayerPlayPauseButtonWidget({
-    super.key,
-    this.iconSize,
-    this.playIcon,
-    this.pauseIcon
-  });
+  AudioPlayerPlayPauseButtonWidget(
+      {super.key, this.iconSize, this.playIcon, this.pauseIcon});
 
   double? iconSize;
   IconData? playIcon;
   IconData? pauseIcon;
-
 
   @override
   Widget build(BuildContext context) {
@@ -32,21 +27,21 @@ class AudioPlayerPlayPauseButtonWidget extends StatelessWidget {
               stream: state.audioPlayerCombinedStream,
               builder: (context, snapshot) {
                 bool isPlay = snapshot.data?.playing ?? false;
-                return SpinPerfect(
-                  animate: state.audioPlayer.playing,
-                  duration: const Duration(milliseconds: 500),
-                  child: IconButton(
-                    onPressed: () {
-                      clog.debug("Play Pause Button is pressed");
-                      context
-                          .read<AudioPlayerBloc>()
-                          .add(AudioPlayerPlayPauseToggleEvent());
-                    },
-                    color: Colors.white,
-                    iconSize: iconSize ?? 40,
-                    icon: Icon(isPlay
-                        ?pauseIcon?? HugeIcons.strokeRoundedPause
-                        :playIcon?? HugeIcons.strokeRoundedPlay),
+                return IconButton(
+                  onPressed: () {
+                    clog.debug("Play Pause Button is pressed");
+                    context
+                        .read<AudioPlayerBloc>()
+                        .add(AudioPlayerPlayPauseToggleEvent());
+                  },
+                  color: Colors.white,
+                  iconSize: iconSize ?? 40,
+                  icon: SpinPerfect(
+                    animate: state.audioPlayer.playing,
+                    duration: const Duration(milliseconds: 500),
+                    child: Icon(isPlay
+                        ? pauseIcon ?? HugeIcons.strokeRoundedPause
+                        : playIcon ?? HugeIcons.strokeRoundedPlay),
                   ),
                 );
               });

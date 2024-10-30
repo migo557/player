@@ -23,7 +23,7 @@ class AudioPageAppBarWidget extends StatelessWidget {
       builder: (context, state) {
         return SliverAppBar(
           elevation: 0,
-          toolbarHeight: mqHeight * 0.16,
+          toolbarHeight: mqHeight * 0.15,
           floating: true,
           primary: state!= null?false:true,
           actions: [

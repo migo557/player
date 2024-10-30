@@ -19,15 +19,16 @@ class AudioPageTabBarWidget extends StatelessWidget {
       },
       builder: (context, state) {
         return SliverAppBar(
-          toolbarHeight: mqHeight * 0.062,
+          toolbarHeight: mqHeight * 0.067,
           automaticallyImplyLeading: false,
           pinned: true,
           primary: state != null ? false : true,
           actions: [
             Expanded(
-              child: BlocBuilder<LanguageCubit, LanguageState>(
-                builder: (context, lanState) {
-                  final String lanCode = lanState.languageCode;
+              child: BlocSelector<LanguageCubit, LanguageState, String>(
+                selector: (state) => state.languageCode,
+                builder: (context, state) {
+                  final String lanCode = state;
 
                   return TabBar(
                     onTap: (value) {

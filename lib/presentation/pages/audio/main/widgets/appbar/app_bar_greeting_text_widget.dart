@@ -9,10 +9,11 @@ class AppBarGreetingTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GreetingCubit, GreetingState>(
+    return BlocSelector<GreetingCubit, GreetingState, String>(
+      selector: (state) => state.greeting,
       builder: (context, state) {
         return Text(
-          state.greeting,
+          state,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: AppTextStyles.greeting1,

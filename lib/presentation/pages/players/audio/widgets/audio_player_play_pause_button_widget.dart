@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:color_log/color_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,18 +32,22 @@ class AudioPlayerPlayPauseButtonWidget extends StatelessWidget {
               stream: state.audioPlayerCombinedStream,
               builder: (context, snapshot) {
                 bool isPlay = snapshot.data?.playing ?? false;
-                return IconButton(
-                  onPressed: () {
-                    clog.debug("Play Pause Button is pressed");
-                    context
-                        .read<AudioPlayerBloc>()
-                        .add(AudioPlayerPlayPauseToggleEvent());
-                  },
-                  color: Colors.white,
-                  iconSize: iconSize ?? 40,
-                  icon: Icon(isPlay
-                      ?pauseIcon?? HugeIcons.strokeRoundedPause
-                      :playIcon?? HugeIcons.strokeRoundedPlay),
+                return SpinPerfect(
+                  animate: state.audioPlayer.playing,
+                  duration: const Duration(milliseconds: 500),
+                  child: IconButton(
+                    onPressed: () {
+                      clog.debug("Play Pause Button is pressed");
+                      context
+                          .read<AudioPlayerBloc>()
+                          .add(AudioPlayerPlayPauseToggleEvent());
+                    },
+                    color: Colors.white,
+                    iconSize: iconSize ?? 40,
+                    icon: Icon(isPlay
+                        ?pauseIcon?? HugeIcons.strokeRoundedPause
+                        :playIcon?? HugeIcons.strokeRoundedPlay),
+                  ),
                 );
               });
         } else {

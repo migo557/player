@@ -26,7 +26,7 @@ class AudioPlayerCenterStackWidget extends StatelessWidget {
           const AudioPlayerGestureDetectorsBoxes(),
 
           ///-----Custom Volume Box Widget
-          const AudioPlayerCustomVolumeBoxWidget(),
+           AudioPlayerCustomVolumeBoxWidget(),
 
           //------- Seeking  Position
           const AudioPlayerSeekingPositionBoxWidget(),

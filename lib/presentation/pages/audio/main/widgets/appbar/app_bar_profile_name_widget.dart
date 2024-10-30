@@ -10,10 +10,11 @@ class AppBarProfileNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserDataCubit, UserDataState>(
+    return BlocSelector<UserDataCubit, UserDataState, String>(
+      selector: (state) => state.username,
       builder: (context, state) {
         return Text(
-          state.username,
+          state,
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
           style: AppTextStyles.profileName1,

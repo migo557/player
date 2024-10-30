@@ -6,8 +6,10 @@ import 'package:open_player/logic/volume_cubit/volume_cubit.dart';
 import 'package:open_player/presentation/common/nothing_widget.dart';
 
 class AudioPlayerCustomVolumeBoxWidget extends StatelessWidget {
-  const AudioPlayerCustomVolumeBoxWidget({super.key});
+   AudioPlayerCustomVolumeBoxWidget({super.key, this.boxHeight, this.boxWidth});
 
+  double? boxWidth;
+  double? boxHeight;
   @override
   Widget build(BuildContext context) {
     final Size mq = MediaQuery.sizeOf(context);
@@ -19,8 +21,8 @@ class AudioPlayerCustomVolumeBoxWidget extends StatelessWidget {
             visible: vState.showVolumeBar,
             child: Card(
               child: SizedBox(
-                height: mq.width * 0.2,
-                width: mq.width * 0.2,
+                height: boxHeight?? mq.width * 0.2,
+                width:boxWidth?? mq.width * 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: BlocBuilder<AudioPlayerBloc, AudioPlayerState>(
@@ -30,7 +32,7 @@ class AudioPlayerCustomVolumeBoxWidget extends StatelessWidget {
                             stream: audioState.audioPlayer.volumeStream,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
-                                double volume = snapshot.data ?? 0;
+                                double volume = snapshot.data ?? audioState.audioPlayer.volume;
                                 bool maxVolume = volume == 1.0;
                                 bool mute = volume == 0;
 

@@ -26,8 +26,8 @@ class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
           return StreamBuilder(
               stream: successState.audioPlayerCombinedStream,
               builder: (context, snapshot) {
-                Duration position = snapshot.data?.position ?? Duration.zero;
-                Duration duration = snapshot.data?.duration ?? Duration.zero;
+                Duration position = snapshot.data?.position ?? successState.audioPlayer.position;
+                Duration duration = snapshot.data?.duration ?? successState.audioPlayer.duration??Duration.zero;
 
                 return Padding(
                   padding: enablePadding? EdgeInsets.symmetric(

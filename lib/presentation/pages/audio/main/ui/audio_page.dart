@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_player/base/di/dependency_injection.dart';
 import 'package:open_player/presentation/pages/audio/main/widgets/appbar/audio_page_app_bar_widget.dart';
-import 'package:open_player/presentation/pages/audio/main/widgets/miniplayer/mini_audio_player_widget.dart';
+import 'package:open_player/presentation/common/miniplayer/mini_audio_player_widget.dart';
 import 'package:open_player/presentation/pages/audio/main/widgets/tabbar/audio_page_tab_bar_widget.dart';
 import 'package:open_player/presentation/pages/audio/sub/albums/ui/albums_page.dart';
 import 'package:open_player/presentation/pages/audio/sub/artists/ui/artists_page.dart';

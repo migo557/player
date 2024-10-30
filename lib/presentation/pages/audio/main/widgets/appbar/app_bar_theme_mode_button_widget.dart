@@ -16,9 +16,10 @@ class AppBarThemeModeButtonWidget extends StatelessWidget {
       onPressed: () {
         context.read<ThemeCubit>().toggleThemeMode();
       },
-      icon: BlocBuilder<ThemeCubit, ThemeState>(
+      icon: BlocSelector<ThemeCubit, ThemeState, bool>(
+        selector: (state) => state.isDarkMode,
         builder: (context, state) {
-          return Icon(state.isDarkMode
+          return Icon(state
               ? Icons.sunny
               : Icons.dark_mode);
         },

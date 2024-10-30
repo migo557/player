@@ -86,7 +86,7 @@ class ThemeState extends Equatable {
         isDefaultBottomNavBarPosition:
             themeBox.get(MyHiveKeys.isDefaultBottomNavBarPosition) ?? true,
         bottomNavBarHeight:
-            themeBox.get(MyHiveKeys.bottomNavBarHeight) ?? 0.045,
+            themeBox.get(MyHiveKeys.bottomNavBarHeight) ?? 0.05,
         bottomNavBarWidth: themeBox.get(MyHiveKeys.bottomNavBarWidth) ?? 0.8,
         isHoldBottomNavBarCirclePositionButton:
             themeBox.get(MyHiveKeys.isHoldBottomNavBarCirclePositionButton) ??

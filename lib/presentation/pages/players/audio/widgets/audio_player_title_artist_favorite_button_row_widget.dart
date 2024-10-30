@@ -28,9 +28,9 @@ class AudioPlayerTitleArtistFavoriteButtonRowWidget extends StatelessWidget {
                   child: StreamBuilder(
                       stream: audioPlayerState.audioPlayerCombinedStream,
                       builder: (context, snapshot) {
-                        int currentIndex = snapshot.data?.currentIndex??0;
+                        int? currentIndex = snapshot.data?.currentIndex??audioPlayerState.audioPlayer.currentIndex;
                         String title =
-                            audioPlayerState.audios[currentIndex].title;
+                          currentIndex!=null?   audioPlayerState.audios[currentIndex].title:"";
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

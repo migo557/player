@@ -22,7 +22,6 @@ class AppThemes {
               : Colors.white
           : Colors.white,
       visualDensity: themeState.visualDensity,
-      useMaterial3: themeState.useMaterial3,
       colorScheme: ColorScheme.fromSeed(
         seedColor: Color(themeState.primaryColor),
         primary: Color(themeState.primaryColor),
@@ -62,7 +61,6 @@ class AppThemes {
                       ? Color(themeState.customAppBarColor!)
                       : null
                   : null),
-      useMaterial3: themeState.useMaterial3,
       primaryColor: Color(themeState.primaryColor),
       visualDensity: themeState.visualDensity,
       colorScheme: ColorScheme.fromSeed(

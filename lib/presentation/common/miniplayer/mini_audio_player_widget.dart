@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:open_player/logic/volume_cubit/volume_cubit.dart';
-import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_actions_buttons_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_next_button_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_position_and_duration_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_previous_button_widget.dart';
@@ -13,7 +11,6 @@ import 'package:open_player/presentation/pages/players/audio/widgets/audio_playe
 import 'package:open_player/utils/duration/formatDuration.dart';
 
 import '../../../base/assets/fonts/app_fonts.dart';
-import '../../../base/assets/images/app-images.dart';
 import '../../../logic/audio_player_bloc/audio_player_bloc.dart';
 import '../nothing_widget.dart';
 import '../../pages/players/audio/ui/audio_player.dart';
@@ -59,7 +56,7 @@ class MiniAudioPlayerWidget extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                       margin: EdgeInsets.zero,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 5,
                         ),
                         child: Align(

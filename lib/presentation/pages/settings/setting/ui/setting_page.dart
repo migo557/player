@@ -42,15 +42,6 @@ class _SettingPageState extends State<SettingPage> {
                 initiallyExpanded: true,
                 title: const Texty(
                   en: "GENERAL",
-                  ar: "عام",
-                  es: "GENERAL",
-                  fr: "GÉNÉRAL",
-                  hi: "सामान्य",
-                  ur: "عام",
-                  zh: "一般",
-                  ps: "عمومي",
-                  kr: "일반",
-                  ru: "ОБЩИЙ",
                   style: TextStyle(fontSize: 20, letterSpacing: 1.5),
                 ),
                 children: [
@@ -59,15 +50,6 @@ class _SettingPageState extends State<SettingPage> {
                   ///!-------------------Profile-----------------------------///
                   SettingsListTileWidget(
                     en: "Profile",
-                    ar: "ملف",
-                    es: "Perfil",
-                    fr: "Profil",
-                    hi: "प्रोफ़ाइल",
-                    ur: "پروفائل",
-                    zh: "个人资料",
-                    ps: "پروفایل",
-                    kr: "프로필",
-                    ru: "Профиль",
                     iconData: HugeIcons.strokeRoundedProfile02,
                     onTap: () {
                       GoRouter.of(context).push(AppRoutes.userProfileRoute);
@@ -79,15 +61,6 @@ class _SettingPageState extends State<SettingPage> {
                   ///!-------------------Language-----------------------------///
                   SettingsListTileWidget(
                     en: "Language",
-                    ar: "لغة",
-                    es: "Idioma",
-                    fr: "Langue",
-                    hi: "भाषा",
-                    ur: "زبان",
-                    zh: "语言",
-                    ps: "ژبه",
-                    kr: "언어",
-                    ru: "Язык",
                     iconData: HugeIcons.strokeRoundedLanguageCircle,
                     onTap: () {
                       GoRouter.of(context).push(AppRoutes.languageRoute);
@@ -99,18 +72,9 @@ class _SettingPageState extends State<SettingPage> {
                   ///!-------------------Equalizer-----------------------------///
                   SettingsListTileWidget(
                     en: "Equalizer",
-                    ar: "موازن",
-                    es: "Ecualizador",
-                    fr: "Égaliseur",
-                    hi: "इक्वलाइज़र",
-                    ur: "ایکولائزر",
-                    zh: "均衡器",
-                    ps: "برابري",
-                    kr: "이퀄라이저",
-                    ru: "Эквалайзер",
                     iconData: Icons.equalizer,
                     onTap: () {
-                      context.push(AppRoutes.audioPlayerRoute);
+                      context.push(AppRoutes.splashRoute);
                     },
                   ),
 
@@ -119,15 +83,6 @@ class _SettingPageState extends State<SettingPage> {
                   ///!-------------------Feedback-----------------------------///
                   SettingsListTileWidget(
                     en: "Feedback",
-                    ar: "ملاحظات",
-                    es: "Comentarios",
-                    fr: "Retour d'information",
-                    hi: "प्रतिपुष्टि",
-                    ur: "تجاویز",
-                    zh: "反馈",
-                    ps: "تبصره",
-                    kr: "피드백",
-                    ru: "Обратная связь",
                     iconData: Icons.feedback,
                     onTap: () {},
                   ),
@@ -137,15 +92,6 @@ class _SettingPageState extends State<SettingPage> {
                   ///!-------------------Privacy Policy-----------------------------///
                   SettingsListTileWidget(
                     en: "Privacy Policy",
-                    ar: "سياسة الخصوصية",
-                    es: "Política de privacidad",
-                    fr: "Politique de confidentialité",
-                    hi: "गोपनीयता नीति",
-                    ur: "رازداری کی پالیسی",
-                    zh: "隐私政策",
-                    ps: "د محرمیت پالیسي",
-                    kr: "개인정보 처리방침",
-                    ru: "Политика конфиденциальности",
                     iconData: Icons.policy,
                     onTap: () {},
                   ),
@@ -160,15 +106,6 @@ class _SettingPageState extends State<SettingPage> {
                   ///!-------------------About-----------------------------///
                   SettingsListTileWidget(
                       en: "About",
-                      ar: "حول",
-                      es: "Acerca de",
-                      fr: "À propos",
-                      hi: "के बारे में",
-                      ur: "کے بارے میں",
-                      zh: "关于",
-                      ps: "په اړه",
-                      kr: "정보",
-                      ru: "О программе",
                       iconData: HugeIcons.strokeRoundedInformationDiamond,
                       onTap: () {}),
                 ],

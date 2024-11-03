@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:open_player/data/models/video_model.dart';
 import 'package:open_player/presentation/pages/players/audio/ui/audio_player.dart';
 import 'package:open_player/presentation/pages/players/video/ui/video_player.dart';
-import 'package:open_player/presentation/pages/settings/change-theme/ui/change-theme-page.dart';
+import 'package:open_player/presentation/pages/settings/change_accent_color/ui/change_accent_color_page.dart';
 import 'package:open_player/presentation/pages/settings/language/ui/language_page.dart';
 import 'package:open_player/presentation/pages/settings/user_profile/ui/user_profile_page.dart';
+import 'package:open_player/presentation/pages/splash/ui/splash_page.dart';
 import 'package:open_player/presentation/pages/view_directory/ui/view_directory_page.dart';
 import '../../presentation/pages/main/ui/main_page.dart';
 import '../../presentation/pages/search/audio/ui/search_audio_page.dart';
@@ -16,8 +16,12 @@ import 'app_routes.dart';
 final GoRouter router = GoRouter(
   routes: [
     GoRoute(
-      path: AppRoutes.initialRoute,
-      builder: (context, state) => const MainPage(),
+      path: AppRoutes.splashRoute,
+      builder: (context, state) => const SplashPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.mainRoute,
+      builder: (context, state) => MainPage(),
     ),
     GoRoute(
       path: AppRoutes.settingsRoute,
@@ -30,7 +34,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.changeThemeRoute,
-      builder: (context, state) => const ChangeThemePage(),
+      builder: (context, state) => ChangeAccentColorPage(),
     ),
     GoRoute(
       name: AppRoutes.languageRoute,
@@ -48,10 +52,10 @@ final GoRouter router = GoRouter(
         path: AppRoutes.videoPlayerRoute,
         builder: (context, state) {
           final data = state.extra as List;
-          return VideoPlayerPage(
-            videoIndex: data[0] as int,
-            playlist: data[1] as List<VideoModel>,
-          );
+          return const VideoPlayerPage(
+              // videoIndex: data[0] as int,
+              // playlist: data[1] as List<VideoModel>,
+              );
         }),
     GoRoute(
       name: AppRoutes.searchAudiosRoute,

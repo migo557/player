@@ -24,15 +24,7 @@ class SettingContrastLevelWidget extends StatelessWidget {
               const Gap(10),
               const Texty(
                 en: "Contrast Level",
-                ar: "مستوى التباين",
-                es: "Nivel de contraste",
-                fr: "Niveau de contraste",
-                hi: "संपर्क स्तर",
-                ur: "متضاد کی سطح",
-                zh: "对比度等级",
-                ps: "د تضاد کچه",
-                kr: "대비 수준",
-                ru: "Уровень контраста",
+       
               ),
               Expanded(
                 child: Slider(

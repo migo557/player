@@ -1,11 +1,8 @@
 class AppRoutes {
-  static const splashRoute = "/splash";
-  static const onBoardingRoute = "/onboarding";
-  static const initialRoute = '/';
+  static const splashRoute = "/";
+  static const mainRoute = '/main';
   static const homeRoute = "/home";
-
   static const settingsRoute = "/settings";
-
   static const aboutRoute = "/about";
   static const userProfileRoute = "/profile";
   static const privacyPolicyRoute = "/privacy_policy";
@@ -16,10 +13,4 @@ class AppRoutes {
   static const searchVideosRoute = "/search_video";
   static const searchAudiosRoute = "/search_audio";
   static const viewDirectoryRoute = "/view_directory";
-
-
-
-
-
-
 }

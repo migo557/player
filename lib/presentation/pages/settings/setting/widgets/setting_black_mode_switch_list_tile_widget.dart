@@ -31,15 +31,8 @@ class SettingBlackModeSwitchListTileWidget extends StatelessWidget {
                   Gap(10),
                   Texty(
                       en: "Black Mode",
-                      ar: "الوضع الأسود",
-                      es: "Modo negro",
-                      fr: "Mode noir",
-                      hi: "ब्लैक मोड",
-                      ur: "بلیک موڈ",
-                      zh: "黑色模式",
-                      ps: "تور موډ",
-                      kr: "블랙 모드",
-                      ru: "Чёрный режим"),
+                       style: TextStyle(),
+               ),
                 ],
               )),
         );

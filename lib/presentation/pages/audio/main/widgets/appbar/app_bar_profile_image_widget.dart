@@ -27,7 +27,7 @@ class AppBarProfileImageWidget extends StatelessWidget {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
             child: CircleAvatar(
-              minRadius: 20,
+              minRadius: 23,
               maxRadius: 28,
               backgroundImage: state.profileImagePath == null
                   ? const AssetImage(AppImages.defaultProfile)

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:open_player/base/assets/fonts/app_fonts.dart';
 
 class AppTextStyles {
-  static const greeting1 =
-      TextStyle(fontSize: 23, fontFamily: AppFonts.poppins);
-  static const profileName1 = TextStyle(
-    fontSize: 16,
+  static const greeting =
+      TextStyle(fontSize: 22, fontFamily: AppFonts.arizonia, overflow: TextOverflow.ellipsis);
+
+  static const profileName = TextStyle(
+    fontSize: 12,
     overflow: TextOverflow.ellipsis,
+    fontFamily: AppFonts.nabla
   );
   static const tabBarSelectedLabelStyleLightMode = TextStyle(
     fontSize: 20,

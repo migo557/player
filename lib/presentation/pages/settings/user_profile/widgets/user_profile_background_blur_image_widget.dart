@@ -26,7 +26,13 @@ class UserProfileBackgroundBlurImageWidget extends StatelessWidget {
                   fit: BoxFit.cover,
                 )
               : Image.file(
-                  File(userState.profileImagePath!),
+                  height: double.infinity,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.high,
+                  File(userState.profileImagePath!,
+                  
+                  ),
                 ),
         );
       },

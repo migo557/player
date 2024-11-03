@@ -6,7 +6,6 @@ import 'package:open_player/data/models/custom_audio_source_model.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../logic/audio_player_bloc/audio_player_bloc.dart';
-import '../../../models/audio_model.dart';
 import '../../../models/audioplayercombinedstream_model.dart';
 
 abstract class AudioPlayerServicesRepository {
@@ -110,7 +109,7 @@ final class AudioPlayerServices implements AudioPlayerServicesRepository {
   Future<void> nextEvent(
       Emitter<AudioPlayerState> emit, AudioPlayerNextEvent event) async {
     try {
-      if (await audioPlayer.hasNext) {
+      if (audioPlayer.hasNext) {
         await audioPlayer.seekToNext();
       }
     } catch (e) {
@@ -122,7 +121,7 @@ final class AudioPlayerServices implements AudioPlayerServicesRepository {
   Future<void> previousEvent(
       Emitter<AudioPlayerState> emit, AudioPlayerPreviousEvent event) async {
     try {
-      if (await audioPlayer.hasPrevious) {
+      if (audioPlayer.hasPrevious) {
         await audioPlayer.seekToPrevious();
       }
     } catch (e) {

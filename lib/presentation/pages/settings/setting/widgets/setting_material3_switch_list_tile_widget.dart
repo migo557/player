@@ -31,15 +31,7 @@ class SettingMaterial3SwitchListTileWidget extends StatelessWidget {
                   Gap(10),
                   Texty(
                      en: "Material3",
-                      ar: "ماتيريل3",
-                      es: "Material3",
-                      fr: "Material3",
-                      hi: "Material3",
-                      ur: "Material3",
-                      zh: "Material3",
-                      ps: "Material3",
-                      kr: "Material3",
-                      ru: "Material3"
+         
 
                   ),
                 ],

@@ -23,14 +23,17 @@ class UserProfileCircleAvatarWidget extends StatelessWidget {
       children: [
         BlocBuilder<UserDataCubit, UserDataState>(
           builder: (context, userState) {
-            return CircleAvatar(
-              minRadius: 60,
-              maxRadius: 90,
-              backgroundImage: tempImage != null
-                  ? FileImage(File(tempImage!.path))
-                  : userState.profileImagePath != null
-                      ? FileImage(File(userState.profileImagePath!))
-                      : const AssetImage(AppImages.defaultProfile),
+            return Card(
+              shape: const CircleBorder(),
+              child: CircleAvatar(
+                minRadius: 60,
+                maxRadius: 90,
+                backgroundImage: tempImage != null
+                    ? FileImage(File(tempImage!.path))
+                    : userState.profileImagePath != null
+                        ? FileImage(File(userState.profileImagePath!))
+                        : const AssetImage(AppImages.defaultProfile),
+              ),
             );
           },
         ),

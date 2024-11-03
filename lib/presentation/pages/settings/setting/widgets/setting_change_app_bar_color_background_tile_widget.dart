@@ -17,15 +17,7 @@ class SettingChangeAppBarColorBackgroundTileWidget extends StatelessWidget {
       builder: (context, themeState) {
         return SettingCustomColorSelectionListTileWidget(
      tileLabelEn: "Change AppBar Color",
-          tileLabelAr: "تغيير لون شريط التطبيق",
-          tileLabelEs: "Cambiar el color de la AppBar",
-          tileLabelFr: "Changer la couleur de l'AppBar",
-          tileLabelHi: "एप बार का रंग बदलें",
-          tileLabelUr: "ایپ بار کا رنگ تبدیل کریں",
-          tileLabelZh: "更改应用栏颜色",
-          tileLabelPs: "د ایپ بار رنګ بدل کړئ",
-          tileLabelKr: "앱 바 색상 변경",
-          tileLabelRu: "Изменить цвет AppBar",
+
 
           defaultThemeColor: Colors.white,
           isDefaultThemeColor:

@@ -1,29 +1,43 @@
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hugeicons/hugeicons.dart';
+import 'package:open_player/base/assets/fonts/app_fonts.dart';
+import 'package:open_player/base/db/hive/hive.dart';
 import 'package:open_player/base/services/language/app_languages.dart';
 import 'package:open_player/base/router/app_routes.dart';
-import 'package:open_player/logic/greeting/greeting_cubit.dart';
 import 'package:open_player/logic/language_cubit/language_cubit.dart';
+import 'package:open_player/presentation/pages/settings/language/widgets/language_page_next_button_widget.dart';
+import 'package:open_player/presentation/pages/settings/language/widgets/language_selection_tile_widget.dart';
 
 class LanguagePage extends StatelessWidget {
   const LanguagePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    bool isLogin =
+        MyHiveBoxes.userBox.get(MyHiveKeys.userIsLoggedIn, defaultValue: false);
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              context.go(AppRoutes.initialRoute);
-            },
-            icon: const Icon(CupertinoIcons.back)),
-        title: const Text("Select Language"),
+        leading: isLogin
+            ? IconButton(
+                onPressed: () {
+                  context.go(AppRoutes.mainRoute);
+                },
+                icon: const Icon(CupertinoIcons.back),
+              )
+            : null,
+        automaticallyImplyLeading: false,
+        title: Text(
+          isLogin ? "Select Language" : "Choose a language",
+          style: const TextStyle(fontFamily: AppFonts.poppins, fontSize: 18),
+        ),
+        actions: [
+          if (!isLogin)
+            const LanguagePageNextButtonWidget(),
+        ],
       ),
       body: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, state) {
@@ -40,30 +54,19 @@ class LanguagePage extends StatelessWidget {
                     AppLanguages.supportedLanguages[index]["flag"];
 
                 final currentLanguageCode = languageCode == state.languageCode;
-                return ListTile(
-                  onTap: () {
-                    context.read<LanguageCubit>().changeLanguage(languageCode);
-                    context
-                        .read<GreetingCubit>()
-                        .updateGreeting(languageCode: languageCode);
 
-                    log(languageCode);
-                    GoRouter.of(context).pop();
-                  },
-                  leading: countryFlag,
-                  title: Text(
-                    languageName,
-                    style: TextStyle(
-                        fontWeight: currentLanguageCode
-                            ? FontWeight.w500
-                            : FontWeight.normal),
-                  ),
-                  trailing: currentLanguageCode
-                      ? const Icon(HugeIcons.strokeRoundedTick01)
-                      : null,
-                );
+                //----------Tile Widget
+                return LanguageSelectionTileWidget(
+                    languageCode: languageCode,
+                    countryFlag: countryFlag,
+                    languageName: languageName,
+                    currentLanguageCode: currentLanguageCode);
               },
-              separatorBuilder: (context, index) => const Divider(),
+
+              //-------- Seperator
+              separatorBuilder: (context, index) => Divider(
+                    color: Colors.grey.shade300,
+                  ),
               itemCount: AppLanguages.supportedLanguages.length);
         },
       ),

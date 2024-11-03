@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/app_fonts.dart';
 import 'package:open_player/logic/user_data/user_data_cubit.dart';
 import 'package:open_player/logic/user_data/user_data_state.dart';
+
+import '../../../../../base/db/hive/hive.dart';
 
 class UserProfileTextFieldWidget extends StatelessWidget {
   const UserProfileTextFieldWidget({
@@ -13,12 +16,15 @@ class UserProfileTextFieldWidget extends StatelessWidget {
   final TextEditingController textEditingController;
   @override
   Widget build(BuildContext context) {
+      bool isLogin =
+        MyHiveBoxes.userBox.get(MyHiveKeys.userIsLoggedIn, defaultValue: false);
     final Size mq = MediaQuery.sizeOf(context);
     return Card(
-      color: Colors.white.withOpacity(0.1),
+      color: Colors.white.withOpacity(0.02),
+      shadowColor: Colors.black38,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Container(
-        width: mq.width * 0.95,
+        width: mq.width * 0.85,
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.1),
@@ -34,10 +40,11 @@ class UserProfileTextFieldWidget extends StatelessWidget {
                 FocusManager.instance.primaryFocus!.unfocus();
               },
               decoration: InputDecoration(
+                prefixIcon: const Icon(HugeIcons.strokeRoundedUser,color: Colors.white,),
                   hintStyle: const TextStyle(
                       color: Colors.white24, fontFamily: AppFonts.poppins),
                   border: InputBorder.none,
-                  hintText: userState.username),
+                  hintText: isLogin?  userState.username:"Enter your name"),
             );
           },
         ),

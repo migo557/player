@@ -27,6 +27,8 @@ class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
     on<AudioPlayerDisposeEvent>(_audioPlayerDispose);
   }
 
+
+
   /// Method to handle MusicPlayerInitializeEvent and Play Audio.
   FutureOr<void> _audioPlayerInitializeEvent(
       AudioPlayerInitializeEvent event, Emitter<AudioPlayerState> emit) async {
@@ -109,7 +111,7 @@ class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
   }
 
   FutureOr<void> _audioPlayerDispose(
-      AudioPlayerDisposeEvent event, Emitter<AudioPlayerState> emit) async{
-        await audioPlayer.dispose();
-      }
+      AudioPlayerDisposeEvent event, Emitter<AudioPlayerState> emit) async {
+    await audioPlayer.dispose();
+  }
 }

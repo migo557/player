@@ -1,15 +1,12 @@
-import 'dart:developer';
 import 'package:color_log/color_log.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:media_kit/media_kit.dart';
 import 'package:open_player/data/repositories/player/audio/audio_player_services_repository.dart';
 import 'package:open_player/data/repositories/player/video/video_player_services_repository.dart';
 import 'package:open_player/data/repositories/user/user_repository.dart';
 import 'package:open_player/logic/greeting/greeting_cubit.dart';
 import 'package:open_player/logic/language_cubit/language_cubit.dart';
-// import 'package:floating/floating.dart';
 import '../../data/providers/audio/audio_provider.dart';
 import '../../data/providers/videos/video_provider.dart';
 import '../../data/repositories/audio/audio_repository.dart';
@@ -23,8 +20,8 @@ initializeLocator() {
     locator.registerSingleton<AppThemes>(AppThemes());
     clog.checkSuccess(true, "AppThemes registred");
 
-   locator.registerSingleton<ScrollController>(ScrollController());
-    clog.checkSuccess(true,'ScrollController registered');
+    locator.registerSingleton<ScrollController>(ScrollController());
+    clog.checkSuccess(true, 'ScrollController registered');
 
     // Register AudioProvider
     locator.registerLazySingleton<AudioProvider>(() => AudioProvider());
@@ -44,9 +41,8 @@ initializeLocator() {
         () => VideoRepository(locator<VideoProvider>()));
     clog.checkSuccess(true, "VideoRepository registred");
 
-     // Register UserRepository
-    locator.registerLazySingleton<UserRepository>(
-        () => UserRepository());
+    // Register UserRepository
+    locator.registerLazySingleton<UserRepository>(() => UserRepository());
     clog.checkSuccess(true, "UserRepository registred");
 
     // Register AudioPlayer
@@ -58,9 +54,9 @@ initializeLocator() {
         () => AudioPlayerServices(audioPlayer: locator<AudioPlayer>()));
     clog.checkSuccess(true, "AudioPlayer Services Class is registred");
 
-        // Register VideoPlayer Services Repository
+    // Register VideoPlayer Services Repository
     locator.registerLazySingleton<VideoPlayerServices>(
-        () => VideoPlayerServices(player: locator<Player>()));
+        () => VideoPlayerServices());
     clog.checkSuccess(true, "VideoPlayer Services Class is registred");
 
     // Register Language Cubit
@@ -71,19 +67,9 @@ initializeLocator() {
     locator.registerLazySingleton<GreetingCubit>(
         () => GreetingCubit(languageCubit: locator<LanguageCubit>()));
     clog.checkSuccess(true, "GreetingCubit registred");
- 
-// Register Video Info Package
-    locator.registerLazySingleton<Player>(() => Player(
-          configuration: const PlayerConfiguration(
-            title: 'Video Player',
-            bufferSize: 128 * 1024 * 1024,
-            vo: 'gpu',
-            logLevel: MPVLogLevel.error,
-          ),
-        ));
+
+
     clog.checkSuccess(true, " Media Kit Player registred");
-
-
 
     // Register Floating (Picture In Picture) Package
     // locator.registerLazySingleton<Floating>(() => Floating());

@@ -17,28 +17,12 @@ class SettingVisualCustomizationWidget extends StatelessWidget {
     return const ExpansionTile(
         title: Texty(
             en: "Customization",
-            ar: "تخصيص",
-            es: "Personalización",
-            fr: "Personnalisation",
-            hi: "अनुकूलन",
-            kr: "사용자 정의",
-            ps: "د تنظیم",
-            ru: "Настройка",
-            ur: "حسب ضرورت",
-            zh: "自定义"),
+),
         children: [
           ExpansionTile(
             title: Texty(
               en: "Visual Customization",
-              ar: "التخصيص البصري",
-              es: "Personalización visual",
-              fr: "Personnalisation visuelle",
-              hi: "दृश्य अनुकूलन",
-              kr: "시각적 사용자 정의",
-              ps: "بصری تنظیم",
-              ru: "Визуальная настройка",
-              ur: "بصری تخصیص",
-              zh: "视觉自定义",
+        
               style: TextStyle(
                   fontSize: 13,
                   fontFamily: AppFonts.poppins,

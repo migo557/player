@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:open_player/presentation/common/texty.dart';
@@ -25,15 +24,6 @@ class SettingAppearanceSectionWidget extends StatelessWidget {
         children: [
           const Texty(
             en: "APPEARANCE",
-            ar: "مظهر",
-            es: "APARIENCIA",
-            fr: "APPARENCE",
-            hi: "दिखावट",
-            ur: "ظاہری",
-            zh: "外观",
-            ps: "ظاهر",
-            kr: "외관",
-            ru: "ВИД",
             style: TextStyle(fontSize: 20, letterSpacing: 1),
           ),
           Icon(
@@ -46,6 +36,10 @@ class SettingAppearanceSectionWidget extends StatelessWidget {
         //!-------------------- Restore To Default Setting----------------///
         SettingRestoreToDefaultSettingWidget(),
 
+
+        //!-------------------Theme Mode Switch Tile-----------------------------///
+        SettingThemeModeSwitchButtonWidget(),
+        
         ///!-------------------Default/Custom Theme Switch Tile-----------------------------///
         SettingToggleDefaultThemeSwitchListTileWidget(),
 
@@ -55,8 +49,7 @@ class SettingAppearanceSectionWidget extends StatelessWidget {
         //!-------------------- Use Material Switch Tile -------------------------//
         SettingMaterial3SwitchListTileWidget(),
 
-        //!-------------------Dark Mode Switch Tile-----------------------------///
-        SettingDarkModeButtonWidget(),
+     
 
         //!-------------------Black Mode Switch Tile-----------------------------///
         SettingBlackModeSwitchListTileWidget(),

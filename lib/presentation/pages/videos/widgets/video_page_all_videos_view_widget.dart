@@ -26,9 +26,18 @@ class VideoPageAllVideosViewWidget extends StatelessWidget {
         } else if (state is VideosSuccess) {
           // Show the list of videos
           if (state.videos.isEmpty) {
-            return const SliverToBoxAdapter(
-              child: Center(
-                child: Text("No videos found."),
+            return SliverToBoxAdapter(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("No videos found."),
+                  IconButton(
+                    onPressed: () {
+                      context.read<VideosBloc>().add(VideosLoadEvent());
+                    },
+                    icon: const Icon(HugeIcons.strokeRoundedRefresh),
+                  ),
+                ],
               ),
             );
           }

@@ -16,15 +16,7 @@ class SettingChangeScaffoldColorTileWidget extends StatelessWidget {
       builder: (context, themeState) {
         return SettingCustomColorSelectionListTileWidget(
           tileLabelEn: "Change Scaffold Color",
-          tileLabelAr: "تغيير لون السقالة",
-          tileLabelEs: "Cambiar el color del scaffold",
-          tileLabelFr: "Changer la couleur du scaffold",
-          tileLabelHi: "स्कैफोल्ड का रंग बदलें",
-          tileLabelUr: "سکافولڈ کا رنگ تبدیل کریں",
-          tileLabelZh: "更改脚手架颜色",
-          tileLabelPs: "د سکارفولډ رنګ بدل کړئ",
-          tileLabelKr: "스캐폴드 색상 변경",
-          tileLabelRu: "Изменить цвет каркаса",
+
           defaultThemeColor: Colors.transparent,
           isDefaultThemeColor: themeState.isDefaultScaffoldColor,
           resetToDefaultThemeColorButton: () {

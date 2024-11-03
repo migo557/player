@@ -10,32 +10,17 @@ class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
   const SettingCustomColorSelectionListTileWidget(
       {super.key,
       required this.tileLabelEn,
-       this.tileLabelUr,
-       this.tileLabelEs,
-       this.tileLabelHi,
-       this.tileLabelFr,
-       this.tileLabelPs,
-       this.tileLabelRu,
-       this.tileLabelKr,
-       this.tileLabelAr,
-       this.tileLabelZh,
+      this.translation,
       required this.isDefaultThemeColor,
       required this.customColor,
       required this.defaultThemeColor,
       required this.resetToDefaultThemeColorButton,
-      required this.selectColorOnTap});
+      required this.selectColorOnTap,
+      
+      });
 
   final String tileLabelEn;
-  final String? tileLabelUr;
-  final String? tileLabelHi;
-  final String? tileLabelAr;
-  final String? tileLabelFr;
-
-  final String? tileLabelEs;
-  final String? tileLabelPs;
-  final String? tileLabelRu;
-  final String? tileLabelKr;
-  final String? tileLabelZh;
+  final Map<String, String>? translation;
 
   final bool isDefaultThemeColor;
   final Color defaultThemeColor;
@@ -52,14 +37,7 @@ class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
           child: ListTile(
             title: Texty(
               en: tileLabelEn,
-              ar: tileLabelAr,
-              es: tileLabelEs,
-              fr: tileLabelFr,
-              hi: tileLabelHi,
-              kr: tileLabelKr,
-              ru: tileLabelRu,
-              ps: tileLabelPs,
-              zh: tileLabelZh,
+              translations: translation,
             ),
             trailing: Container(
               height: 35,

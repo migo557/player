@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_kit/media_kit.dart';
 import 'package:open_player/base/db/hive/hive.dart';
 import 'package:open_player/base/theme/themes.dart';
 import 'package:open_player/base/di/dependency_injection.dart';
@@ -8,7 +7,6 @@ import 'package:open_player/base/router/app_router.dart';
 import 'package:open_player/data/bloc_providers/bloc_providers.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
-
 import 'base/services/notification/notification_services.dart';
 
 // late MyObjectBoxDB objectbox;
@@ -16,8 +14,7 @@ import 'base/services/notification/notification_services.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeLocator();
-  // Necessary initialization for package:media_kit.
-  MediaKit.ensureInitialized();
+
 
   // Create ObjectBox instance
   // objectbox = await MyObjectBoxDB.create();

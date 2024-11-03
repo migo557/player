@@ -2,7 +2,6 @@ import 'package:color_log/color_log.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:open_player/base/assets/fonts/app_fonts.dart';
 
 class AudioPlayerTopBarWidget extends StatelessWidget {
   const AudioPlayerTopBarWidget({

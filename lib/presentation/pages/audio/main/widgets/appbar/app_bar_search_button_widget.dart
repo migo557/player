@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,12 +9,14 @@ class AudioPageAppBarSearchButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      iconSize: 30,
-      onPressed: () {
-         GoRouter.of(context).push(AppRoutes.searchAudiosRoute);
-      },
-      icon: const Icon(Icons.search),
+    return Center(
+      child: IconButton(
+        iconSize: 45,
+        onPressed: () {
+           context.push(AppRoutes.searchAudiosRoute);
+        },
+        icon: const Icon(CupertinoIcons.search_circle_fill),
+      ),
     );
   }
 }

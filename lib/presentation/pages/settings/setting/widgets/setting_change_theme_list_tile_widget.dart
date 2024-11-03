@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:open_player/presentation/pages/settings/change-theme/ui/change-theme-page.dart';
+import 'package:open_player/presentation/pages/settings/change_accent_color/ui/change_accent_color_page.dart';
 
 import '../../../../../logic/theme_cubit/theme_cubit.dart';
 import '../../../../../logic/theme_cubit/theme_state.dart';
@@ -20,16 +20,8 @@ class SettingChangeThemeSwitchListTileWidget extends StatelessWidget {
           child: ListTile(
             leading: const Icon(Icons.color_lens),
             title: const Texty(
-                en: "Change Theme",
-                ar: "تغيير الثيم",
-                es: "Cambiar tema",
-                fr: "Changer le thème",
-                hi: "थीम बदलें",
-                ur: "تھیم تبدیل کریں",
-                zh: "更改主题",
-                ps: "موضوع بدل کړئ",
-                kr: "테마 변경",
-                ru: "Изменить тему"),
+              en: "Change Theme",
+            ),
             trailing: CircleAvatar(
               radius: 15,
               backgroundColor: Color(state.primaryColor),
@@ -38,7 +30,7 @@ class SettingChangeThemeSwitchListTileWidget extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ChangeThemePage(),
+                    builder: (context) => ChangeAccentColorPage(),
                   ));
             },
           ),

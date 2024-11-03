@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/app_fonts.dart';
 import 'package:open_player/base/assets/images/app-images.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
@@ -9,7 +8,6 @@ import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/song_tile_more_button_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/ui/audio_player.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_play_pause_button_widget.dart';
-import 'package:open_player/utils/menu/app_menu.dart';
 
 import '../../../../../../data/models/audio_model.dart';
 
@@ -73,14 +71,15 @@ class SongTileWidget extends StatelessWidget {
                               initialMediaIndex: index, audioList: state.songs),
                         );
                   }
-
-                  ///!-----Show Player Screen ----///
-                  showModalBottomSheet(
-                    showDragHandle: false,
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (context) => const AudioPlayerPage(),
-                  );
+                  if (isSelected != null && isSelected) {
+                    ///!-----Show Player Screen ----///
+                    showModalBottomSheet(
+                      showDragHandle: false,
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (context) => const AudioPlayerPage(),
+                    );
+                  }
                 },
                 color: isSelected != null
                     ? isSelected
@@ -107,6 +106,7 @@ class _SongTile extends StatelessWidget {
   final AudiosSuccess state;
   final String songTitle;
   final Function()? onTap;
+
   final Color color;
   final bool? isSelected;
 
@@ -127,7 +127,7 @@ class _SongTile extends StatelessWidget {
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
           child: Row(
             children: [
-              //------ Profile Image -----//
+              //------ Thumbnail Image -----//
               Card(
                 margin: isPlaying ? EdgeInsets.zero : null,
                 shape: RoundedRectangleBorder(
@@ -169,6 +169,7 @@ class _SongTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //---Title
+
                     Text(
                       songTitle,
                       maxLines: 1,

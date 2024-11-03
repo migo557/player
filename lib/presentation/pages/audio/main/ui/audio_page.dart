@@ -29,24 +29,24 @@ class AudioPage extends StatelessWidget {
             length: 5,
             child: Column(
               children: [
-                 MiniAudioPlayerWidget(),
+                const MiniAudioPlayerWidget(),
                 Expanded(
                   child: CustomScrollView(
                     controller: locator.get<ScrollController>(),
                     slivers: [
-                      
                       //-------------------- AppBar -------------------------//
                       const AudioPageAppBarWidget(),
-                  
+
                       //-------------------- Tab Bar----------------------///
                       const AudioPageTabBarWidget(),
-                  
+
+                      //----------Fovorite Toggle Btn
+
                       //-------------- Tab Bar View --------------------//
                       _tabs[state.tabIndex]
                     ],
                   ),
                 ),
-               
               ],
             ),
           );
@@ -64,3 +64,4 @@ class AudioPage extends StatelessWidget {
     const AudioFoldersPage(),
   ];
 }
+

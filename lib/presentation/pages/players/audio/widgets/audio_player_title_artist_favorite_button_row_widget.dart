@@ -1,19 +1,29 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/app_fonts.dart';
 import 'package:open_player/presentation/common/nothing_widget.dart';
 import '../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 
-class AudioPlayerTitleArtistFavoriteButtonRowWidget extends StatelessWidget {
-  const AudioPlayerTitleArtistFavoriteButtonRowWidget({
-    super.key,
-  });
+class AudioPlayerTitleArtistFavoriteButtonRowWidget extends HookWidget {
+  const AudioPlayerTitleArtistFavoriteButtonRowWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     final Size mq = MediaQuery.sizeOf(context);
+    final scrollController = useScrollController();
+
+    useEffect(() {
+      Future.delayed(const Duration(seconds: 1), () {
+        if (scrollController.hasClients &&
+            scrollController.position.maxScrollExtent > 0) {
+          _startInfiniteScroll(scrollController);
+        }
+      });
+      return null;
+    }, []);
+
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: mq.width * 0.03, vertical: mq.height * 0.02),
@@ -23,46 +33,66 @@ class AudioPlayerTitleArtistFavoriteButtonRowWidget extends StatelessWidget {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ///------     Title & Artists    ------------///
                 Expanded(
                   child: StreamBuilder(
-                      stream: audioPlayerState.audioPlayerCombinedStream,
-                      builder: (context, snapshot) {
-                        int? currentIndex = snapshot.data?.currentIndex??audioPlayerState.audioPlayer.currentIndex;
-                        String title =
-                          currentIndex!=null?   audioPlayerState.audios[currentIndex].title:"";
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            FadeInDown(
-                              child: Text(
-                                title,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
+                    stream: audioPlayerState.audioPlayerCombinedStream,
+                    builder: (context, snapshot) {
+                      int? currentIndex = snapshot.data?.currentIndex ??
+                          audioPlayerState.audioPlayer.currentIndex;
+                      String title = currentIndex != null
+                          ? audioPlayerState.audios[currentIndex].title
+                          : "";
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //------------- TITLE ----------------//
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            controller: scrollController,
+                            child: Row(
+                              children: [
+                                Text(
+                                  "$title    ",
+                                  maxLines: 1,
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 25,
-                                    fontFamily: AppFonts.poppins),
-                              ),
+                                    fontFamily: AppFonts.poppins,
+                                  ),
+                                ),
+                                Text(
+                                  title,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                    fontFamily: AppFonts.poppins,
+                                  ),
+                                ),
+                              ],
                             ),
-                            const Text(
-                              "Solena Lame",
-                              style: TextStyle(
-                                  color: Colors.white54,
-                                  fontSize: 12,
-                                  fontFamily: AppFonts.poppins),
-                            ),
-                          ],
-                        );
-                      }),
-                ),
+                          ),
 
-                //---------- Favorite Button -----------------///
+
+                          //------------------- ARTISTS------------------//
+                          const Text(
+                            "Solena Lame",
+                            style: TextStyle(
+                              color: Colors.white54,
+                              fontSize: 12,
+                              fontFamily: AppFonts.poppins,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
                 IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      HugeIcons.strokeRoundedFavourite,
-                      color: Colors.white,
-                    ))
+                  onPressed: () {},
+                  icon: const Icon(HugeIcons.strokeRoundedFavourite,
+                      color: Colors.white),
+                )
               ],
             );
           }
@@ -70,5 +100,25 @@ class AudioPlayerTitleArtistFavoriteButtonRowWidget extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+void _startInfiniteScroll(ScrollController controller) async {
+  while (true) {
+    if (!controller.hasClients) return;
+
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    final maxScroll = controller.position.maxScrollExtent;
+    final minScroll = controller.position.minScrollExtent;
+
+    await controller.animateTo(
+      maxScroll,
+      duration: const Duration(seconds: 15),
+      curve: Curves.linear,
+    );
+
+    // Jump back to start instantly
+    controller.jumpTo(minScroll);
   }
 }

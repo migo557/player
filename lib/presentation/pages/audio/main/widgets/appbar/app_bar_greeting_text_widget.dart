@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_player/base/theme/app_textstyles.dart';
 
@@ -15,10 +16,9 @@ class AppBarGreetingTextWidget extends StatelessWidget {
         return Text(
           state,
           maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: AppTextStyles.greeting1,
-        );
+          style: AppTextStyles.greeting,
+        ).animate(autoPlay: true);
       },
-    );
+    ).animate().flip(duration: Duration(seconds: 2));
   }
 }

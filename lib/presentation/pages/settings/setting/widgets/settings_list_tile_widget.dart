@@ -8,31 +8,13 @@ class SettingsListTileWidget extends StatelessWidget {
     super.key,
     required this.iconData,
     required this.en,
-    this.ar,
-    this.es,
-    this.fr,
-    this.hi,
-    this.ur,
-    this.zh,
-    this.ps,
-    this.kr,
-    this.ru,
     this.onTap,
+    this.translation
   });
 
   final IconData iconData;
   final String en;
-  final String? ur;
-  final String? ar;
-  final String? fr;
-  final String? hi;
-  final String? zh;
-  final String? es;
-  final String? ps;
-  final String? ru;
-  final String? kr;
-
-
+  final Map<String, String>? translation;
 
   final onTap;
 
@@ -40,17 +22,9 @@ class SettingsListTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(iconData),
-      title: Texty(en: en,
-      
-      ar: ar,
-      es: es,
-      fr: fr,
-      hi: hi,
-      ur: ur,
-      zh: zh,
-      ps: ps,
-      ru: ru,
-      kr: kr,
+      title: Texty(
+        en: en,
+        translations: translation,
       ),
       onTap: onTap,
     );

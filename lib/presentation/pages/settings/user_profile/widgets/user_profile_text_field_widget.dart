@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:open_player/base/assets/fonts/app_fonts.dart';
+import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/logic/user_data/user_data_cubit.dart';
 import 'package:open_player/logic/user_data/user_data_state.dart';
 
-import '../../../../../base/db/hive/hive.dart';
+import '../../../../../base/db/hive_service.dart';
 
 class UserProfileTextFieldWidget extends StatelessWidget {
   const UserProfileTextFieldWidget({

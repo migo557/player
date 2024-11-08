@@ -8,7 +8,7 @@ import '../../providers/audio/audio_provider.dart';
 class AudioRepository {
   final AudioProvider audioProvider;
 
-  AudioRepository( this.audioProvider);
+  AudioRepository(this.audioProvider);
 
   Future<List<AudioModel>> getAudioFiles() async {
     try {
@@ -42,14 +42,15 @@ class AudioRepository {
   }
 
   Future<AudioModel> getAudioInfo(String audioPath) async {
-  
-
     return AudioModel(
       title: path.basenameWithoutExtension(audioPath),
       ext: path.extension(audioPath),
       path: audioPath,
-      fileSize: File(audioPath).statSync().size,
+      size: File(audioPath).statSync().size,
       thumbnail: null,
+      album:"" ,
+      artists:[""] ,
+      genre: "",
     );
   }
 }

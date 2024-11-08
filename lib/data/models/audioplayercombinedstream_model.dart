@@ -1,6 +1,6 @@
 import 'package:just_audio/just_audio.dart';
 
-class AudioPlayerCombinedStream {
+class AudioPlayerStreamCombiner {
   bool playing;
   Duration position;
   Duration? duration;
@@ -10,7 +10,7 @@ class AudioPlayerCombinedStream {
   LoopMode loopMode;
   bool shuffleModeEnabled;
   int? currentIndex;
-  AudioPlayerCombinedStream({
+  AudioPlayerStreamCombiner({
     required this.playing,
     required this.position,
     required this.duration,

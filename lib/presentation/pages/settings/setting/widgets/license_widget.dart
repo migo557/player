@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../../../../base/strings/app_contents.dart';
-import '../../../../common/texty.dart';
+import 'package:open_player/base/strings/app_strings.dart';
+import '../../../../../base/strings/app_disclaimer_licenses_strings.dart';
+import '../../../../common/widgets/texty.dart';
 import 'settings_list_tile_widget.dart';
 
 class LicenseWidget extends StatelessWidget {
@@ -13,16 +13,15 @@ class LicenseWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SettingsListTileWidget(
       en: "License",
-
       iconData: Icons.description,
       onTap: () {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
             title: const Texty(
-                en: "Licenses",
-                 style: TextStyle(),
-           ),
+              en: "Licenses",
+              style: TextStyle(),
+            ),
             content: const SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,8 +31,7 @@ class LicenseWidget extends StatelessWidget {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   Texty(
-                    en: AppContents.mitLicensesEn,
-                    
+                    en: AppDisclaimerAndLicensesStrings.mitLicensesEn,
                     style: TextStyle(fontSize: 16),
                   ),
                   // Add more licenses as needed
@@ -46,12 +44,12 @@ class LicenseWidget extends StatelessWidget {
                   showDialog(
                       context: context,
                       builder: (p0) => const AboutDialog(
-                            applicationVersion: "1.0",
+                            applicationVersion: AppStrings.appVersion,
                           ));
                 },
                 child: const Texty(
                   en: "More Licenses",
-                 style: TextStyle(),
+                  style: TextStyle(),
                 ),
               ),
               TextButton(
@@ -60,7 +58,7 @@ class LicenseWidget extends StatelessWidget {
                 },
                 child: const Texty(
                   en: "Close",
-                 style: TextStyle(),
+                  style: TextStyle(),
                 ),
               ),
             ],

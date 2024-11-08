@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:open_player/base/assets/fonts/app_fonts.dart';
-import 'package:open_player/base/assets/images/app-images.dart';
+import 'package:open_player/base/assets/fonts/styles.dart';
+import 'package:open_player/base/assets/images/app_images.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/song_tile_more_button_widget.dart';
-import 'package:open_player/presentation/pages/players/audio/ui/audio_player.dart';
+import 'package:open_player/presentation/pages/players/audio/view/audio_player.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_play_pause_button_widget.dart';
 
 import '../../../../../../data/models/audio_model.dart';
@@ -16,14 +16,16 @@ class SongTileWidget extends StatelessWidget {
     super.key,
     required this.index,
     required this.state,
-    required this.audio,
+    required this.audios,
   });
   final int index;
-  final AudioModel audio;
+  final List<AudioModel> audios;
+
   final AudiosSuccess state;
 
   @override
   Widget build(BuildContext context) {
+     final audio = audios[index];
     return BlocSelector<AudioPlayerBloc, AudioPlayerState,
         AudioPlayerSuccessState?>(
       selector: (state) {
@@ -32,12 +34,12 @@ class SongTileWidget extends StatelessWidget {
       builder: (context, playerState) {
         if (playerState == null) {
           return _SongTile(
-            index: index,
+            index: index - 1,
             state: state,
             songTitle: audio.title,
             onTap: () {
               context.read<AudioPlayerBloc>().add(AudioPlayerInitializeEvent(
-                  initialMediaIndex: index, audioList: state.songs));
+                  initialMediaIndex: index, audioList: audios));
 
               ///!-----Show Player Screen ----///
               showModalBottomSheet(
@@ -50,7 +52,7 @@ class SongTileWidget extends StatelessWidget {
             color: Theme.of(context).colorScheme.onPrimaryContainer,
           );
         }
-
+       
         return StreamBuilder(
             stream: playerState.audioPlayerCombinedStream,
             builder: (context, snapshot) {
@@ -68,7 +70,7 @@ class SongTileWidget extends StatelessWidget {
                   if (isSelected != null && !isSelected) {
                     context.read<AudioPlayerBloc>().add(
                           AudioPlayerInitializeEvent(
-                              initialMediaIndex: index, audioList: state.songs),
+                              initialMediaIndex: index, audioList: audios),
                         );
                   }
                   if (isSelected != null && isSelected) {

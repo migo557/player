@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gap/gap.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
-import 'package:open_player/presentation/common/texty.dart';
-import 'package:open_player/presentation/common/custom_theme_mode_button_widget.dart';
+import 'package:open_player/presentation/common/widgets/texty.dart';
+import 'package:open_player/presentation/common/widgets/custom_theme_mode_button_widget.dart';
 
 import '../../../../../logic/theme_cubit/theme_state.dart';
 

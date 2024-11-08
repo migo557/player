@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:open_player/presentation/common/texty.dart';
+import 'package:open_player/presentation/common/widgets/texty.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_black_mode_switch_list_tile_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_change_theme_list_tile_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_dark_mode_button_widget.dart';
@@ -36,26 +36,19 @@ class SettingAppearanceSectionWidget extends StatelessWidget {
         //!-------------------- Restore To Default Setting----------------///
         SettingRestoreToDefaultSettingWidget(),
 
-
         //!-------------------Theme Mode Switch Tile-----------------------------///
         SettingThemeModeSwitchButtonWidget(),
-        
+
         ///!-------------------Default/Custom Theme Switch Tile-----------------------------///
         SettingToggleDefaultThemeSwitchListTileWidget(),
 
         //!-------------------Change Theme Switch Tile-----------------------------///
         SettingChangeThemeSwitchListTileWidget(),
 
-        //!-------------------- Use Material Switch Tile -------------------------//
-        SettingMaterial3SwitchListTileWidget(),
-
-     
-
         //!-------------------Black Mode Switch Tile-----------------------------///
         SettingBlackModeSwitchListTileWidget(),
 
         //!-------------------Visual Customization-----------------------------///
-
         SettingVisualCustomizationWidget()
       ],
     );

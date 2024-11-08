@@ -4,9 +4,9 @@ import 'package:color_log/color_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:open_player/base/assets/images/app-images.dart';
+import 'package:open_player/base/assets/images/app_images.dart';
+import 'package:open_player/base/router/router.dart';
 
-import '../../../../../../base/router/app_routes.dart';
 import '../../../../../../logic/user_data/user_data_cubit.dart';
 import '../../../../../../logic/user_data/user_data_state.dart';
 

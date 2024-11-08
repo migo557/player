@@ -21,9 +21,11 @@
     <application android:label="Open Player" android:name="${applicationName}" android:icon="@mipmap/ic_launcher">
 
         <!-- Updated Activity for AudioService -->
-        <activity android:name="com.ryanheise.audioservice.AudioServiceActivity" android:supportsPictureInPicture="true" android:exported="true" android:launchMode="singleTop" android:taskAffinity="" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:enableOnBackInvokedCallback="true" android:windowSoftInputMode="adjustResize" android:resizeableActivity="true">
+        <activity android:name="com.ryanheise.audioservice.AudioServiceActivity"  android:supportsPictureInPicture="true" android:exported="true" android:launchMode="singleTop" android:taskAffinity="" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:enableOnBackInvokedCallback="true" android:windowSoftInputMode="adjustResize" android:resizeableActivity="true">
+
             <meta-data android:name="io.flutter.embedding.android.NormalTheme" android:resource="@style/NormalTheme" />
             <meta-data android:name="android.allow_multiple_resumed_activities" android:value="true" />
+
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

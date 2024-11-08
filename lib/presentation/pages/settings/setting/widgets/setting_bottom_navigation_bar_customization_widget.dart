@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:open_player/base/assets/fonts/app_fonts.dart';
+import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
-import 'package:open_player/presentation/common/texty.dart';
+import 'package:open_player/presentation/common/widgets/texty.dart';
 
 import 'setting_change_bottom_nav_bar_bg_color_tile_widget.dart';
 
@@ -24,7 +24,6 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
         return ExpansionTile(
           title: const Texty(
             en: "Bottom Navigation Bar",
-       
             style: TextStyle(
                 fontSize: 13,
                 fontFamily: AppFonts.poppins,
@@ -36,7 +35,6 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
 
             const Texty(
               en: "Positions",
-    
               style: TextStyle(
                   fontFamily: AppFonts.poppins,
                   fontWeight: FontWeight.bold,
@@ -47,20 +45,20 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Texty(
-                    en: "Left",
-                     style: TextStyle(),
-            ),
+                  en: "Left",
+                  style: TextStyle(),
+                ),
                 Texty(
-                    en: "Right",
-                     style: TextStyle(),
-           ),
+                  en: "Right",
+                  style: TextStyle(),
+                ),
                 Texty(
-                    en: "Top",
-                     style: TextStyle(),
-          ),
+                  en: "Top",
+                  style: TextStyle(),
+                ),
                 Texty(
-                    en: "Bottom",
-        ),
+                  en: "Bottom",
+                ),
               ],
             ),
             const Gap(20),
@@ -112,7 +110,7 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
               padding: EdgeInsets.all(8.0),
               child: Texty(
                 en: "Hold the circle slightly and move it vertically or horizontally",
-                 style: TextStyle(),
+                style: TextStyle(),
               ),
             ),
             const Gap(10),
@@ -173,7 +171,6 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
             const Gap(20),
             const Texty(
               en: "Size",
-  
               style: TextStyle(
                   fontFamily: AppFonts.poppins,
                   fontWeight: FontWeight.bold,
@@ -185,8 +182,7 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
               children: [
                 const Texty(
                   en: "Width",
-                   style: TextStyle(),
-    
+                  style: TextStyle(),
                 ),
                 Row(
                   children: [
@@ -195,9 +191,9 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                         context.read<ThemeCubit>().increaseBottomNavBarWidth();
                       },
                       label: const Texty(
-                          en: "Increase",
-                           style: TextStyle(),
-          ),
+                        en: "Increase",
+                        style: TextStyle(),
+                      ),
                       icon: const Icon(Icons.add),
                     ),
                     const Gap(10),
@@ -206,9 +202,9 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                         context.read<ThemeCubit>().decreaseBottomNavBarWidth();
                       },
                       label: const Texty(
-                          en: "Decrease",
-                           style: TextStyle(),
-         ),
+                        en: "Decrease",
+                        style: TextStyle(),
+                      ),
                       icon: const Icon(Icons.remove),
                     ),
                   ],
@@ -221,8 +217,7 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
               children: [
                 const Texty(
                   en: "Height",
-                   style: TextStyle(),
-       
+                  style: TextStyle(),
                 ),
                 Row(
                   children: [
@@ -231,9 +226,9 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                         context.read<ThemeCubit>().increaseBottomNavBarHeight();
                       },
                       label: const Texty(
-                          en: "Increase",
-                           style: TextStyle(),
-             ),
+                        en: "Increase",
+                        style: TextStyle(),
+                      ),
                       icon: const Icon(Icons.add),
                     ),
                     const Gap(10),
@@ -242,9 +237,9 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                         context.read<ThemeCubit>().decreaseBottomNavBarHeight();
                       },
                       label: const Texty(
-                          en: "Decrease",
-                           style: TextStyle(),
-            ),
+                        en: "Decrease",
+                        style: TextStyle(),
+                      ),
                       icon: const Icon(Icons.remove),
                     ),
                   ],
@@ -270,7 +265,7 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                 children: [
                   const Texty(
                     en: "Rotation",
-                     style: TextStyle(),
+                    style: TextStyle(),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -285,7 +280,7 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                           icon: const Icon(Icons.rotate_left),
                         ),
                       ),
-                     const Gap(20),
+                      const Gap(20),
                       CircleAvatar(
                         child: IconButton(
                           onPressed: () {
@@ -339,12 +334,11 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                     },
                     label: const Texty(
                       en: "Size",
-          style: TextStyle(),
+                      style: TextStyle(),
                     ),
                     icon: const Icon(HugeIcons.strokeRoundedResize01),
                   ),
-
-                   ElevatedButton.icon(
+                  ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       textStyle: const TextStyle(fontSize: 12),
                     ),
@@ -355,8 +349,7 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                     },
                     label: const Texty(
                       en: "Rotation",
-                       style: TextStyle(),
-                     
+                      style: TextStyle(),
                     ),
                     icon: const Icon(Icons.rotate_90_degrees_cw_sharp),
                   ),

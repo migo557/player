@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:open_player/base/assets/fonts/app_fonts.dart';
+import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
-import 'package:open_player/utils/snackbars/custom_snackbars.dart';
+import 'package:open_player/utils/custom_snackbars.dart';
 
 import '../../../../../logic/theme_cubit/theme_state.dart';
-import '../../../../common/texty.dart';
+import '../../../../common/widgets/texty.dart';
 
 class SettingRestoreToDefaultSettingWidget extends StatelessWidget {
   const SettingRestoreToDefaultSettingWidget({

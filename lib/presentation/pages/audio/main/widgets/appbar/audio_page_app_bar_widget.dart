@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:open_player/base/router/app_router.dart';
-import 'package:open_player/base/router/app_routes.dart';
-import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
-import 'package:open_player/presentation/common/nothing_widget.dart';
+import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 import 'package:open_player/presentation/pages/audio/main/widgets/appbar/app_bar_greeting_text_widget.dart';
 import 'package:open_player/presentation/pages/audio/main/widgets/appbar/app_bar_profile_name_widget.dart';
 
+import '../../../../../../base/router/router.dart';
 import '../../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 import 'app_bar_profile_image_widget.dart';
 import 'app_bar_search_button_widget.dart';
-import '../../../../../common/custom_theme_mode_button_widget.dart';
+import '../../../../../common/widgets/custom_theme_mode_button_widget.dart';
 
 class AudioPageAppBarWidget extends StatelessWidget {
   const AudioPageAppBarWidget({super.key});
@@ -74,7 +72,7 @@ class AudioPageAppBarWidget extends StatelessWidget {
                         const AudioPageAppBarSearchButtonWidget(),
 
                       //---- ThemeMode Button -----//
-                      const CustomThemeModeButtonWidget(),
+                     if (state is !AudioPlayerSuccessState)   const CustomThemeModeButtonWidget(),
 
                       //------- Space -----//
                       Gap(

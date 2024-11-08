@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:open_player/presentation/pages/settings/change_accent_color/ui/change_accent_color_page.dart';
+import 'package:open_player/presentation/pages/settings/change_accent_color/view/change_accent_color_page.dart';
 
 import '../../../../../logic/theme_cubit/theme_cubit.dart';
 import '../../../../../logic/theme_cubit/theme_state.dart';
-import '../../../../common/texty.dart';
+import '../../../../common/widgets/texty.dart';
 
 class SettingChangeThemeSwitchListTileWidget extends StatelessWidget {
   const SettingChangeThemeSwitchListTileWidget({

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../base/db/hive/hive.dart';
+import '../../base/db/hive_service.dart';
 
 class ThemeState extends Equatable {
   bool isDarkMode;
@@ -61,7 +61,7 @@ class ThemeState extends Equatable {
   static get themeBox => MyHiveBoxes.themeBox;
   factory ThemeState.initial() => ThemeState(
         defaultTheme: themeBox.get(MyHiveKeys.defaultTheme) ?? true,
-        primaryColor: themeBox.get(MyHiveKeys.primaryColor) ?? 0xFF00CED1,
+        primaryColor: themeBox.get(MyHiveKeys.primaryColor) ??  0xFF6A5ACD,
         useMaterial3: themeBox.get(MyHiveKeys.useMaterial3) ?? true,
         isBlackMode: themeBox.get(MyHiveKeys.isBlackMode) ?? false,
         isDarkMode: themeBox.get(MyHiveKeys.isDarkMode) ?? false,

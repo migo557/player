@@ -26,14 +26,15 @@ final class VideoInitializeEvent extends VideoPlayerEvent {
 /// Event to stop video playback
 final class VideoStopEvent extends VideoPlayerEvent {}
 
+final class VideoPlayPauseToggleEvent extends VideoPlayerEvent {}
+
+
 /// Event to toggle subtitle visibility
 final class ToggleSubtitlesEvent extends VideoPlayerEvent {}
 
 /// Event to toggle background playback
 final class ToggleBackgroundPlaybackEvent extends VideoPlayerEvent {}
 
-/// Event to toggle controls visibility
-final class ToggleControlsVisibilityEvent extends VideoPlayerEvent {}
 
-/// Event to toggle hardware acceleration
-final class ToggleHardwareAccelerationEvent extends VideoPlayerEvent {}
+
+

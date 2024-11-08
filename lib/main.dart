@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:open_player/base/db/hive/hive.dart';
-import 'package:open_player/base/theme/themes.dart';
-import 'package:open_player/base/di/dependency_injection.dart';
-import 'package:open_player/base/router/app_router.dart';
-import 'package:open_player/data/bloc_providers/bloc_providers.dart';
+import 'package:open_player/base/db/hive_service.dart';
+import 'package:open_player/base/theme/themes_data.dart';
+import 'package:open_player/base/di/injection.dart';
+import 'package:open_player/base/router/router.dart';
+import 'package:open_player/bloc_providers.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
 import 'base/services/notification/notification_services.dart';
@@ -15,7 +15,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeLocator();
 
-
   // Create ObjectBox instance
   // objectbox = await MyObjectBoxDB.create();
 
@@ -25,8 +24,7 @@ void main() async {
   // Initialize Hive database and register custom adapters
   await MyHiveDB.initializeHive();
 
-
-    // Set up notification services
+  // Set up notification services
   await NotificationService().initNotification();
 
   // Set up JustAudioBackground services
@@ -48,7 +46,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: myBlocProviders(),
+      providers: blocProviders(),
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, themeState) {
           return MaterialApp.router(

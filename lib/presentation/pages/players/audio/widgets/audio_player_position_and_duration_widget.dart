@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:open_player/presentation/common/nothing_widget.dart';
+import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 
 import '../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
-import '../../../../../utils/duration/formatDuration.dart';
+import '../../../../../utils/formatDuration.dart';
 
 class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
   const AudioPlayerPositionAndDurationWidget(

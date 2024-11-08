@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:open_player/base/router/app_routes.dart';
+
+import '../../../../../base/router/router.dart';
 
 class LanguagePageNextButtonWidget extends StatelessWidget {
   const LanguagePageNextButtonWidget({

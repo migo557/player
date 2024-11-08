@@ -21,8 +21,18 @@ final class VideoPlayerLoadingState extends VideoPlayerState {
 
 /// State when video is ready to play
 final class VideoPlayerReadyState extends VideoPlayerState {
+  const VideoPlayerReadyState({
+    required this.vlcPlayerController,
+  });
+  final VlcPlayerController vlcPlayerController;
+
+
+  
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        vlcPlayerController,
+      ];
 }
 
 /// Error state when video playback fails

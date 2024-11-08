@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:open_player/base/db/hive/hive.dart';
+import 'package:open_player/base/db/hive_service.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {

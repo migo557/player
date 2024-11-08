@@ -1,29 +1,44 @@
-import 'package:animate_do/animate_do.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:open_player/base/strings/app_strings.dart';
-import 'package:open_player/presentation/common/version_info_text_widget.dart';
-import 'package:open_player/presentation/pages/splash/widgets/splash_build_title_text_widget.dart';
+import 'package:open_player/base/assets/fonts/styles.dart';
 
 class SplashViewWidget extends StatelessWidget {
-  const SplashViewWidget({super.key});
+  const SplashViewWidget({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Center(
+        child:
+            //---Splash View
+            Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Center(
-          child: FadeIn(
-            child: const SplashBuildTitleTextWidget(text: AppStrings.appName),
-          ),
+        AnimatedTextKit(
+          isRepeatingAnimation: false,
+          animatedTexts: [
+            TyperAnimatedText(
+              "Open",
+              speed: Duration(milliseconds: 400),
+              textStyle: TextStyle(fontSize: 35, fontFamily: AppFonts.poppins),
+            ),
+          ],
         ),
-        const Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 16),
-            child: VersionInfoTextWidget(),
-          ),
+        AnimatedTextKit(
+          isRepeatingAnimation: false,
+          animatedTexts: [
+            TyperAnimatedText(
+              "Player",
+              speed: Duration(milliseconds: 300),
+              textStyle: TextStyle(fontSize: 35, fontFamily: AppFonts.arizonia),
+            )
+          ],
         ),
       ],
-    );
+    )
+
+        //----- On Boarding View
+        );
   }
 }

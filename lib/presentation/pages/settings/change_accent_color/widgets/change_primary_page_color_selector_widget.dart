@@ -20,12 +20,12 @@ class ChangePrimaryPageColorSelectorWidget extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 20),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: AppColors
+            itemCount: AppAccentColors
                 .colorHexCodesList.length, // Number of colors available
             itemBuilder: (context, index) {
               final isSelected = state.primaryColorListIndex ==
                   index; // Check if the color is selected
-              final color = AppColors.colorHexCodesList[index];
+              final color = AppAccentColors.colorHexCodesList[index];
 
               return GestureDetector(
                 onTap: () {

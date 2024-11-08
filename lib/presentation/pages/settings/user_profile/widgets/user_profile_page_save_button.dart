@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:open_player/base/assets/fonts/app_fonts.dart';
-import 'package:open_player/base/db/hive/hive.dart';
-import 'package:open_player/base/router/app_routes.dart';
+import 'package:open_player/base/assets/fonts/styles.dart';
+import 'package:open_player/base/db/hive_service.dart';
 import 'package:open_player/logic/user_data/user_data_cubit.dart';
+import '../../../../../base/router/router.dart';
 import '../../../../../logic/audio_bloc/audios_bloc.dart';
 import '../../../../../logic/videos_bloc/videos_bloc.dart';
 

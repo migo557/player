@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:open_player/base/assets/fonts/app_fonts.dart';
+import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_bottom_navigation_bar_customization_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_change_app_bar_color_background_tile_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_change_scaffold_color_tile_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_contrast_level_widget.dart';
 
-import '../../../../common/texty.dart';
+import '../../../../common/widgets/texty.dart';
 
 class SettingVisualCustomizationWidget extends StatelessWidget {
   const SettingVisualCustomizationWidget({

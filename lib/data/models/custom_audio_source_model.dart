@@ -15,9 +15,9 @@ class CustomAudioSource extends ProgressiveAudioSource {
           headers: headers ?? {'hashcode': audioModel.path.hashCode.toString()},
           tag: MediaItem(
             id: audioModel.path,
-            album: 'Unknown Album',
+            album: 'Unknown',
             title: audioModel.title,
-            artist: 'Unknown Artist',
+            artist: 'Unknown ',
             artUri: audioModel.thumbnail != null
                 ? Uri.dataFromBytes(
                     audioModel.thumbnail!,
@@ -25,12 +25,10 @@ class CustomAudioSource extends ProgressiveAudioSource {
                   )
                 : null,
             extras: {
-              'fileSize': audioModel.fileSize,
+              'fileSize': audioModel.size,
               'extension': audioModel.ext,
             },
-            
           ),
-        
           options: options ??
               const ProgressiveAudioSourceOptions(
                 androidExtractorOptions: AndroidExtractorOptions(
@@ -44,9 +42,11 @@ class CustomAudioSource extends ProgressiveAudioSource {
   // Helper method to create a playlist from a list of AudioModel
   static ConcatenatingAudioSource createPlaylist(List<AudioModel> audioList) {
     return ConcatenatingAudioSource(
-      children: audioList.map((audio) => CustomAudioSource(
-        audioModel: audio,
-      )).toList(),
+      children: audioList
+          .map((audio) => CustomAudioSource(
+                audioModel: audio,
+              ))
+          .toList(),
     );
   }
 
@@ -57,6 +57,6 @@ class CustomAudioSource extends ProgressiveAudioSource {
   String get title => audioModel.title;
   String get extension => audioModel.ext;
   String get filePath => audioModel.path;
-  int get size => audioModel.fileSize;
+  int get size => audioModel.size;
   Uint8List? get thumbnailData => audioModel.thumbnail;
 }

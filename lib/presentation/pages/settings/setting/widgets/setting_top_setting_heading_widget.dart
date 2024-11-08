@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../../common/texty.dart';
+import '../../../../common/widgets/texty.dart';
 
 class SettingTopSettingHeadingWidget extends StatelessWidget {
   const SettingTopSettingHeadingWidget({

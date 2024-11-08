@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:open_player/base/assets/fonts/app_fonts.dart';
-import 'package:open_player/presentation/common/nothing_widget.dart';
+import 'package:open_player/base/assets/fonts/styles.dart';
+import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 import '../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 
 class AudioPlayerTitleArtistFavoriteButtonRowWidget extends HookWidget {
@@ -12,17 +12,6 @@ class AudioPlayerTitleArtistFavoriteButtonRowWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final Size mq = MediaQuery.sizeOf(context);
-    final scrollController = useScrollController();
-
-    useEffect(() {
-      Future.delayed(const Duration(seconds: 1), () {
-        if (scrollController.hasClients &&
-            scrollController.position.maxScrollExtent > 0) {
-          _startInfiniteScroll(scrollController);
-        }
-      });
-      return null;
-    }, []);
 
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -48,31 +37,16 @@ class AudioPlayerTitleArtistFavoriteButtonRowWidget extends HookWidget {
                           //------------- TITLE ----------------//
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            controller: scrollController,
-                            child: Row(
-                              children: [
-                                Text(
-                                  "$title    ",
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 25,
-                                    fontFamily: AppFonts.poppins,
-                                  ),
-                                ),
-                                Text(
-                                  title,
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 25,
-                                    fontFamily: AppFonts.poppins,
-                                  ),
-                                ),
-                              ],
+                            child: Text(
+                              "$title    ",
+                              maxLines: 1,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontFamily: AppFonts.poppins,
+                              ),
                             ),
                           ),
-
 
                           //------------------- ARTISTS------------------//
                           const Text(
@@ -100,25 +74,5 @@ class AudioPlayerTitleArtistFavoriteButtonRowWidget extends HookWidget {
         },
       ),
     );
-  }
-}
-
-void _startInfiniteScroll(ScrollController controller) async {
-  while (true) {
-    if (!controller.hasClients) return;
-
-    await Future.delayed(const Duration(milliseconds: 500));
-
-    final maxScroll = controller.position.maxScrollExtent;
-    final minScroll = controller.position.minScrollExtent;
-
-    await controller.animateTo(
-      maxScroll,
-      duration: const Duration(seconds: 15),
-      curve: Curves.linear,
-    );
-
-    // Jump back to start instantly
-    controller.jumpTo(minScroll);
   }
 }

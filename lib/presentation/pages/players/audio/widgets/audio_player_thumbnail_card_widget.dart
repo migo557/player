@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:open_player/base/assets/images/app-images.dart';
+import 'package:open_player/base/assets/images/app_images.dart';
 
 class AudioPlayerThumbnailCardWidget extends StatelessWidget {
   const AudioPlayerThumbnailCardWidget(

@@ -74,6 +74,11 @@ dependencies:
   external_path: ^2.0.1
   animated_text_kit: ^4.2.2
   overflow_text_animated: ^0.0.6
+  auto_size_text: ^3.0.0
+  velocity_x: ^4.2.1
+  once: ^1.6.3
+  volume_controller: ^2.0.8
+  # on_audio_query: ^2.9.0
   # floating: ^4.0.1
   # flutter_media_metadata: 
   # metadata_god:

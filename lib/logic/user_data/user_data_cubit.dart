@@ -4,18 +4,17 @@ import 'package:bloc/bloc.dart';
 import 'package:color_log/color_log.dart';
 import 'package:open_player/base/services/permissions/app_permission_service.dart';
 import 'package:path/path.dart' as path;
-import '../../base/services/user/storage_services.dart';
-import '../../data/repositories/user/user_repository.dart';
+import '../../base/services/storage/storage_services.dart';
+import '../../data/services/user/user_services.dart';
 import 'user_data_state.dart';
-
 
 /// Manages user data state and operations using BLoC pattern
 class UserDataCubit extends Cubit<UserDataState> {
-  final UserRepository _userRepository;
+  final UserServiceImpl _userRepository;
   final StorageService _storageService;
 
   UserDataCubit({
-    required UserRepository userRepository,
+    required UserServiceImpl userRepository,
     required StorageService storageService,
   })  : _userRepository = userRepository,
         _storageService = storageService,
@@ -38,7 +37,9 @@ class UserDataCubit extends Cubit<UserDataState> {
 
       emit(state.copyWith(profileImagePath: newImagePath));
     } catch (e) {
-      clog.error('Failed to update profile picture \n $e',);
+      clog.error(
+        'Failed to update profile picture \n $e',
+      );
       // You might want to emit an error state here
     }
   }
@@ -53,7 +54,7 @@ class UserDataCubit extends Cubit<UserDataState> {
       await _userRepository.updateUsername(trimmedUsername);
       emit(state.copyWith(username: trimmedUsername));
     } catch (e) {
-       clog.error('Failed to update username\n $e');
+      clog.error('Failed to update username\n $e');
     }
   }
 
@@ -64,7 +65,9 @@ class UserDataCubit extends Cubit<UserDataState> {
       await _userRepository.updateLoginStatus(status);
       emit(state.copyWith(isLoggedIn: status));
     } catch (e) {
-       clog.error('Failed to update login status\n $e', );
+      clog.error(
+        'Failed to update login status\n $e',
+      );
     }
   }
 

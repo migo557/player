@@ -1,6 +1,5 @@
-
 import 'dart:developer';
-
+import 'package:color_log/color_log.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 
@@ -10,7 +9,7 @@ class NotificationService {
 
   Future<void> initNotification() async {
     try {
-      log('Starting initNotification');
+      clog.debug('Starting initNotification');
       const AndroidInitializationSettings initializationSettingsAndroid =
           AndroidInitializationSettings('app_logo');
 
@@ -18,7 +17,7 @@ class NotificationService {
           InitializationSettings(android: initializationSettingsAndroid);
 
       await notificationsPlugin.initialize(initializationSettings);
-      log('initNotification completed');
+      clog.debug('initNotification completed');
     } catch (e, stackTrace) {
       log('initNotification error: $e', stackTrace: stackTrace);
     }
@@ -36,8 +35,11 @@ class NotificationService {
         preloadArtwork: true,
         androidNotificationClickStartsActivity: true,
         androidStopForegroundOnPause: true,
+        fastForwardInterval: const Duration(seconds: 10),
+        rewindInterval: const Duration(seconds: 10),
       );
-      log('initJustAUdioBackgroundNotification completed');
+
+      clog.debug('initJustAUdioBackgroundNotification completed');
     } catch (e, stackTrace) {
       log('initJustAUdioBackgroundNotification error: $e',
           stackTrace: stackTrace);
@@ -47,8 +49,8 @@ class NotificationService {
   NotificationDetails notificationDetails() {
     //! Fill in appropriate values for channelId and channelName
     const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'lofiii_notification', // Change this to a unique value for your app
-      'lofiii', // Change this to a unique value for your app
+      'openplayer_notification', // Change this to a unique value for your app
+      'OpenPlayer', // Change this to a unique value for your app
       importance: Importance.max,
       priority: Priority.high,
     );

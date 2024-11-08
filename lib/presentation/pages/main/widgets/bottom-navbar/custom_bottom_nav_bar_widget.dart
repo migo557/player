@@ -67,7 +67,7 @@ class CustomBottomNavBarWidget extends StatelessWidget {
 
                         //--- Video Button ---//
                         BottomNavBarButtonWidget(
-                          icon: HugeIcons.strokeRoundedFolderVideo,
+                          icon: HugeIcons.strokeRoundedVideo02,
                           isSelected: index == 1,
                           pageIndex: 1,
                         ),

@@ -18,16 +18,16 @@ class AudioPlayerGestureDetectorsBoxes extends StatelessWidget {
         GestureDetector(
           //---[Backward Music]
           onDoubleTap: () {
-          context.read<AudioPlayerBloc>().add(AudioPlayerBackwardEvent());
+            context.read<AudioPlayerBloc>().add(AudioPlayerBackwardEvent());
           },
           // [For Volume] ,
           onVerticalDragUpdate: (details) {
             context
                 .read<VolumeCubit>()
                 .changeAudioPlayerVolume(details: details);
-            context.read<VolumeCubit>().audioPlayerVolumeBoxVisibilityToggle();
+            context.read<VolumeCubit>().volumeBoxVisibilityToggle();
           },
-          
+
           child: Container(
             width: mq.width / 2 / 2,
             decoration: const BoxDecoration(color: Colors.transparent),
@@ -60,7 +60,7 @@ class AudioPlayerGestureDetectorsBoxes extends StatelessWidget {
             context
                 .read<VolumeCubit>()
                 .changeAudioPlayerVolume(details: details);
-            context.read<VolumeCubit>().audioPlayerVolumeBoxVisibilityToggle();
+            context.read<VolumeCubit>().volumeBoxVisibilityToggle();
           },
           child: Container(
             width: mq.width / 2 / 2,

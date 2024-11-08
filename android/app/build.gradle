@@ -17,8 +17,10 @@ android {
 
     ///------ Newly Added code for Media Kit -------------------///
     packagingOptions {
-        pickFirst 'lib/x86_64/libmedia_kit_native_event_loop.so'
-    }    
+       // Fixes duplicate libraries build issue, 
+       // when your project uses more than one plugin that depend on C++ libs.
+        pickFirst 'lib/**/libc++_shared.so'
+    }  
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
@@ -41,7 +43,10 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
-
+         minifyEnabled true
+         proguardFiles getDefaultProguardFile(
+                 'proguard-android-optimize.txt'),
+                 'proguard-rules.pro'            
         }
 
     }

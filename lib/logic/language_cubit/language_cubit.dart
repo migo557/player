@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:open_player/base/db/hive/hive.dart';
+import 'package:open_player/base/db/hive_service.dart';
 
 part 'language_state.dart';
 

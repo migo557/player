@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../base/db/hive/hive.dart';
+import '../../base/db/hive_service.dart';
 
 /// Represents the state of user data
 class UserDataState extends Equatable {

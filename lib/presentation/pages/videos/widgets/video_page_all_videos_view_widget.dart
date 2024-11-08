@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:open_player/base/assets/fonts/app_fonts.dart';
-import 'package:open_player/base/router/app_routes.dart';
+import 'package:open_player/base/assets/fonts/styles.dart';
+import 'package:open_player/data/models/video_model.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
+import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
 import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
+
+import '../../../../base/router/router.dart';
 
 class VideoPageAllVideosViewWidget extends StatelessWidget {
   const VideoPageAllVideosViewWidget({
@@ -30,7 +33,7 @@ class VideoPageAllVideosViewWidget extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("No videos found."),
+                  const Text("No videos found. refresh now"),
                   IconButton(
                     onPressed: () {
                       context.read<VideosBloc>().add(VideosLoadEvent());
@@ -43,31 +46,35 @@ class VideoPageAllVideosViewWidget extends StatelessWidget {
           }
           return SliverList.builder(
             itemCount: state.videos.length,
-            itemBuilder: (context, index) => ListTile(
-              onTap: () {
-                context.read<AudioPlayerBloc>().add(AudioPlayerStopEvent());
-                List data = [
-                  index,
-                  state.videos,
-                ];
-
-                GoRouter.of(context)
-                    .push(AppRoutes.videoPlayerRoute, extra: data);
-              },
-              title: Text(
-                state.videos[index].title,
-                style:
-                    const TextStyle(fontFamily: AppFonts.poppins, fontSize: 15),
-              ),
-              // leading: CircleAvatar(
-              //   backgroundImage: MemoryImage(state.videos[index].thumbnail),
-              // ),
-              leading: const Icon(HugeIcons.strokeRoundedVideo01),
-              trailing: IconButton(
-                onPressed: () {},
-                icon: const Icon(HugeIcons.strokeRoundedMoreVerticalCircle01),
-              ),
-            ),
+            itemBuilder: (context, index) {
+              final VideoModel video = state.videos[index];
+              final String videoTitle = video.title;
+              return ListTile(
+                onTap: () {
+                  context.read<AudioPlayerBloc>().add(AudioPlayerStopEvent());
+                  context.read<VideoPlayerBloc>().add(VideoInitializeEvent(
+                      videoIndex: index, playlist: state.videos));
+                  GoRouter.of(context).push(
+                    AppRoutes.videoPlayerRoute,
+                  );
+                },
+                title: Text(
+                  videoTitle,
+                  style: TextStyle(
+                    fontFamily: AppFonts.arizonia,
+                    fontSize: 15,
+                  ),
+                ),
+                // leading: CircleAvatar(
+                //   backgroundImage: MemoryImage(state.videos[index].thumbnail),
+                // ),
+                leading: const Icon(HugeIcons.strokeRoundedVideo01),
+                trailing: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(HugeIcons.strokeRoundedMoreVerticalCircle01),
+                ),
+              );
+            },
           );
         } else if (state is VideosFailure) {
           // Display error message if loading failed

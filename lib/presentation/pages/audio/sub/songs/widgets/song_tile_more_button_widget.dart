@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:open_player/utils/menu/app_menu.dart';
+import 'package:open_player/utils/app_menu.dart';
 
 class SongTileMoreButtonWidget extends StatelessWidget {
   const SongTileMoreButtonWidget({

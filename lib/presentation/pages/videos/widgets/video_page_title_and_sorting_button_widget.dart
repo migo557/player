@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class VideoPageTitleAndSortingButtonWidget extends StatelessWidget {
   const VideoPageTitleAndSortingButtonWidget({
@@ -14,8 +13,38 @@ class VideoPageTitleAndSortingButtonWidget extends StatelessWidget {
        child: Row(
          mainAxisAlignment: MainAxisAlignment.spaceBetween,
          children: [
-           const Text("All Videos"),
-           IconButton(onPressed: () {}, icon: const Icon(HugeIcons.strokeRoundedSortingAZ02))
+          //-----Videos Length
+            Text(
+              "All Videos",
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            Spacer(),
+
+            //----- Sorting Button
+            PopupMenuButton(
+              child: Row(
+                children: [
+                  Text("name "),
+                  Icon(Icons.arrow_drop_down),
+                ],
+              ),
+              itemBuilder: (context) {
+                return [
+                  PopupMenuItem(
+                    child: Text("name"),
+                  ),
+                  PopupMenuItem(
+                    child: Text("Size"),
+                  ),
+                  PopupMenuItem(
+                    child: Text("Date Modified"),
+                  ),
+                  PopupMenuItem(
+                    child: Text("Type"),
+                  ),
+                ];
+              },
+            ),
          ],
        ),
      ),

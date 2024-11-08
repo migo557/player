@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
-import 'package:open_player/base/assets/images/app-images.dart';
+import 'package:open_player/base/assets/images/app_images.dart';
 
 class AudioPlayerBackgroundBlurImageWidget extends StatelessWidget {
   const AudioPlayerBackgroundBlurImageWidget({

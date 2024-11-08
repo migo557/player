@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:open_player/base/db/hive/hive.dart';
+import 'package:open_player/base/db/hive_service.dart';
 import '../../base/strings/app_greeting_strings.dart';
 import '../language_cubit/language_cubit.dart';
 part 'greeting_state.dart';

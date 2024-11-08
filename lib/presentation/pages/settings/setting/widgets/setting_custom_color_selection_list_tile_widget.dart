@@ -4,20 +4,19 @@ import 'package:gap/gap.dart';
 import 'package:open_player/base/theme/colors_palates.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
-import 'package:open_player/presentation/common/texty.dart';
+import 'package:open_player/presentation/common/widgets/texty.dart';
 
 class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
-  const SettingCustomColorSelectionListTileWidget(
-      {super.key,
-      required this.tileLabelEn,
-      this.translation,
-      required this.isDefaultThemeColor,
-      required this.customColor,
-      required this.defaultThemeColor,
-      required this.resetToDefaultThemeColorButton,
-      required this.selectColorOnTap,
-      
-      });
+  const SettingCustomColorSelectionListTileWidget({
+    super.key,
+    required this.tileLabelEn,
+    this.translation,
+    required this.isDefaultThemeColor,
+    required this.customColor,
+    required this.defaultThemeColor,
+    required this.resetToDefaultThemeColorButton,
+    required this.selectColorOnTap,
+  });
 
   final String tileLabelEn;
   final Map<String, String>? translation;
@@ -67,20 +66,20 @@ class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
                       const Gap(10),
                       Expanded(
                         child: GridView.builder(
-                          itemCount: AppColors.colorHexCodesList.length,
+                          itemCount: AppAccentColors.colorHexCodesList.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 6),
                           itemBuilder: (context, index) => GestureDetector(
                             onTap: () {
                               final int color =
-                                  AppColors.colorHexCodesList[index];
+                                  AppAccentColors.colorHexCodesList[index];
                               Navigator.pop(context);
                               return selectColorOnTap(colorCode: color);
                             },
                             child: CircleAvatar(
-                              backgroundColor:
-                                  Color(AppColors.colorHexCodesList[index]),
+                              backgroundColor: Color(
+                                  AppAccentColors.colorHexCodesList[index]),
                             ),
                           ),
                         ),

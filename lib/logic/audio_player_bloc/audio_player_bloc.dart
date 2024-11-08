@@ -2,16 +2,17 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:just_audio/just_audio.dart';
-import '../../base/di/dependency_injection.dart';
+import '../../base/di/injection.dart';
 import '../../data/models/audio_model.dart';
 import '../../data/models/audioplayercombinedstream_model.dart';
-import '../../data/repositories/player/audio/audio_player_services_repository.dart';
+import '../../data/services/audio/audio_player_services.dart';
 part 'audio_player_event.dart';
 part 'audio_player_state.dart';
 
 class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
   final AudioPlayer audioPlayer = locator.get<AudioPlayer>();
-  final AudioPlayerServices audioServices = locator.get<AudioPlayerServices>();
+  final AudioPlayerServiceImpl audioServices =
+      locator.get<AudioPlayerServiceImpl>();
   AudioPlayerBloc() : super(AudioPlayerInitialState()) {
     on<AudioPlayerInitializeEvent>(_audioPlayerInitializeEvent);
     on<AudioPlayerPlayPauseToggleEvent>(_audioPlayerPauseToggle);
@@ -27,33 +28,31 @@ class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
     on<AudioPlayerDisposeEvent>(_audioPlayerDispose);
   }
 
-
-
   /// Method to handle MusicPlayerInitializeEvent and Play Audio.
   FutureOr<void> _audioPlayerInitializeEvent(
       AudioPlayerInitializeEvent event, Emitter<AudioPlayerState> emit) async {
-    audioServices.initializeEvent(emit, event);
+    audioServices.initializePlayer(emit, event);
   }
 
   /// Method to handle  Play And Pause Audio.
   FutureOr<void> _audioPlayerPauseToggle(
       AudioPlayerPlayPauseToggleEvent event, Emitter<AudioPlayerState> emit) {
-    audioServices.playPauseAudio();
+    audioServices.playPauseTrack();
   }
 
   FutureOr<void> _audioPlayerNextEvent(
       AudioPlayerNextEvent event, Emitter<AudioPlayerState> emit) {
-    audioServices.nextEvent(emit, event);
+    audioServices.playNextTrack(emit, event);
   }
 
   FutureOr<void> _audioPlayerPreviousEvent(
       AudioPlayerPreviousEvent event, Emitter<AudioPlayerState> emit) {
-    audioServices.previousEvent(emit, event);
+    audioServices.playPreviousTrack(emit, event);
   }
 
   FutureOr<void> _audioPlayerSeekEvent(
       AudioPlayerSeekEvent event, Emitter<AudioPlayerState> emit) {
-    audioServices.seekEvent(emit, event);
+    audioServices.seekToPosition(emit, event);
   }
 
   FutureOr<void> _audioPlayerIsSeekingToggleEvent(

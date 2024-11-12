@@ -38,20 +38,23 @@ class AudioPlayerPage extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: mq.width * 0.05),
               child: const GlassophateWidget(
-                child: Column(
-                  children: [
-                    //------------   Music Title & Artist And Favorite Button Row
-                    AudioPlayerTitleArtistFavoriteButtonRowWidget(),
-
-                    //------------ Seek Bar
-                    AudioPlayerSeekBarWidget(),
-
-                    //------------ Position & Duration
-                    AudioPlayerPositionAndDurationWidget(),
-
-                    //----- Buttons ----//
-                    AudioPlayerActionsButtonsWidget()
-                  ],
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: [
+                      //------------   Music Title & Artist And Favorite Button Row
+                      AudioPlayerTitleArtistFavoriteButtonRowWidget(),
+                  
+                      //------------ Seek Bar
+                      AudioPlayerSeekBarWidget(),
+                  
+                      //------------ Position & Duration
+                      AudioPlayerPositionAndDurationWidget(),
+                  
+                      //----- Buttons ----//
+                      AudioPlayerActionsButtonsWidget()
+                    ],
+                  ),
                 ),
               ),
             ),

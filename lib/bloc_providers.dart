@@ -3,6 +3,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:open_player/base/di/injection.dart';
 import 'package:open_player/data/services/user/user_services.dart';
 import 'package:open_player/data/repositories/videos/video_repository.dart';
+import 'package:open_player/data/services/video_playback_service/video_playback_service.dart';
 import 'package:open_player/logic/audio_page_tab_bar_cubit/audio_page_tab_bar_cubit.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/logic/bottom_nav_bar_cubit/bottom_nav_bar_cubit.dart';
@@ -11,6 +12,7 @@ import 'package:open_player/logic/greeting/greeting_cubit.dart';
 import 'package:open_player/logic/language_cubit/language_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/user_data/user_data_cubit.dart';
+import 'package:open_player/logic/video_playback/video_playback_bloc.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
 import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
 import 'base/services/storage/storage_services.dart';
@@ -65,12 +67,13 @@ blocProviders() {
     ),
     BlocProvider(
       create: (context) => BrightnessCubit(),
-    )
-,
- BlocProvider(
-      create: (context) =>   ControlsVisibilityCubit(),
-    )
-
-  
+    ),
+    BlocProvider(
+      create: (context) => ControlsVisibilityCubit(),
+    ),
+    BlocProvider(
+      create: (context) => VideoPlaybackHiveBloc(
+          videoPlaybackHiveService: locator<VideoPlaybackHiveService>()),
+    ),
   ];
 }

@@ -20,11 +20,19 @@ class MyHiveDB {
 
         //! Open the language box
         Hive.openBox('user'),
+
+        //! Video Player Playback
+        Hive.openBox("videoPlaybacks"),
+
+        //! Favorite Audio
+        Hive.openBox("favorites_audios")
       ]).then(
         (value) {
-          MyHiveBoxes.themeBox = value[0];
-          MyHiveBoxes.languageBox = value[1];
-          MyHiveBoxes.userBox = value[2];
+          MyHiveBoxes.theme = value[0];
+          MyHiveBoxes.language = value[1];
+          MyHiveBoxes.user = value[2];
+          MyHiveBoxes.videoPlayback = value[3];
+          MyHiveBoxes.favoriteAudios = value[4];
         },
       );
 
@@ -39,9 +47,11 @@ class MyHiveDB {
 
 ///!----------------    MyHive Boxes
 class MyHiveBoxes {
-  static late Box themeBox;
-  static late Box languageBox;
-  static late Box userBox;
+  static late Box theme;
+  static late Box language;
+  static late Box user;
+  static late Box videoPlayback;
+  static late Box favoriteAudios;
 }
 
 ///!---------------      MyHive Keys
@@ -53,20 +63,16 @@ class MyHiveKeys {
   static const String userIsLoggedIn = "hive_user_login_status";
   static const String bottomNavBarRotation = "bottomNavBarTransform";
   static const String bottomNavBarIconRotation = "bottomNavBarIconTransform";
-
   static const String isDarkMode = "dm";
   static const String isBlackMode = "bm";
   static const String defaultTheme = "dt";
   static const String useMaterial3 = "m3";
   static const String isDefaultScaffoldColor = "dsc";
-
   static const String isDefaultAppBarColor = "dac";
   static const String isDefaultBottomNavBarBgColor = "dbnbc";
   static const String isDefaultBottomNavBarPosition = "dbnbp";
   static const String isDefaultBottomNavBarRotation = "dbnbT";
   static const String isDefaultBottomNavBarIconRotation = "dbnbIT";
-
-
   static const String contrastLevel = "cl";
   static const String customScaffoldColor = "csc";
   static const String customAppBarColor = "cabc";

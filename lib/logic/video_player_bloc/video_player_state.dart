@@ -23,16 +23,13 @@ final class VideoPlayerLoadingState extends VideoPlayerState {
 final class VideoPlayerReadyState extends VideoPlayerState {
   const VideoPlayerReadyState({
     required this.vlcPlayerController,
+    required this.playingVideoPath,
   });
   final VlcPlayerController vlcPlayerController;
-
-
-  
+  final String playingVideoPath;
 
   @override
-  List<Object> get props => [
-        vlcPlayerController,
-      ];
+  List<Object> get props => [vlcPlayerController, playingVideoPath];
 }
 
 /// Error state when video playback fails

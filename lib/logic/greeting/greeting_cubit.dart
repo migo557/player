@@ -17,7 +17,7 @@ class GreetingCubit extends Cubit<GreetingState> {
   GreetingCubit({required this.languageCubit})
       : super(GreetingState.initial()) {
     updateGreeting(
-        languageCode: MyHiveBoxes.languageBox.get(MyHiveKeys.defaultLanguage) ??
+        languageCode: MyHiveBoxes.language.get(MyHiveKeys.defaultLanguage) ??
             "en"); // Initialize the greeting when the cubit is created
   }
 

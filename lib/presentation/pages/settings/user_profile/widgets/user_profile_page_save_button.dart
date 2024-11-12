@@ -42,7 +42,6 @@ class UserProfilePageSaveButton extends StatelessWidget {
           // 6. Navigate to the main page of the app
           _navigateToMainPage(context);
 
-
           loadMedia(context);
         } else {
           // 8. If it's a login scenario, simply pop the current screen
@@ -76,10 +75,8 @@ class UserProfilePageSaveButton extends StatelessWidget {
   }
 
   userIsLoggedIn() async {
-    await MyHiveBoxes.userBox.put(MyHiveKeys.userIsLoggedIn, true);
+    await MyHiveBoxes.user.put(MyHiveKeys.userIsLoggedIn, true);
   }
-
-
 
   loadMedia(BuildContext context) {
     context.read<AudiosBloc>().add(AudiosLoadEvent());

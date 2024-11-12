@@ -38,6 +38,7 @@ class VideoPlayerTopBarWidget extends StatelessWidget {
                     onPressed: () {
                       ifOrientationLandscapeMakeItPotrait(context);
                       setToDefaultSystemTopBar();
+                      
                       context.pop();
                     },
                   ),
@@ -62,6 +63,7 @@ class VideoPlayerTopBarWidget extends StatelessWidget {
               ),
             ),
 
+            //----------- Second Row ----------//
             //---------- Floating  Buttons -----------------///
             FadeInRight(
               child: Row(
@@ -74,20 +76,23 @@ class VideoPlayerTopBarWidget extends StatelessWidget {
 
                   //------------ Screen Rotation
                   VideoPlayerIconButtonWidget(
-                      icon: HugeIcons.strokeRoundedScreenRotation,
-                      onTap: () {
-                        if (MediaQuery.orientationOf(context) ==
-                            Orientation.landscape) {
-                          SystemChrome.setPreferredOrientations(
-                              [DeviceOrientation.portraitUp]);
-                        } else {
-                          SystemChrome.setPreferredOrientations(
-                              [DeviceOrientation.landscapeLeft]);
-                        }
-                      }),
+                    icon: HugeIcons.strokeRoundedScreenRotation,
+                    onTap: () {
+                      if (MediaQuery.orientationOf(context) ==
+                          Orientation.landscape) {
+                        SystemChrome.setPreferredOrientations(
+                            [DeviceOrientation.portraitUp]);
+                      } else {
+                        SystemChrome.setPreferredOrientations(
+                            [DeviceOrientation.landscapeLeft]);
+                      }
+                    },
+                  ),
                 ],
               ),
-            )
+            ),
+
+           
           ],
         ),
       ),

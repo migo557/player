@@ -17,7 +17,7 @@ class SplashPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final isLoggedIn =
-        MyHiveBoxes.userBox.get(MyHiveKeys.userIsLoggedIn, defaultValue: false);
+        MyHiveBoxes.user.get(MyHiveKeys.userIsLoggedIn, defaultValue: false);
 
     useEffect(
       () {

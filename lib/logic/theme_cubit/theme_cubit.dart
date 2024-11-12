@@ -12,20 +12,20 @@ class ThemeCubit extends Cubit<ThemeState> {
     // Emit new state with toggled theme mode
     emit(state.copyWith(isDarkMode: !state.isDarkMode, isBlackMode: false));
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDarkMode, themeMode);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isBlackMode, false);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDarkMode, themeMode);
+    MyHiveBoxes.theme.put(MyHiveKeys.isBlackMode, false);
   }
 
   changeprimaryColor(int color) {
     emit(state.copyWith(primaryColor: color));
 
-    MyHiveBoxes.themeBox.put(MyHiveKeys.primaryColor, color);
+    MyHiveBoxes.theme.put(MyHiveKeys.primaryColor, color);
   }
 
   changeprimaryColorListIndex(int index) {
     emit(state.copyWith(primaryColorListIndex: index));
 
-    MyHiveBoxes.themeBox.put(MyHiveKeys.primaryColorListIndex, index);
+    MyHiveBoxes.theme.put(MyHiveKeys.primaryColorListIndex, index);
   }
 
   toggleDefaultTheme() {
@@ -34,26 +34,26 @@ class ThemeCubit extends Cubit<ThemeState> {
       defaultTheme: isDefault,
     ));
     // Update Theme in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.defaultTheme, isDefault);
+    MyHiveBoxes.theme.put(MyHiveKeys.defaultTheme, isDefault);
   }
 
   disableDefaultTheme() {
     emit(state.copyWith(defaultTheme: false));
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.defaultTheme, false);
+    MyHiveBoxes.theme.put(MyHiveKeys.defaultTheme, false);
   }
 
   toggleBlackMode() {
     bool isBlackMode = !state.isBlackMode;
     emit(state.copyWith(isBlackMode: isBlackMode));
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isBlackMode, isBlackMode);
+    MyHiveBoxes.theme.put(MyHiveKeys.isBlackMode, isBlackMode);
   }
 
   disableBlackMode() {
     emit(state.copyWith(isBlackMode: false));
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isBlackMode, false);
+    MyHiveBoxes.theme.put(MyHiveKeys.isBlackMode, false);
   }
 
   toggleMaterial3() {
@@ -62,14 +62,14 @@ class ThemeCubit extends Cubit<ThemeState> {
       state.copyWith(useMaterial3: isMaterial3),
     );
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.useMaterial3, isMaterial3);
+    MyHiveBoxes.theme.put(MyHiveKeys.useMaterial3, isMaterial3);
   }
 
   changeContrastLevel(double contrast) {
     emit(state.copyWith(contrastLevel: contrast));
 
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.contrastLevel, contrast);
+    MyHiveBoxes.theme.put(MyHiveKeys.contrastLevel, contrast);
   }
 
   changeVisualDensity(VisualDensity visualDensity) {
@@ -81,9 +81,9 @@ class ThemeCubit extends Cubit<ThemeState> {
         customScaffoldColor: colorCode, isDefaultScaffoldColor: false));
 
     // Update in Hive
-    await MyHiveBoxes.themeBox.put(MyHiveKeys.customScaffoldColor, colorCode);
+    await MyHiveBoxes.theme.put(MyHiveKeys.customScaffoldColor, colorCode);
     // Update in Hive
-    await MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultScaffoldColor, false);
+    await MyHiveBoxes.theme.put(MyHiveKeys.isDefaultScaffoldColor, false);
   }
 
   changeAppBarColor(int colorCode) {
@@ -91,9 +91,9 @@ class ThemeCubit extends Cubit<ThemeState> {
         customAppBarColor: colorCode, isDefaultAppBarColor: false));
 
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.customAppBarColor, colorCode);
+    MyHiveBoxes.theme.put(MyHiveKeys.customAppBarColor, colorCode);
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultAppBarColor, false);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultAppBarColor, false);
   }
 
   changeBottomNavBarBgColor(int colorCode) {
@@ -104,27 +104,27 @@ class ThemeCubit extends Cubit<ThemeState> {
     );
 
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.customBottomNavBarBgColor, colorCode);
+    MyHiveBoxes.theme.put(MyHiveKeys.customBottomNavBarBgColor, colorCode);
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarBgColor, false);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarBgColor, false);
   }
 
   resetToDefaultScaffoldColor() {
     emit(state.copyWith(isDefaultScaffoldColor: true));
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultScaffoldColor, true);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultScaffoldColor, true);
   }
 
   resetToDefaultAppBarColor() {
     emit(state.copyWith(isDefaultAppBarColor: true));
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultAppBarColor, true);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultAppBarColor, true);
   }
 
   resetToDefaultBottomNavBarBgColor() {
     emit(state.copyWith(isDefaultBottomNavBarBgColor: true));
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarBgColor, true);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarBgColor, true);
   }
 
   resetToDefaultBottomNavBarPosition() {
@@ -135,9 +135,9 @@ class ThemeCubit extends Cubit<ThemeState> {
     ));
 
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarPosition, true);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarPositionFromBottom, 0.05);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarPositionFromLeft, 0.1);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarPosition, true);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarPositionFromBottom, 0.05);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarPositionFromLeft, 0.1);
   }
 
   resetToDefaultBottomNavBarHeightAndWidth() {
@@ -146,8 +146,8 @@ class ThemeCubit extends Cubit<ThemeState> {
       bottomNavBarWidth: 0.08,
     ));
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarHeight, 0.045);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarWidth, 0.08);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarHeight, 0.045);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarWidth, 0.08);
   }
 
   resetToDefaultBottomNavBarRotation() {
@@ -158,12 +158,11 @@ class ThemeCubit extends Cubit<ThemeState> {
       isDefaultBottomNavBarRotation: true,
     ));
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarRotation, null);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarIconRotation, null);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarRotation, null);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarIconRotation, null);
 
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarRotation, true);
-    MyHiveBoxes.themeBox
-        .put(MyHiveKeys.isDefaultBottomNavBarIconRotation, true);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarRotation, true);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarIconRotation, true);
   }
 
   changeBottomNavBarPositionTop() {
@@ -178,8 +177,8 @@ class ThemeCubit extends Cubit<ThemeState> {
     );
 
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarPosition, false);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarPositionFromBottom,
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarPosition, false);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarPositionFromBottom,
         bottomNavBarPositionFromBottom);
   }
 
@@ -192,8 +191,8 @@ class ThemeCubit extends Cubit<ThemeState> {
           bottomNavBarPositionFromLeft: bottomNavBarPositionFromLeft),
     );
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarPosition, false);
-    MyHiveBoxes.themeBox.put(
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarPosition, false);
+    MyHiveBoxes.theme.put(
         MyHiveKeys.bottomNavBarPositionFromLeft, bottomNavBarPositionFromLeft);
   }
 
@@ -206,8 +205,8 @@ class ThemeCubit extends Cubit<ThemeState> {
     ));
 
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarPosition, false);
-    MyHiveBoxes.themeBox.put(
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarPosition, false);
+    MyHiveBoxes.theme.put(
         MyHiveKeys.bottomNavBarPositionFromLeft, bottomNavBarPositionFromLeft);
   }
 
@@ -222,8 +221,8 @@ class ThemeCubit extends Cubit<ThemeState> {
           bottomNavBarPositionFromBottom: bottomNavBarPositionFromBottom),
     );
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarPosition, false);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarPositionFromBottom,
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarPosition, false);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarPositionFromBottom,
         bottomNavBarPositionFromBottom);
   }
 
@@ -234,7 +233,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     emit(state.copyWith(bottomNavBarWidth: updatedWidth));
 
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarWidth, updatedWidth);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarWidth, updatedWidth);
   }
 
 // Update Rotation
@@ -249,13 +248,12 @@ class ThemeCubit extends Cubit<ThemeState> {
         isDefaultBottomNavBarIconRotation: false));
 
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarRotation, newValueOfNav);
-    MyHiveBoxes.themeBox
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarRotation, newValueOfNav);
+    MyHiveBoxes.theme
         .put(MyHiveKeys.bottomNavBarIconRotation, newValueofNavIcon);
 
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarRotation, false);
-    MyHiveBoxes.themeBox
-        .put(MyHiveKeys.isDefaultBottomNavBarIconRotation, false);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarRotation, false);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarIconRotation, false);
   }
 
   // Update Rotation
@@ -270,13 +268,11 @@ class ThemeCubit extends Cubit<ThemeState> {
         isDefaultBottomNavBarIconRotation: false));
 
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarRotation, newValueOfNav);
-    MyHiveBoxes.themeBox
-        .put(MyHiveKeys.bottomNavBarIconRotation, newValueOfIcon);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarRotation, newValueOfNav);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarIconRotation, newValueOfIcon);
 
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarRotation, false);
-    MyHiveBoxes.themeBox
-        .put(MyHiveKeys.isDefaultBottomNavBarIconRotation, false);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarRotation, false);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarIconRotation, false);
   }
 
   decreaseBottomNavBarWidth() {
@@ -286,7 +282,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     emit(state.copyWith(bottomNavBarWidth: updatedWidth));
 
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarWidth, updatedWidth);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarWidth, updatedWidth);
   }
 
   increaseBottomNavBarHeight() {
@@ -296,7 +292,7 @@ class ThemeCubit extends Cubit<ThemeState> {
         : state.bottomNavBarHeight;
     emit(state.copyWith(bottomNavBarHeight: updatedHeight));
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarHeight, updatedHeight);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarHeight, updatedHeight);
   }
 
   decreaseBottomNavBarHeight() {
@@ -306,7 +302,7 @@ class ThemeCubit extends Cubit<ThemeState> {
         : state.bottomNavBarHeight;
     emit(state.copyWith(bottomNavBarHeight: updatedHeight));
     // Update in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarHeight, updatedHeight);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarHeight, updatedHeight);
   }
 
   enableHoldBottomNavBarCirclePositionButton() {
@@ -337,20 +333,20 @@ class ThemeCubit extends Cubit<ThemeState> {
         bottomNavBarHeight: 0.045,
         bottomNavBarWidth: 0.8,
         bottomNavBarIconRotation: 0,
-       bottomNavBarRotation: 0,
+        bottomNavBarRotation: 0,
       ),
     );
 
     // Updates in Hive
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultAppBarColor, true);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultBottomNavBarBgColor, true);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.isDefaultScaffoldColor, true);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.contrastLevel, 0.9);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.defaultTheme, true);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.useMaterial3, true);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarPositionFromBottom, 0.05);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarPositionFromLeft, 0.1);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarHeight, 0.045);
-    MyHiveBoxes.themeBox.put(MyHiveKeys.bottomNavBarWidth, 0.8);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultAppBarColor, true);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarBgColor, true);
+    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultScaffoldColor, true);
+    MyHiveBoxes.theme.put(MyHiveKeys.contrastLevel, 0.9);
+    MyHiveBoxes.theme.put(MyHiveKeys.defaultTheme, true);
+    MyHiveBoxes.theme.put(MyHiveKeys.useMaterial3, true);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarPositionFromBottom, 0.05);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarPositionFromLeft, 0.1);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarHeight, 0.045);
+    MyHiveBoxes.theme.put(MyHiveKeys.bottomNavBarWidth, 0.8);
   }
 }

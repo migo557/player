@@ -17,5 +17,6 @@ class AudioModel {
       required this.thumbnail,
       required this.artists,
       required this.album,
-      required this.genre});
+      required this.genre,
+      });
 }

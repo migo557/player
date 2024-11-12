@@ -10,7 +10,7 @@ class GreetingState extends Equatable {
 
   factory GreetingState.initial() => GreetingState(
       greeting:
-          MyHiveBoxes.languageBox.get(MyHiveKeys.defaultLanguage) ?? "Hello!");
+          MyHiveBoxes.language.get(MyHiveKeys.defaultLanguage) ?? "Hello!");
   @override
   List<Object?> get props => [greeting];
 }

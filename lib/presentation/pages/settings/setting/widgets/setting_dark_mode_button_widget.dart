@@ -16,6 +16,9 @@ class SettingThemeModeSwitchButtonWidget extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         return ListTile(
+          onTap: () {
+            context.read<ThemeCubit>().toggleThemeMode();
+          },
           title: const Texty(
             en: "Theme Mode",
           ),

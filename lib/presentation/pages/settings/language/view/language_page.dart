@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +18,7 @@ class LanguagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isLogin =
-        MyHiveBoxes.userBox.get(MyHiveKeys.userIsLoggedIn, defaultValue: false);
+        MyHiveBoxes.user.get(MyHiveKeys.userIsLoggedIn, defaultValue: false);
     return Scaffold(
       appBar: AppBar(
         leading: isLogin
@@ -36,8 +35,7 @@ class LanguagePage extends StatelessWidget {
           style: const TextStyle(fontFamily: AppFonts.poppins, fontSize: 18),
         ),
         actions: [
-          if (!isLogin)
-            const LanguagePageNextButtonWidget(),
+          if (!isLogin) const LanguagePageNextButtonWidget(),
         ],
       ),
       body: BlocBuilder<LanguageCubit, LanguageState>(

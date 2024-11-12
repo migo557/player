@@ -4,10 +4,6 @@ import 'package:open_player/base/assets/fonts/styles.dart';
 import '../../logic/theme_cubit/theme_state.dart';
 
 class AppThemes {
-
-
-
-
   //------ Select/Choose Theme -------------//
   themes(ThemeState themeState) {
     //     ? themeState.isDarkMode
@@ -16,11 +12,6 @@ class AppThemes {
         : _defaultLightTheme(themeState: themeState);
     //     ? _flexDarkTheme(themeState: themeState)
   }
-
-
-  
-
-  
 
   //--- Default Light Theme ---//
   _defaultLightTheme({required ThemeState themeState}) {

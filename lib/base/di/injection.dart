@@ -5,6 +5,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:open_player/data/services/audio/audio_player_services.dart';
 import 'package:open_player/data/services/video/video_player_services.dart';
 import 'package:open_player/data/services/user/user_services.dart';
+import 'package:open_player/data/services/video_playback_service/video_playback_service.dart';
 import 'package:open_player/logic/greeting/greeting_cubit.dart';
 import 'package:open_player/logic/language_cubit/language_cubit.dart';
 import '../../data/providers/audio/audio_provider.dart';
@@ -49,6 +50,8 @@ initializeLocator() {
     locator.registerLazySingleton<AudioPlayer>(() => AudioPlayer());
     clog.checkSuccess(true, "JustAudio Player is registred");
 
+
+
     // Register AudioPlayer Services Repository
     locator.registerLazySingleton<AudioPlayerServiceImpl>(
         () => AudioPlayerServiceImpl(audioPlayer: locator<AudioPlayer>()));
@@ -68,7 +71,11 @@ initializeLocator() {
         () => GreetingCubit(languageCubit: locator<LanguageCubit>()));
     clog.checkSuccess(true, "GreetingCubit registred");
 
-    clog.checkSuccess(true, " Media Kit Player registred");
+
+    // Register Video PlaybackHive Service
+    locator.registerLazySingleton<VideoPlaybackHiveService>(
+        () => VideoPlaybackHiveService());
+    clog.checkSuccess(true, "VideoPlayback Hive services registred");
 
     // Register Floating (Picture In Picture) Package
     // locator.registerLazySingleton<Floating>(() => Floating());

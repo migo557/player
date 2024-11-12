@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class VideoPageTitleAndSortingButtonWidget extends StatelessWidget {
   const VideoPageTitleAndSortingButtonWidget({
@@ -8,17 +10,35 @@ class VideoPageTitleAndSortingButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-     child: Padding(
-       padding: const EdgeInsets.all(12.0),
-       child: Row(
-         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-         children: [
-          //-----Videos Length
-            Text(
-              "All Videos",
-              style: Theme.of(context).textTheme.titleSmall,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            //--------- Buttons Bar ------------//
+            Expanded(
+              child: OverflowBar(
+                alignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text("All Videos"),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: Icon(HugeIcons.strokeRoundedFavourite),
+                      label: Text("Favorites"),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Spacer(),
+            // Spacer(),
 
             //----- Sorting Button
             PopupMenuButton(
@@ -45,9 +65,9 @@ class VideoPageTitleAndSortingButtonWidget extends StatelessWidget {
                 ];
               },
             ),
-         ],
-       ),
-     ),
-            );
+          ],
+        ),
+      ),
+    );
   }
 }

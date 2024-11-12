@@ -7,16 +7,17 @@ import 'package:open_player/base/router/router.dart';
 import 'package:open_player/bloc_providers.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
+import 'base/db/object_box._service.dart';
 import 'base/services/notification/notification_services.dart';
 
-// late MyObjectBoxDB objectbox;
+late ObjectBoxDB objectbox;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeLocator();
 
   // Create ObjectBox instance
-  // objectbox = await MyObjectBoxDB.create();
+  // objectbox = await ObjectBoxDB.create();
 
   // Initialize ObjectBoxes
   // MyObjectBoxes.init(objectbox);
@@ -34,6 +35,7 @@ void main() async {
   // clog.info('Setting preferred orientations');
   // await SystemChrome.setPreferredOrientations([
   //   DeviceOrientation.portraitUp,
+
   // ]);
   // clog.checkSuccess(true, 'Preferred orientations set to Potrait Up Only');
 

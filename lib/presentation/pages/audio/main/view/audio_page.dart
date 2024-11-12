@@ -32,6 +32,7 @@ class AudioPage extends StatelessWidget {
                 Expanded(
                   child: CustomScrollView(
                     controller: locator.get<ScrollController>(),
+                    physics: BouncingScrollPhysics(),
                     slivers: [
                       //-------------------- AppBar -------------------------//
                       const AudioPageAppBarWidget(),

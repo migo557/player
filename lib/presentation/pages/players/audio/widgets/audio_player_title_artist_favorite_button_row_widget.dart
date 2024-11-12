@@ -1,12 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
+import 'package:open_player/data/services/audio_hive_service.dart/audio_hive_service.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 import '../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 
-class AudioPlayerTitleArtistFavoriteButtonRowWidget extends HookWidget {
+class AudioPlayerTitleArtistFavoriteButtonRowWidget extends StatelessWidget {
   const AudioPlayerTitleArtistFavoriteButtonRowWidget({super.key});
 
   @override
@@ -19,19 +19,24 @@ class AudioPlayerTitleArtistFavoriteButtonRowWidget extends HookWidget {
       child: BlocBuilder<AudioPlayerBloc, AudioPlayerState>(
         builder: (context, audioPlayerState) {
           if (audioPlayerState is AudioPlayerSuccessState) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: StreamBuilder(
-                    stream: audioPlayerState.audioPlayerCombinedStream,
-                    builder: (context, snapshot) {
-                      int? currentIndex = snapshot.data?.currentIndex ??
-                          audioPlayerState.audioPlayer.currentIndex;
-                      String title = currentIndex != null
-                          ? audioPlayerState.audios[currentIndex].title
-                          : "";
-                      return Column(
+            return StreamBuilder(
+              stream: audioPlayerState.audioPlayerCombinedStream,
+              builder: (context, snapshot) {
+                int? currentIndex = snapshot.data?.currentIndex ??
+                    audioPlayerState.audioPlayer.currentIndex;
+                String title = currentIndex != null
+                    ? audioPlayerState.audios[currentIndex].title
+                    : "";
+                String currentFilePath = currentIndex != null
+                    ? audioPlayerState.audios[currentIndex].path
+                    : "";
+
+                bool isFavorite =
+                    AudioHiveService().checkIsFaoriteStatus(currentFilePath);
+                return Row(
+                  children: [
+                    Expanded(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           //------------- TITLE ----------------//
@@ -58,16 +63,24 @@ class AudioPlayerTitleArtistFavoriteButtonRowWidget extends HookWidget {
                             ),
                           ),
                         ],
-                      );
-                    },
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(HugeIcons.strokeRoundedFavourite,
-                      color: Colors.white),
-                )
-              ],
+                      ),
+                    ),
+
+                    //------------- Favorite Button -------------//
+
+                    IconButton(
+                      onPressed: () {
+                        AudioHiveService().toggleFavorite(currentFilePath);
+                      },
+                      icon: Icon(
+                          isFavorite
+                              ? CupertinoIcons.heart_fill
+                              : CupertinoIcons.heart,
+                          color: Colors.white),
+                    ),
+                  ],
+                );
+              },
             );
           }
           return nothing;

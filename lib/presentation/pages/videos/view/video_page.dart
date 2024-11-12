@@ -11,6 +11,7 @@ class VideosPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: [
           //------------  AppBar -----------///
           VideoPageSliverAppBarWidget(),
@@ -20,7 +21,6 @@ class VideosPage extends StatelessWidget {
 
           //----------- All Videos View -----------------///
           VideoPageAllVideosViewWidget(),
-
         ],
       ),
     );

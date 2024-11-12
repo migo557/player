@@ -7,7 +7,7 @@ class LanguageState extends Equatable {
 
   factory LanguageState.initial() => LanguageState(
       languageCode:
-          MyHiveBoxes.languageBox.get(MyHiveKeys.defaultLanguage) ?? "en");
+          MyHiveBoxes.language.get(MyHiveKeys.defaultLanguage) ?? "en");
 
   LanguageState copyWith({languageCode}) {
     return LanguageState(languageCode: languageCode ?? this.languageCode);

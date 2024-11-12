@@ -16,6 +16,7 @@ class UserProfilePageBackButtonWidget extends StatelessWidget {
       top: mq.height * 0.02,
       child: SafeArea(
         child: CircleAvatar(
+          backgroundColor: Theme.of(context).primaryColor,
           child: IconButton(
             onPressed: () {
               GoRouter.of(context).pop();

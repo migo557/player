@@ -1,6 +1,5 @@
 // video_player/presentation/pages/video_player_page.dart
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_player/presentation/common/methods/set_orientation_potrait.dart';
 import 'package:open_player/presentation/common/methods/system_ui_mode.dart';

@@ -35,7 +35,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
     bool isLogin =
-        MyHiveBoxes.userBox.get(MyHiveKeys.userIsLoggedIn, defaultValue: false);
+        MyHiveBoxes.user.get(MyHiveKeys.userIsLoggedIn, defaultValue: false);
     final Size mq = MediaQuery.sizeOf(context);
     return Scaffold(
       body: Stack(

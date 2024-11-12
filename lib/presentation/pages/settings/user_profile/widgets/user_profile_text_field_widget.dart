@@ -16,8 +16,8 @@ class UserProfileTextFieldWidget extends StatelessWidget {
   final TextEditingController textEditingController;
   @override
   Widget build(BuildContext context) {
-      bool isLogin =
-        MyHiveBoxes.userBox.get(MyHiveKeys.userIsLoggedIn, defaultValue: false);
+    bool isLogin =
+        MyHiveBoxes.user.get(MyHiveKeys.userIsLoggedIn, defaultValue: false);
     final Size mq = MediaQuery.sizeOf(context);
     return Card(
       color: Colors.white.withOpacity(0.02),
@@ -40,11 +40,14 @@ class UserProfileTextFieldWidget extends StatelessWidget {
                 FocusManager.instance.primaryFocus!.unfocus();
               },
               decoration: InputDecoration(
-                prefixIcon: const Icon(HugeIcons.strokeRoundedUser,color: Colors.white,),
+                  prefixIcon: const Icon(
+                    HugeIcons.strokeRoundedUser,
+                    color: Colors.white,
+                  ),
                   hintStyle: const TextStyle(
                       color: Colors.white24, fontFamily: AppFonts.poppins),
                   border: InputBorder.none,
-                  hintText: isLogin?  userState.username:"Enter your name"),
+                  hintText: isLogin ? userState.username : "Enter your name"),
             );
           },
         ),

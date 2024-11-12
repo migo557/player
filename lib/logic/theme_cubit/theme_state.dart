@@ -58,10 +58,10 @@ class ThemeState extends Equatable {
     required this.isHoldBottomNavBarCirclePositionButton,
   });
 
-  static get themeBox => MyHiveBoxes.themeBox;
+  static get themeBox => MyHiveBoxes.theme;
   factory ThemeState.initial() => ThemeState(
         defaultTheme: themeBox.get(MyHiveKeys.defaultTheme) ?? true,
-        primaryColor: themeBox.get(MyHiveKeys.primaryColor) ??  0xFF6A5ACD,
+        primaryColor: themeBox.get(MyHiveKeys.primaryColor) ?? 0xFF6A5ACD,
         useMaterial3: themeBox.get(MyHiveKeys.useMaterial3) ?? true,
         isBlackMode: themeBox.get(MyHiveKeys.isBlackMode) ?? false,
         isDarkMode: themeBox.get(MyHiveKeys.isDarkMode) ?? false,
@@ -85,8 +85,7 @@ class ThemeState extends Equatable {
             themeBox.get(MyHiveKeys.bottomNavBarPositionFromLeft) ?? 0.1,
         isDefaultBottomNavBarPosition:
             themeBox.get(MyHiveKeys.isDefaultBottomNavBarPosition) ?? true,
-        bottomNavBarHeight:
-            themeBox.get(MyHiveKeys.bottomNavBarHeight) ?? 0.05,
+        bottomNavBarHeight: themeBox.get(MyHiveKeys.bottomNavBarHeight) ?? 0.05,
         bottomNavBarWidth: themeBox.get(MyHiveKeys.bottomNavBarWidth) ?? 0.8,
         isHoldBottomNavBarCirclePositionButton:
             themeBox.get(MyHiveKeys.isHoldBottomNavBarCirclePositionButton) ??

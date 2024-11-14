@@ -8,19 +8,23 @@ part 'controls_visibility_state.dart';
 class ControlsVisibilityCubit extends Cubit<ControlsVisibilityState> {
   Timer? videoTimer;
   ControlsVisibilityCubit()
-      : super(ControlsVisibilityState(showVideoControls: false));
+      : super(ControlsVisibilityState(
+            showVideoControls: false, lockScreenTapping: false));
 
   toggleVideoControlsVisibilty() {
-    
-    emit(ControlsVisibilityState(showVideoControls: true));
+    emit(state.copyWith(showVideoControls: true));
 
     videoTimer?.cancel();
 
     videoTimer = Timer(
       Duration(seconds: 6),
       () {
-       emit(ControlsVisibilityState(showVideoControls: false)); 
+        emit(state.copyWith(showVideoControls: false));
       },
     );
+  }
+
+  toggleLockScreenButton() {
+    emit(state.copyWith(lockScreenTapping: !state.lockScreenTapping));
   }
 }

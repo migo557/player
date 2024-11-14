@@ -48,7 +48,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
         return Stack(
           children: [
             //-------Volume Controller ---------//
-            const VideoPlayerVolumeControllerWidget(),
+              const VideoPlayerVolumeControllerWidget(),
 
             //--------- Brightness Controller------//
             const VideoPlayerBrightnessControllerWidget(),
@@ -61,14 +61,17 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
             ),
 
             //------------ Video Top Bar --------------//
-            if (cState.showVideoControls) const VideoPlayerTopBarWidget(),
+            VideoPlayerTopBarWidget(
+              state: widget.videoPlayerReadyState,
+              cState: cState,
+            ),
 
             //---------- VideoPlayer Bottom Bar Widget //----
-            // if (cState.showVideoControls)
+            if (cState.showVideoControls && !cState.lockScreenTapping)
               VideoPlayerBottomWidget(state: widget.videoPlayerReadyState),
 
             //---------- Brightness Box -------//
-            const CustomBrightnessBoxWidget(),
+             const CustomBrightnessBoxWidget(),
 
             // -------------- Resume where you left Button -----------///
             VideoPlayerResumeButtonWidget(widget: widget),

@@ -51,10 +51,6 @@ class VideoPlayerBottomWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   //----- Subtitles Button
-                  // VideoPlayerSubtitlesSelector(
-                  //   state: state,
-                  // ),
-
                   IconButton(
                     color: Colors.white,
                     icon: Icon(Icons.subtitles),

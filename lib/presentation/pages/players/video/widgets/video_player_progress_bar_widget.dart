@@ -28,7 +28,7 @@ class VideoPlayerProgressBarWidget extends HookWidget {
         children: [
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
-              trackHeight: 2,
+              trackHeight: isSeeking.value? 10:2,
               thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
               overlayShape: const RoundSliderOverlayShape(overlayRadius: 15),
               activeTrackColor: Colors.white,
@@ -69,10 +69,17 @@ class VideoPlayerProgressBarWidget extends HookWidget {
                     style: const TextStyle(color: Colors.white70),
                   ),
                 if (isSeeking.value)
-                  Text(
-                    formatDuration(
-                        Duration(seconds: seekingPosition.value.toInt())),
-                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 3,vertical: 1),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20)
+                    ),
+                    child: Text(
+                      formatDuration(
+                          Duration(seconds: seekingPosition.value.toInt())),
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                 Text(
                   formatDuration(duration.value),

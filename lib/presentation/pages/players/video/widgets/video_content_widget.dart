@@ -48,7 +48,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
         return Stack(
           children: [
             //-------Volume Controller ---------//
-              const VideoPlayerVolumeControllerWidget(),
+               VideoPlayerVolumeControllerWidget(),
 
             //--------- Brightness Controller------//
             const VideoPlayerBrightnessControllerWidget(),

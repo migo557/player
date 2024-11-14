@@ -134,7 +134,10 @@ class VideoPlayerSubtitlesSelector extends HookWidget {
           _SubtitleOption(
             title: 'Off',
             isSelected: activeTrackId == -1,
-            onTap: () => _handleTrackSelection(-1),
+            onTap: () {
+              _handleTrackSelection(-1);
+              context.pop();
+            },
             leading: Icon(Icons.subtitles_off),
           ),
           ...tracks.entries.map(
@@ -142,7 +145,10 @@ class VideoPlayerSubtitlesSelector extends HookWidget {
               title: entry.value,
               subtitle: 'Track ${entry.key}',
               isSelected: activeTrackId == entry.key,
-              onTap: () => _handleTrackSelection(entry.key),
+              onTap: () {
+                _handleTrackSelection(entry.key);
+                context.pop();
+              },
             ),
           ),
         ],
@@ -257,7 +263,13 @@ class _SubtitleOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoListTile(
       leading: leading,
-      title: Text(title),
+      title: Text(
+        title,
+        style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black),
+      ),
       subtitle: subtitle != null ? Text(subtitle!) : null,
       trailing: isSelected
           ? const Icon(

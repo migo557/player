@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
+import 'package:velocity_x/velocity_x.dart';
 import '../../../../../logic/Control_visibility/controls_visibility_cubit.dart';
 import '../../../../../utils/formatDuration.dart';
 
@@ -26,9 +27,10 @@ class VideoPlayerProgressBarWidget extends HookWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          //------------- Slider ----------------//
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
-              trackHeight: isSeeking.value? 10:2,
+              trackHeight: 2,
               thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
               overlayShape: const RoundSliderOverlayShape(overlayRadius: 15),
               activeTrackColor: Colors.white,
@@ -58,33 +60,31 @@ class VideoPlayerProgressBarWidget extends HookWidget {
               },
             ),
           ),
+
+          //---------------- Position, Durations
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (!isSeeking.value)
-                  Text(
-                    formatDuration(position.value),
-                    style: const TextStyle(color: Colors.white70),
-                  ),
+                //---------- Positions
+                formatDuration(position.value).text.white.shadowBlur(1).make(),
+                //------ Seeking Position
                 if (isSeeking.value)
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 3,vertical: 1),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)
-                    ),
-                    child: Text(
-                      formatDuration(
-                          Duration(seconds: seekingPosition.value.toInt())),
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                Text(
-                  formatDuration(duration.value),
-                  style: const TextStyle(color: Colors.white70),
-                ),
+                  formatDuration(
+                          Duration(seconds: seekingPosition.value.toInt()))
+                      .text
+                      .extraBold
+                      .amber500.shadowBlur(1)
+                      .make(),
+
+                //--------- Total Video Duration
+                if (!isSeeking.value)
+                  formatDuration(duration.value)
+                      .text
+                      .white
+                      .shadowBlur(1)
+                      .make(),
               ],
             ),
           ),

@@ -32,4 +32,6 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
 
   FutureOr<void> _videoPlayPause(
       VideoPlayPauseToggleEvent event, Emitter<VideoPlayerState> emit) {}
+
+
 }

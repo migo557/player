@@ -6,9 +6,7 @@ import 'package:open_player/logic/Control_visibility/controls_visibility_cubit.d
 import 'package:open_player/logic/volume_cubit/volume_cubit.dart';
 
 class VideoPlayerVolumeControllerWidget extends StatelessWidget {
-  const VideoPlayerVolumeControllerWidget({
-    super.key,
-  });
+  const VideoPlayerVolumeControllerWidget({super.key, });
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +21,7 @@ class VideoPlayerVolumeControllerWidget extends StatelessWidget {
                 .read<ControlsVisibilityCubit>()
                 .toggleVideoControlsVisibilty();
           },
+       
           onVerticalDragUpdate: (details) {
             context.read<VolumeCubit>().changeSystemVolume(
                   details: details,

@@ -92,6 +92,35 @@ class VideoPlayerTopBarWidget extends HookWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    //------------ Screen Rotation
+                    VideoPlayerIconButtonWidget(
+                      icon: HugeIcons.strokeRoundedScreenRotation,
+                      onTap: () {
+                        if (MediaQuery.orientationOf(context) ==
+                            Orientation.landscape) {
+                          SystemChrome.setPreferredOrientations(
+                              [DeviceOrientation.portraitUp]);
+                        } else {
+                          SystemChrome.setPreferredOrientations(
+                              [DeviceOrientation.landscapeLeft]);
+                        }
+                        context
+                            .read<ControlsVisibilityCubit>()
+                            .toggleVideoControlsVisibilty();
+                      },
+                    ),
+
+                    //------------ Change Aspect Ratio
+                    // VideoPlayerIconButtonWidget(
+                    //   icon: HugeIcons.strokeRoundedAspectRatio,
+                    //   onTap: () {
+                    //     state.vlcPlayerController.setVideoAspectRatio("16:9");
+                    //     context
+                    //         .read<ControlsVisibilityCubit>()
+                    //         .toggleVideoControlsVisibilty();
+                    //   },
+                    // ),
+
                     //------------ Lock Button
                     if (showMoreIcons.value)
                       VideoPlayerIconButtonWidget(
@@ -106,28 +135,32 @@ class VideoPlayerTopBarWidget extends HookWidget {
                     if (showMoreIcons.value)
                       VideoPlayerIconButtonWidget(
                           icon: HugeIcons.strokeRoundedPictureInPictureOn,
-                          onTap: () {}),
+                          onTap: () {
+                            context
+                                .read<ControlsVisibilityCubit>()
+                                .toggleVideoControlsVisibilty();
+                          }),
 
-                    //------------ Screen Rotation
-                    VideoPlayerIconButtonWidget(
-                      icon: HugeIcons.strokeRoundedScreenRotation,
-                      onTap: () {
-                        if (MediaQuery.orientationOf(context) ==
-                            Orientation.landscape) {
-                          SystemChrome.setPreferredOrientations(
-                              [DeviceOrientation.portraitUp]);
-                        } else {
-                          SystemChrome.setPreferredOrientations(
-                              [DeviceOrientation.landscapeLeft]);
-                        }
-                      },
-                    ),
+                    //---------- Background Play Button
+                    if (showMoreIcons.value)
+                      VideoPlayerIconButtonWidget(
+                          icon: HugeIcons.strokeRoundedHeadphones,
+                          onTap: () {
+                            context
+                                .read<ControlsVisibilityCubit>()
+                                .toggleVideoControlsVisibilty();
+                          }),
+
+                    //---------- Arrow Button to toggle more buttons
                     VideoPlayerIconButtonWidget(
                         icon: showMoreIcons.value
                             ? HugeIcons.strokeRoundedCircleArrowLeft01
                             : HugeIcons.strokeRoundedCircleArrowRight01,
                         onTap: () {
                           showMoreIcons.value = !showMoreIcons.value;
+                          context
+                              .read<ControlsVisibilityCubit>()
+                              .toggleVideoControlsVisibilty();
                         }),
                   ],
                 ),
@@ -141,6 +174,9 @@ class VideoPlayerTopBarWidget extends HookWidget {
                     context
                         .read<ControlsVisibilityCubit>()
                         .toggleLockScreenButton();
+                    context
+                        .read<ControlsVisibilityCubit>()
+                        .toggleVideoControlsVisibilty();
                     context
                         .read<ControlsVisibilityCubit>()
                         .toggleVideoControlsVisibilty();

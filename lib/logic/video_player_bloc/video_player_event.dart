@@ -28,13 +28,9 @@ final class VideoStopEvent extends VideoPlayerEvent {}
 
 final class VideoPlayPauseToggleEvent extends VideoPlayerEvent {}
 
-
 /// Event to toggle subtitle visibility
 final class ToggleSubtitlesEvent extends VideoPlayerEvent {}
 
 /// Event to toggle background playback
 final class ToggleBackgroundPlaybackEvent extends VideoPlayerEvent {}
-
-
-
 

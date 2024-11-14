@@ -19,7 +19,15 @@ class SongsPage extends StatelessWidget {
           builder: (context, audioState) {
             if (audioState is AudiosSuccess) {
               if (audioState.songs.isNotEmpty) {
-                int songsLength = audioState.songs.length;
+                //Filter out audios  whose title starts with dot
+                final filteredSongs = audioState.songs
+                    .where((audio) => !audio.title.startsWith('.'))
+                    .toList();
+
+                //----------- Sorting the filtered List ---------------//
+                audioState.songs.sort((a, b) => a.title.compareTo(b.title));
+
+                int songsLength = filteredSongs.length;
 
                 return SliverPadding(
                   padding: EdgeInsets.only(bottom: mq.height * 0.1),
@@ -35,14 +43,14 @@ class SongsPage extends StatelessWidget {
                                     songsLength: songsLength),
                                 //--------- Music Title
                                 SongTileWidget(
-                                  audios: audioState.songs,
+                                  audios: filteredSongs,
                                   index: index,
                                   state: audioState,
                                 ),
                               ],
                             )
                           : SongTileWidget(
-                              audios: audioState.songs,
+                              audios: filteredSongs,
                               index: index,
                               state: audioState,
                             );

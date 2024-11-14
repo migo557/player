@@ -1,14 +1,18 @@
+import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:open_player/base/assets/fonts/styles.dart';
+import 'package:velocity_x/velocity_x.dart';
 
-class VideoPageTitleAndSortingButtonWidget extends StatelessWidget {
+class VideoPageTitleAndSortingButtonWidget extends HookWidget {
   const VideoPageTitleAndSortingButtonWidget({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isAllVideos = useState(false);
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -17,53 +21,28 @@ class VideoPageTitleAndSortingButtonWidget extends StatelessWidget {
           children: [
             //--------- Buttons Bar ------------//
             Expanded(
-              child: OverflowBar(
-                alignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text("All Videos"),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5),
-                    child: ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: Icon(HugeIcons.strokeRoundedFavourite),
-                      label: Text("Favorites"),
-                    ),
-                  ),
-                ],
+              child: AnimatedToggleSwitch.dual(
+                first: true,
+                second: false,
+                current: isAllVideos.value,
+                iconBuilder: (value) => isAllVideos.value
+                    ? Icon(HugeIcons.strokeRoundedVideo01)
+                    : Icon(Icons.favorite),
+                customTextBuilder: (context, local, global) => global.current
+                    ? "All Videos".text.fontFamily(AppFonts.poppins).make()
+                    : "Favorites".text.fontFamily(AppFonts.poppins).make(),
+                onChanged: (v) {
+                  isAllVideos.value = !isAllVideos.value;
+                },
               ),
             ),
+
             // Spacer(),
 
-            //----- Sorting Button
-            PopupMenuButton(
-              child: Row(
-                children: [
-                  Text("name "),
-                  Icon(Icons.arrow_drop_down),
-                ],
-              ),
-              itemBuilder: (context) {
-                return [
-                  PopupMenuItem(
-                    child: Text("name"),
-                  ),
-                  PopupMenuItem(
-                    child: Text("Size"),
-                  ),
-                  PopupMenuItem(
-                    child: Text("Date Modified"),
-                  ),
-                  PopupMenuItem(
-                    child: Text("Type"),
-                  ),
-                ];
-              },
+            //----- Filter Button
+            IconButton(
+              onPressed: () {},
+              icon: Icon(HugeIcons.strokeRoundedFilter),
             ),
           ],
         ),

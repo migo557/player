@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
@@ -7,6 +8,7 @@ import 'package:open_player/data/models/video_model.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
 import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
+import 'package:open_player/presentation/pages/videos/widgets/video_page_title_and_sorting_button_widget.dart';
 
 import '../../../../base/router/router.dart';
 
@@ -44,10 +46,19 @@ class VideoPageAllVideosViewWidget extends StatelessWidget {
               ),
             );
           }
+
+          //Filter out videos  whose title starts with dot
+          final filteredVideos = state.videos
+              .where((video) => !video.title.startsWith('.'))
+              .toList();
+          //----------- Sorting the filtered List ---------------//
+          state.videos.sort((a, b) => a.title.compareTo(b.title));
+
+          ///----------- List Builder ----------///
           return SliverList.builder(
-            itemCount: state.videos.length,
+            itemCount: filteredVideos.length,
             itemBuilder: (context, index) {
-              final VideoModel video = state.videos[index];
+              final VideoModel video = filteredVideos[index];
               final String videoTitle = video.title;
               return ListTile(
                 onTap: () {

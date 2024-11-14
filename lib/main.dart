@@ -1,4 +1,6 @@
+import 'package:color_log/color_log.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_player/base/db/hive_service.dart';
 import 'package:open_player/base/theme/themes_data.dart';
@@ -32,12 +34,12 @@ void main() async {
   await NotificationService().initJustAUdioBackgroundNotification();
 
   // Set preferred screen orientations
-  // clog.info('Setting preferred orientations');
-  // await SystemChrome.setPreferredOrientations([
-  //   DeviceOrientation.portraitUp,
-
-  // ]);
-  // clog.checkSuccess(true, 'Preferred orientations set to Potrait Up Only');
+  clog.info('Setting preferred orientations');
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  clog.checkSuccess(true, 'Preferred orientations set to Potrait Up Only');
 
   runApp(const MyApp());
 }

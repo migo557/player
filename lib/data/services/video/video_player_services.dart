@@ -40,8 +40,9 @@ final class VideoPlayerServiceImpl implements VideoPlayerService {
 
       emit(
         VideoPlayerReadyState(
-            vlcPlayerController: vlcPlayerController,
-            playingVideoPath: videos[videoIndex].path),
+          vlcPlayerController: vlcPlayerController,
+          playingVideoPath: videos[videoIndex].path,
+        ),
       );
     } catch (e) {
       emit(VideoPlayerErrorState(message: e.toString()));
@@ -65,4 +66,3 @@ final class VideoPlayerServiceImpl implements VideoPlayerService {
     }
   }
 }
-

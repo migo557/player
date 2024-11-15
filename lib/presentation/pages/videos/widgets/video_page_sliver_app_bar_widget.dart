@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hugeicons/hugeicons.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../base/router/router.dart';
 
@@ -12,7 +12,7 @@ class VideoPageSliverAppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      title: const Text("Videos"),
+      title: "Videos".text.make(),
       floating: true,
       actions: [
         IconButton(
@@ -20,16 +20,6 @@ class VideoPageSliverAppBarWidget extends StatelessWidget {
             GoRouter.of(context).push(AppRoutes.searchVideosRoute);
           },
           icon: const Icon(Icons.search),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(HugeIcons.strokeRoundedGridView),
-        ),
-        IconButton(
-          onPressed: () {
-            GoRouter.of(context).push(AppRoutes.viewDirectoryRoute);
-          },
-          icon: const Icon(HugeIcons.strokeRoundedFolderView),
         ),
       ],
     );

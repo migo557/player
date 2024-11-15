@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
@@ -8,7 +8,7 @@ import 'package:open_player/data/models/video_model.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
 import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
-import 'package:open_player/presentation/pages/videos/widgets/video_page_title_and_sorting_button_widget.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../base/router/router.dart';
 
@@ -61,25 +61,20 @@ class VideoPageAllVideosViewWidget extends StatelessWidget {
               final VideoModel video = filteredVideos[index];
               final String videoTitle = video.title;
               return ListTile(
+                visualDensity: VisualDensity.comfortable,
                 onTap: () {
                   context.read<AudioPlayerBloc>().add(AudioPlayerStopEvent());
                   context.read<VideoPlayerBloc>().add(VideoInitializeEvent(
-                      videoIndex: index, playlist: state.videos));
+                      videoIndex: index, playlist: filteredVideos));
                   GoRouter.of(context).push(
                     AppRoutes.videoPlayerRoute,
                   );
                 },
-                title: Text(
-                  videoTitle,
-                  style: TextStyle(
-                    fontFamily: AppFonts.arizonia,
-                    fontSize: 15,
-                  ),
-                ),
-                // leading: CircleAvatar(
-                //   backgroundImage: MemoryImage(state.videos[index].thumbnail),
-                // ),
-                leading: const Icon(HugeIcons.strokeRoundedVideo01),
+                title: videoTitle.text
+                    .fontFamily(AppFonts.poppins)
+                    .maxFontSize(14)
+                    .make(),
+                leading: const Icon(HugeIcons.strokeRoundedFileVideo),
                 trailing: IconButton(
                   onPressed: () {},
                   icon: const Icon(HugeIcons.strokeRoundedMoreVerticalCircle01),

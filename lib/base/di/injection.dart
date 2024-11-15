@@ -50,8 +50,6 @@ initializeLocator() {
     locator.registerLazySingleton<AudioPlayer>(() => AudioPlayer());
     clog.checkSuccess(true, "JustAudio Player is registred");
 
-
-
     // Register AudioPlayer Services Repository
     locator.registerLazySingleton<AudioPlayerServiceImpl>(
         () => AudioPlayerServiceImpl(audioPlayer: locator<AudioPlayer>()));
@@ -70,7 +68,6 @@ initializeLocator() {
     locator.registerLazySingleton<GreetingCubit>(
         () => GreetingCubit(languageCubit: locator<LanguageCubit>()));
     clog.checkSuccess(true, "GreetingCubit registred");
-
 
     // Register Video PlaybackHive Service
     locator.registerLazySingleton<VideoPlaybackHiveService>(

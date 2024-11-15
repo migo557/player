@@ -3,9 +3,10 @@ import 'package:open_player/base/assets/fonts/styles.dart';
 
 class AppTextStyles {
   static const greeting = TextStyle(
-      fontSize: 22,
-      fontFamily: AppFonts.arizonia,
-      overflow: TextOverflow.ellipsis);
+    fontSize: 22,
+    fontFamily: AppFonts.arizonia,
+    overflow: TextOverflow.ellipsis,
+  );
 
   static const profileName = TextStyle(
       fontSize: 12,

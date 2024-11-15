@@ -9,20 +9,13 @@ import 'package:open_player/base/router/router.dart';
 import 'package:open_player/bloc_providers.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
-import 'base/db/object_box._service.dart';
 import 'base/services/notification/notification_services.dart';
-
-late ObjectBoxDB objectbox;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  //--- Initialize Get It Dependencies
   await initializeLocator();
-
-  // Create ObjectBox instance
-  // objectbox = await ObjectBoxDB.create();
-
-  // Initialize ObjectBoxes
-  // MyObjectBoxes.init(objectbox);
 
   // Initialize Hive database and register custom adapters
   await MyHiveDB.initializeHive();

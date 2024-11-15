@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:open_player/presentation/pages/players/audio/view/audio_player.dart';
 import 'package:open_player/presentation/pages/players/video/view/video_player.dart';
+import 'package:open_player/presentation/pages/settings/about/view/about_page.dart';
 import 'package:open_player/presentation/pages/settings/change_accent_color/view/change_accent_color_page.dart';
 import 'package:open_player/presentation/pages/settings/language/view/language_page.dart';
-import 'package:open_player/presentation/pages/settings/setting/privacy_policy/view/privacy_policy_page.dart';
+import 'package:open_player/presentation/pages/settings/privacy_policy/view/privacy_policy_page.dart';
 import 'package:open_player/presentation/pages/settings/user_profile/view/user_profile_page.dart';
 import 'package:open_player/presentation/pages/splash/view/splash_page.dart';
 import 'package:open_player/presentation/pages/view_directory/view/view_directory_page.dart';
@@ -41,11 +42,15 @@ final GoRouter router = GoRouter(
       path: AppRoutes.languageRoute,
       builder: (context, state) => const LanguagePage(),
     ),
-
-     GoRoute(
+    GoRoute(
       name: AppRoutes.privacyPolicyRoute,
       path: AppRoutes.privacyPolicyRoute,
       builder: (context, state) => const PrivacyPolicyPage(),
+    ),
+    GoRoute(
+      name: AppRoutes.aboutRoute,
+      path: AppRoutes.aboutRoute,
+      builder: (context, state) => const AboutPage(),
     ),
     GoRoute(
         name: AppRoutes.audioPlayerRoute,
@@ -57,9 +62,7 @@ final GoRouter router = GoRouter(
         name: AppRoutes.videoPlayerRoute,
         path: AppRoutes.videoPlayerRoute,
         builder: (context, state) {
-          return VideoPlayerPage(
-            
-              );
+          return VideoPlayerPage();
         }),
     GoRoute(
       name: AppRoutes.searchAudiosRoute,
@@ -85,8 +88,6 @@ final GoRouter router = GoRouter(
     );
   },
 );
-
-
 
 class AppRoutes {
   static const splashRoute = "/";

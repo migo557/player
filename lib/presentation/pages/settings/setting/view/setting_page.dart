@@ -107,9 +107,12 @@ class _SettingPageState extends State<SettingPage> {
 
                   ///!-------------------About-----------------------------///
                   SettingsListTileWidget(
-                      en: "About",
-                      iconData: HugeIcons.strokeRoundedInformationDiamond,
-                      onTap: () {}),
+                    en: "About",
+                    iconData: HugeIcons.strokeRoundedInformationDiamond,
+                    onTap: () {
+                      context.push(AppRoutes.aboutRoute);
+                    },
+                  ),
                 ],
               ),
 

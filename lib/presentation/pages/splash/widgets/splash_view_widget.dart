@@ -1,44 +1,28 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:open_player/base/assets/fonts/styles.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:open_player/base/assets/svgs/app_svgs.dart';
 
 class SplashViewWidget extends StatelessWidget {
-  const SplashViewWidget({
-    super.key,
-  });
+  final Animation<double> logoAnimation;
+
+  const SplashViewWidget({super.key, required this.logoAnimation});
 
   @override
   Widget build(BuildContext context) {
+    final logo = Theme.of(context).brightness == Brightness.dark
+        ? AppSvgs.logoDarkMode
+        : AppSvgs.logoLightMode;
     return Center(
-        child:
-            //---Splash View
-            Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        AnimatedTextKit(
-          isRepeatingAnimation: false,
-          animatedTexts: [
-            TyperAnimatedText(
-              "Open",
-              speed: Duration(milliseconds: 400),
-              textStyle: TextStyle(fontSize: 35, fontFamily: AppFonts.poppins),
-            ),
-          ],
+      child: ScaleTransition(
+        scale: logoAnimation,
+        child: Hero(
+          tag: 'app_logo',
+          child: SvgPicture.asset(
+            logo,
+            height: 200,
+          ),
         ),
-        AnimatedTextKit(
-          isRepeatingAnimation: false,
-          animatedTexts: [
-            TyperAnimatedText(
-              "Player",
-              speed: Duration(milliseconds: 300),
-              textStyle: TextStyle(fontSize: 35, fontFamily: AppFonts.arizonia),
-            )
-          ],
-        ),
-      ],
-    )
-
-        //----- On Boarding View
-        );
+      ),
+    );
   }
 }

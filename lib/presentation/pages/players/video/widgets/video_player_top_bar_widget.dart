@@ -8,13 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:open_player/bloc_providers.dart';
 import 'package:open_player/logic/Control_visibility/controls_visibility_cubit.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
-import 'package:open_player/main.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_icon_button_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import '../../../../common/methods/set_orientation_potrait.dart';
 import '../../../../common/methods/system_ui_mode.dart';
 
@@ -48,7 +45,6 @@ class VideoPlayerTopBarWidget extends HookWidget {
                       onPressed: () {
                         ifOrientationLandscapeMakeItPotrait(context);
                         setToDefaultSystemTopBar();
-
                         context.pop();
                       },
                     ),
@@ -109,7 +105,17 @@ class VideoPlayerTopBarWidget extends HookWidget {
                             .toggleVideoControlsVisibilty();
                       },
                     ),
-
+                
+                    //------------ Audio Set Button
+                    VideoPlayerIconButtonWidget(
+                      icon: HugeIcons.strokeRoundedFileMusic,
+                      onTap: () {
+                        context
+                            .read<ControlsVisibilityCubit>()
+                            .toggleVideoControlsVisibilty();
+                      },
+                    ),
+                
                     //------------ Change Aspect Ratio
                     // VideoPlayerIconButtonWidget(
                     //   icon: HugeIcons.strokeRoundedAspectRatio,
@@ -120,7 +126,7 @@ class VideoPlayerTopBarWidget extends HookWidget {
                     //         .toggleVideoControlsVisibilty();
                     //   },
                     // ),
-
+                
                     //------------ Lock Button
                     if (showMoreIcons.value)
                       VideoPlayerIconButtonWidget(
@@ -130,7 +136,7 @@ class VideoPlayerTopBarWidget extends HookWidget {
                                 .read<ControlsVisibilityCubit>()
                                 .toggleLockScreenButton();
                           }),
-
+                
                     //---------- Picture in Picture
                     if (showMoreIcons.value)
                       VideoPlayerIconButtonWidget(
@@ -140,17 +146,19 @@ class VideoPlayerTopBarWidget extends HookWidget {
                                 .read<ControlsVisibilityCubit>()
                                 .toggleVideoControlsVisibilty();
                           }),
-
+                
                     //---------- Background Play Button
                     if (showMoreIcons.value)
                       VideoPlayerIconButtonWidget(
                           icon: HugeIcons.strokeRoundedHeadphones,
                           onTap: () {
+                            state.vlcPlayerController.allowBackgroundPlayback
+                                .toggle();
                             context
                                 .read<ControlsVisibilityCubit>()
                                 .toggleVideoControlsVisibilty();
                           }),
-
+                
                     //---------- Arrow Button to toggle more buttons
                     VideoPlayerIconButtonWidget(
                         icon: showMoreIcons.value

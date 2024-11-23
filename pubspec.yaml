@@ -79,6 +79,8 @@ dependencies:
   once: ^1.6.3
   volume_controller: ^2.0.8
   audio_metadata_reader: ^0.0.9
+  flutter_native_splash: ^2.4.3
+  icons_launcher: ^3.0.0
   # on_audio_query: ^2.9.0
   # floating: ^4.0.1
   # flutter_media_metadata: 
@@ -88,6 +90,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
     
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -152,6 +155,9 @@ flutter:
       fonts:
         - asset: assets/fonts/Neonderthaw-Regular.ttf 
 
+
+
+
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
@@ -161,3 +167,13 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+
+
+icons_launcher:
+  image_path: "assets/images/logo.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true

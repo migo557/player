@@ -1,3 +1,4 @@
+import 'package:color_log/color_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -201,7 +202,9 @@ class _SongTile extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           color:
                               Theme.of(context).brightness == Brightness.light
-                                  ? isPlaying? Colors.white70: Colors.grey
+                                  ? isPlaying
+                                      ? Colors.white70
+                                      : Colors.grey
                                   : Colors.white54),
                     ),
 

@@ -14,6 +14,7 @@ class UserProfilePreview extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         title: IconButton(
             onPressed: () {

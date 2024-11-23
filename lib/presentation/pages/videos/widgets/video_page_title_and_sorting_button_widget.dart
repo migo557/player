@@ -8,11 +8,13 @@ enum VideoFilter { all, favorites }
 class VideoPageTitleAndSortingButtonWidget extends HookWidget {
   const VideoPageTitleAndSortingButtonWidget({
     super.key,
+    required this.selectedFilter,
   });
+
+  final ValueNotifier<VideoFilter> selectedFilter;
 
   @override
   Widget build(BuildContext context) {
-    final selectedFilter = useState(VideoFilter.all);
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.all(12.0),

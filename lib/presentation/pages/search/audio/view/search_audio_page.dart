@@ -45,42 +45,39 @@ class SearchAudioPage extends HookWidget {
         child: CustomScrollView(
           slivers: [
             // App Bar with Filter
-            SliverSafeArea(
-              // top: true,
-              // bottom: false,
-              sliver: SliverAppBar(
-                automaticallyImplyLeading: false,
-                floating: true,
-                expandedHeight: isFilterVisible.value ? 120 : 80,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Column(
-                    children: [
-                      AudioSearchAppBarWidget(
-                        query: query,
-                        onFilterTap: () =>
-                            isFilterVisible.value = !isFilterVisible.value,
-                      ),
-                      if (isFilterVisible.value)
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: SearchFilter.values.map((filter) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                child: FilterChip(
-                                  selected: selectedFilter.value == filter,
-                                  label: Text(filter.name.toUpperCase()),
-                                  onSelected: (selected) {
-                                    selectedFilter.value = filter;
-                                  },
-                                ),
-                              );
-                            }).toList(),
-                          ),
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              floating: true,
+              expandedHeight: isFilterVisible.value ? 120 : 80,
+              flexibleSpace: FlexibleSpaceBar(
+              
+                background: Column(
+                  children: [
+                    AudioSearchAppBarWidget(
+                      query: query,
+                      onFilterTap: () =>
+                          isFilterVisible.value = !isFilterVisible.value,
+                    ),
+                    if (isFilterVisible.value)
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: SearchFilter.values.map((filter) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                              child: FilterChip(
+                                selected: selectedFilter.value == filter,
+                                label: Text(filter.name.toUpperCase()),
+                                onSelected: (selected) {
+                                  selectedFilter.value = filter;
+                                },
+                              ),
+                            );
+                          }).toList(),
                         ),
-                    ],
-                  ),
+                      ),
+                  ],
                 ),
               ),
             ),

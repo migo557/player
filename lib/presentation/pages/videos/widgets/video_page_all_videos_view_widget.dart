@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:open_player/base/db/hive_service.dart';
 import 'package:open_player/data/models/video_model.dart';
+import 'package:open_player/data/services/favorites_video_hive_service/favorites_video_hive_service.dart';
 
 import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
 import 'package:open_player/presentation/common/widgets/custom_video_tile_widget.dart';
+import 'package:open_player/presentation/pages/videos/widgets/video_page_title_and_sorting_button_widget.dart';
 
+class VideoPageAllVideosViewWidget extends HookWidget {
+  const VideoPageAllVideosViewWidget({super.key, required this.selectedFilter});
 
-class VideoPageAllVideosViewWidget extends StatelessWidget {
-  const VideoPageAllVideosViewWidget({
-    super.key,
-  });
+  final ValueNotifier<VideoFilter> selectedFilter;
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +45,24 @@ class VideoPageAllVideosViewWidget extends StatelessWidget {
             );
           }
 
+          final fvrKeys = MyHiveBoxes.favoriteVideos.keys;
+
           //Filter out videos  whose title starts with dot
-          final filteredVideos = state.videos
+          List<VideoModel> filteredVideos = state.videos
               .where((video) => !video.title.startsWith('.'))
               .toList();
+
+          if (selectedFilter.value == VideoFilter.all) {
+            filteredVideos = filteredVideos;
+          }
+          if (selectedFilter.value == VideoFilter.favorites) {
+            filteredVideos = filteredVideos
+                .where((video) =>
+                    fvrKeys.contains(
+                        FavoritesVideoHiveService.generateKey(video.path)) &&
+                    FavoritesVideoHiveService().getFavoriteStatus(video.path))
+                .toList();
+          }
           //----------- Sorting the filtered List ---------------//
           state.videos.sort((a, b) => a.title.compareTo(b.title));
 

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:color_log/color_log.dart';
 import 'package:open_player/data/services/favorite_audio_hive_service/audio_hive_service.dart';
+import 'package:open_player/utils/audio_quality_calculator.dart';
 import '../../../base/services/permissions/app_permission_service.dart';
 import 'package:path/path.dart' as path;
 import '../../models/audio_model.dart';
@@ -47,10 +48,18 @@ class AudioRepository {
     // Getting the image of a track can be heavy and slow the reading
     final metadata = readMetadata(File(audioPath), getImage: true);
 
-    metadata.year;
+    // final quality = AudioQualityCalculator.calculateQuality(
+    //     bitrate: metadata.bitrate, sampleRate: metadata.sampleRate);
+        // Calculate audio quality
+    final quality = AudioQualityCalculator.calculateQuality(
+      bitrate: metadata.bitrate,
+      sampleRate: metadata.sampleRate,
+      // codec: metadata.format, // If available in your metadata
+    );
 
     return AudioModel(
       title: path.basenameWithoutExtension(audioPath),
+      file: metadata.file,
       ext: path.extension(audioPath),
       path: audioPath,
       size: File(audioPath).statSync().size,
@@ -62,7 +71,8 @@ class AudioRepository {
       lyrics: metadata.lyrics,
       sampleRate: metadata.sampleRate,
       language: metadata.language,
-      year: metadata.year
+      year: metadata.year,
+      quality: quality,
     );
   }
 }

@@ -23,12 +23,15 @@ class AudioFavoritePage extends StatelessWidget {
           builder: (context, audioState) {
             if (audioState is AudiosSuccess) {
               if (audioState.songs.isNotEmpty) {
-                final fvrKeys = MyHiveBoxes.favoriteAudios.keys ;
-
+                final fvrKeys = MyHiveBoxes.favoriteAudios.keys;
 
                 //Filter out audios  whose title starts with dot
                 List<AudioModel> filteredSongs = audioState.songs
-                    .where((audio) => fvrKeys.contains(audio.path))
+                    .where((audio) =>
+                        fvrKeys.contains(FavoritesAudioHiveService.generateKey(
+                            audio.path)) &&
+                        FavoritesAudioHiveService()
+                            .getFavoriteStatus(audio.path))
                     .toList();
 
                 //----------- Sorting the filtered List ---------------//

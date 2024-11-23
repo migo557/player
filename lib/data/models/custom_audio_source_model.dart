@@ -20,14 +20,11 @@ class CustomAudioSource extends ProgressiveAudioSource {
             artist: audioModel.artists,
             artUri: audioModel.thumbnail.isNotEmpty
                 ? Uri.dataFromBytes(
-                    audioModel.thumbnail.last.bytes,
-                    // mimeType: audioModel.thumbnail.last.mimetype
+                    audioModel.thumbnail.first.bytes,
+                    mimeType: audioModel.thumbnail.first.mimetype
                   )
                 : null,
-            extras: {
-              'fileSize': audioModel.size,
-              'extension': audioModel.ext,
-            },
+      
           ),
           options: options ??
               const ProgressiveAudioSourceOptions(

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:audio_metadata_reader/audio_metadata_reader.dart';
+import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 
 class AudioModel {
   final String title;
@@ -14,6 +17,8 @@ class AudioModel {
   final int? sampleRate;
   final String? language;
   final DateTime? year;
+  final File file;
+  final Quality quality;
   AudioModel(
       {required this.title,
       required this.ext,
@@ -27,6 +32,8 @@ class AudioModel {
       required this.lyrics,
       required this.sampleRate,
       required this.language,
-      required this.year
+      required this.year,
+      required this.file,
+      required this.quality
       });
 }

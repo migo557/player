@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/data/services/favorite_audio_hive_service/audio_hive_service.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
+import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 
-class AudioPlayerTitleArtistFavoriteButtonRowWidget extends StatelessWidget {
-  const AudioPlayerTitleArtistFavoriteButtonRowWidget({super.key});
+class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
+    extends StatelessWidget {
+  const AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget(
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +36,11 @@ class AudioPlayerTitleArtistFavoriteButtonRowWidget extends StatelessWidget {
                 String artists = currentIndex != null
                     ? audioPlayerState.audios[currentIndex].artists
                     : "";
+
+                Quality audioQuality = currentIndex != null
+                    ? audioPlayerState.audios[currentIndex].quality
+                    : Quality.MQ;
+
                 String currentFilePath = currentIndex != null
                     ? audioPlayerState.audios[currentIndex].path
                     : "";
@@ -54,11 +63,21 @@ class AudioPlayerTitleArtistFavoriteButtonRowWidget extends StatelessWidget {
                               .make(),
                         ),
 
-                        //------------------- ARTISTS------------------//
-                        artists.text.gray100
-                            .minFontSize(12)
-                            .fontFamily(AppFonts.poppins).maxLines(1)
-                            .make(),
+                        //------------------- ARTISTS & QUality Badge------------------//
+                        [
+                          artists.text.gray100
+                              .minFontSize(12)
+                              .fontFamily(AppFonts.poppins)
+                              .maxLines(1)
+                              .make()
+                              .flexible(),
+                          Gap(5),
+
+                          //--------- Audio Quality
+                          QualityBadge(
+                            quality: audioQuality,
+                          ),
+                        ].row(axisSize: MainAxisSize.min),
                       ].column(
                         crossAlignment: CrossAxisAlignment.start,
                       ),

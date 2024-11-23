@@ -30,7 +30,7 @@ class FavoritesVideoHiveService {
 
   toggleFavorite(String filePath) async{
     if (_checkIsContain(filePath)) {
-      if (await getFavoriteStatus(filePath)) {
+      if (getFavoriteStatus(filePath)) {
         _removeFromFavorite(filePath);
       } else {
         _addToFavorite(filePath);

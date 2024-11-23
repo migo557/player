@@ -11,7 +11,6 @@ import 'package:open_player/presentation/pages/players/video/widgets/video_playe
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_top_bar_widget.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_volume_controller_widget.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_view_widget.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class VideoContentWidget extends StatefulWidget {
   const VideoContentWidget({

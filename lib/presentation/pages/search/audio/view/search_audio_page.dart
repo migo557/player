@@ -1,10 +1,14 @@
+// search_audio_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:open_player/presentation/pages/search/audio/widgets/audio_search_app_bar_widget.dart';
+import '../../../../../data/models/audio_model.dart';
 import '../../../../../logic/audio_bloc/audios_bloc.dart';
 import '../../../../common/widgets/nothing_widget.dart';
 import '../../../audio/sub/songs/widgets/song_tile_widget.dart';
+
+enum SearchFilter { all, title, artist, album, genre }
 
 class SearchAudioPage extends HookWidget {
   const SearchAudioPage({super.key});
@@ -12,50 +16,106 @@ class SearchAudioPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final query = useState("");
+    final selectedFilter = useState(SearchFilter.all);
+    final isFilterVisible = useState(false);
+
+    List<AudioModel> filterAudios(List<AudioModel> audios, String searchQuery) {
+      if (searchQuery.isEmpty) return audios;
+
+      return audios.where((audio) {
+        switch (selectedFilter.value) {
+          case SearchFilter.title:
+            return audio.title.toLowerCase().contains(searchQuery);
+          case SearchFilter.artist:
+            return audio.artists.toLowerCase().contains(searchQuery);
+          case SearchFilter.album:
+            return audio.album.toLowerCase().contains(searchQuery);
+          case SearchFilter.genre:
+            return audio.genre
+                .any((g) => g.toLowerCase().contains(searchQuery));
+          case SearchFilter.all:
+          default:
+            return audio.matchesSearch(searchQuery);
+        }
+      }).toList();
+    }
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          //------- App Bar --------//
-          AudioSearchAppBarWidget(query: query),
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            // App Bar with Filter
+            SliverSafeArea(
+              // top: true,
+              // bottom: false,
+              sliver: SliverAppBar(
+                automaticallyImplyLeading: false,
+                floating: true,
+                expandedHeight: isFilterVisible.value ? 120 : 80,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Column(
+                    children: [
+                      AudioSearchAppBarWidget(
+                        query: query,
+                        onFilterTap: () =>
+                            isFilterVisible.value = !isFilterVisible.value,
+                      ),
+                      if (isFilterVisible.value)
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: SearchFilter.values.map((filter) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                child: FilterChip(
+                                  selected: selectedFilter.value == filter,
+                                  label: Text(filter.name.toUpperCase()),
+                                  onSelected: (selected) {
+                                    selectedFilter.value = filter;
+                                  },
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
 
+            // Audios List
+            BlocSelector<AudiosBloc, AudiosState, AudiosSuccess?>(
+              selector: (state) => state is AudiosSuccess ? state : null,
+              builder: (context, state) {
+                if (state == null) return nothing;
 
-          //-------- Audios List -------------------///
-          BlocSelector<AudiosBloc, AudiosState, AudiosSuccess?>(
-            selector: (state) => state is AudiosSuccess ? state : null,
-            builder: (context, state) {
-              if (state == null) return nothing;
+                final filteredAudios = filterAudios(state.songs, query.value);
 
-              return SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final audios = state.songs
-                        .where((audio) =>
-                            audio.title.toLowerCase().contains(query.value))
-                        .toList();
+                if (filteredAudios.isEmpty) {
+                  return const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Center(child: Text("No Result")),
+                    ),
+                  );
+                }
 
-                    if (audios.isEmpty) {
-                      return const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Center(child: Text("No Result")),
-                      );
-                    }
-
-                    return SongTileWidget(
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) => SongTileWidget(
                       index: index,
                       state: state,
-                      audios: audios,
-                    );
-                  },
-                  childCount: state.songs
-                      .where((audio) =>
-                          audio.title.toLowerCase().contains(query.value))
-                      .length,
-                ),
-              );
-            },
-          ),
-        ],
+                      audios: filteredAudios,
+                    ),
+                    childCount: filteredAudios.length,
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

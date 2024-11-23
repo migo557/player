@@ -56,9 +56,7 @@ class AudioPlayerBackgroundBlurImageWidget extends StatelessWidget {
 }
 
 class _DefaultImageWidget extends StatelessWidget {
-  const _DefaultImageWidget({
-    super.key,
-  });
+  const _DefaultImageWidget();
 
   @override
   Widget build(BuildContext context) {

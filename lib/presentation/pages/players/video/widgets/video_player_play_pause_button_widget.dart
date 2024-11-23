@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
 
 import '../../../../../logic/Control_visibility/controls_visibility_cubit.dart';

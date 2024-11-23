@@ -7,7 +7,6 @@ import 'package:open_player/base/assets/images/app_images.dart';
 import 'package:open_player/logic/user_data/user_data_cubit.dart';
 import 'package:open_player/logic/user_data/user_data_state.dart';
 import 'package:open_player/presentation/pages/settings/user_profile/widgets/user_profile_preview.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class UserProfileCircleAvatarWidget extends StatelessWidget {
   const UserProfileCircleAvatarWidget({

@@ -1,3 +1,4 @@
+// audio_search_app_bar_widget.dart
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -7,61 +8,58 @@ class AudioSearchAppBarWidget extends StatelessWidget {
   const AudioSearchAppBarWidget({
     super.key,
     required this.query,
+    required this.onFilterTap,
   });
 
   final ValueNotifier<String> query;
+  final VoidCallback onFilterTap;
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.sizeOf(context);
-    return SliverAppBar(
-      floating: true,
-      elevation: 0,
-      shadowColor: Colors.transparent,
-      backgroundColor: Colors.transparent,
-      automaticallyImplyLeading: false,
-      actions: [
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.03),
-            child: Card(
-              margin: EdgeInsets.zero,
-              shadowColor: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : null,
-              elevation: 1,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        context.pop();
-                        query.value = "";
-                      },
-                      icon: const Icon(CupertinoIcons.back),
-                    ),
-                    Expanded(
-                      child: VxTextField(
-                        autofocus: true,
-                        onChanged: (search) =>
-                            query.value = search.toLowerCase(),
-                        hint: "Search audio",
-                        borderType: VxTextFieldBorderType.none,
-                        fillColor: Colors.transparent,
-                      ),
-                    ),
-                  ],
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: mediaQuery.width * 0.03,
+        vertical: 8,
+      ),
+      child: Card(
+        margin: EdgeInsets.zero,
+        shadowColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.white
+            : null,
+        elevation: 1,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  context.pop();
+                  query.value = "";
+                },
+                icon: const Icon(CupertinoIcons.back),
+              ),
+              Expanded(
+                child: VxTextField(
+                  autofocus: true,
+                  onChanged: (search) => query.value = search.toLowerCase(),
+                  hint: "Search by title, artist, album, or genre",
+                  borderType: VxTextFieldBorderType.none,
+                  fillColor: Colors.transparent,
                 ),
               ),
-            ),
+              IconButton(
+                onPressed: onFilterTap,
+                icon: const Icon(Icons.filter_list),
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }

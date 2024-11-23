@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:color_log/color_log.dart';
-import 'package:open_player/data/services/favorite_audio_hive_service/audio_hive_service.dart';
 import 'package:open_player/utils/audio_quality_calculator.dart';
 import '../../../base/services/permissions/app_permission_service.dart';
 import 'package:path/path.dart' as path;

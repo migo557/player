@@ -7,12 +7,12 @@ import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 
 class AudioPlayerPlayPauseButtonWidget extends StatelessWidget {
-  AudioPlayerPlayPauseButtonWidget(
+  const AudioPlayerPlayPauseButtonWidget(
       {super.key, this.iconSize, this.playIcon, this.pauseIcon});
 
-  double? iconSize;
-  IconData? playIcon;
-  IconData? pauseIcon;
+  final double? iconSize;
+  final IconData? playIcon;
+  final IconData? pauseIcon;
 
   @override
   Widget build(BuildContext context) {

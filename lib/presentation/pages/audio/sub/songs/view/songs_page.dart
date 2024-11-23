@@ -19,13 +19,16 @@ class SongsPage extends StatelessWidget {
           builder: (context, audioState) {
             if (audioState is AudiosSuccess) {
               if (audioState.songs.isNotEmpty) {
+                  //----------- Sorting the filtered List ---------------//
+                audioState.songs.sort((a, b) => a.title.compareTo(b.title));
+
+                
                 //Filter out audios  whose title starts with dot
                 final filteredSongs = audioState.songs
                     .where((audio) => !audio.title.startsWith('.'))
                     .toList();
 
-                //----------- Sorting the filtered List ---------------//
-                audioState.songs.sort((a, b) => a.title.compareTo(b.title));
+              
 
                 int songsLength = filteredSongs.length;
 

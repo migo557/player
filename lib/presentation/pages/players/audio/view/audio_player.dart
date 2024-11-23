@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 import 'package:open_player/presentation/common/widgets/premium_glass_widget.dart';
-import 'package:open_player/presentation/pages/audio/sub/favorites/view/audio_favorites_page.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_actions_buttons_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_background_blur_image_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_position_and_duration_widget.dart';
@@ -9,7 +7,6 @@ import 'package:open_player/presentation/pages/players/audio/widgets/audio_playe
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_center_stack_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_title_artist_favorite_button_row_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_top_bar_widget.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class AudioPlayerPage extends StatelessWidget {
   const AudioPlayerPage({

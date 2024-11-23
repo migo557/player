@@ -5,6 +5,7 @@ import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/base/assets/images/app_images.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
+import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/song_tile_more_button_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/view/audio_player.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_play_pause_button_widget.dart';
@@ -141,8 +142,8 @@ class _SongTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Container(
-                  width: isPlaying ? 75 : 70,
-                  height: isPlaying ? 75 : 70,
+                  width: isPlaying ? 77 : 70,
+                  height: isPlaying ? 77 : 70,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -169,6 +170,7 @@ class _SongTile extends StatelessWidget {
                   ),
                 ),
               ),
+
               const Gap(10),
 
               ///------------ Title & Artists -----------///
@@ -177,7 +179,6 @@ class _SongTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //---Title
-
                     Text(
                       audio.title,
                       maxLines: 2,
@@ -194,12 +195,24 @@ class _SongTile extends StatelessWidget {
                       audio.artists.toString(),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 11,
                           fontFamily: AppFonts.poppins,
                           fontWeight: FontWeight.w500,
-                          color: Colors.grey),
+                          color:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? isPlaying? Colors.white70: Colors.grey
+                                  : Colors.white54),
                     ),
+
+                    Gap(2),
+
+                    if (isPlaying)
+                      QualityBadge(
+                        quality: audio.quality,
+                        isDark: true,
+                        size: 10,
+                      ),
                   ],
                 ),
               ),

@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
-import 'package:hive/hive.dart';
 import 'package:open_player/data/models/video_model.dart';
 
 import '../../../logic/video_player_bloc/video_player_bloc.dart';

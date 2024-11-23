@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/data/services/favorite_audio_hive_service/audio_hive_service.dart';
+import 'package:open_player/presentation/common/widgets/like_button/animated_like_button.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -60,22 +61,28 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                               .white
                               .minFontSize(25)
                               .fontFamily(AppFonts.poppins)
+                              .shadow(1, 1, 3, Colors.black38)
                               .make(),
                         ),
 
-                        //------------------- ARTISTS & QUality Badge------------------//
+                        //------------------- ARTISTS ------------------//
                         [
                           artists.text.gray100
-                              .minFontSize(12)
+                              .minFontSize(10)
+                              .maxFontSize(12)
                               .fontFamily(AppFonts.poppins)
                               .maxLines(1)
+                              .shadow(1, 1, 1, Colors.black26)
                               .make()
                               .flexible(),
                           Gap(5),
 
                           //--------- Audio Quality
-                          QualityBadge(
-                            quality: audioQuality,
+                          Dance(
+                            duration: Duration(seconds: 3),
+                            child: QualityBadge(
+                              quality: audioQuality,
+                            ),
                           ),
                         ].row(axisSize: MainAxisSize.min),
                       ].column(
@@ -83,20 +90,15 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                       ),
                     ),
 
-                    //------------- Favorite Button -------------//
-
-                    IconButton(
-                      iconSize: 30,
-                      onPressed: () {
+                    //------------- Like Button -------------//
+                    AnimatedLikeButton(
+                      isLike: isFavorite,
+                      activeColor: Theme.of(context).primaryColor,
+                      onTap: () {
                         FavoritesAudioHiveService()
                             .toggleFavorite(currentFilePath);
                       },
-                      icon: Icon(
-                          isFavorite
-                              ? CupertinoIcons.heart_fill
-                              : CupertinoIcons.heart,
-                          color: Colors.white),
-                    ),
+                    ).pOnly(left: 5)
                   ],
                 );
               },

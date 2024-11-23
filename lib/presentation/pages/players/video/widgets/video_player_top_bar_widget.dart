@@ -1,7 +1,6 @@
 // video_player/presentation/pages/video_player_page.dart
 
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +12,6 @@ import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_h_more_button_widget.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_icon_button_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../../../../../data/services/favorites_video_hive_service/favorites_video_hive_service.dart';
 import '../../../../common/methods/set_orientation_potrait.dart';
 import '../../../../common/methods/system_ui_mode.dart';
 import 'video_player_audios_selector_widget.dart';

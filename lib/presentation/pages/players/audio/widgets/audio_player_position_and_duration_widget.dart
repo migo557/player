@@ -12,8 +12,7 @@ class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
       this.showDuration = true,
       this.enablePadding = true,
       this.fontSize,
-      this.fontWeight
-      });
+      this.fontWeight});
 
   final bool showPosition;
   final bool showDuration;
@@ -54,10 +53,15 @@ class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
                         Text(
                           formatDuration(position),
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: fontSize,
-                            fontWeight: fontWeight,
-                          ),
+                              color: Colors.white,
+                              fontSize: fontSize,
+                              fontWeight: fontWeight,
+                              shadows: [
+                                Shadow(
+                                    color: Colors.black38,
+                                    blurRadius: 1,
+                                    offset: Offset(1, 1))
+                              ]),
                         ),
 
                       //--     Duration
@@ -67,7 +71,13 @@ class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: fontSize,
-                              fontWeight: fontWeight),
+                              fontWeight: fontWeight,
+                              shadows: [
+                                Shadow(
+                                    color: Colors.black38,
+                                    blurRadius: 1,
+                                    offset: Offset(1, 1))
+                              ]),
                         ),
                     ],
                   ),
@@ -80,3 +90,6 @@ class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
     );
   }
 }
+
+
+

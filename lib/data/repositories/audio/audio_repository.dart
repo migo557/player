@@ -1,6 +1,7 @@
 import 'dart:io';
+import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:color_log/color_log.dart';
-import 'package:open_player/data/services/audio_hive_service.dart/audio_hive_service.dart';
+import 'package:open_player/data/services/favorite_audio_hive_service/audio_hive_service.dart';
 import '../../../base/services/permissions/app_permission_service.dart';
 import 'package:path/path.dart' as path;
 import '../../models/audio_model.dart';
@@ -43,15 +44,25 @@ class AudioRepository {
   }
 
   Future<AudioModel> getAudioInfo(String audioPath) async {
+    // Getting the image of a track can be heavy and slow the reading
+    final metadata = readMetadata(File(audioPath), getImage: true);
+
+    metadata.year;
+
     return AudioModel(
       title: path.basenameWithoutExtension(audioPath),
       ext: path.extension(audioPath),
       path: audioPath,
       size: File(audioPath).statSync().size,
-      thumbnail: null,
-      album:"" ,
-      artists:[""] ,
-      genre: "",
+      thumbnail: metadata.pictures,
+      album: metadata.album ?? "unknown",
+      artists: metadata.artist ?? "unknown",
+      genre: metadata.genres,
+      bitrate: metadata.bitrate,
+      lyrics: metadata.lyrics,
+      sampleRate: metadata.sampleRate,
+      language: metadata.language,
+      year: metadata.year
     );
   }
 }

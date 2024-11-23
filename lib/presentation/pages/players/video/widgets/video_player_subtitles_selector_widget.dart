@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:open_player/base/router/router.dart';
 
 import '../../../../../logic/video_player_bloc/video_player_bloc.dart';
 

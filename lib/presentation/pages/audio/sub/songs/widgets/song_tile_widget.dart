@@ -25,7 +25,7 @@ class SongTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final audio = audios[index];
+    final audio = audios[index];
     return BlocSelector<AudioPlayerBloc, AudioPlayerState,
         AudioPlayerSuccessState?>(
       selector: (state) {
@@ -34,9 +34,10 @@ class SongTileWidget extends StatelessWidget {
       builder: (context, playerState) {
         if (playerState == null) {
           return _SongTile(
-            index: index - 1,
+            songPath: audio.path,
             state: state,
-            songTitle: audio.title,
+            audios: audios,
+            audio: audio,
             onTap: () {
               context.read<AudioPlayerBloc>().add(AudioPlayerInitializeEvent(
                   initialMediaIndex: index, audioList: audios));
@@ -52,7 +53,7 @@ class SongTileWidget extends StatelessWidget {
             color: Theme.of(context).colorScheme.onPrimaryContainer,
           );
         }
-       
+
         return StreamBuilder(
             stream: playerState.audioPlayerCombinedStream,
             builder: (context, snapshot) {
@@ -62,9 +63,10 @@ class SongTileWidget extends StatelessWidget {
                   ? playerState.audios[currentIndex].path == audio.path
                   : null;
               return _SongTile(
-                index: index,
+                songPath: audio.path,
+                audios: audios,
                 state: state,
-                songTitle: audio.title,
+                audio: audio,
                 isSelected: isSelected,
                 onTap: () {
                   if (isSelected != null && !isSelected) {
@@ -97,16 +99,19 @@ class SongTileWidget extends StatelessWidget {
 
 class _SongTile extends StatelessWidget {
   const _SongTile(
-      {required this.index,
+      {required this.songPath,
       required this.state,
-      required this.songTitle,
+      required this.audio,
       required this.color,
       required this.onTap,
+      required this.audios,
       this.isSelected});
 
-  final int index;
+  final String songPath;
   final AudiosSuccess state;
-  final String songTitle;
+  final AudioModel audio;
+  final List<AudioModel> audios;
+
   final Function()? onTap;
 
   final Color color;
@@ -146,13 +151,14 @@ class _SongTile extends StatelessWidget {
                       //--------- Thumbnail
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          AppImages.defaultProfile,
-                        ),
+                        child: audio.thumbnail.isEmpty
+                            ? Image.asset(
+                                AppImages.defaultProfile,
+                              )
+                            : Image.memory(audio.thumbnail.last.bytes),
                       ),
 
                       //------ Play Button Icon
-                      //-------- Playbuttons Icon
                       if (isPlaying)
                         Center(
                           child: AudioPlayerPlayPauseButtonWidget(
@@ -173,9 +179,9 @@ class _SongTile extends StatelessWidget {
                     //---Title
 
                     Text(
-                      songTitle,
-                      maxLines: 1,
-                      overflow: TextOverflow.clip,
+                      audio.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: isPlaying ? Colors.white : null,
                           fontSize: 15,
@@ -185,8 +191,9 @@ class _SongTile extends StatelessWidget {
 
                     //----Artist
                     Text(
-                      "Artists $index",
-                      overflow: TextOverflow.clip,
+                      audio.artists.toString(),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                       style: const TextStyle(
                           fontSize: 11,
                           fontFamily: AppFonts.poppins,
@@ -198,7 +205,8 @@ class _SongTile extends StatelessWidget {
               ),
 
               //-------- More Button
-              const SongTileMoreButtonWidget(),
+              SongTileMoreButtonWidget(
+                  audios: audios, path: songPath, audio: audio),
             ],
           ),
         ),

@@ -16,7 +16,7 @@ import 'package:open_player/presentation/pages/players/video/widgets/video_playe
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_progress_bar_widget.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_replay_button_widget.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_speed_button_widget.dart';
-import 'package:open_player/presentation/pages/players/video/widgets/video_player_subtitles_button_widget.dart';
+import 'package:open_player/presentation/pages/players/video/widgets/video_player_subtitles_selector_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../../logic/Control_visibility/controls_visibility_cubit.dart';
@@ -35,10 +35,12 @@ class VideoPlayerBottomWidget extends StatelessWidget {
     return Positioned(
       bottom: 0,
       width: mq.width,
-      height: 150,
+      height: 130,
       child: FadeInUp(
         child: Container(
-          decoration: _decoration(),
+          decoration: _decoration(
+            
+          ),
           child: Column(
             children: [
               //---------- SeekBar & PositionDuration Text ------//
@@ -94,6 +96,7 @@ class VideoPlayerBottomWidget extends StatelessWidget {
           Colors.black12.withOpacity(0.6),
           Colors.black12.withOpacity(0.5),
           Colors.black12.withOpacity(0.07),
+   
         ],
       ),
     );

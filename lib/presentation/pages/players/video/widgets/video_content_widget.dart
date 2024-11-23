@@ -11,6 +11,7 @@ import 'package:open_player/presentation/pages/players/video/widgets/video_playe
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_top_bar_widget.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_volume_controller_widget.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_view_widget.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class VideoContentWidget extends StatefulWidget {
   const VideoContentWidget({
@@ -48,7 +49,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
         return Stack(
           children: [
             //-------Volume Controller ---------//
-               VideoPlayerVolumeControllerWidget(),
+            VideoPlayerVolumeControllerWidget(),
 
             //--------- Brightness Controller------//
             const VideoPlayerBrightnessControllerWidget(),
@@ -71,7 +72,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
               VideoPlayerBottomWidget(state: widget.videoPlayerReadyState),
 
             //---------- Brightness Box -------//
-             const CustomBrightnessBoxWidget(),
+            const CustomBrightnessBoxWidget(),
 
             // -------------- Resume where you left Button -----------///
             VideoPlayerResumeButtonWidget(widget: widget),

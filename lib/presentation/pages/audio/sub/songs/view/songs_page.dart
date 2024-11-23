@@ -58,15 +58,7 @@ class SongsPage extends StatelessWidget {
                   ),
                 );
 
-                // This is for lazy list
-                //         return SliverAnimatedList(
-                //   initialItemCount: songsLength,
-                //   itemBuilder: (context, index, animation) => SongTileWidget(
-                //     audio: audioState.songs[index],
-                //     index: index,
-                //     state: audioState,
-                //   ),
-                // );
+         
               } else {
                 return SliverToBoxAdapter(
                   child: Center(

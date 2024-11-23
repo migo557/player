@@ -10,10 +10,13 @@ import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/logic/Control_visibility/controls_visibility_cubit.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
+import 'package:open_player/presentation/pages/players/video/widgets/video_player_h_more_button_widget.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_icon_button_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
+import '../../../../../data/services/favorites_video_hive_service/favorites_video_hive_service.dart';
 import '../../../../common/methods/set_orientation_potrait.dart';
 import '../../../../common/methods/system_ui_mode.dart';
+import 'video_player_audios_selector_widget.dart';
 
 class VideoPlayerTopBarWidget extends HookWidget {
   const VideoPlayerTopBarWidget(
@@ -61,21 +64,8 @@ class VideoPlayerTopBarWidget extends HookWidget {
                     ),
 
                     //---- More Buttons
-                    IconButton(
-                      icon: const Icon(Icons.more_horiz, color: Colors.white),
-                      onPressed: () {
-                        showCupertinoModalPopup(
-                          context: context,
-                          builder: (context) => Card(
-                            child: SizedBox(
-                              height: 150,
-                              child: Center(
-                                child: "new features coming soon".text.make(),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
+                    VideoPlayerHMoreButtonWidget(
+                      filePath: state.playingVideoPath,
                     ),
                   ],
                 ),
@@ -105,7 +95,7 @@ class VideoPlayerTopBarWidget extends HookWidget {
                             .toggleVideoControlsVisibilty();
                       },
                     ),
-                
+
                     //------------ Audio Set Button
                     VideoPlayerIconButtonWidget(
                       icon: HugeIcons.strokeRoundedFileMusic,
@@ -113,20 +103,14 @@ class VideoPlayerTopBarWidget extends HookWidget {
                         context
                             .read<ControlsVisibilityCubit>()
                             .toggleVideoControlsVisibilty();
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) =>
+                              VideoPlayerAudiosSelector(state: state),
+                        );
                       },
                     ),
-                
-                    //------------ Change Aspect Ratio
-                    // VideoPlayerIconButtonWidget(
-                    //   icon: HugeIcons.strokeRoundedAspectRatio,
-                    //   onTap: () {
-                    //     state.vlcPlayerController.setVideoAspectRatio("16:9");
-                    //     context
-                    //         .read<ControlsVisibilityCubit>()
-                    //         .toggleVideoControlsVisibilty();
-                    //   },
-                    // ),
-                
+
                     //------------ Lock Button
                     if (showMoreIcons.value)
                       VideoPlayerIconButtonWidget(
@@ -136,7 +120,7 @@ class VideoPlayerTopBarWidget extends HookWidget {
                                 .read<ControlsVisibilityCubit>()
                                 .toggleLockScreenButton();
                           }),
-                
+
                     //---------- Picture in Picture
                     if (showMoreIcons.value)
                       VideoPlayerIconButtonWidget(
@@ -146,7 +130,7 @@ class VideoPlayerTopBarWidget extends HookWidget {
                                 .read<ControlsVisibilityCubit>()
                                 .toggleVideoControlsVisibilty();
                           }),
-                
+
                     //---------- Background Play Button
                     if (showMoreIcons.value)
                       VideoPlayerIconButtonWidget(
@@ -158,7 +142,7 @@ class VideoPlayerTopBarWidget extends HookWidget {
                                 .read<ControlsVisibilityCubit>()
                                 .toggleVideoControlsVisibilty();
                           }),
-                
+
                     //---------- Arrow Button to toggle more buttons
                     VideoPlayerIconButtonWidget(
                         icon: showMoreIcons.value

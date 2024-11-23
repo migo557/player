@@ -5,7 +5,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:open_player/data/services/audio/audio_player_services.dart';
 import 'package:open_player/data/services/video/video_player_services.dart';
 import 'package:open_player/data/services/user/user_services.dart';
-import 'package:open_player/data/services/video_playback_service/video_playback_service.dart';
+import 'package:open_player/data/services/video_playback_hive_service/video_playback_service.dart';
 import 'package:open_player/logic/greeting/greeting_cubit.dart';
 import 'package:open_player/logic/language_cubit/language_cubit.dart';
 import '../../data/providers/audio/audio_provider.dart';

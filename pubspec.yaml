@@ -78,6 +78,7 @@ dependencies:
   velocity_x: ^4.2.1
   once: ^1.6.3
   volume_controller: ^2.0.8
+  audio_metadata_reader: ^0.0.9
   # on_audio_query: ^2.9.0
   # floating: ^4.0.1
   # flutter_media_metadata: 

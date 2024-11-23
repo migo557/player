@@ -21,7 +21,7 @@ class GlassophateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: (color ?? Colors.white).withOpacity(intensity ?? 0.35),
+      color: (color ?? Colors.white).withOpacity(intensity ?? 0.1),
       child: Container(
         height: height ?? 0,
         width: width ?? 0,

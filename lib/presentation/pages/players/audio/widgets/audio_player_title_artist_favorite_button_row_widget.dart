@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
-import 'package:open_player/data/services/audio_hive_service.dart/audio_hive_service.dart';
+import 'package:open_player/data/services/favorite_audio_hive_service/audio_hive_service.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
+import 'package:velocity_x/velocity_x.dart';
 import '../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 
 class AudioPlayerTitleArtistFavoriteButtonRowWidget extends StatelessWidget {
@@ -27,50 +28,49 @@ class AudioPlayerTitleArtistFavoriteButtonRowWidget extends StatelessWidget {
                 String title = currentIndex != null
                     ? audioPlayerState.audios[currentIndex].title
                     : "";
+
+                String artists = currentIndex != null
+                    ? audioPlayerState.audios[currentIndex].artists
+                    : "";
                 String currentFilePath = currentIndex != null
                     ? audioPlayerState.audios[currentIndex].path
                     : "";
 
-                bool isFavorite =
-                    AudioHiveService().checkIsFaoriteStatus(currentFilePath);
+                bool isFavorite = FavoritesAudioHiveService()
+                    .getFavoriteStatus(currentFilePath);
                 return Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          //------------- TITLE ----------------//
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(
-                              "$title    ",
-                              maxLines: 1,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontFamily: AppFonts.poppins,
-                              ),
-                            ),
-                          ),
+                      child: [
+                        //------------- TITLE ----------------//
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: "$title    "
+                              .text
+                              .white
+                              .minFontSize(25)
+                              .fontFamily(AppFonts.poppins)
+                              .make(),
+                        ),
 
-                          //------------------- ARTISTS------------------//
-                          const Text(
-                            "Solena Lame",
-                            style: TextStyle(
-                              color: Colors.white54,
-                              fontSize: 12,
-                              fontFamily: AppFonts.poppins,
-                            ),
-                          ),
-                        ],
+                        //------------------- ARTISTS------------------//
+                        artists.text.gray100
+                            .minFontSize(12)
+                            .fontFamily(AppFonts.poppins).maxLines(1)
+                            .make(),
+                      ].column(
+                        crossAlignment: CrossAxisAlignment.start,
                       ),
                     ),
 
                     //------------- Favorite Button -------------//
 
                     IconButton(
+                      iconSize: 30,
                       onPressed: () {
-                        AudioHiveService().toggleFavorite(currentFilePath);
+                        FavoritesAudioHiveService()
+                            .toggleFavorite(currentFilePath);
                       },
                       icon: Icon(
                           isFavorite

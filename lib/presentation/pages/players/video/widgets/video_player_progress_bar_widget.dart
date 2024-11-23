@@ -24,71 +24,62 @@ class VideoPlayerProgressBarWidget extends HookWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
+      child: [
+        [
+          //---------- Positions
+          formatDuration(position.value).text.white.shadowBlur(1).make(),
+
           //------------- Slider ----------------//
-          SliderTheme(
-            data: SliderTheme.of(context).copyWith(
-              trackHeight: 2,
-              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
-              overlayShape: const RoundSliderOverlayShape(overlayRadius: 15),
-              activeTrackColor: Colors.white,
-              inactiveTrackColor: Colors.white24,
-              thumbColor: Colors.white,
-              overlayColor: Colors.white24,
-            ),
-            child: Slider(
-              value: isSeeking.value
-                  ? seekingPosition.value
-                  : position.value.inSeconds.toDouble(),
-              max: duration.value.inSeconds.toDouble(),
-              min: 0,
-              onChangeEnd: (value) {
-                isSeeking.value = false;
-                state.vlcPlayerController.seekTo(
-                  Duration(seconds: value.toInt()),
-                );
-              },
-              onChanged: (double value) {
-                isSeeking.value = true;
-                seekingPosition.value = value;
+          Expanded(
+            child: SliderTheme(
+              data: SliderTheme.of(context).copyWith(
+                trackHeight: 2,
+                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
+                overlayShape: const RoundSliderOverlayShape(overlayRadius: 15),
+                activeTrackColor: Colors.white,
+                inactiveTrackColor: Colors.white24,
+                thumbColor: Colors.white,
+                overlayColor: Colors.white24,
+              ),
+              child: Slider(
+                value: isSeeking.value
+                    ? seekingPosition.value
+                    : position.value.inSeconds.toDouble(),
+                max: duration.value.inSeconds.toDouble(),
+                min: 0,
+                onChangeEnd: (value) {
+                  isSeeking.value = false;
+                  state.vlcPlayerController.seekTo(
+                    Duration(seconds: value.toInt()),
+                  );
+                },
+                onChanged: (double value) {
+                  isSeeking.value = true;
+                  seekingPosition.value = value;
 
-                context
-                    .read<ControlsVisibilityCubit>()
-                    .toggleVideoControlsVisibilty();
-              },
-            ),
-          ),
-
-          //---------------- Position, Durations
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                //---------- Positions
-                formatDuration(position.value).text.white.shadowBlur(1).make(),
-                //------ Seeking Position
-                if (isSeeking.value)
-                  formatDuration(
-                          Duration(seconds: seekingPosition.value.toInt()))
-                      .text
-                      .extraBold
-                      .amber500.shadowBlur(1)
-                      .make(),
-
-                //--------- Total Video Duration
-                if (!isSeeking.value)
-                  formatDuration(duration.value)
-                      .text
-                      .white
-                      .shadowBlur(1)
-                      .make(),
-              ],
+                  context
+                      .read<ControlsVisibilityCubit>()
+                      .toggleVideoControlsVisibilty();
+                },
+              ),
             ),
           ),
-        ],
+
+          //--------- Total Video Duration
+          if (!isSeeking.value)
+            formatDuration(duration.value).text.white.shadowBlur(1).make(),
+
+          //------ Seeking Position
+          if (isSeeking.value)
+            formatDuration(Duration(seconds: seekingPosition.value.toInt()))
+                .text
+                .extraBold
+                .amber500
+                .shadowBlur(1)
+                .make(),
+        ].row(),
+      ].column(
+        axisSize: MainAxisSize.min,
       ),
     );
   }

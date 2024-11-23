@@ -1,7 +1,6 @@
 import 'package:color_log/color_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 
@@ -26,9 +25,10 @@ class AudioPlayerSuffleButtonWidget extends StatelessWidget {
                       .read<AudioPlayerBloc>()
                       .add(AudioPlayerShuffleEvent());
                 },
-                color: isShuffle ? Colors.white : Colors.grey,
+                color: Colors.white,
                 iconSize: 25,
-                icon: const Icon(HugeIcons.strokeRoundedShuffle),
+                icon:
+                    Icon(isShuffle ? Icons.shuffle_on_outlined : Icons.shuffle),
               );
             });
       }

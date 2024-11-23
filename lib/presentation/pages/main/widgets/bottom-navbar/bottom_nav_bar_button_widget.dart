@@ -32,7 +32,7 @@ class BottomNavBarButtonWidget extends StatelessWidget {
                     ? themeState.isDarkMode ? Color(themeState.primaryColor):Theme.of(context).primaryColor : Theme.of(context).tabBarTheme.unselectedLabelColor
                     ):null,
               ),
-              iconSize: 24,
+              iconSize: 25,
               onPressed: () {
                 context.read<BottomNavBarCubit>().changeIndex(index: pageIndex);
             

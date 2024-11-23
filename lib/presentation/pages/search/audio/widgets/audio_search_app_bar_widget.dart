@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class AudioSearchAppBarWidget extends StatelessWidget {
   const AudioSearchAppBarWidget({
@@ -45,14 +46,13 @@ class AudioSearchAppBarWidget extends StatelessWidget {
                       icon: const Icon(CupertinoIcons.back),
                     ),
                     Expanded(
-                      child: TextField(
+                      child: VxTextField(
                         autofocus: true,
                         onChanged: (search) =>
                             query.value = search.toLowerCase(),
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Search audio",
-                        ),
+                        hint: "Search audio",
+                        borderType: VxTextFieldBorderType.none,
+                        fillColor: Colors.transparent,
                       ),
                     ),
                   ],

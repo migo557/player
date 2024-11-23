@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:open_player/presentation/common/widgets/custom_video_tile_widget.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../../../../../base/assets/fonts/styles.dart';
@@ -22,28 +23,25 @@ class SearchVideosPage extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: [
+          automaticallyImplyLeading: false,
+          title: [
             IconButton(
                 onPressed: () {
                   context.pop();
                 },
                 icon: Icon(CupertinoIcons.back)),
             Expanded(
-              child: TextField(
+              child: VxTextField(
                 autofocus: true,
                 onChanged: (v) {
                   searchText.value = v.toLowerCase().trim();
                 },
-                decoration: InputDecoration(
-                  hintText: "Search the videos",
-                ),
+                hint: "Search videos",
+                borderType: VxTextFieldBorderType.none,
+                fillColor: Colors.transparent,
               ),
             ),
-          ],
-        ),
-      ),
+          ].row()),
       body: BlocSelector<VideosBloc, VideosState, VideosSuccess?>(
         selector: (state) {
           return state is VideosSuccess ? state : null;
@@ -52,17 +50,16 @@ class SearchVideosPage extends HookWidget {
           if (state == null) return nothing;
           // Show the list of videos
           if (state.videos.isEmpty) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text("No videos found. refresh now"),
-                IconButton(
-                  onPressed: () {
-                    context.read<VideosBloc>().add(VideosLoadEvent());
-                  },
-                  icon: const Icon(HugeIcons.strokeRoundedRefresh),
-                ),
-              ],
+            return [
+              "No videos found. refresh now".text.make(),
+              IconButton(
+                onPressed: () {
+                  context.read<VideosBloc>().add(VideosLoadEvent());
+                },
+                icon: const Icon(HugeIcons.strokeRoundedRefresh),
+              ),
+            ].column(
+              alignment: MainAxisAlignment.center,
             );
           }
 
@@ -85,26 +82,11 @@ class SearchVideosPage extends HookWidget {
             itemBuilder: (context, index) {
               final VideoModel video = searchVideos[index];
               final String videoTitle = video.title;
-              return ListTile(
-                visualDensity: VisualDensity.comfortable,
-                onTap: () {
-                  context.read<AudioPlayerBloc>().add(AudioPlayerStopEvent());
-                  context.read<VideoPlayerBloc>().add(VideoInitializeEvent(
-                      videoIndex: index, playlist: searchVideos));
-                  GoRouter.of(context).push(
-                    AppRoutes.videoPlayerRoute,
-                  );
-                },
-                title: videoTitle.text
-                    .fontFamily(AppFonts.poppins)
-                    .maxFontSize(14)
-                    .make(),
-                leading: const Icon(HugeIcons.strokeRoundedFileVideo),
-                trailing: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(HugeIcons.strokeRoundedMoreVerticalCircle01),
-                ),
-              );
+              return CustomVideoTileWidget(
+                  filteredVideos: filteredVideos,
+                  videoTitle: videoTitle,
+                  video: video,
+                  index: index);
             },
           );
         },

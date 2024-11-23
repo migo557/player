@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:open_player/data/models/audio_model.dart';
@@ -15,13 +14,14 @@ class CustomAudioSource extends ProgressiveAudioSource {
           headers: headers ?? {'hashcode': audioModel.path.hashCode.toString()},
           tag: MediaItem(
             id: audioModel.path,
-            album: 'Unknown',
+            album: audioModel.album,
             title: audioModel.title,
-            artist: 'Unknown ',
-            artUri: audioModel.thumbnail != null
+            genre: audioModel.genre.toString(),
+            artist: audioModel.artists,
+            artUri: audioModel.thumbnail.isNotEmpty
                 ? Uri.dataFromBytes(
-                    audioModel.thumbnail!,
-                    mimeType: 'image/jpeg',
+                    audioModel.thumbnail.last.bytes,
+                    // mimeType: audioModel.thumbnail.last.mimetype
                   )
                 : null,
             extras: {
@@ -58,5 +58,4 @@ class CustomAudioSource extends ProgressiveAudioSource {
   String get extension => audioModel.ext;
   String get filePath => audioModel.path;
   int get size => audioModel.size;
-  Uint8List? get thumbnailData => audioModel.thumbnail;
 }

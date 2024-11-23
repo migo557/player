@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/data/models/video_model.dart';
-import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
-import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
-import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
-import 'package:velocity_x/velocity_x.dart';
 
-import '../../../../base/router/router.dart';
+import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
+import 'package:open_player/presentation/common/widgets/custom_video_tile_widget.dart';
+
 
 class VideoPageAllVideosViewWidget extends StatelessWidget {
   const VideoPageAllVideosViewWidget({
@@ -60,26 +55,11 @@ class VideoPageAllVideosViewWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               final VideoModel video = filteredVideos[index];
               final String videoTitle = video.title;
-              return ListTile(
-                visualDensity: VisualDensity.comfortable,
-                onTap: () {
-                  context.read<AudioPlayerBloc>().add(AudioPlayerStopEvent());
-                  context.read<VideoPlayerBloc>().add(VideoInitializeEvent(
-                      videoIndex: index, playlist: filteredVideos));
-                  GoRouter.of(context).push(
-                    AppRoutes.videoPlayerRoute,
-                  );
-                },
-                title: videoTitle.text
-                    .fontFamily(AppFonts.poppins)
-                    .maxFontSize(14)
-                    .make(),
-                leading: const Icon(HugeIcons.strokeRoundedFileVideo),
-                trailing: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(HugeIcons.strokeRoundedMoreVerticalCircle01),
-                ),
-              );
+              return CustomVideoTileWidget(
+                  filteredVideos: filteredVideos,
+                  videoTitle: videoTitle,
+                  index: index,
+                  video: video);
             },
           );
         } else if (state is VideosFailure) {

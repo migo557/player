@@ -6,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:open_player/base/assets/images/app_images.dart';
 import 'package:open_player/logic/user_data/user_data_cubit.dart';
 import 'package:open_player/logic/user_data/user_data_state.dart';
+import 'package:open_player/presentation/pages/settings/user_profile/widgets/user_profile_preview.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class UserProfileCircleAvatarWidget extends StatelessWidget {
   const UserProfileCircleAvatarWidget({
@@ -14,8 +16,8 @@ class UserProfileCircleAvatarWidget extends StatelessWidget {
     required this.tempImage,
   });
 
- final Function()? changeButtonOnPressed;
- final XFile? tempImage;
+  final Function()? changeButtonOnPressed;
+  final XFile? tempImage;
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +27,27 @@ class UserProfileCircleAvatarWidget extends StatelessWidget {
           builder: (context, userState) {
             return Card(
               shape: const CircleBorder(),
-              child: CircleAvatar(
-                minRadius: 60,
-                maxRadius: 90,
-                backgroundImage: tempImage != null
-                    ? FileImage(File(tempImage!.path))
-                    : userState.profileImagePath != null
-                        ? FileImage(File(userState.profileImagePath!))
-                        : const AssetImage(AppImages.defaultProfile),
+              child: GestureDetector(
+                onTap: () {
+                  File? file = tempImage != null
+                      ? File(tempImage!.path)
+                      : File(userState.profileImagePath!);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserProfilePreview(file: file),
+                    ),
+                  );
+                },
+                child: CircleAvatar(
+                  minRadius: 60,
+                  maxRadius: 90,
+                  backgroundImage: tempImage != null
+                      ? FileImage(File(tempImage!.path))
+                      : userState.profileImagePath != null
+                          ? FileImage(File(userState.profileImagePath!))
+                          : const AssetImage(AppImages.defaultProfile),
+                ),
               ),
             );
           },

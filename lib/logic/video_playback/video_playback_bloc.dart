@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:color_log/color_log.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../data/services/video_playback_service/video_playback_service.dart';
+import '../../data/services/video_playback_hive_service/video_playback_service.dart';
 
 part 'video_playback_event.dart';
 part 'video_playback_state.dart';

@@ -8,6 +8,7 @@ import 'package:open_player/presentation/pages/audio/sub/albums/view/albums_page
 import 'package:open_player/presentation/pages/audio/sub/artists/view/artists_page.dart';
 import 'package:open_player/presentation/pages/audio/sub/playlists/view/playlists-page.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/view/songs_page.dart';
+import '../../../../../logic/audio_bloc/audios_bloc.dart';
 import '../../../../../logic/audio_page_tab_bar_cubit/audio_page_tab_bar_cubit.dart';
 import '../../sub/favorites/view/audio_favorites_page.dart';
 
@@ -30,19 +31,24 @@ class AudioPage extends StatelessWidget {
               children: [
                 const MiniAudioPlayerWidget(),
                 Expanded(
-                  child: CustomScrollView(
-                    controller: locator.get<ScrollController>(),
-                    physics: BouncingScrollPhysics(),
-                    slivers: [
-                      //-------------------- AppBar -------------------------//
-                      const AudioPageAppBarWidget(),
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      context.read<AudiosBloc>().add(AudiosLoadEvent());
+                    },
+                    child: CustomScrollView(
+                      controller: locator.get<ScrollController>(),
+                      physics: BouncingScrollPhysics(),
+                      slivers: [
+                        //-------------------- AppBar -------------------------//
+                        const AudioPageAppBarWidget(),
 
-                      //-------------------- Tab Bar----------------------///
-                      const AudioPageTabBarWidget(),
+                        //-------------------- Tab Bar----------------------///
+                        const AudioPageTabBarWidget(),
 
-                      //-------------- Tab Bar View --------------------//
-                      _tabs[state.tabIndex]
-                    ],
+                        //-------------- Tab Bar View --------------------//
+                        _tabs[state.tabIndex]
+                      ],
+                    ),
                   ),
                 ),
               ],

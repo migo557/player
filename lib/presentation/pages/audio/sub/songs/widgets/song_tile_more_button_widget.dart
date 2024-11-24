@@ -7,6 +7,7 @@ import 'package:open_player/data/models/audio_model.dart';
 import 'package:open_player/data/services/favorite_audio_hive_service/audio_hive_service.dart';
 import 'package:open_player/data/services/file_service/file_service.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
+import 'package:open_player/presentation/common/widgets/audio_info_sheet/audio_info_sheet_widget.dart';
 import 'package:open_player/utils/app_menu.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -38,7 +39,7 @@ class SongTileMoreButtonWidget extends StatelessWidget {
                 audios,
               ),
               _musicSetAsRingtone(),
-              _more(),
+              _more(context, audio),
             ]);
       },
       child: const Padding(
@@ -166,14 +167,21 @@ PopupMenuItem<dynamic> _musicSetAsRingtone() {
 }
 
 ///--------------- Show More
-PopupMenuItem<dynamic> _more() {
+PopupMenuItem<dynamic> _more(BuildContext context, AudioModel audio) {
   return PopupMenuItem(
-    onTap: () {},
+    onTap: () {
+      showBottomSheet(
+        context: context,
+        enableDrag: true,
+        showDragHandle: true,
+        builder: (context) => AudioInfoSheetWidget(audio: audio),
+      );
+    },
     child: const ListTile(
       title: Text(
-        "Show More",
+        "Info",
       ),
-      trailing: Icon(HugeIcons.strokeRoundedMore),
+      trailing: Icon(HugeIcons.strokeRoundedInformationCircle),
     ),
   );
 }

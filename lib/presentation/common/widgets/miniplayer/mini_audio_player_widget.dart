@@ -8,10 +8,10 @@ import 'package:open_player/presentation/pages/players/audio/widgets/audio_playe
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_previous_button_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_seek_bar_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_thumbnail_card_widget.dart';
-import 'package:open_player/utils/formatDuration.dart';
 
 import '../../../../base/assets/fonts/styles.dart';
 import '../../../../logic/audio_player_bloc/audio_player_bloc.dart';
+import '../../../../utils/formater.dart';
 import '../nothing_widget.dart';
 import '../../../pages/players/audio/view/audio_player.dart';
 import '../../../pages/players/audio/widgets/audio_player_play_pause_button_widget.dart';
@@ -54,6 +54,11 @@ class MiniAudioPlayerWidget extends StatelessWidget {
                     },
                     child: Card(
                       color: Theme.of(context).colorScheme.primary,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(0),
+                      )),
                       margin: EdgeInsets.zero,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -81,7 +86,7 @@ class MiniAudioPlayerWidget extends StatelessWidget {
                                     CircleAvatar(
                                       radius: 23,
                                       child: Text(
-                                        formatDuration(
+                                       Formatter. formatDuration(
                                           Duration(
                                             seconds: playerState.seekingPosition
                                                 .toInt(),

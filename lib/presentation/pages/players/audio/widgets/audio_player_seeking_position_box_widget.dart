@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
-import 'package:open_player/utils/formatDuration.dart';
+
+import '../../../../../utils/formater.dart';
 
 class AudioPlayerSeekingPositionBoxWidget extends StatelessWidget {
   const AudioPlayerSeekingPositionBoxWidget({
@@ -35,7 +36,7 @@ class AudioPlayerSeekingPositionBoxWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          formatDuration(
+                           Formatter.   formatDuration(
                               Duration(seconds: state.seekingPosition.toInt())),
                           style: const TextStyle(fontSize: 18),
                         ),

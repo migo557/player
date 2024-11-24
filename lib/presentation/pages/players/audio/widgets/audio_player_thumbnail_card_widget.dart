@@ -62,7 +62,7 @@ class AudioPlayerThumbnailCardWidget extends StatelessWidget {
                         height: height,
                         width: width,
                         decoration: BoxDecoration(
-                            color: Colors.amber,
+                            color: Colors.transparent,
                             borderRadius:
                                 borderRadius ?? BorderRadius.circular(20),
                             //--                  Image             --//

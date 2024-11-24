@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../../../../../logic/Control_visibility/controls_visibility_cubit.dart';
-import '../../../../../utils/formatDuration.dart';
+import '../../../../../utils/formater.dart';
 
 class VideoPlayerProgressBarWidget extends HookWidget {
   const VideoPlayerProgressBarWidget({super.key, required this.state});
@@ -27,7 +27,7 @@ class VideoPlayerProgressBarWidget extends HookWidget {
       child: [
         [
           //---------- Positions
-          formatDuration(position.value).text.white.shadowBlur(1).make(),
+          Formatter.    formatDuration(position.value).text.white.shadowBlur(1).make(),
 
           //------------- Slider ----------------//
           Expanded(
@@ -67,11 +67,11 @@ class VideoPlayerProgressBarWidget extends HookWidget {
 
           //--------- Total Video Duration
           if (!isSeeking.value)
-            formatDuration(duration.value).text.white.shadowBlur(1).make(),
+             Formatter.   formatDuration(duration.value).text.white.shadowBlur(1).make(),
 
           //------ Seeking Position
           if (isSeeking.value)
-            formatDuration(Duration(seconds: seekingPosition.value.toInt()))
+             Formatter.   formatDuration(Duration(seconds: seekingPosition.value.toInt()))
                 .text
                 .extraBold
                 .amber500

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 
 import '../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
-import '../../../../../utils/formatDuration.dart';
+import '../../../../../utils/formater.dart';
 
 class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
   const AudioPlayerPositionAndDurationWidget(
@@ -51,7 +51,7 @@ class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
                       //---       Position
                       if (showPosition)
                         Text(
-                          formatDuration(position),
+                          Formatter.    formatDuration(position),
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: fontSize,
@@ -67,7 +67,7 @@ class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
                       //--     Duration
                       if (showDuration)
                         Text(
-                          formatDuration(duration),
+                           Formatter.   formatDuration(duration),
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: fontSize,

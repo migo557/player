@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 
 
@@ -11,7 +12,7 @@ class AudioModel {
   final String path;
   final int size;
   final int? bitrate;
-  final List thumbnail;
+  final List<Picture> thumbnail;
   final String? lyrics;
   final int? sampleRate;
   final String? language;

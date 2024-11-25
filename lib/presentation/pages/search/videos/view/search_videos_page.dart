@@ -59,12 +59,10 @@ class SearchVideosPage extends HookWidget {
             );
           }
 
-          //Filter out videos  whose title starts with dot
+          //Filter out videos  whose title starts with dot &  Sorting the filtered List
           final filteredVideos = state.videos
               .where((video) => !video.title.startsWith('.'))
-              .toList();
-          //----------- Sorting the filtered List ---------------//
-          state.videos.sort((a, b) => a.title.compareTo(b.title));
+              .toList()..sort((a, b) => a.title.compareTo(b.title));
 
           final searchVideos = filteredVideos
               .where(

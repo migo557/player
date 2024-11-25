@@ -47,10 +47,11 @@ class VideoPageAllVideosViewWidget extends HookWidget {
 
           final fvrKeys = MyHiveBoxes.favoriteVideos.keys;
 
-          //Filter out videos  whose title starts with dot
+          //Filter out videos  whose title starts with dot &  Sorting the filtered List
           List<VideoModel> filteredVideos = state.videos
               .where((video) => !video.title.startsWith('.'))
-              .toList();
+              .toList()
+            ..sort((a, b) => a.title.compareTo(b.title));
 
           if (selectedFilter.value == VideoFilter.all) {
             filteredVideos = filteredVideos;
@@ -63,8 +64,6 @@ class VideoPageAllVideosViewWidget extends HookWidget {
                     FavoritesVideoHiveService().getFavoriteStatus(video.path))
                 .toList();
           }
-          //----------- Sorting the filtered List ---------------//
-          state.videos.sort((a, b) => a.title.compareTo(b.title));
 
           ///----------- List Builder ----------///
           return SliverList.builder(

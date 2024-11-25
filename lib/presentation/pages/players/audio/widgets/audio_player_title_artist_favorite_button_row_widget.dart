@@ -54,16 +54,14 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                     Expanded(
                       child: [
                         //------------- TITLE ----------------//
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: "$title    "
-                              .text
-                              .white
-                              .minFontSize(25)
-                              .fontFamily(AppFonts.poppins)
-                              .shadow(1, 1, 3, Colors.black38)
-                              .make(),
-                        ),
+                        "$title    "
+                            .text
+                            .white
+                            .minFontSize(25)
+                            .fontFamily(AppFonts.poppins)
+                            .shadow(1, 1, 3, Colors.black38)
+                            .make()
+                            .scrollHorizontal(),
 
                         //------------------- ARTISTS ------------------//
                         [

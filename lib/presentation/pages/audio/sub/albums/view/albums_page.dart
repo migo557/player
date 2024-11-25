@@ -1,62 +1,12 @@
-import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_player/data/models/album_model.dart';
+import 'package:open_player/presentation/pages/audio/sub/albums/widgets/album_card.dart';
 import '../../../../../../data/models/audio_model.dart';
 import '../../../../../../logic/audio_bloc/audios_bloc.dart';
-import '../../../../../common/widgets/quality_badge/quality_badge_widget.dart';
-
-class AlbumModel {
-  final String name;
-  final String artist;
-  final int songCount;
-  final List<AudioModel> songs;
-  final List<Picture> thumbnail;
-  final DateTime? year;
-  final Quality quality;
-
-  AlbumModel({
-    required this.name,
-    required this.artist,
-    required this.songCount,
-    required this.songs,
-    required this.thumbnail,
-    required this.year,
-    required this.quality,
-  });
-}
 
 class AlbumsPage extends StatelessWidget {
   const AlbumsPage({super.key});
-
-  List<AlbumModel> _getAlbumsFromAudios(List<AudioModel> audios) {
-    // Create a map to group songs by album
-    final albumMap = <String, List<AudioModel>>{};
-
-    for (var audio in audios) {
-      if (!albumMap.containsKey(audio.album)) {
-        albumMap[audio.album] = [];
-      }
-      albumMap[audio.album]!.add(audio);
-    }
-
-    // Convert the map to list of Album objects
-    return albumMap.entries.map((entry) {
-      final songs = entry.value;
-      // Use the first song's data for album details
-      final firstSong = songs.first;
-
-      return AlbumModel(
-        name: entry.key,
-        artist: firstSong.artists,
-        songCount: songs.length,
-        songs: songs,
-        thumbnail: firstSong.thumbnail,
-        year: firstSong.year,
-        quality: firstSong.quality,
-      );
-    }).toList()
-      ..sort((a, b) => a.name.compareTo(b.name)); // Sort alphabetically
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,100 +59,36 @@ class AlbumsPage extends StatelessWidget {
       },
     );
   }
-}
 
-class AlbumCard extends StatelessWidget {
-  final AlbumModel album;
+  //------------- Methods -------//
 
-  const AlbumCard({
-    super.key,
-    required this.album,
-  });
+  List<AlbumModel> _getAlbumsFromAudios(List<AudioModel> audios) {
+    // Create a map to group songs by album
+    final albumMap = <String, List<AudioModel>>{};
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: InkWell(
-        onTap: () {
-          // Navigate to album details with songs
-          // You can implement navigation here
-        },
-        borderRadius: BorderRadius.circular(15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Album Cover
-            Expanded(
-              flex: 3,
-              child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(15)),
-                child: album.thumbnail.isNotEmpty
-                    ? Image.memory(
-                        album.thumbnail.first.bytes,
-                        fit: BoxFit.cover,
-                      )
-                    : Container(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        child: Icon(
-                          Icons.album,
-                          size: 64,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-              ),
-            ),
-            // Album Info
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          album.name,
-                          style: const TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          album.artist,
-                          style: TextStyle(fontSize: 9),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '${album.songCount} songs',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        QualityBadge(quality: album.quality),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    for (var audio in audios) {
+      if (!albumMap.containsKey(audio.album)) {
+        albumMap[audio.album] = [];
+      }
+      albumMap[audio.album]!.add(audio);
+    }
+
+    // Convert the map to list of Album objects
+    return albumMap.entries.map((entry) {
+      final songs = entry.value;
+      // Use the first song's data for album details
+      final firstSong = songs.first;
+
+      return AlbumModel(
+        name: entry.key,
+        artist: firstSong.artists,
+        songCount: songs.length,
+        songs: songs,
+        thumbnail: firstSong.thumbnail,
+        year: firstSong.year,
+        quality: firstSong.quality,
+      );
+    }).toList()
+      ..sort((a, b) => a.name.compareTo(b.name)); // Sort alphabetically
   }
 }

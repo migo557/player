@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:open_player/presentation/pages/search/audio/widgets/audio_search_app_bar_widget.dart';
+import 'package:velocity_x/velocity_x.dart';
 import '../../../../../data/models/audio_model.dart';
 import '../../../../../logic/audio_bloc/audios_bloc.dart';
 import '../../../../common/widgets/nothing_widget.dart';
@@ -50,7 +51,6 @@ class SearchAudioPage extends HookWidget {
               floating: true,
               expandedHeight: isFilterVisible.value ? 120 : 80,
               flexibleSpace: FlexibleSpaceBar(
-              
                 background: Column(
                   children: [
                     AudioSearchAppBarWidget(
@@ -59,24 +59,20 @@ class SearchAudioPage extends HookWidget {
                           isFilterVisible.value = !isFilterVisible.value,
                     ),
                     if (isFilterVisible.value)
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: SearchFilter.values.map((filter) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                              child: FilterChip(
-                                selected: selectedFilter.value == filter,
-                                label: Text(filter.name.toUpperCase()),
-                                onSelected: (selected) {
-                                  selectedFilter.value = filter;
-                                },
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
+                      Row(
+                        children: SearchFilter.values.map((filter) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
+                            child: FilterChip(
+                              selected: selectedFilter.value == filter,
+                              label: Text(filter.name.toUpperCase()),
+                              onSelected: (selected) {
+                                selectedFilter.value = filter;
+                              },
+                            ),
+                          );
+                        }).toList(),
+                      ).scrollHorizontal(),
                   ],
                 ),
               ),
@@ -91,12 +87,8 @@ class SearchAudioPage extends HookWidget {
                 final filteredAudios = filterAudios(state.songs, query.value);
 
                 if (filteredAudios.isEmpty) {
-                  return const SliverToBoxAdapter(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Center(child: Text("No Result")),
-                    ),
-                  );
+                  return SliverToBoxAdapter(
+                      child: "No Result".text.makeCentered().p12());
                 }
 
                 return SliverList(

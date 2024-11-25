@@ -32,10 +32,8 @@ class AudioFavoritePage extends StatelessWidget {
                             audio.path)) &&
                         FavoritesAudioHiveService()
                             .getFavoriteStatus(audio.path))
-                    .toList();
+                    .toList()..sort((a, b) => a.title.compareTo(b.title));
 
-                //----------- Sorting the filtered List ---------------//
-                audioState.songs.sort((a, b) => a.title.compareTo(b.title));
 
                 int songsLength = filteredSongs.length;
 

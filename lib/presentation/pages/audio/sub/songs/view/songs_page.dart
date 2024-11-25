@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/song_tile_widget.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/songs_top_bar_buttons_widget.dart';
+import 'package:velocity_x/velocity_x.dart';
 import '../../../../../../logic/audio_bloc/audios_bloc.dart';
 import '../../../../../../logic/theme_cubit/theme_cubit.dart';
 import '../../../../../../logic/theme_cubit/theme_state.dart';
@@ -19,16 +20,11 @@ class SongsPage extends StatelessWidget {
           builder: (context, audioState) {
             if (audioState is AudiosSuccess) {
               if (audioState.songs.isNotEmpty) {
-                  //----------- Sorting the filtered List ---------------//
-                audioState.songs.sort((a, b) => a.title.compareTo(b.title));
-
-                
-                //Filter out audios  whose title starts with dot
+                //Filter out audios  whose title starts with dot  & Sorting the filtered List ---------------//
                 final filteredSongs = audioState.songs
                     .where((audio) => !audio.title.startsWith('.'))
-                    .toList();
-
-              
+                    .toList()
+                  ..sort((a, b) => a.title.compareTo(b.title));
 
                 int songsLength = filteredSongs.length;
 
@@ -39,19 +35,17 @@ class SongsPage extends StatelessWidget {
                     itemCount: songsLength,
                     itemBuilder: (context, index) {
                       return index == 0
-                          ? Column(
-                              children: [
-                                //---------- [Songs Legth] [Sort Button][Select All Button]
-                                SongsTopBarButtonsWidget(
-                                    songsLength: songsLength),
-                                //--------- Music Title
-                                SongTileWidget(
-                                  audios: filteredSongs,
-                                  index: index,
-                                  state: audioState,
-                                ),
-                              ],
-                            )
+                          ? [
+                              //---------- [Songs Legth] [Sort Button][Select All Button]
+                              SongsTopBarButtonsWidget(
+                                  songsLength: songsLength),
+                              //--------- Music Title
+                              SongTileWidget(
+                                audios: filteredSongs,
+                                index: index,
+                                state: audioState,
+                              ),
+                            ].column()
                           : SongTileWidget(
                               audios: filteredSongs,
                               index: index,
@@ -60,24 +54,17 @@ class SongsPage extends StatelessWidget {
                     },
                   ),
                 );
-
-         
               } else {
                 return SliverToBoxAdapter(
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("No Audio found"),
-                        IconButton(
-                          onPressed: () {
-                            context.read<AudiosBloc>().add(AudiosLoadEvent());
-                          },
-                          icon: const Icon(HugeIcons.strokeRoundedRefresh),
-                        ),
-                      ],
+                  child: [
+                    "No Audios found".text.make(),
+                    IconButton(
+                      onPressed: () {
+                        context.read<AudiosBloc>().add(AudiosLoadEvent());
+                      },
+                      icon: const Icon(HugeIcons.strokeRoundedRefresh),
                     ),
-                  ),
+                  ].column().centered(),
                 );
               }
             } else if (audioState is AudiosLoading) {
@@ -93,16 +80,11 @@ class SongsPage extends StatelessWidget {
                 ),
               );
             } else if (audioState is AudiosInitial) {
-              return const SliverToBoxAdapter(
-                child: Center(
-                  child: Text("Initializing ..."),
-                ),
-              );
+              return SliverToBoxAdapter(
+                  child: "Initializing ...".text.makeCentered());
             } else {
-              return const SliverToBoxAdapter(
-                child: Center(
-                  child: Text("Something went wrong"),
-                ),
+              return SliverToBoxAdapter(
+                child: "Something went wrong".text.makeCentered(),
               );
             }
           },

@@ -16,46 +16,44 @@ class AudioPlayerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size mq = MediaQuery.sizeOf(context);
+
     return Scaffold(
-      body: Stack(
-        children: [
-          //-------- Background Blur Image ---------//
-          const AudioPlayerBackgroundBlurImageWidget(),
+      body: [
+        //-------- Background Blur Image ---------//
+        const AudioPlayerBackgroundBlurImageWidget(),
 
-          //--------------- TopBar ------------//
-          const AudioPlayerTopBarWidget(),
+        //--------------- TopBar ------------//
+        const AudioPlayerTopBarWidget(),
 
-          //----------------- [Thumbnail Image] [Gestures Boxes] [Volume Box] [Position Box] ---------------//
+        //----------------- [Thumbnail Image] [Gestures Boxes] [Volume Box] [Position Box] ---------------//
 
-          const AudioPlayerCenterStackWidget(),
+        const AudioPlayerCenterStackWidget(),
 
-          //------------- Player Glassophate ----------------//
-          Positioned(
-            bottom: mq.height * 0.06,
-            height: mq.height * 0.3,
-            width: mq.width*0.88,
-            left: mq.width*0.06,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: mq.width * 0.03),
-              child: Column(
-                children: [
-                  //------------   Music Title & Artist And Favorite Button  & Audio Quality Badge Row
-                  AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget(),
-              
-                  //------------ Seek Bar
-                  AudioPlayerSeekBarWidget(),
-              
-                  //------------ Position & Duration
-                  AudioPlayerPositionAndDurationWidget(),
-              
-                  //----- Buttons ----//
-                  AudioPlayerActionsButtonsWidget()
-                ],
-              ).scrollVertical(),
-            ).glassMorphic(),
-          ),
-        ],
-      ),
+        //------------- Player Glassophate ----------------//
+        [
+          //------------   Music Title & Artist And Favorite Button  & Audio Quality Badge Row
+          AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget(),
+
+          //------------ Seek Bar
+          AudioPlayerSeekBarWidget(),
+
+          //------------ Position & Duration
+          AudioPlayerPositionAndDurationWidget(),
+
+          //----- Buttons ----//
+          AudioPlayerActionsButtonsWidget()
+        ]
+            .column()
+            .scrollVertical()
+            .pSymmetric(h: mq.width * 0.02)
+            .glassMorphic()
+            .positioned(
+              bottom: mq.height * 0.06,
+              height: mq.height * 0.3,
+              width: mq.width * 0.88,
+              left: mq.width * 0.06,
+            ),
+      ].stack(),
     );
   }
 }

@@ -43,7 +43,7 @@ class AlbumsPage extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   final album = albums[index];
-                  return AlbumCard(album: album);
+                  return AlbumCard(album: album, state: state);
                 },
                 childCount: albums.length,
               ),

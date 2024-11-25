@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
             themeAnimationDuration: const Duration(milliseconds: 1000),
             debugShowCheckedModeBanner: false,
             theme: locator<AppThemes>().themes(themeState),
-            title: "Open Player",
+            title: "Player",
           );
         },
       ),

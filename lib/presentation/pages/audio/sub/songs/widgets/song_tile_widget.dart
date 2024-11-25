@@ -6,10 +6,12 @@ import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/base/assets/images/app_images.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
+import 'package:open_player/presentation/common/widgets/custom_video_tile_widget.dart';
 import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/song_tile_more_button_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/view/audio_player.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_play_pause_button_widget.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../../../data/models/audio_model.dart';
 
@@ -148,27 +150,30 @@ class _SongTile extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Stack(
-                    children: [
-                      //--------- Thumbnail
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: audio.thumbnail.isEmpty
-                            ? Image.asset(
-                                AppImages.defaultProfile,
-                              )
-                            : Image.memory(audio.thumbnail.last.bytes),
-                      ),
+                  child: [
+                    //--------- Thumbnail
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: audio.thumbnail.isEmpty
+                          ? Image.asset(
+                              AppImages.defaultProfile,
+                            )
+                          : Image.memory(
+                              width: isPlaying ? 77 : 70,
+                              height: isPlaying ? 77 : 70,
+                              audio.thumbnail.last.bytes,
+                              fit: BoxFit.cover,
+                            ),
+                    ),
 
-                      //------ Play Button Icon
-                      if (isPlaying)
-                        Center(
-                          child: AudioPlayerPlayPauseButtonWidget(
-                            iconSize: 25,
-                          ),
-                        )
-                    ],
-                  ),
+                    //------ Play Button Icon
+                    if (isPlaying)
+                      Center(
+                        child: AudioPlayerPlayPauseButtonWidget(
+                          iconSize: 25,
+                        ),
+                      )
+                  ].stack(),
                 ),
               ),
 

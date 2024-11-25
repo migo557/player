@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:open_player/data/models/album_model.dart';
+import 'package:open_player/data/models/artist_model.dart';
+import 'package:open_player/presentation/pages/audio/sub/albums/view/album_preview_page.dart';
+import 'package:open_player/presentation/pages/audio/sub/artists/view/artist_preview_page.dart';
 import 'package:open_player/presentation/pages/players/audio/view/audio_player.dart';
 import 'package:open_player/presentation/pages/players/video/view/video_player.dart';
 import 'package:open_player/presentation/pages/settings/about/view/about_page.dart';
@@ -79,6 +83,23 @@ final GoRouter router = GoRouter(
       path: AppRoutes.viewDirectoryRoute,
       builder: (context, state) => const ViewDirectoryPage(),
     ),
+    GoRoute(
+      name: AppRoutes.artistPreviewRoute,
+      path: AppRoutes.artistPreviewRoute,
+      builder: (context, state) => ArtistPreviewPage(
+        artist: state.extra as ArtistModel,
+      ),
+    ),
+    GoRoute(
+        name: AppRoutes.albumPreviewRoute,
+        path: AppRoutes.albumPreviewRoute,
+        builder: (context, state) {
+          List extra = state.extra as List;
+          return AlbumPreviewPage(
+            album: extra[0],
+            state: extra[1],
+          );
+        }),
   ],
   errorBuilder: (context, state) {
     return Scaffold(
@@ -104,4 +125,6 @@ class AppRoutes {
   static const searchVideosRoute = "/search_video";
   static const searchAudiosRoute = "/search_audio";
   static const viewDirectoryRoute = "/view_directory";
+  static const artistPreviewRoute = "/artist_preview";
+  static const albumPreviewRoute = "/album_preview";
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:open_player/base/router/router.dart';
 import 'package:open_player/data/models/album_model.dart';
+import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
 import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 import 'package:open_player/presentation/pages/audio/sub/albums/view/albums_page.dart';
 
@@ -9,7 +12,10 @@ class AlbumCard extends StatelessWidget {
   const AlbumCard({
     super.key,
     required this.album,
+    required this.state
   });
+
+  final AudiosSuccess state;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +28,7 @@ class AlbumCard extends StatelessWidget {
         onTap: () {
           // Navigate to album details with songs
           // You can implement navigation here
+          context.push(AppRoutes.albumPreviewRoute,extra: [album, state]);
         },
         borderRadius: BorderRadius.circular(15),
         child: Column(

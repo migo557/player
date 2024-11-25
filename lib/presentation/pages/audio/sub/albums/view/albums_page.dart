@@ -32,7 +32,8 @@ class AlbumsPage extends StatelessWidget {
           }
 
           return SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding:
+                const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 100),
             sliver: SliverGrid(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

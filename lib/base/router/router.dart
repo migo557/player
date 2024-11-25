@@ -84,12 +84,15 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const ViewDirectoryPage(),
     ),
     GoRoute(
-      name: AppRoutes.artistPreviewRoute,
-      path: AppRoutes.artistPreviewRoute,
-      builder: (context, state) => ArtistPreviewPage(
-        artist: state.extra as ArtistModel,
-      ),
-    ),
+        name: AppRoutes.artistPreviewRoute,
+        path: AppRoutes.artistPreviewRoute,
+        builder: (context, state) {
+            List extra = state.extra as List;
+        return  ArtistPreviewPage(
+            artist: extra[0],
+            state: extra[1],
+          );
+        }),
     GoRoute(
         name: AppRoutes.albumPreviewRoute,
         path: AppRoutes.albumPreviewRoute,

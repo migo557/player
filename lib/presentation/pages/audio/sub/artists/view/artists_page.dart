@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:open_player/base/router/router.dart';
 import 'package:open_player/data/models/artist_model.dart';
 import 'package:open_player/presentation/pages/audio/sub/artists/widgets/artist_card.dart';
 import '../../../../../../data/models/audio_model.dart';
@@ -32,7 +34,8 @@ class ArtistsPage extends StatelessWidget {
           }
 
           return SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+
+            padding: const EdgeInsets.only(left: 16.0,right: 16.0, bottom: 100),
             sliver: SliverGrid(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -56,6 +59,14 @@ class ArtistsPage extends StatelessWidget {
                         return audioArtists.contains(artist.name);
                       }).toList();
                       // Navigate with artistSongs
+
+                      final model = ArtistModel(
+                          name: artist.name,
+                          songCount: artistSongs.length,
+                          albumCount: artist.albumCount,
+                          songs: artistSongs);
+                      context.push(AppRoutes.artistPreviewRoute,
+                          extra: [model, state]);
                     },
                   );
                 },
@@ -107,7 +118,7 @@ class ArtistsPage extends StatelessWidget {
       return ArtistModel(
         name: entry.key,
         songCount: entry.value['songs']!.length,
-        albumCount: entry.value['albums']!.length,
+        albumCount: entry.value['albums']!.length, songs: [],
       );
     }).toList()
       ..sort((a, b) => a.name.compareTo(b.name)); // Sort alphabetically

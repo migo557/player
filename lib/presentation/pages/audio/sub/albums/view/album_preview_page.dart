@@ -61,7 +61,7 @@ class AlbumPreviewPage extends StatelessWidget {
                   ),
                 ),
 
-                ///--------- Album Thubnail & Title Row ----------///
+                ///--------- Album Thumbnail & Title Row ----------///
 
                 [
                   Container(
@@ -70,9 +70,9 @@ class AlbumPreviewPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       image: DecorationImage(
-                        image: MemoryImage(
+                        image: album.thumbnail.isNotEmpty? MemoryImage(
                           album.thumbnail.first.bytes,
-                        ),
+                        ):AssetImage(AppImages.defaultProfile),
                         fit: BoxFit.cover,
                       ),
                     ),

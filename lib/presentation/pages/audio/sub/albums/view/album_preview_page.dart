@@ -7,6 +7,7 @@ import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
 import 'package:open_player/presentation/common/widgets/custom_back_button.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../../../../settings/user_profile/widgets/user_profile_preview.dart';
 import '../../songs/widgets/song_tile_widget.dart';
 
 class AlbumPreviewPage extends StatelessWidget {
@@ -22,7 +23,8 @@ class AlbumPreviewPage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _AppBar(album: album, scaffoldColor: scaffoldColor, textColor: textColor),
+          _AppBar(
+              album: album, scaffoldColor: scaffoldColor, textColor: textColor),
 
           //------------- Music List ------///
           SliverList.builder(
@@ -42,7 +44,7 @@ class AlbumPreviewPage extends StatelessWidget {
   }
 }
 
-  //---------- APPBAR --------------//
+//---------- APPBAR --------------//
 class _AppBar extends StatelessWidget {
   const _AppBar({
     required this.album,
@@ -91,22 +93,33 @@ class _AppBar extends StatelessWidget {
               )),
             ),
           ),
-    
+
           ///--------- Album Thumbnail & Title Row ----------///
-    
           [
-            Container(
-              height: 100,
-              width: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                  image: album.thumbnail.isNotEmpty
-                      ? MemoryImage(
-                          album.thumbnail.first.bytes,
-                        )
-                      : AssetImage(AppImages.defaultProfile),
-                  fit: BoxFit.cover,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserProfilePreview(
+                      bytes: album.thumbnail.first.bytes,
+                    ),
+                  ),
+                );
+              },
+              child: Container(
+                height: 100,
+                width: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                    image: album.thumbnail.isNotEmpty
+                        ? MemoryImage(
+                            album.thumbnail.first.bytes,
+                          )
+                        : AssetImage(AppImages.defaultProfile),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
@@ -119,9 +132,7 @@ class _AppBar extends StatelessWidget {
                     .fontFamily(AppFonts.poppins)
                     .fontWeight(FontWeight.w500)
                     .make(),
-                album.artist.text
-                    .color(textColor.withOpacity(0.8))
-                    .make(),
+                album.artist.text.color(textColor.withOpacity(0.8)).make(),
                 "${album.songCount} songs"
                     .text
                     .color(textColor.withOpacity(0.5))
@@ -129,12 +140,9 @@ class _AppBar extends StatelessWidget {
               ],
             ).centered()
           ].row().p12().positioned(bottom: 50),
-    
+
           //-------- Back Button
           CustomBackButton().safeArea(),
-
-
-          
         ].stack(),
       ),
     );

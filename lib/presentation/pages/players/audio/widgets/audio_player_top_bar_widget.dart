@@ -1,4 +1,3 @@
-import 'package:color_log/color_log.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -28,14 +27,7 @@ class AudioPlayerTopBarWidget extends StatelessWidget {
             icon: const Icon(HugeIcons.strokeRoundedArrowDown01),
           ),
           const Spacer(),
-          //--- Lyrics Button ---///
-          IconButton(
-              onPressed: () {
-                clog.debug(" Audio Lyrics is clicked");
-              },
-              color: Colors.white,
-              iconSize: 30,
-              icon: const Icon(Icons.lyrics)),
+
           //--- More Button ---///
           IconButton(
             onPressed: () {},

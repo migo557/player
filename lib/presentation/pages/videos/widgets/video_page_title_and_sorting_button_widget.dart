@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-enum VideoFilter { all, favorites }
+enum VideoFilter { all, favorites, hidden }
 
 class VideoPageTitleAndSortingButtonWidget extends HookWidget {
   const VideoPageTitleAndSortingButtonWidget({
@@ -20,23 +20,20 @@ class VideoPageTitleAndSortingButtonWidget extends HookWidget {
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: VideoFilter.values.map((filter) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: FilterChip(
-                      selected: selectedFilter.value == filter,
-                      label: Text(filter.name.toUpperCase()),
-                      onSelected: (selected) {
-                        selectedFilter.value = filter;
-                      },
-                    ),
-                  );
-                }).toList(),
-              ),
-            ).expand(),
+            Row(
+              children: VideoFilter.values.map((filter) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: FilterChip(
+                    selected: selectedFilter.value == filter,
+                    label: Text(filter.name.toUpperCase()),
+                    onSelected: (selected) {
+                      selectedFilter.value = filter;
+                    },
+                  ),
+                );
+              }).toList(),
+            ).scrollHorizontal().expand(),
 
             //----- Filter Button
             IconButton(

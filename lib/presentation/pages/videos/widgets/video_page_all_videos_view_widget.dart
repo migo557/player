@@ -9,6 +9,7 @@ import 'package:open_player/data/services/favorites_video_hive_service/favorites
 import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
 import 'package:open_player/presentation/common/widgets/custom_video_tile_widget.dart';
 import 'package:open_player/presentation/pages/videos/widgets/video_page_title_and_sorting_button_widget.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class VideoPageAllVideosViewWidget extends HookWidget {
   const VideoPageAllVideosViewWidget({super.key, required this.selectedFilter});
@@ -49,34 +50,51 @@ class VideoPageAllVideosViewWidget extends HookWidget {
 
           //Filter out videos  whose title starts with dot &  Sorting the filtered List
           List<VideoModel> filteredVideos = state.videos
-              .where((video) => !video.title.startsWith('.'))
+              .where((video) => selectedFilter.value == VideoFilter.hidden
+                  ? video.title.startsWith('.')
+                  : !video.title.startsWith('.'))
               .toList()
             ..sort((a, b) => a.title.compareTo(b.title));
 
-          if (selectedFilter.value == VideoFilter.all) {
-            filteredVideos = filteredVideos;
-          }
           if (selectedFilter.value == VideoFilter.favorites) {
             filteredVideos = filteredVideos
                 .where((video) =>
                     fvrKeys.contains(
                         FavoritesVideoHiveService.generateKey(video.path)) &&
                     FavoritesVideoHiveService().getFavoriteStatus(video.path))
-                .toList();
+                .toList()..sort((a, b) => a.title.compareTo(b.title),);
           }
 
           ///----------- List Builder ----------///
-          return SliverList.builder(
-            itemCount: filteredVideos.length,
-            itemBuilder: (context, index) {
-              final VideoModel video = filteredVideos[index];
-              final String videoTitle = video.title;
-              return CustomVideoTileWidget(
-                  filteredVideos: filteredVideos,
-                  videoTitle: videoTitle,
-                  index: index,
-                  video: video);
-            },
+          return SliverPadding(
+            padding: EdgeInsets.only(bottom: 100),
+            sliver: SliverList.builder(
+              itemCount: filteredVideos.length,
+              itemBuilder: (context, index) {
+                final VideoModel video = filteredVideos[index];
+                final String videoTitle = video.title;
+                return Column(
+                  children: [
+                    //------ TOP Bar --------//
+                    if (index == 0)
+                      [
+                        "videos : ${filteredVideos.length}"
+                            .text
+                            .minFontSize(12)
+                            .fontWeight(FontWeight.w500)
+                            .make(),
+                      ].row().pSymmetric(h: 12),
+
+                    //------- CustomVideoTileWidget --------//
+                    CustomVideoTileWidget(
+                        filteredVideos: filteredVideos,
+                        videoTitle: videoTitle,
+                        index: index,
+                        video: video),
+                  ],
+                );
+              },
+            ),
           );
         } else if (state is VideosFailure) {
           // Display error message if loading failed

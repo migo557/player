@@ -47,14 +47,13 @@ class AudioRepository {
     // Getting the image of a track can be heavy and slow the reading
     final metadata = readMetadata(File(audioPath), getImage: true);
 
-    // final quality = AudioQualityCalculator.calculateQuality(
-    //     bitrate: metadata.bitrate, sampleRate: metadata.sampleRate);
-        // Calculate audio quality
+    // Calculate audio quality
     final quality = AudioQualityCalculator.calculateQuality(
       bitrate: metadata.bitrate,
       sampleRate: metadata.sampleRate,
       // codec: metadata.format, // If available in your metadata
     );
+
 
     return AudioModel(
       title: path.basenameWithoutExtension(audioPath),

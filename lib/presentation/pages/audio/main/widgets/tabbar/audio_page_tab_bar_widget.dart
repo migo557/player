@@ -17,7 +17,7 @@ class AudioPageTabBarWidget extends StatelessWidget {
       },
       builder: (context, state) {
         return SliverAppBar(
-          toolbarHeight: mqHeight * 0.067,
+          toolbarHeight: 50,
           automaticallyImplyLeading: false,
           pinned: true,
           primary: state != null ? false : true,

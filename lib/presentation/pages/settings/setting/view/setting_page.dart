@@ -72,7 +72,9 @@ class _SettingPageState extends State<SettingPage> {
                 SettingsListTileWidget(
                   en: "Equalizer",
                   iconData: Icons.equalizer,
-                  onTap: () {},
+                  onTap: () {
+                    context.push(AppRoutes.equalizerRoute);
+                  },
                 ),
 
                 _divider(),

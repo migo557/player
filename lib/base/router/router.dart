@@ -8,6 +8,7 @@ import 'package:open_player/presentation/pages/players/audio/view/audio_player.d
 import 'package:open_player/presentation/pages/players/video/view/video_player.dart';
 import 'package:open_player/presentation/pages/settings/about/view/about_page.dart';
 import 'package:open_player/presentation/pages/settings/change_accent_color/view/change_accent_color_page.dart';
+import 'package:open_player/presentation/pages/settings/equalizer/view/equalizer_page.dart';
 import 'package:open_player/presentation/pages/settings/language/view/language_page.dart';
 import 'package:open_player/presentation/pages/settings/privacy_policy/view/privacy_policy_page.dart';
 import 'package:open_player/presentation/pages/settings/user_profile/view/user_profile_page.dart';
@@ -83,6 +84,12 @@ final GoRouter router = GoRouter(
       path: AppRoutes.viewDirectoryRoute,
       builder: (context, state) => const ViewDirectoryPage(),
     ),
+
+    GoRoute(
+      name: AppRoutes.equalizerRoute,
+      path: AppRoutes.equalizerRoute,
+      builder: (context, state) => const EqualizerPage(),
+    ),
     GoRoute(
         name: AppRoutes.artistPreviewRoute,
         path: AppRoutes.artistPreviewRoute,
@@ -130,4 +137,6 @@ class AppRoutes {
   static const viewDirectoryRoute = "/view_directory";
   static const artistPreviewRoute = "/artist_preview";
   static const albumPreviewRoute = "/album_preview";
+  static const equalizerRoute = "/equalizer";
+
 }

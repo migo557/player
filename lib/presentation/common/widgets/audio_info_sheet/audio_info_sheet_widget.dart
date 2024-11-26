@@ -27,7 +27,7 @@ class AudioInfoSheetWidget extends StatelessWidget {
       ),
       _Tile(
         leading: "Genre",
-        title: audio.genre.isNotEmpty? audio.genre.join(","): "idk",
+        title: audio.genre.isNotEmpty ? audio.genre.join(",") : "idk",
       ),
       _Tile(
         leading: "Size",
@@ -46,6 +46,10 @@ class AudioInfoSheetWidget extends StatelessWidget {
       _Tile(
         leading: "Year",
         title: audio.year != null ? Formatter.formatDate(audio.year!) : "idk",
+      ),
+      _Tile(
+        leading: "Extension",
+        title:  audio.ext,
       ),
       Gap(100),
     ].column().scrollVertical();

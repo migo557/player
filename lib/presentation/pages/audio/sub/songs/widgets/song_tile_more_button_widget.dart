@@ -9,6 +9,7 @@ import 'package:open_player/data/services/file_service/file_service.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
 import 'package:open_player/presentation/common/widgets/audio_info_sheet/audio_info_sheet_widget.dart';
 import 'package:open_player/utils/app_menu.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SongTileMoreButtonWidget extends StatelessWidget {
@@ -40,6 +41,7 @@ class SongTileMoreButtonWidget extends StatelessWidget {
               ),
               _musicSetAsRingtone(),
               _more(context, audio),
+              _share(audio),
             ]);
       },
       child: const Padding(
@@ -162,6 +164,21 @@ PopupMenuItem<dynamic> _musicSetAsRingtone() {
         "Set as ringtone",
       ),
       trailing: Icon(Icons.call),
+    ),
+  );
+}
+
+///--------------- Share
+PopupMenuItem<dynamic> _share(AudioModel audio) {
+  return PopupMenuItem(
+    onTap: () async {
+      await Share.shareXFiles([XFile(audio.path)]);
+    },
+    child: const ListTile(
+      title: Text(
+        "Share",
+      ),
+      trailing: Icon(HugeIcons.strokeRoundedShare01),
     ),
   );
 }

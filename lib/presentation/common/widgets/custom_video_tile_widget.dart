@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/base/router/router.dart';
 import 'package:open_player/data/models/video_model.dart';
@@ -10,6 +11,7 @@ import 'package:open_player/data/services/file_service/file_service.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
 import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CustomVideoTileWidget extends StatelessWidget {
@@ -28,7 +30,6 @@ class CustomVideoTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      
       visualDensity: VisualDensity.comfortable,
       onTap: () {
         context.read<AudioPlayerBloc>().add(AudioPlayerStopEvent());
@@ -85,6 +86,15 @@ class CustomVideoTileWidget extends StatelessWidget {
                         "Delete",
                       ),
                       trailing: Icon(Icons.delete),
+                    ),
+                    ListTile(
+                      onTap: () async {
+                        await Share.shareXFiles([XFile(video.path)]);
+                      },
+                      title: Text(
+                        "Share",
+                      ),
+                      trailing: Icon(HugeIcons.strokeRoundedShare01),
                     ),
                   ],
                 ),

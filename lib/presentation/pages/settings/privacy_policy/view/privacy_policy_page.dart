@@ -20,7 +20,6 @@ class PrivacyPolicyPage extends StatelessWidget {
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
-            color: Colors.black,
           ),
         ),
       ),
@@ -60,7 +59,7 @@ class PrivacyPolicyPage extends StatelessWidget {
             ),
             _buildSectionTitle("Contact"),
             _buildSectionDescription(
-              "For inquiries regarding this policy or the App, contact us at:\n\nOpen Player\nDeveloper: Furqan Uddin\nEmail: furqanuddin@programmer.net",context
+              "For inquiries regarding this policy or the App, contact us at:\n\nPlayer\nDeveloper: Furqan Uddin\nEmail: furqanuddin@programmer.net",context
             ),
             _buildSectionTitle("Changes to this Policy"),
             _buildSectionDescription(

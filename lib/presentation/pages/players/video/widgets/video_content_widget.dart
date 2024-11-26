@@ -11,6 +11,7 @@ import 'package:open_player/presentation/pages/players/video/widgets/video_playe
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_top_bar_widget.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_volume_controller_widget.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_view_widget.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class VideoContentWidget extends StatefulWidget {
   const VideoContentWidget({
@@ -45,38 +46,36 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
   Widget build(BuildContext context) {
     return BlocBuilder<ControlsVisibilityCubit, ControlsVisibilityState>(
       builder: (context, cState) {
-        return Stack(
-          children: [
-            //-------Volume Controller ---------//
-            VideoPlayerVolumeControllerWidget(),
+        return [
+          //-------Volume Controller ---------//
+          VideoPlayerVolumeControllerWidget(),
 
-            //--------- Brightness Controller------//
-            const VideoPlayerBrightnessControllerWidget(),
+          //--------- Brightness Controller------//
+          const VideoPlayerBrightnessControllerWidget(),
 
-            //--------- Video Content ---------//
-            Center(
-              child: CustomBrightnessShaderMask(
-                child: VideoViewWidget(state: widget.videoPlayerReadyState),
-              ),
+          //--------- Video Content ---------//
+          Center(
+            child: CustomBrightnessShaderMask(
+              child: VideoViewWidget(state: widget.videoPlayerReadyState),
             ),
+          ),
 
-            //------------ Video Top Bar --------------//
-            VideoPlayerTopBarWidget(
-              state: widget.videoPlayerReadyState,
-              cState: cState,
-            ),
+          //------------ Video Top Bar --------------//
+          VideoPlayerTopBarWidget(
+            state: widget.videoPlayerReadyState,
+            cState: cState,
+          ),
 
-            //---------- VideoPlayer Bottom Bar Widget //----
-            if (cState.showVideoControls && !cState.lockScreenTapping)
-              VideoPlayerBottomWidget(state: widget.videoPlayerReadyState),
+          //---------- VideoPlayer Bottom Bar Widget //----
+          if (cState.showVideoControls && !cState.lockScreenTapping)
+            VideoPlayerBottomWidget(state: widget.videoPlayerReadyState),
 
-            //---------- Brightness Box -------//
-            const CustomBrightnessBoxWidget(),
+          //---------- Brightness Box -------//
+          const CustomBrightnessBoxWidget(),
 
-            // -------------- Resume where you left Button -----------///
-            VideoPlayerResumeButtonWidget(widget: widget),
-          ],
-        );
+          // -------------- Resume where you left Button -----------///
+          VideoPlayerResumeButtonWidget(widget: widget),
+        ].stack();
       },
     );
   }

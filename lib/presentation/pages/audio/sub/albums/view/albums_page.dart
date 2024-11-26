@@ -13,10 +13,8 @@ class AlbumsPage extends StatelessWidget {
     return BlocBuilder<AudiosBloc, AudiosState>(
       builder: (context, state) {
         if (state is AudiosLoading) {
-          return const SliverToBoxAdapter(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
+          return Center(
+            child: CircularProgressIndicator(),
           );
         }
 
@@ -24,38 +22,38 @@ class AlbumsPage extends StatelessWidget {
           final albums = _getAlbumsFromAudios(state.songs);
 
           if (albums.isEmpty) {
-            return const SliverToBoxAdapter(
-              child: Center(
-                child: Text('No albums found'),
-              ),
+            return Center(
+              child: Text('No albums found'),
             );
           }
 
-          return SliverPadding(
-            padding:
-                const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 100),
-            sliver: SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.65,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
+          return CustomScrollView(
+            slivers: [
+              SliverPadding(
+                padding:
+                    const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 100),
+                sliver: SliverGrid(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.65,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final album = albums[index];
+                      return AlbumCard(album: album, state: state);
+                    },
+                    childCount: albums.length,
+                  ),
+                ),
               ),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final album = albums[index];
-                  return AlbumCard(album: album, state: state);
-                },
-                childCount: albums.length,
-              ),
-            ),
+            ],
           );
         }
 
-        return const SliverToBoxAdapter(
-          child: Center(
-            child: Text('Something went wrong'),
-          ),
+        return Center(
+          child: Text('Something went wrong'),
         );
       },
     );

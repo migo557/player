@@ -26,60 +26,60 @@ class ArtistsPage extends StatelessWidget {
           final artists = _getArtistsFromAudios(state.songs);
 
           if (artists.isEmpty) {
-            return const SliverToBoxAdapter(
-              child: Center(
-                child: Text('No artists found'),
-              ),
+            return Center(
+              child: Text('No artists found'),
             );
           }
 
-          return SliverPadding(
-
-            padding: const EdgeInsets.only(left: 16.0,right: 16.0, bottom: 100),
-            sliver: SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.85,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-              ),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final artist = artists[index];
-                  return ArtistCard(
-                    artist: artist,
-                    onTap: () {
-                      // Navigate to artist details with filtered songs
-                      final artistSongs = state.songs.where((audio) {
-                        // Split the audio's artists and check if this artist is in the list
-                        final audioArtists = audio.artists
-                            .split(',')
-                            .map((a) => a.trim())
-                            .toList();
-                        return audioArtists.contains(artist.name);
-                      }).toList();
-                      // Navigate with artistSongs
-
-                      final model = ArtistModel(
-                          name: artist.name,
-                          songCount: artistSongs.length,
-                          albumCount: artist.albumCount,
-                          songs: artistSongs);
-                      context.push(AppRoutes.artistPreviewRoute,
-                          extra: [model, state]);
+          return CustomScrollView(
+            slivers: [
+              SliverPadding(
+              
+                padding: const EdgeInsets.only(left: 16.0,right: 16.0, bottom: 100),
+                sliver: SliverGrid(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.85,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final artist = artists[index];
+                      return ArtistCard(
+                        artist: artist,
+                        onTap: () {
+                          // Navigate to artist details with filtered songs
+                          final artistSongs = state.songs.where((audio) {
+                            // Split the audio's artists and check if this artist is in the list
+                            final audioArtists = audio.artists
+                                .split(',')
+                                .map((a) => a.trim())
+                                .toList();
+                            return audioArtists.contains(artist.name);
+                          }).toList();
+                          // Navigate with artistSongs
+              
+                          final model = ArtistModel(
+                              name: artist.name,
+                              songCount: artistSongs.length,
+                              albumCount: artist.albumCount,
+                              songs: artistSongs);
+                          context.push(AppRoutes.artistPreviewRoute,
+                              extra: [model, state]);
+                        },
+                      );
                     },
-                  );
-                },
-                childCount: artists.length,
+                    childCount: artists.length,
+                  ),
+                ),
               ),
-            ),
+            ],
           );
         }
 
-        return const SliverToBoxAdapter(
-          child: Center(
-            child: Text('Something went wrong'),
-          ),
+        return Center(
+          child: Text('Something went wrong'),
         );
       },
     );

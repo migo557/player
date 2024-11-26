@@ -16,7 +16,9 @@ class VideoViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: VlcPlayer(
-          controller: state.vlcPlayerController, aspectRatio: 16 / 9),
+        controller: state.vlcPlayerController,
+        aspectRatio: state.vlcPlayerController.value.aspectRatio,
+      ),
     );
   }
 }

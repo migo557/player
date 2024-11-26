@@ -21,8 +21,24 @@ initializeLocator() {
     locator.registerSingleton<AppThemes>(AppThemes());
     clog.checkSuccess(true, "AppThemes registred");
 
-    locator.registerSingleton<ScrollController>(ScrollController());
-    clog.checkSuccess(true, 'ScrollController registered');
+    locator.registerSingleton<ScrollController>(ScrollController(), instanceName: '0');
+    clog.checkSuccess(true, 'ScrollController 0 registered ');
+
+       locator.registerSingleton<ScrollController>(ScrollController(),
+        instanceName: '1');
+    clog.checkSuccess(true, 'ScrollController 1 registered ');
+    locator.registerSingleton<ScrollController>(ScrollController(),
+        instanceName: '2');
+    clog.checkSuccess(true, 'ScrollController 2 registered ');
+    locator.registerSingleton<ScrollController>(ScrollController(),
+        instanceName: '3');
+    clog.checkSuccess(true, 'ScrollController 3 registered ');
+    locator.registerSingleton<ScrollController>(ScrollController(),
+        instanceName: '4');
+    clog.checkSuccess(true, 'ScrollController 4 registered ');
+    locator.registerSingleton<ScrollController>(ScrollController(),
+        instanceName: '5');
+    clog.checkSuccess(true, 'ScrollController 5 registered ');
 
     // Register AudioProvider
     locator.registerLazySingleton<AudioProvider>(() => AudioProvider());

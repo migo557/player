@@ -14,13 +14,14 @@ class SongsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.sizeOf(context);
+
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, themeState) {
         return BlocBuilder<AudiosBloc, AudiosState>(
           builder: (context, audioState) {
             if (audioState is AudiosSuccess) {
               if (audioState.songs.isNotEmpty) {
-                //Filter out audios  whose title starts with dot  & Sorting the filtered List ---------------//
+                // Filter out audios whose title starts with dot & Sort the filtered List
                 final filteredSongs = audioState.songs
                     .where((audio) => !audio.title.startsWith('.'))
                     .toList()
@@ -28,34 +29,39 @@ class SongsPage extends StatelessWidget {
 
                 int songsLength = filteredSongs.length;
 
-                return SliverPadding(
-                  padding: EdgeInsets.only(bottom: mq.height * 0.1),
-                  sliver: SliverList.builder(
-                    addAutomaticKeepAlives: true,
-                    itemCount: songsLength,
-                    itemBuilder: (context, index) {
-                      return index == 0
-                          ? [
-                              //---------- [Songs Legth] [Sort Button][Select All Button]
+                return CustomScrollView(
+                  slivers: [
+                    SliverPadding(
+                      padding: EdgeInsets.only(bottom: mq.height * 0.1),
+                      sliver: SliverList.builder(
+                        addAutomaticKeepAlives: true,
+                        itemCount: songsLength, 
+                        itemBuilder: (context, index) {
+                          if (index == 0) {
+                            return [
+                              // Songs Length, Sort Button, Select All Button
                               SongsTopBarButtonsWidget(
                                   songsLength: songsLength),
-                              //--------- Music Title
+                              // Music Title (first song)
                               SongTileWidget(
                                 audios: filteredSongs,
                                 index: index,
                                 state: audioState,
                               ),
-                            ].column()
-                          : SongTileWidget(
-                              audios: filteredSongs,
-                              index: index,
-                              state: audioState,
-                            );
-                    },
-                  ),
+                            ].column();
+                          }
+                          return SongTileWidget(
+                            audios: filteredSongs,
+                            index: index,
+                            state: audioState,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 );
               } else {
-                return SliverToBoxAdapter(
+                return Center(
                   child: [
                     "No Audios found".text.make(),
                     IconButton(
@@ -64,28 +70,21 @@ class SongsPage extends StatelessWidget {
                       },
                       icon: const Icon(HugeIcons.strokeRoundedRefresh),
                     ),
-                  ].column().centered(),
+                  ].column(),
                 );
               }
             } else if (audioState is AudiosLoading) {
-              return const SliverToBoxAdapter(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
+              return const Center(
+                child: CircularProgressIndicator(),
               );
             } else if (audioState is AudiosFailure) {
-              return SliverToBoxAdapter(
-                child: Center(
-                  child: Text(audioState.message),
-                ),
+              return Center(
+                child: Text(audioState.message),
               );
             } else if (audioState is AudiosInitial) {
-              return SliverToBoxAdapter(
-                  child: "Initializing ...".text.makeCentered());
+              return "Initializing ...".text.makeCentered();
             } else {
-              return SliverToBoxAdapter(
-                child: "Something went wrong".text.makeCentered(),
-              );
+              return "Something went wrong".text.makeCentered();
             }
           },
         );

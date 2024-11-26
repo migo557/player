@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:open_player/logic/audio_page_tab_bar_cubit/audio_page_tab_bar_cubit.dart';
 import '../../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 
 class AudioPageTabBarWidget extends StatelessWidget {
@@ -26,9 +25,7 @@ class AudioPageTabBarWidget extends StatelessWidget {
             Expanded(
               child: TabBar(
                 onTap: (value) {
-                  context
-                      .read<AudioPageTabBarCubit>()
-                      .changeIndex(tabIndex: value);
+              
                 },
                 tabs: [
                   Tab(

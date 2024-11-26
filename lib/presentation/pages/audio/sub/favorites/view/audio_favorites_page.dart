@@ -37,77 +37,71 @@ class AudioFavoritePage extends StatelessWidget {
 
                 int songsLength = filteredSongs.length;
 
-                return SliverPadding(
-                  padding: EdgeInsets.only(bottom: mq.height * 0.1),
-                  sliver: SliverList.builder(
-                    addAutomaticKeepAlives: true,
-                    itemCount: songsLength,
-                    itemBuilder: (context, index) {
-                      return index == 0
-                          ? Column(
-                              children: [
-                                //---------- [Songs Legth] [Sort Button][Select All Button]
-                                [
-                                  "$songsLength songs".text.make(),
-                                ].row().p12(),
-
-                                //--------- Music Title
-                                SongTileWidget(
+                return CustomScrollView(
+                  slivers: [
+                    SliverPadding(
+                      padding: EdgeInsets.only(bottom: mq.height * 0.1),
+                      sliver: SliverList.builder(
+                        addAutomaticKeepAlives: true,
+                        itemCount: songsLength,
+                        itemBuilder: (context, index) {
+                          return index == 0
+                              ? Column(
+                                  children: [
+                                    //---------- [Songs Legth] [Sort Button][Select All Button]
+                                    [
+                                      "$songsLength songs".text.make(),
+                                    ].row().p12(),
+                    
+                                    //--------- Music Title
+                                    SongTileWidget(
+                                      audios: filteredSongs,
+                                      index: index,
+                                      state: audioState,
+                                    ),
+                                  ],
+                                )
+                              : SongTileWidget(
                                   audios: filteredSongs,
                                   index: index,
                                   state: audioState,
-                                ),
-                              ],
-                            )
-                          : SongTileWidget(
-                              audios: filteredSongs,
-                              index: index,
-                              state: audioState,
-                            );
-                    },
-                  ),
+                                );
+                        },
+                      ),
+                    ),
+                  ],
                 );
               } else {
-                return SliverToBoxAdapter(
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("No Audio found"),
-                        IconButton(
-                          onPressed: () {
-                            context.read<AudiosBloc>().add(AudiosLoadEvent());
-                          },
-                          icon: const Icon(HugeIcons.strokeRoundedRefresh),
-                        ),
-                      ],
-                    ),
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("No Audio found"),
+                      IconButton(
+                        onPressed: () {
+                          context.read<AudiosBloc>().add(AudiosLoadEvent());
+                        },
+                        icon: const Icon(HugeIcons.strokeRoundedRefresh),
+                      ),
+                    ],
                   ),
                 );
               }
             } else if (audioState is AudiosLoading) {
-              return const SliverToBoxAdapter(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
+              return Center(
+                child: CircularProgressIndicator(),
               );
             } else if (audioState is AudiosFailure) {
-              return SliverToBoxAdapter(
-                child: Center(
-                  child: Text(audioState.message),
-                ),
+              return Center(
+                child: Text(audioState.message),
               );
             } else if (audioState is AudiosInitial) {
-              return const SliverToBoxAdapter(
-                child: Center(
-                  child: Text("Initializing ..."),
-                ),
+              return Center(
+                child: Text("Initializing ..."),
               );
             } else {
-              return const SliverToBoxAdapter(
-                child: Center(
-                  child: Text("Something went wrong"),
-                ),
+              return Center(
+                child: Text("Something went wrong"),
               );
             }
           },

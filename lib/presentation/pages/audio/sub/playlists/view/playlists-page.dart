@@ -5,9 +5,8 @@ class PlaylistsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SliverToBoxAdapter(
-        child: Center(
-      child: Text("Playlists"),
-    ));
+    return Center(
+          child: Text("Playlists"),
+        );
   }
 }

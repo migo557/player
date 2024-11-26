@@ -4,7 +4,6 @@ import 'package:open_player/base/di/injection.dart';
 import 'package:open_player/data/services/user/user_services.dart';
 import 'package:open_player/data/repositories/videos/video_repository.dart';
 import 'package:open_player/data/services/video_playback_hive_service/video_playback_service.dart';
-import 'package:open_player/logic/audio_page_tab_bar_cubit/audio_page_tab_bar_cubit.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/logic/bottom_nav_bar_cubit/bottom_nav_bar_cubit.dart';
 import 'package:open_player/logic/brightness_cubit/brightness_cubit.dart';
@@ -28,9 +27,7 @@ blocProviders() {
     BlocProvider(
       create: (context) => BottomNavBarCubit(),
     ),
-    BlocProvider(
-      create: (context) => AudioPageTabBarCubit(),
-    ),
+ 
     BlocProvider(
       create: (context) => ThemeCubit(),
     ),

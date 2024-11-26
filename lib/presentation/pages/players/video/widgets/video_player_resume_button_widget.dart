@@ -18,41 +18,36 @@ class VideoPlayerResumeButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<VideoPlaybackHiveBloc, VideoPlaybackHiveState>(
       builder: (context, state) {
-        return Positioned(
-          top: 100,
-          left: 0,
-          child: Visibility(
-            visible: state.showResumeButton,
-            child: FadeInLeft(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  onTap: () {
-                    widget.videoPlayerReadyState.vlcPlayerController
-                        .seekTo(Duration(seconds: state.position));
-                    context
-                        .read<VideoPlaybackHiveBloc>()
-                        .add(HideVideoPlaybackResumeButtonEvent());
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: [
-                      "Resume ".text.black.make(),
-                      Icon(HugeIcons.strokeRoundedPlay)
-                    ].row(
-                      axisSize: MainAxisSize.min,
-                    ),
-                  ),
+        return Visibility(
+          visible: state.showResumeButton,
+          child: FadeInLeft(
+            child: GestureDetector(
+              onTap: () {
+                widget.videoPlayerReadyState.vlcPlayerController
+                    .seekTo(Duration(seconds: state.position));
+                context
+                    .read<VideoPlaybackHiveBloc>()
+                    .add(HideVideoPlaybackResumeButtonEvent());
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: [
+                  "Resume ".text.black.make(),
+                  Icon(
+                    HugeIcons.strokeRoundedPlay,
+                    color: Colors.black,
+                  )
+                ].row(
+                  axisSize: MainAxisSize.min,
                 ),
               ),
-            ),
+            ).p8(),
           ),
-        );
+        ).positioned(top: 150, left: 0);
       },
     );
   }

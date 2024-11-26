@@ -9,7 +9,6 @@ import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
 import 'package:open_player/presentation/common/widgets/texty.dart';
 
-import 'setting_change_bottom_nav_bar_bg_color_tile_widget.dart';
 
 class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
   const SettingBottomNavigationBarCustomizationWidget({
@@ -30,8 +29,6 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                 fontWeight: FontWeight.bold),
           ),
           children: [
-            //--------- Change Bottom Nav Background Color
-            const SettingChangeBottomNavBarBgColorTileWidget(),
 
             const Texty(
               en: "Positions",

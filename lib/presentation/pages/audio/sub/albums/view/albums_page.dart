@@ -28,6 +28,7 @@ class AlbumsPage extends StatelessWidget {
           }
 
           return CustomScrollView(
+              physics: BouncingScrollPhysics(),
             slivers: [
               SliverPadding(
                 padding:

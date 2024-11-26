@@ -32,10 +32,11 @@ class ArtistsPage extends StatelessWidget {
           }
 
           return CustomScrollView(
+            physics: BouncingScrollPhysics(),
             slivers: [
               SliverPadding(
-              
-                padding: const EdgeInsets.only(left: 16.0,right: 16.0, bottom: 100),
+                padding:
+                    const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 100),
                 sliver: SliverGrid(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -59,7 +60,7 @@ class ArtistsPage extends StatelessWidget {
                             return audioArtists.contains(artist.name);
                           }).toList();
                           // Navigate with artistSongs
-              
+
                           final model = ArtistModel(
                               name: artist.name,
                               songCount: artistSongs.length,
@@ -118,7 +119,8 @@ class ArtistsPage extends StatelessWidget {
       return ArtistModel(
         name: entry.key,
         songCount: entry.value['songs']!.length,
-        albumCount: entry.value['albums']!.length, songs: [],
+        albumCount: entry.value['albums']!.length,
+        songs: [],
       );
     }).toList()
       ..sort((a, b) => a.name.compareTo(b.name)); // Sort alphabetically

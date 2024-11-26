@@ -3,11 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:open_player/presentation/pages/audio/sub/albums/view/album_preview_page.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_next_button_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_position_and_duration_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_previous_button_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_seek_bar_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_thumbnail_card_widget.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../base/assets/fonts/styles.dart';
 import '../../../../logic/audio_player_bloc/audio_player_bloc.dart';
@@ -86,7 +88,7 @@ class MiniAudioPlayerWidget extends StatelessWidget {
                                     CircleAvatar(
                                       radius: 23,
                                       child: Text(
-                                       Formatter. formatDuration(
+                                        Formatter.formatDuration(
                                           Duration(
                                             seconds: playerState.seekingPosition
                                                 .toInt(),
@@ -171,7 +173,11 @@ class MiniAudioPlayerWidget extends StatelessWidget {
                     ),
                   );
                 }),
-          ),
+          ).glassMorphic(
+              borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(0),
+            bottomRight: Radius.circular(0),
+          )),
         );
       },
     );

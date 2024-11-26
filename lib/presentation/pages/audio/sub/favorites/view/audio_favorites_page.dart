@@ -38,6 +38,7 @@ class AudioFavoritePage extends StatelessWidget {
                 int songsLength = filteredSongs.length;
 
                 return CustomScrollView(
+                    physics: BouncingScrollPhysics(),
                   slivers: [
                     SliverPadding(
                       padding: EdgeInsets.only(bottom: mq.height * 0.1),

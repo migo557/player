@@ -24,15 +24,13 @@ class AudioPageTabBarWidget extends StatelessWidget {
           actions: [
             Expanded(
               child: TabBar(
-                onTap: (value) {
-              
-                },
+                onTap: (value) {},
                 tabs: [
                   Tab(
                     text: "Songs",
                     icon: const Icon(HugeIcons.strokeRoundedMusicNoteSquare02),
                   ),
-                     Tab(
+                  Tab(
                     text: "Favorites",
                     icon: const Icon(HugeIcons.strokeRoundedFavouriteCircle),
                   ),
@@ -48,7 +46,6 @@ class AudioPageTabBarWidget extends StatelessWidget {
                     text: "Playlists",
                     icon: const Icon(HugeIcons.strokeRoundedPlayList),
                   ),
-               
                 ],
               ),
             ),

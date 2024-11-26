@@ -16,16 +16,17 @@ class AudioPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-           const MiniAudioPlayerWidget(),
+          const MiniAudioPlayerWidget(),
           Expanded(
             child: DefaultTabController(
               length: 5,
               child: NestedScrollView(
-                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
                   return [
                     // Your existing SliverAppBar
                     const AudioPageAppBarWidget(),
-            
+
                     // Your existing SliverTabBar
                     const AudioPageTabBarWidget(),
                   ];

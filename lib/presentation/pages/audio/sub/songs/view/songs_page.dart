@@ -30,10 +30,12 @@ class SongsPage extends StatelessWidget {
                 int songsLength = filteredSongs.length;
 
                 return CustomScrollView(
+                  physics: BouncingScrollPhysics(),
                   slivers: [
                     SliverPadding(
                       padding: EdgeInsets.only(bottom: mq.height * 0.1),
                       sliver: SliverList.builder(
+
                         addAutomaticKeepAlives: true,
                         itemCount: songsLength, 
                         itemBuilder: (context, index) {

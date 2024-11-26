@@ -96,18 +96,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     MyHiveBoxes.theme.put(MyHiveKeys.isDefaultAppBarColor, false);
   }
 
-  changeBottomNavBarBgColor(int colorCode) {
-    emit(
-      state.copyWith(
-          customBottomNavBarBgColor: colorCode,
-          isDefaultBottomNavBarBgColor: false),
-    );
 
-    // Update in Hive
-    MyHiveBoxes.theme.put(MyHiveKeys.customBottomNavBarBgColor, colorCode);
-    // Update in Hive
-    MyHiveBoxes.theme.put(MyHiveKeys.isDefaultBottomNavBarBgColor, false);
-  }
 
   resetToDefaultScaffoldColor() {
     emit(state.copyWith(isDefaultScaffoldColor: true));
@@ -323,7 +312,6 @@ class ThemeCubit extends Cubit<ThemeState> {
     emit(
       state.copyWith(
         isDefaultAppBarColor: true,
-        isDefaultBottomNavBarBgColor: true,
         isDefaultScaffoldColor: true,
         contrastLevel: 0.9,
         defaultTheme: true,

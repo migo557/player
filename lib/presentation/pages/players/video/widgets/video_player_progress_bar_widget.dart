@@ -15,7 +15,6 @@ class VideoPlayerProgressBarWidget extends HookWidget {
     ValueNotifier<Duration> position = useState(Duration.zero);
     ValueNotifier<Duration> duration = useState(Duration.zero);
     ValueNotifier<bool> isSeeking = useState(false);
-    ValueNotifier<double> seekingPosition = useState(0.0);
 
     state.vlcPlayerController.addListener(() {
       position.value = state.vlcPlayerController.value.position;
@@ -27,7 +26,11 @@ class VideoPlayerProgressBarWidget extends HookWidget {
       child: [
         [
           //---------- Positions
-          Formatter.    formatDuration(position.value).text.white.shadowBlur(1).make(),
+          Formatter.formatDuration(position.value)
+              .text
+              .white
+              .shadowBlur(1)
+              .make(),
 
           //------------- Slider ----------------//
           Expanded(
@@ -42,21 +45,17 @@ class VideoPlayerProgressBarWidget extends HookWidget {
                 overlayColor: Colors.white24,
               ),
               child: Slider(
-                value: isSeeking.value
-                    ? seekingPosition.value
-                    : position.value.inSeconds.toDouble(),
+                value: position.value.inSeconds.toDouble(),
                 max: duration.value.inSeconds.toDouble(),
                 min: 0,
                 onChangeEnd: (value) {
                   isSeeking.value = false;
-                  state.vlcPlayerController.seekTo(
-                    Duration(seconds: value.toInt()),
-                  );
                 },
                 onChanged: (double value) {
                   isSeeking.value = true;
-                  seekingPosition.value = value;
-
+                  state.vlcPlayerController.seekTo(
+                    Duration(seconds: value.toInt()),
+                  );
                   context
                       .read<ControlsVisibilityCubit>()
                       .toggleVideoControlsVisibilty();
@@ -66,15 +65,9 @@ class VideoPlayerProgressBarWidget extends HookWidget {
           ),
 
           //--------- Total Video Duration
-          if (!isSeeking.value)
-             Formatter.   formatDuration(duration.value).text.white.shadowBlur(1).make(),
-
-          //------ Seeking Position
-          if (isSeeking.value)
-             Formatter.   formatDuration(Duration(seconds: seekingPosition.value.toInt()))
+            Formatter.formatDuration(duration.value)
                 .text
-                .extraBold
-                .amber500
+                .white
                 .shadowBlur(1)
                 .make(),
         ].row(),

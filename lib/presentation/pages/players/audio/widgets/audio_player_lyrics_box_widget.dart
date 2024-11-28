@@ -62,7 +62,8 @@ class AudioPlayerLyricsBoxWidget extends HookWidget {
                         icon: Icon(HugeIcons.strokeRoundedAdd01),
                       ),
                     ].row(),
-                    //------------- Lyrics
+
+                    //------------- Lyrics Box
                     lyrics.text
                         .shadow(0, 1, 1, Colors.black)
                         .white
@@ -71,13 +72,8 @@ class AudioPlayerLyricsBoxWidget extends HookWidget {
                         .heightRelaxed
                         .makeCentered()
                   ],
-                ).scrollVertical().p16().glassMorphic(blur: 10).positioned(
-                      top: mq.height * 0.16,
-                      height: mq.height * 0.45,
-                      width: mq.width * 0.88,
-                      left: mq.width * 0.06,
-                    );
-              });
+                ).scrollVertical().p16().glassMorphic(blur: 10);
+              }).pSymmetric(h: mq.width * 0.05);
         }
       },
     );

@@ -5,7 +5,6 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_actions_buttons_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_background_blur_image_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_center_stack_widget.dart';
-import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_lyrics_box_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_position_and_duration_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_seek_bar_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_title_artist_favorite_button_row_widget.dart';
@@ -30,9 +29,9 @@ class AudioPlayerPage extends HookWidget {
         //--------------- TopBar ------------//
         const AudioPlayerTopBarWidget(),
 
-        //----------------- [Thumbnail Image] [Gestures Boxes] [Volume Box] [Position Box] ---------------//
+        //----------------- [Thumbnail Image] [Gestures Boxes] [Lyrics Box] [Volume Box] [Position Box] ---------------//
 
-        const AudioPlayerCenterStackWidget(),
+         AudioPlayerCenterStackWidget(showLyrics: showLyrics,),
 
         //------------- Player Glassophate ----------------//
         [
@@ -59,10 +58,9 @@ class AudioPlayerPage extends HookWidget {
               left: mq.width * 0.06,
             ),
 
-        //---- Lyrics Box
-        if (showLyrics.value) AudioPlayerLyricsBoxWidget(),
+    
 
-        //--- Show Lyrics
+        //--- Show Lyrics Button
         AudioPlayerLyricsButtonWidget(showLyrics: showLyrics),
       ].stack(),
     );

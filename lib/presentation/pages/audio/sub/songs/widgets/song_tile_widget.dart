@@ -227,7 +227,7 @@ class _SongTile extends StatelessWidget {
 
               //-------- More Button
               SongTileMoreButtonWidget(
-                  audios: audios, path: songPath, audio: audio),
+                  audios: audios, path: songPath, audio: audio,isPlaying: isPlaying,),
             ],
           ),
         ),

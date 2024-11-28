@@ -37,41 +37,46 @@ class SongsPage extends HookWidget {
 
                 int songsLength = filteredSongs.length;
 
-                return CustomScrollView(
-                  physics: BouncingScrollPhysics(),
-                  slivers: [
-                    SliverPadding(
-                      padding: EdgeInsets.only(bottom: mq.height * 0.1),
-                      sliver: SliverList.builder(
-                        addAutomaticKeepAlives: true,
-                        itemCount: songsLength,
-                        itemBuilder: (context, index) {
-                          if (index == 0) {
-                            return [
-                              // Songs Length, Sort Button, Select All Button
-                              SongsTopBarButtonsWidget(
-                                  defaultVal: sortValue.value,
-                                  valFunc: (val) {
-                                    sortValue.value = val;
-                                  },
-                                  songsLength: songsLength),
-                              // Music Title (first song)
-                              SongTileWidget(
-                                audios: filteredSongs,
-                                index: index,
-                                state: audioState,
-                              ),
-                            ].column();
-                          }
-                          return SongTileWidget(
-                            audios: filteredSongs,
-                            index: index,
-                            state: audioState,
-                          );
-                        },
+                return RefreshIndicator(
+                            onRefresh: () async {
+                    context.read<AudiosBloc>().add(AudiosLoadEvent());
+                  },
+                  child: CustomScrollView(
+                    physics: BouncingScrollPhysics(),
+                    slivers: [
+                      SliverPadding(
+                        padding: EdgeInsets.only(bottom: mq.height * 0.1),
+                        sliver: SliverList.builder(
+                          addAutomaticKeepAlives: true,
+                          itemCount: songsLength,
+                          itemBuilder: (context, index) {
+                            if (index == 0) {
+                              return [
+                                // Songs Length, Sort Button, Select All Button
+                                SongsTopBarButtonsWidget(
+                                    defaultVal: sortValue.value,
+                                    valFunc: (val) {
+                                      sortValue.value = val;
+                                    },
+                                    songsLength: songsLength),
+                                // Music Title (first song)
+                                SongTileWidget(
+                                  audios: filteredSongs,
+                                  index: index,
+                                  state: audioState,
+                                ),
+                              ].column();
+                            }
+                            return SongTileWidget(
+                              audios: filteredSongs,
+                              index: index,
+                              state: audioState,
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               } else {
                 return Center(

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-enum VideoFilter { all, favorites, hidden }
+enum VideoFilter { all,recents, favorites, hidden }
 
 class VideoPageTitleAndSortingButtonWidget extends HookWidget {
   const VideoPageTitleAndSortingButtonWidget({
@@ -36,10 +35,10 @@ class VideoPageTitleAndSortingButtonWidget extends HookWidget {
             ).scrollHorizontal().expand(),
 
             //----- Filter Button
-            IconButton(
-              onPressed: () {},
-              icon: Icon(HugeIcons.strokeRoundedFilter),
-            ),
+            // IconButton(
+            //   onPressed: () {},
+            //   icon: Icon(HugeIcons.strokeRoundedFilter),
+            // ),
           ],
         ),
       ),

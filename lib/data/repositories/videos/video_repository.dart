@@ -52,12 +52,15 @@ class VideoRepository {
     //   quality: 25,
     // );
 
-
+  
     return VideoModel(
       title: path.basenameWithoutExtension(videoPath),
       ext: path.extension(videoPath),
       path: videoPath,
       fileSize: File(videoPath).statSync().size,
+      lastAccessed : File(videoPath).lastAccessedSync(),
+      lastModified: File(videoPath).lastModifiedSync(),
+
       thumbnail: null,
     );
   }

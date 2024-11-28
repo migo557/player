@@ -28,7 +28,10 @@ class MyHiveDB {
         Hive.openBox("favorites_audios"),
 
           //! Favorite Video
-        Hive.openBox("favorites_videos")
+        Hive.openBox("favorites_videos"),
+
+        Hive.openBox("recently_played_videos")
+
       ]).then(
         (value) {
           MyHiveBoxes.theme = value[0];
@@ -37,6 +40,8 @@ class MyHiveDB {
           MyHiveBoxes.videoPlayback = value[3];
           MyHiveBoxes.favoriteAudios = value[4];
           MyHiveBoxes.favoriteVideos = value[5];
+          MyHiveBoxes.recentlyPlayedVideos = value[6];
+          
 
         },
       );
@@ -58,6 +63,8 @@ class MyHiveBoxes {
   static late Box videoPlayback;
   static late Box favoriteAudios;
   static late Box favoriteVideos;
+  static late Box recentlyPlayedVideos;
+
 
 }
 

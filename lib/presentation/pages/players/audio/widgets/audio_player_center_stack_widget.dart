@@ -4,11 +4,12 @@ import 'package:open_player/presentation/pages/players/audio/widgets/audio_playe
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_seeking_position_box_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_thumbnail_card_widget.dart';
 
+import 'audio_player_lyrics_box_widget.dart';
 
 class AudioPlayerCenterStackWidget extends StatelessWidget {
-  const AudioPlayerCenterStackWidget({
-    super.key,
-  });
+  const AudioPlayerCenterStackWidget({super.key, required this.showLyrics});
+
+  final ValueNotifier<bool> showLyrics;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +26,11 @@ class AudioPlayerCenterStackWidget extends StatelessWidget {
           //----     -- Gesture Detectors
           const AudioPlayerGestureDetectorsBoxes(),
 
+          //----------- Lyrics Box
+          if (showLyrics.value) AudioPlayerLyricsBoxWidget(),
+
           ///-----Custom Volume Box Widget
-           AudioPlayerCustomVolumeBoxWidget(),
+          AudioPlayerCustomVolumeBoxWidget(),
 
           //------- Seeking  Position
           const AudioPlayerSeekingPositionBoxWidget(),

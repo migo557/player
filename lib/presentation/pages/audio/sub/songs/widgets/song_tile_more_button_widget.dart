@@ -18,7 +18,9 @@ class SongTileMoreButtonWidget extends StatelessWidget {
     required this.path,
     required this.audio,
     required this.audios,
+    required this.isPlaying
   });
+  final bool isPlaying;
   final String path;
   final AudioModel audio;
   final List<AudioModel> audios;
@@ -44,9 +46,9 @@ class SongTileMoreButtonWidget extends StatelessWidget {
               _share(audio),
             ]);
       },
-      child: const Padding(
+      child:  Padding(
         padding: EdgeInsets.all(8.0),
-        child: Icon(HugeIcons.strokeRoundedMoreVerticalCircle01),
+        child: Icon(HugeIcons.strokeRoundedMoreVerticalCircle01, color: isPlaying? Colors.white:null,),
       ),
     );
   }

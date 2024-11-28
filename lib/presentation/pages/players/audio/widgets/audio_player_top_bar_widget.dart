@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class AudioPlayerTopBarWidget extends StatelessWidget {
   const AudioPlayerTopBarWidget({
@@ -30,11 +31,13 @@ class AudioPlayerTopBarWidget extends StatelessWidget {
 
           //--- More Button ---///
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              VxToast.show(context, msg: "This feature is coming soon");
+            },
             color: Colors.white,
-            iconSize: 30,
-            tooltip: "More",
-            icon: const Icon(HugeIcons.strokeRoundedMoreVerticalCircle01),
+            iconSize: 25,
+            tooltip: "AirPlay",
+            icon: const Icon(Icons.airplay_rounded),
           ),
         ],
       ),

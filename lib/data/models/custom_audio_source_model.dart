@@ -18,12 +18,12 @@ class CustomAudioSource extends ProgressiveAudioSource {
             title: audioModel.title,
             genre: audioModel.genre.toString(),
             artist: audioModel.artists,
-            artUri: audioModel.thumbnail.isNotEmpty
-                ? Uri.dataFromBytes(
-                    audioModel.thumbnail.first.bytes,
-                    mimeType: audioModel.thumbnail.first.mimetype
-                  )
-                : null,
+            // artUri: audioModel.thumbnail.isNotEmpty
+            //     ? Uri.dataFromBytes(
+            //         audioModel.thumbnail.first.bytes,
+            //         mimeType: audioModel.thumbnail.first.mimetype
+            //       )
+            //     : null,
       
           ),
           options: options ??

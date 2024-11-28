@@ -8,6 +8,7 @@ import 'package:open_player/base/router/router.dart';
 import 'package:open_player/data/models/video_model.dart';
 import 'package:open_player/data/services/favorites_video_hive_service/favorites_video_hive_service.dart';
 import 'package:open_player/data/services/file_service/file_service.dart';
+import 'package:open_player/data/services/recently_played_videos/recently_played_videos.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
 import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
@@ -31,13 +32,14 @@ class CustomVideoTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       visualDensity: VisualDensity.comfortable,
-      onTap: () {
+      onTap: () async {
         context.read<AudioPlayerBloc>().add(AudioPlayerStopEvent());
         context.read<VideoPlayerBloc>().add(
             VideoInitializeEvent(videoIndex: index, playlist: filteredVideos));
         GoRouter.of(context).push(
           AppRoutes.videoPlayerRoute,
         );
+        await RecentlyPlayedVideosServices().update(video.path);
       },
       title:
           videoTitle.text.fontFamily(AppFonts.poppins).maxFontSize(14).make(),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -73,7 +74,23 @@ class _SettingPageState extends State<SettingPage> {
                   en: "Equalizer",
                   iconData: Icons.equalizer,
                   onTap: () {
-                    context.push(AppRoutes.equalizerRoute);
+                    // context.push(AppRoutes.equalizerRoute);
+
+                    // TODO: Implement
+                    showCupertinoDialog(
+                      context: context,
+                      builder: (context) => CupertinoAlertDialog(
+                        title:
+                            const Text('Eqaualizer'),
+                        content: const Text('This features is on way'),
+                        actions: [
+                          CupertinoDialogAction(
+                            child: const Text('OK'),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                 ),
 

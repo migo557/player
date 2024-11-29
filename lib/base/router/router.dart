@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:open_player/data/models/album_model.dart';
-import 'package:open_player/data/models/artist_model.dart';
 import 'package:open_player/presentation/pages/audio/sub/albums/view/album_preview_page.dart';
 import 'package:open_player/presentation/pages/audio/sub/artists/view/artist_preview_page.dart';
 import 'package:open_player/presentation/pages/players/audio/view/audio_player.dart';

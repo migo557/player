@@ -71,6 +71,9 @@ class AudioRepository {
       language: metadata.language,
       year: metadata.year,
       quality: quality,
+      lastModified: File(audioPath).lastModifiedSync(),
+      lastAccessed: File(audioPath).lastAccessedSync(),
+
     );
   }
 }

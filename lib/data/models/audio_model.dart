@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 
-
 class AudioModel {
   final String title;
   final String artists;
@@ -19,6 +18,9 @@ class AudioModel {
   final DateTime? year;
   final File file;
   final Quality quality;
+  final DateTime lastModified;
+  final DateTime lastAccessed;
+
 
   AudioModel({
     required this.title,
@@ -36,6 +38,8 @@ class AudioModel {
     required this.year,
     required this.file,
     required this.quality,
+    required this.lastModified,
+    required this.lastAccessed,
   });
 
   bool matchesSearch(String query) {

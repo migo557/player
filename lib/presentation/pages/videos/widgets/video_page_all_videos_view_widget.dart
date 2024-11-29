@@ -5,15 +5,16 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/db/hive_service.dart';
 import 'package:open_player/data/models/video_model.dart';
 import 'package:open_player/data/services/favorites_video_hive_service/favorites_video_hive_service.dart';
-import 'package:open_player/data/services/recently_played_videos/recently_played_videos.dart';
 import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
 import 'package:open_player/presentation/common/widgets/custom_video_tile_widget.dart';
-import 'package:open_player/presentation/pages/videos/widgets/video_page_title_and_sorting_button_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+import 'video_page_title_and_sorting_button_widget.dart';
 
 class VideoPageAllVideosViewWidget extends HookWidget {
   const VideoPageAllVideosViewWidget({super.key, required this.selectedFilter});
 
+  /// A notifier to manage the currently selected video filter.
   final ValueNotifier<VideoFilter> selectedFilter;
 
   @override
@@ -21,13 +22,11 @@ class VideoPageAllVideosViewWidget extends HookWidget {
     return BlocBuilder<VideosBloc, VideosState>(
       builder: (context, state) {
         if (state is VideosLoading) {
-          return const SliverToBoxAdapter(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          // Show a loading indicator while videos are being loaded.
+          return _VideoLoading();
         } else if (state is VideosSuccess) {
           if (state.videos.isEmpty) {
+            // Display a message when no videos are found.
             return SliverToBoxAdapter(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -35,6 +34,7 @@ class VideoPageAllVideosViewWidget extends HookWidget {
                   const Text("No videos found. Refresh now"),
                   IconButton(
                     onPressed: () {
+                      // Reload videos when refresh is clicked.
                       context.read<VideosBloc>().add(VideosLoadEvent());
                     },
                     icon: const Icon(HugeIcons.strokeRoundedRefresh),
@@ -44,62 +44,58 @@ class VideoPageAllVideosViewWidget extends HookWidget {
             );
           }
 
+          // Fetch keys for favorite videos from the Hive database.
           final fvrKeys = MyHiveBoxes.favoriteVideos.keys;
-          List<VideoModel> filteredVideos = state.videos;
-          bool isHidden = selectedFilter.value == VideoFilter.hidden;
-          bool isFavorite = selectedFilter.value == VideoFilter.favorites;
-          bool isRecent = selectedFilter.value == VideoFilter.recents;
-          bool isAll = selectedFilter.value == VideoFilter.all;
 
-          // Apply filters and sort
-          filteredVideos = filteredVideos.where((video) {
-            // Filtering by video title and type
-            bool matchesTitle = isHidden
-                ? video.title.startsWith('.')
-                : !video.title.startsWith('.');
-            bool matchesFavorite = isFavorite
-                ? fvrKeys.contains(
-                        FavoritesVideoHiveService.generateKey(video.path)) &&
-                    FavoritesVideoHiveService().getFavoriteStatus(video.path)
-                : true;
-            bool matchesRecent = isRecent
-                ? RecentlyPlayedVideosServices()
-                    .getRecentlyPlayed()
-                    .contains(video.path)
-                : true;
+          // Separate videos into different categories.
+          final allVideos = _filterAndSortVideos(
+            state.videos,
+            (video) => !video.title.startsWith('.'),
+          );
 
-            return matchesTitle && matchesFavorite && matchesRecent;
-          }).toList();
+          final hiddenVideos = _filterAndSortVideos(
+            state.videos,
+            (video) => video.title.startsWith('.'),
+          );
 
-          if (isRecent) {
-            filteredVideos = filteredVideos.reversed.toList();
-          }
-          if (isFavorite || isHidden || isAll) {
-            // Sorting filtered list by title
-            filteredVideos.sort((a, b) => a.title.compareTo(b.title));
-          }
+          final recentVideos = state.videos
+              .where(
+                (video) => !video.title.startsWith('.'),
+              )
+              .toList()
+              .sortedByNum(
+                (element) => element.lastModified.day,
+              )
+              .reversed
+              .toList();
 
-          if (filteredVideos.isEmpty) {
-            return const SliverToBoxAdapter(
-              child: Center(
-                child: Text("No video found"),
-              ),
-            );
-          }
+          final favoriteVideos = _filterAndSortVideos(
+            state.videos,
+            (video) =>
+                fvrKeys.contains(
+                  FavoritesVideoHiveService.generateKey(video.path),
+                ) &&
+                FavoritesVideoHiveService().getFavoriteStatus(video.path),
+          );
 
+          // Get videos based on the selected filter.
+          final filteredVideos =
+              _getVideos(allVideos, recentVideos, favoriteVideos, hiddenVideos);
+
+          // Render the list of filtered videos.
           return SliverPadding(
             padding: const EdgeInsets.only(bottom: 100),
             sliver: SliverList.builder(
               itemCount: filteredVideos.length,
               itemBuilder: (context, index) {
-                final VideoModel video = filteredVideos[index];
-                final String videoTitle = video.title;
+                final video = filteredVideos[index];
 
                 return Column(
                   children: [
                     if (index == 0)
+                      // Display the total count of videos as a header.
                       [
-                        "videos : ${filteredVideos.length}"
+                        "videos: ${filteredVideos.length}"
                             .text
                             .minFontSize(12)
                             .fontWeight(FontWeight.w500)
@@ -107,7 +103,7 @@ class VideoPageAllVideosViewWidget extends HookWidget {
                       ].row().pSymmetric(h: 12),
                     CustomVideoTileWidget(
                       filteredVideos: filteredVideos,
-                      videoTitle: videoTitle,
+                      videoTitle: video.title,
                       index: index,
                       video: video,
                     ),
@@ -117,21 +113,15 @@ class VideoPageAllVideosViewWidget extends HookWidget {
             ),
           );
         } else if (state is VideosFailure) {
-          return SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: Text(state.message),
-              ),
-            ),
+          // Show an error message when video loading fails.
+          return _VideoFailure(
+            state: state,
           );
         } else if (state is VideosInitial) {
-          return const SliverToBoxAdapter(
-            child: Center(
-              child: Text("Fetching videos..."),
-            ),
-          );
+          // Show a message while the initial videos are being fetched.
+          return _VideoInitial();
         } else {
+          // Show a generic error message for unexpected states.
           return const SliverToBoxAdapter(
             child: Center(
               child: Text("Something went wrong."),
@@ -139,6 +129,80 @@ class VideoPageAllVideosViewWidget extends HookWidget {
           );
         }
       },
+    );
+  }
+
+  /// Filters and sorts videos based on a given condition.
+  List<VideoModel> _filterAndSortVideos(
+    List<VideoModel> videos,
+    bool Function(VideoModel) condition,
+  ) {
+    return videos.where(condition).toList()
+      ..sort((a, b) => a.title.compareTo(b.title));
+  }
+
+  /// Determines which videos to display based on the selected filter.
+  List<VideoModel> _getVideos(
+    List<VideoModel> allVideos,
+    List<VideoModel> recentVideos,
+    List<VideoModel> favoriteVideos,
+    List<VideoModel> hiddenVideos,
+  ) {
+    switch (selectedFilter.value) {
+      case VideoFilter.hidden:
+        return hiddenVideos;
+      case VideoFilter.favorites:
+        return favoriteVideos;
+      case VideoFilter.recents:
+        return recentVideos;
+      default:
+        return allVideos;
+    }
+  }
+}
+
+//-----------------------  Widgets ---------------------///
+
+class _VideoInitial extends StatelessWidget {
+  const _VideoInitial();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SliverToBoxAdapter(
+      child: Center(
+        child: Text("Fetching videos..."),
+      ),
+    );
+  }
+}
+
+class _VideoFailure extends StatelessWidget {
+  const _VideoFailure({required this.state});
+
+  final VideosFailure state;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Text(state.message),
+        ),
+      ),
+    );
+  }
+}
+
+class _VideoLoading extends StatelessWidget {
+  const _VideoLoading();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SliverToBoxAdapter(
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

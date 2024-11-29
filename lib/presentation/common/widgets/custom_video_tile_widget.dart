@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/base/router/router.dart';
 import 'package:open_player/data/models/video_model.dart';
 import 'package:open_player/data/services/favorites_video_hive_service/favorites_video_hive_service.dart';
 import 'package:open_player/data/services/file_service/file_service.dart';
-import 'package:open_player/data/services/recently_played_videos/recently_played_videos.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
 import 'package:open_player/logic/videos_bloc/videos_bloc.dart';
@@ -39,7 +37,6 @@ class CustomVideoTileWidget extends StatelessWidget {
         GoRouter.of(context).push(
           AppRoutes.videoPlayerRoute,
         );
-        await RecentlyPlayedVideosServices().update(video.path);
       },
       title:
           videoTitle.text.fontFamily(AppFonts.poppins).maxFontSize(14).make(),

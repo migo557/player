@@ -1,7 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:open_player/base/theme/app_textstyles.dart';
+import 'package:open_player/base/assets/fonts/styles.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../../../logic/greeting/greeting_cubit.dart';
 
@@ -13,10 +13,7 @@ class AppBarGreetingTextWidget extends StatelessWidget {
     return BlocSelector<GreetingCubit, GreetingState, String>(
         selector: (state) => state.greeting,
         builder: (context, state) {
-          return AutoSizeText(
-            state,
-            style: AppTextStyles.greeting,
-          );
+          return state.text.minFontSize(20).fontFamily(AppFonts.arizonia).make();
         });
   }
 }

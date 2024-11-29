@@ -1,7 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:open_player/base/theme/app_textstyles.dart';
+import 'package:open_player/base/assets/fonts/styles.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../../../logic/user_data/user_data_cubit.dart';
 import '../../../../../../logic/user_data/user_data_state.dart';
@@ -14,10 +14,7 @@ class AppBarProfileNameWidget extends StatelessWidget {
     return BlocSelector<UserDataCubit, UserDataState, String>(
       selector: (state) => state.username,
       builder: (context, state) {
-        return AutoSizeText(
-          state,
-          style: AppTextStyles.profileName,
-        );
+        return state.text.minFontSize(12).fontFamily(AppFonts.nabla).make();
       },
     );
   }

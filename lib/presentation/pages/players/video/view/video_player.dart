@@ -5,8 +5,8 @@ import 'package:open_player/logic/Control_visibility/controls_visibility_cubit.d
 import 'package:open_player/presentation/common/methods/set_orientation_potrait.dart';
 import 'package:open_player/presentation/common/methods/system_ui_mode.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
-import 'package:open_player/presentation/pages/players/video/widgets/video_content_widget.dart';
 import '../../../../../logic/video_player_bloc/video_player_bloc.dart';
+import '../widgets/video_content_widget.dart';
 
 class VideoPlayerPage extends StatelessWidget {
   const VideoPlayerPage({super.key});
@@ -19,11 +19,10 @@ class VideoPlayerPage extends StatelessWidget {
         return PopScope(
           canPop: (!isLandscapeOriention(context) && !cState.lockScreenTapping),
           onPopInvokedWithResult: (didPop, result) {
-            if(!cState.lockScreenTapping){
+            if (!cState.lockScreenTapping) {
               ifOrientationLandscapeMakeItPotrait(context);
               setToDefaultSystemTopBar();
             }
-         
           },
           child: Scaffold(
             backgroundColor: Colors.black,
@@ -41,6 +40,13 @@ class VideoPlayerPage extends StatelessWidget {
                     ),
                   );
                 } else if (state is VideoPlayerReadyState) {
+                  // return PiPSwitcher(
+                  //   childWhenDisabled:
+                  //    VideoContentWidget(
+                  //     videoPlayerReadyState: state,
+                  //   ), childWhenEnabled:  VideoViewWidget(state: state),
+                  // );
+
                   return VideoContentWidget(
                     videoPlayerReadyState: state,
                   );

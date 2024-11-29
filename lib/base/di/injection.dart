@@ -1,5 +1,4 @@
 import 'package:color_log/color_log.dart';
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:open_player/data/services/audio/audio_player_services.dart';
@@ -26,7 +25,7 @@ initializeLocator() {
     clog.checkSuccess(true, "AudioProvider registred");
 
     // Register VideoProvider
-    locator.registerLazySingleton<VideoProvider>(() => VideoProvider());
+    locator.registerLazySingleton<VideoProvider>(() => VideoProvider(),);
     clog.checkSuccess(true, "VideoProvider registred");
 
     // Register AudioRepository

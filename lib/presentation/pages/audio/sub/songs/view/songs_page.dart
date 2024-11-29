@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:open_player/data/models/audio_model.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/song_tile_widget.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/songs_top_bar_buttons_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -14,7 +15,7 @@ class SongsPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sortValue = useState("name");
+    final selectedFilter = useState(SongsFiltered.name);
     final mq = MediaQuery.sizeOf(context);
 
     return BlocBuilder<ThemeCubit, ThemeState>(
@@ -23,22 +24,33 @@ class SongsPage extends HookWidget {
           builder: (context, audioState) {
             if (audioState is AudiosSuccess) {
               if (audioState.songs.isNotEmpty) {
-                // Filter out audios whose title starts with dot & Sort the filtered List
-                final filteredSongs = audioState.songs
+                final recentlyAdded = audioState.songs
                     .where((audio) => !audio.title.startsWith('.'))
                     .toList()
-                  ..sort((a, b) => sortValue.value == "name"
-                      ? a.title.compareTo(b.title)
-                      : sortValue.value == "size"
-                          ? a.size.compareTo(b.size)
-                          : sortValue.value == "type"
-                              ? a.ext.compareTo(b.ext)
-                              : a.path.compareTo(b.path));
+                  ..sort((a, b) => a.lastModified.compareTo(b.lastModified));
+
+                final songsByName = audioState.songs
+                    .where((audio) => !audio.title.startsWith('.'))
+                    .toList()
+                  ..sort((a, b) => a.title.compareTo(b.title));
+
+                final songsBySize = audioState.songs
+                    .where((audio) => !audio.title.startsWith('.'))
+                    .toList()
+                  ..sort((a, b) => a.size.compareTo(b.size));
+
+                   final hiddenSongs = audioState.songs
+                    .where((audio) => audio.title.startsWith('.'))
+                    .toList()
+                  ..sort((a, b) => a.size.compareTo(b.size));
+
+                final filteredSongs = _returnSongs(
+                    recentlyAdded, songsByName, songsBySize, hiddenSongs,selectedFilter);
 
                 int songsLength = filteredSongs.length;
 
                 return RefreshIndicator(
-                            onRefresh: () async {
+                  onRefresh: () async {
                     context.read<AudiosBloc>().add(AudiosLoadEvent());
                   },
                   child: CustomScrollView(
@@ -54,11 +66,9 @@ class SongsPage extends HookWidget {
                               return [
                                 // Songs Length, Sort Button, Select All Button
                                 SongsTopBarButtonsWidget(
-                                    defaultVal: sortValue.value,
-                                    valFunc: (val) {
-                                      sortValue.value = val;
-                                    },
-                                    songsLength: songsLength),
+                                  songsLength: songsLength,
+                                  selectedFilter: selectedFilter,
+                                ),
                                 // Music Title (first song)
                                 SongTileWidget(
                                   audios: filteredSongs,
@@ -108,5 +118,18 @@ class SongsPage extends HookWidget {
         );
       },
     );
+  }
+
+  List<AudioModel> _returnSongs(List<AudioModel> recents, List<AudioModel> name,
+      List<AudioModel> size,List<AudioModel> hidden, ValueNotifier<SongsFiltered> selectedFilter) {
+    if (selectedFilter.value == SongsFiltered.name) {
+      return name;
+    } else if (selectedFilter.value == SongsFiltered.size) {
+      return size;
+    } else if (selectedFilter.value == SongsFiltered.recents) {
+      return recents.reversed.toList();
+    } else {
+      return hidden;
+    }
   }
 }

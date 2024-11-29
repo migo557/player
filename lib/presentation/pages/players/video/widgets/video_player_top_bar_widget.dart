@@ -1,17 +1,20 @@
 // video_player/presentation/pages/video_player_page.dart
 
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/cupertino.dart';
+// import 'package:floating/floating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+// import 'package:open_player/base/di/injection.dart';
 import 'package:open_player/logic/Control_visibility/controls_visibility_cubit.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
-import 'package:open_player/presentation/pages/players/video/widgets/video_player_h_more_button_widget.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_icon_button_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
+// import '../../../../../data/services/picture_in_picture_service/picture_in_picture_service.dart';
 import '../../../../common/methods/set_orientation_potrait.dart';
 import '../../../../common/methods/system_ui_mode.dart';
 import 'video_player_audios_selector_widget.dart';
@@ -25,6 +28,7 @@ class VideoPlayerTopBarWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final showMoreIcons = useState(false);
     return SafeArea(
       top: true,
@@ -35,6 +39,7 @@ class VideoPlayerTopBarWidget extends HookWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
         child: Column(
           children: [
+            
             //----------------- Top Menu ----------------//
             if (!cState.lockScreenTapping && cState.showVideoControls)
               FadeInDown(
@@ -61,10 +66,7 @@ class VideoPlayerTopBarWidget extends HookWidget {
                       ),
                     ),
 
-                    //---- More Buttons
-                    VideoPlayerHMoreButtonWidget(
-                      filePath: state.playingVideoPath,
-                    ),
+                   
                   ],
                 ),
               ),
@@ -123,10 +125,30 @@ class VideoPlayerTopBarWidget extends HookWidget {
                     if (showMoreIcons.value)
                       VideoPlayerIconButtonWidget(
                           icon: HugeIcons.strokeRoundedPictureInPictureOn,
-                          onTap: () {
-                            context
-                                .read<ControlsVisibilityCubit>()
-                                .toggleVideoControlsVisibilty();
+                          onTap: () async {
+                            // // Create an instance of the PiP service
+                            // final pipService = PictureInPictureService();
+
+                            // // Attempt to enable PiP
+                            // await pipService.enablePictureInPicture(context);
+
+
+
+                              // TODO: Implement file subtitle addition
+                            showCupertinoDialog(
+                              context: context,
+                              builder: (context) => CupertinoAlertDialog(
+                                title: const Text('Picture in Picture'),
+                                content:
+                                    const Text('Coding in progress...'),
+                                actions: [
+                                  CupertinoDialogAction(
+                                    child: const Text('OK'),
+                                    onPressed: () => Navigator.pop(context),
+                                  ),
+                                ],
+                              ),
+                            );
                           }),
 
                     //---------- Background Play Button
@@ -139,6 +161,23 @@ class VideoPlayerTopBarWidget extends HookWidget {
                             context
                                 .read<ControlsVisibilityCubit>()
                                 .toggleVideoControlsVisibilty();
+
+
+
+                              // TODO: Implement file subtitle addition
+                            showCupertinoDialog(
+                              context: context,
+                              builder: (context) => CupertinoAlertDialog(
+                                title: const Text('Background Audio'),
+                                content: const Text('Its enabled by default, for disabling coding is in progress...'),
+                                actions: [
+                                  CupertinoDialogAction(
+                                    child: const Text('OK'),
+                                    onPressed: () => Navigator.pop(context),
+                                  ),
+                                ],
+                              ),
+                            );
                           }),
 
                     //---------- Arrow Button to toggle more buttons

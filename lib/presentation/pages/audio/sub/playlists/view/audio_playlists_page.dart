@@ -6,7 +6,7 @@ class PlaylistsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-          child: Text("Playlists"),
+          child: Text("This feature is on way"),
         );
   }
 }

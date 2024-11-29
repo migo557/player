@@ -3,7 +3,7 @@ import 'package:open_player/presentation/common/widgets/miniplayer/mini_audio_pl
 import 'package:open_player/presentation/pages/audio/sub/albums/view/albums_page.dart';
 import 'package:open_player/presentation/pages/audio/sub/artists/view/artists_page.dart';
 import 'package:open_player/presentation/pages/audio/sub/folders/view/audio_folders_page.dart';
-import 'package:open_player/presentation/pages/audio/sub/playlists/view/playlists-page.dart';
+import 'package:open_player/presentation/pages/audio/sub/playlists/view/audio_playlists_page.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/view/songs_page.dart';
 import '../widgets/appbar/audio_page_app_bar_widget.dart';
 import '../widgets/tabbar/audio_page_tab_bar_widget.dart';

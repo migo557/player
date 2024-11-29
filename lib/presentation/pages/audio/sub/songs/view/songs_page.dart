@@ -47,10 +47,6 @@ class SongsPage extends HookWidget {
                     .toList()
                   ..sort((a, b) => a.lastModified.compareTo(b.lastModified));
 
-                final songsBySize = audioState.songs
-                    .where((audio) => !audio.title.startsWith('.'))
-                    .toList()
-                  ..sort((a, b) => a.size.compareTo(b.size));
 
                 final hiddenSongs = audioState.songs
                     .where((audio) => audio.title.startsWith('.'))
@@ -58,7 +54,7 @@ class SongsPage extends HookWidget {
                   ..sort((a, b) => a.size.compareTo(b.size));
 
                 final filteredSongs = _returnSongs(favoriteSongs, recentlyAdded,
-                    songsByName, songsBySize, hiddenSongs, selectedFilter);
+                    songsByName,  hiddenSongs, selectedFilter);
 
                 int songsLength = filteredSongs.length;
 
@@ -131,16 +127,13 @@ class SongsPage extends HookWidget {
       List<AudioModel> favorites,
       List<AudioModel> recents,
       List<AudioModel> name,
-      List<AudioModel> size,
       List<AudioModel> hidden,
       ValueNotifier<SongsFiltered> selectedFilter) {
     if (selectedFilter.value == SongsFiltered.name) {
       return name;
     } else if (selectedFilter.value == SongsFiltered.favorites) {
       return favorites;
-    } else if (selectedFilter.value == SongsFiltered.size) {
-      return size;
-    } else if (selectedFilter.value == SongsFiltered.recents) {
+    }  else if (selectedFilter.value == SongsFiltered.recents) {
       return recents.reversed.toList();
     } else {
       return hidden;

@@ -6,7 +6,7 @@ class AudioFoldersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("Folders"),
+     child: Text("This feature is on way"),
     );
   }
 }

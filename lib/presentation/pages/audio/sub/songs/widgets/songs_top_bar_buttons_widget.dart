@@ -14,16 +14,19 @@ class SongsTopBarButtonsWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.sizeOf(context);
     return SizedBox(
       height: 60,
-      width: mq.width,
+      width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 1),
         child: Row(
           children: [
             //-----Songs Length
-            "${songsLength} songs".text.size(5).emerald500.make(),
+            "$songsLength songs"
+                .text
+                .size(5)
+                .color(Theme.of(context).primaryColor)
+                .make(),
 
             //----- Sorting Button
             Padding(
@@ -42,10 +45,10 @@ class SongsTopBarButtonsWidget extends HookWidget {
                     ),
                   );
                 }).toList(),
-              ).scrollHorizontal().expand(),
+              ).scrollHorizontal(),
             ),
           ],
-        ).scrollHorizontal().expand(),
+        ).scrollHorizontal(),
       ),
     );
   }

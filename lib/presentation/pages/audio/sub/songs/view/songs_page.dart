@@ -47,14 +47,13 @@ class SongsPage extends HookWidget {
                     .toList()
                   ..sort((a, b) => a.lastModified.compareTo(b.lastModified));
 
-
                 final hiddenSongs = audioState.songs
                     .where((audio) => audio.title.startsWith('.'))
                     .toList()
                   ..sort((a, b) => a.size.compareTo(b.size));
 
                 final filteredSongs = _returnSongs(favoriteSongs, recentlyAdded,
-                    songsByName,  hiddenSongs, selectedFilter);
+                    songsByName, hiddenSongs, selectedFilter);
 
                 int songsLength = filteredSongs.length;
 
@@ -64,9 +63,10 @@ class SongsPage extends HookWidget {
                     context.read<AudiosBloc>().add(AudiosLoadEvent());
                   },
                   child: CustomScrollView(
+                    shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
                     slivers: [
-                      // Songs Length, Sort Button, Select All Button
+                      // Songs Length, Sort Chips
                       SliverToBoxAdapter(
                         child: SongsTopBarButtonsWidget(
                           songsLength: songsLength,
@@ -133,7 +133,7 @@ class SongsPage extends HookWidget {
       return name;
     } else if (selectedFilter.value == SongsFiltered.favorites) {
       return favorites;
-    }  else if (selectedFilter.value == SongsFiltered.recents) {
+    } else if (selectedFilter.value == SongsFiltered.recents) {
       return recents.reversed.toList();
     } else {
       return hidden;

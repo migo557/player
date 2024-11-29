@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-enum SongsFiltered { name, recents, size, hidden }
+enum SongsFiltered { name,favorites ,recents, size, hidden }
 
 class SongsTopBarButtonsWidget extends HookWidget {
   const SongsTopBarButtonsWidget(
@@ -23,7 +23,7 @@ class SongsTopBarButtonsWidget extends HookWidget {
         child: Row(
           children: [
             //-----Songs Length
-            "${songsLength - 1} songs".text.size(5).emerald500.make(),
+            "${songsLength} songs".text.size(5).emerald500.make(),
 
             //----- Sorting Button
             Padding(

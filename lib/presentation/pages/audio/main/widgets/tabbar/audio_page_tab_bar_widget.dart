@@ -8,7 +8,6 @@ class AudioPageTabBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double mqHeight = MediaQuery.sizeOf(context).height;
 
     return BlocSelector<AudioPlayerBloc, AudioPlayerState,
         AudioPlayerSuccessState?>(
@@ -30,10 +29,7 @@ class AudioPageTabBarWidget extends StatelessWidget {
                     text: "Songs",
                     icon: const Icon(HugeIcons.strokeRoundedMusicNoteSquare02),
                   ),
-                  Tab(
-                    text: "Favorites",
-                    icon: const Icon(HugeIcons.strokeRoundedFavouriteCircle),
-                  ),
+            
                   Tab(
                     text: "Artists",
                     icon: const Icon(HugeIcons.strokeRoundedMusicNoteSquare01),
@@ -45,6 +41,11 @@ class AudioPageTabBarWidget extends StatelessWidget {
                   Tab(
                     text: "Playlists",
                     icon: const Icon(HugeIcons.strokeRoundedPlayList),
+                  ),
+
+                  Tab(
+                    text: "Folders",
+                    icon: const Icon(HugeIcons.strokeRoundedFolder01),
                   ),
                 ],
               ),

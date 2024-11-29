@@ -6,6 +6,8 @@ import 'package:open_player/data/models/audio_model.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/song_tile_widget.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/songs_top_bar_buttons_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
+import '../../../../../../base/db/hive_service.dart';
+import '../../../../../../data/services/favorite_audio_hive_service/audio_hive_service.dart';
 import '../../../../../../logic/audio_bloc/audios_bloc.dart';
 import '../../../../../../logic/theme_cubit/theme_cubit.dart';
 import '../../../../../../logic/theme_cubit/theme_state.dart';
@@ -24,31 +26,43 @@ class SongsPage extends HookWidget {
           builder: (context, audioState) {
             if (audioState is AudiosSuccess) {
               if (audioState.songs.isNotEmpty) {
-                final recentlyAdded = audioState.songs
-                    .where((audio) => !audio.title.startsWith('.'))
-                    .toList()
-                  ..sort((a, b) => a.lastModified.compareTo(b.lastModified));
+                final fvrKeys = MyHiveBoxes.favoriteAudios.keys;
 
                 final songsByName = audioState.songs
                     .where((audio) => !audio.title.startsWith('.'))
                     .toList()
                   ..sort((a, b) => a.title.compareTo(b.title));
 
+                List<AudioModel> favoriteSongs = audioState.songs
+                    .where((audio) =>
+                        fvrKeys.contains(FavoritesAudioHiveService.generateKey(
+                            audio.path)) &&
+                        FavoritesAudioHiveService()
+                            .getFavoriteStatus(audio.path))
+                    .toList()
+                  ..sort((a, b) => a.title.compareTo(b.title));
+
+                final recentlyAdded = audioState.songs
+                    .where((audio) => !audio.title.startsWith('.'))
+                    .toList()
+                  ..sort((a, b) => a.lastModified.compareTo(b.lastModified));
+
                 final songsBySize = audioState.songs
                     .where((audio) => !audio.title.startsWith('.'))
                     .toList()
                   ..sort((a, b) => a.size.compareTo(b.size));
 
-                   final hiddenSongs = audioState.songs
+                final hiddenSongs = audioState.songs
                     .where((audio) => audio.title.startsWith('.'))
                     .toList()
                   ..sort((a, b) => a.size.compareTo(b.size));
 
-                final filteredSongs = _returnSongs(
-                    recentlyAdded, songsByName, songsBySize, hiddenSongs,selectedFilter);
+                final filteredSongs = _returnSongs(favoriteSongs, recentlyAdded,
+                    songsByName, songsBySize, hiddenSongs, selectedFilter);
 
                 int songsLength = filteredSongs.length;
 
+                // if (songsByName.isNotEmpty) {
                 return RefreshIndicator(
                   onRefresh: () async {
                     context.read<AudiosBloc>().add(AudiosLoadEvent());
@@ -56,27 +70,20 @@ class SongsPage extends HookWidget {
                   child: CustomScrollView(
                     physics: BouncingScrollPhysics(),
                     slivers: [
+                      // Songs Length, Sort Button, Select All Button
+                      SliverToBoxAdapter(
+                        child: SongsTopBarButtonsWidget(
+                          songsLength: songsLength,
+                          selectedFilter: selectedFilter,
+                        ),
+                      ),
+
                       SliverPadding(
                         padding: EdgeInsets.only(bottom: mq.height * 0.1),
                         sliver: SliverList.builder(
                           addAutomaticKeepAlives: true,
                           itemCount: songsLength,
                           itemBuilder: (context, index) {
-                            if (index == 0) {
-                              return [
-                                // Songs Length, Sort Button, Select All Button
-                                SongsTopBarButtonsWidget(
-                                  songsLength: songsLength,
-                                  selectedFilter: selectedFilter,
-                                ),
-                                // Music Title (first song)
-                                SongTileWidget(
-                                  audios: filteredSongs,
-                                  index: index,
-                                  state: audioState,
-                                ),
-                              ].column();
-                            }
                             return SongTileWidget(
                               audios: filteredSongs,
                               index: index,
@@ -120,10 +127,17 @@ class SongsPage extends HookWidget {
     );
   }
 
-  List<AudioModel> _returnSongs(List<AudioModel> recents, List<AudioModel> name,
-      List<AudioModel> size,List<AudioModel> hidden, ValueNotifier<SongsFiltered> selectedFilter) {
+  List<AudioModel> _returnSongs(
+      List<AudioModel> favorites,
+      List<AudioModel> recents,
+      List<AudioModel> name,
+      List<AudioModel> size,
+      List<AudioModel> hidden,
+      ValueNotifier<SongsFiltered> selectedFilter) {
     if (selectedFilter.value == SongsFiltered.name) {
       return name;
+    } else if (selectedFilter.value == SongsFiltered.favorites) {
+      return favorites;
     } else if (selectedFilter.value == SongsFiltered.size) {
       return size;
     } else if (selectedFilter.value == SongsFiltered.recents) {

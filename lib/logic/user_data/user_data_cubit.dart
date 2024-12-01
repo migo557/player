@@ -70,6 +70,7 @@ class UserDataCubit extends Cubit<UserDataState> {
         'Failed to update login status\n $e',
       );
     }
+    
   }
 
   Future<String> _processAndSaveImage(String imagePath) async {

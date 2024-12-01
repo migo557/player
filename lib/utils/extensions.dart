@@ -10,7 +10,7 @@ import '../logic/bottom_nav_bar_cubit/bottom_nav_bar_cubit.dart';
 import '../logic/language_cubit/language_cubit.dart';
 
 extension LanguageCubitExtension on BuildContext {
-  LanguageCubit get languageCubit => read<LanguageCubit>();
+  LanguageCubit get languageCubit => watch<LanguageCubit>();
 }
 
 

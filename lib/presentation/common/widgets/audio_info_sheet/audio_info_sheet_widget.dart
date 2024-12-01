@@ -69,7 +69,7 @@ class _Tile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: "$leading : ".text.make(),
-      title: "${title}".text.make(),
+      title: "$title".text.make(),
     );
   }
 }

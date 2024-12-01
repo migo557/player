@@ -63,6 +63,7 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                             .make()
                             .scrollHorizontal(),
 
+
                         //------------------- ARTISTS ------------------//
                         [
                           artists.text.gray100

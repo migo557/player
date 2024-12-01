@@ -53,7 +53,6 @@ class SongsPage extends HookWidget {
 
             int songsLength = filteredSongs.length;
 
-            // if (songsByName.isNotEmpty) {
             return RefreshIndicator(
               onRefresh: () async {
                 context.read<AudiosBloc>().add(AudiosLoadEvent());

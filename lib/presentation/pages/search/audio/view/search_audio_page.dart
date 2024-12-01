@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:open_player/presentation/pages/search/audio/widgets/audio_search_app_bar_widget.dart';
+import 'package:open_player/utils/extensions.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../../../../../data/models/audio_model.dart';
 import '../../../../../logic/audio_bloc/audios_bloc.dart';
@@ -16,6 +17,8 @@ class SearchAudioPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+        //-- Language Code
+    final String lc = context.languageCubit.state.languageCode;
     final query = useState("");
     final selectedFilter = useState(SearchFilter.all);
     final isFilterVisible = useState(false);

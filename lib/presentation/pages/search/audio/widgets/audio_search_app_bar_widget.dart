@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:open_player/base/strings/app_strings.dart';
+import 'package:open_player/utils/extensions.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AudioSearchAppBarWidget extends StatelessWidget {
@@ -16,6 +18,8 @@ class AudioSearchAppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        //-- Language Code
+    final String lc = context.languageCubit.state.languageCode;
     final mediaQuery = MediaQuery.sizeOf(context);
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -47,7 +51,7 @@ class AudioSearchAppBarWidget extends StatelessWidget {
                 child: VxTextField(
                   autofocus: true,
                   onChanged: (search) => query.value = search.toLowerCase(),
-                  hint: "Search by title, artist, album, or genre",
+                  hint: AppStrings.searchBy[lc],
                   borderType: VxTextFieldBorderType.none,
                   fillColor: Colors.transparent,
                 ),

@@ -74,6 +74,7 @@ dependencies:
   audio_metadata_reader: ^0.0.9
   flutter_native_splash: ^2.4.3
   icons_launcher: ^3.0.0
+  flutter_video_info: ^1.3.2
   # floating: ^4.0.1
 
 

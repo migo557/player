@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:open_player/base/strings/app_strings.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_black_mode_switch_list_tile_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_change_theme_list_tile_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_dark_mode_button_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_restore_to_default_setting_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_toggle_default_theme_switch_list_tile_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_visual_customization_widget.dart';
+import 'package:open_player/utils/extensions.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 
 class SettingAppearanceSectionWidget extends StatelessWidget {
   const SettingAppearanceSectionWidget({
@@ -16,10 +17,12 @@ class SettingAppearanceSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //-- Language Code
+    final String lc = context.languageCubit.state.languageCode;
     return ExpansionTile(
       initiallyExpanded: true,
       title: [
-        "APPEARANCE".text.size(20).make(),
+        AppStrings.appearance[lc]!.text.size(20).make(),
         Icon(
           CupertinoIcons.color_filter,
           color: Theme.of(context).primaryColor,
@@ -42,7 +45,7 @@ class SettingAppearanceSectionWidget extends StatelessWidget {
         SettingBlackModeSwitchListTileWidget(),
 
         //!-------------------Visual Customization-----------------------------///
-        SettingVisualCustomizationWidget()
+        SettingCustomizationWidget()
       ],
     );
   }

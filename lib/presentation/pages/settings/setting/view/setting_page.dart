@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:open_player/base/strings/app_strings.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_appearance_section_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_top_setting_heading_widget.dart';
+import 'package:open_player/utils/extensions.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../../../../../base/router/router.dart';
 import '../widgets/license_widget.dart';
@@ -20,6 +22,8 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
+    //-- Language Code
+    final String lc = context.languageCubit.state.languageCode;
     final double mqHeight = MediaQuery.sizeOf(context).height;
     return Scaffold(
       body: Padding(
@@ -39,8 +43,8 @@ class _SettingPageState extends State<SettingPage> {
 
             ExpansionTile(
               initiallyExpanded: true,
-              title: const Text(
-                 "GENERAL",
+              title: Text(
+                AppStrings.general[lc]!,
                 style: TextStyle(fontSize: 20, letterSpacing: 1.5),
               ),
               children: [
@@ -48,7 +52,7 @@ class _SettingPageState extends State<SettingPage> {
 
                 ///!-------------------Profile-----------------------------///
                 SettingsListTileWidget(
-                  label: "Profile",
+                  label: AppStrings.profile[lc]!,
                   iconData: HugeIcons.strokeRoundedProfile02,
                   onTap: () {
                     GoRouter.of(context).push(AppRoutes.userProfileRoute);
@@ -59,7 +63,7 @@ class _SettingPageState extends State<SettingPage> {
 
                 ///!-------------------Language-----------------------------///
                 SettingsListTileWidget(
-                  label: "Language",
+                  label: AppStrings.language[lc]!,
                   iconData: HugeIcons.strokeRoundedLanguageCircle,
                   onTap: () {
                     GoRouter.of(context).push(AppRoutes.languageRoute);
@@ -70,7 +74,7 @@ class _SettingPageState extends State<SettingPage> {
 
                 ///!-------------------Equalizer-----------------------------///
                 SettingsListTileWidget(
-                  label: "Equalizer",
+                  label: AppStrings.equalizer[lc]!,
                   iconData: Icons.equalizer,
                   onTap: () {
                     // context.push(AppRoutes.equalizerRoute);
@@ -79,8 +83,7 @@ class _SettingPageState extends State<SettingPage> {
                     showCupertinoDialog(
                       context: context,
                       builder: (context) => CupertinoAlertDialog(
-                        title:
-                            const Text('Eqaualizer'),
+                        title: const Text('Eqaualizer'),
                         content: const Text('This features is on way'),
                         actions: [
                           CupertinoDialogAction(
@@ -97,7 +100,7 @@ class _SettingPageState extends State<SettingPage> {
 
                 ///!-------------------Feedback-----------------------------///
                 SettingsListTileWidget(
-                  label: "Feedback",
+                  label: AppStrings.feedback[lc]!,
                   iconData: Icons.feedback,
                   onTap: () {
                     _feedBackButtonOnTap();
@@ -108,7 +111,7 @@ class _SettingPageState extends State<SettingPage> {
 
                 ///!-------------------Privacy Policy-----------------------------///
                 SettingsListTileWidget(
-                  label: "Privacy Policy",
+                  label: AppStrings.privacyPolicy[lc]!,
                   iconData: Icons.policy,
                   onTap: () {
                     context.push(AppRoutes.privacyPolicyRoute);
@@ -124,7 +127,7 @@ class _SettingPageState extends State<SettingPage> {
 
                 ///!-------------------About-----------------------------///
                 SettingsListTileWidget(
-                  label: "About",
+                  label: AppStrings.about[lc]!,
                   iconData: HugeIcons.strokeRoundedInformationDiamond,
                   onTap: () {
                     context.push(AppRoutes.aboutRoute);

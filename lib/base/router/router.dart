@@ -34,7 +34,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: AppRoutes.userProfileRoute,
       name: AppRoutes.userProfileRoute,
-      builder: (context, state) => const UserProfilePage(),
+      builder: (context, state) =>  UserProfilePage(),
     ),
     GoRoute(
       path: AppRoutes.changeThemeRoute,

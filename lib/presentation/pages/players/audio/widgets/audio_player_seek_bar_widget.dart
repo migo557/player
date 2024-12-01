@@ -11,7 +11,6 @@ class AudioPlayerSeekBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.sizeOf(context);
     return BlocSelector<AudioPlayerBloc, AudioPlayerState,
         AudioPlayerSuccessState?>(
       selector: (state) {

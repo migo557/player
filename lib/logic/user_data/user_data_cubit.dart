@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:color_log/color_log.dart';
 import 'package:open_player/base/services/permissions/app_permission_service.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as path;
 import '../../base/services/storage/storage_services.dart';
 import '../../data/services/user/user_services.dart';
@@ -73,7 +74,9 @@ class UserDataCubit extends Cubit<UserDataState> {
 
   Future<String> _processAndSaveImage(String imagePath) async {
     final Directory appDir = await _storageService.getApplicationDirectory();
-    final String fileName = 'profilePic${path.extension(imagePath)}';
+    // final String fileName = 'profilePic ${path.extension(imagePath)}';
+    final String fileName = 'profilePic $imagePath';
+
     final String newPath = path.join(appDir.path, fileName);
 
     final File newImage = await File(newPath).create(recursive: true);

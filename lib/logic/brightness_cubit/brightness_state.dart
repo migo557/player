@@ -1,10 +1,10 @@
 part of 'brightness_cubit.dart';
 
 class BrightnessState extends Equatable {
-  BrightnessState({required this.videoPlayerBrightness, required this.showBrightnessBox});
+  const BrightnessState({required this.videoPlayerBrightness, required this.showBrightnessBox});
 
-  double videoPlayerBrightness;
-  bool showBrightnessBox;
+  final double videoPlayerBrightness;
+ final  bool showBrightnessBox;
 
   factory BrightnessState.initialState() =>
       BrightnessState(videoPlayerBrightness: 0,showBrightnessBox: false);

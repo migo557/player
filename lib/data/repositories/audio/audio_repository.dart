@@ -3,6 +3,7 @@ import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:color_log/color_log.dart';
 import 'package:open_player/utils/audio_quality_calculator.dart';
 import '../../../base/services/permissions/app_permission_service.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as path;
 import '../../models/audio_model.dart';
 import '../../providers/audio/audio_provider.dart';

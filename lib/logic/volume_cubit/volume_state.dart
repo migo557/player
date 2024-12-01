@@ -1,12 +1,12 @@
 part of 'volume_cubit.dart';
 
 class VolumeState extends Equatable {
-  VolumeState({required this.audioPlayerVolume, required this.showVolumeBar, required this.systemVolume});
+  const VolumeState({required this.audioPlayerVolume, required this.showVolumeBar, required this.systemVolume});
 
-  double audioPlayerVolume;
-  double systemVolume;
+ final double audioPlayerVolume;
+ final double systemVolume;
 
-  bool showVolumeBar;
+ final bool showVolumeBar;
 
   VolumeState copyWith({
     double? audioPlayerVolume,
@@ -16,7 +16,7 @@ class VolumeState extends Equatable {
   }) {
     return VolumeState(
       audioPlayerVolume: audioPlayerVolume ?? this.audioPlayerVolume,
-      showVolumeBar: showVolumeBox ?? this.showVolumeBar,
+      showVolumeBar: showVolumeBox ?? showVolumeBar,
       systemVolume: systemVolume?? this.systemVolume
     );
   }

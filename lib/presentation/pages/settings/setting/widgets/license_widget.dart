@@ -14,7 +14,7 @@ class LicenseWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final mq = MediaQuery.sizeOf(context);
     return SettingsListTileWidget(
-      en: "License",
+      label: "License",
       iconData: Icons.description,
       onTap: () {
         VxDialog.showCustom(context,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 import 'package:open_player/presentation/pages/audio/main/widgets/appbar/app_bar_greeting_text_widget.dart';
 import 'package:open_player/presentation/pages/audio/main/widgets/appbar/app_bar_profile_name_widget.dart';

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:open_player/presentation/common/widgets/texty.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_appearance_section_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_top_setting_heading_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -40,8 +39,8 @@ class _SettingPageState extends State<SettingPage> {
 
             ExpansionTile(
               initiallyExpanded: true,
-              title: const Texty(
-                en: "GENERAL",
+              title: const Text(
+                 "GENERAL",
                 style: TextStyle(fontSize: 20, letterSpacing: 1.5),
               ),
               children: [
@@ -49,7 +48,7 @@ class _SettingPageState extends State<SettingPage> {
 
                 ///!-------------------Profile-----------------------------///
                 SettingsListTileWidget(
-                  en: "Profile",
+                  label: "Profile",
                   iconData: HugeIcons.strokeRoundedProfile02,
                   onTap: () {
                     GoRouter.of(context).push(AppRoutes.userProfileRoute);
@@ -60,7 +59,7 @@ class _SettingPageState extends State<SettingPage> {
 
                 ///!-------------------Language-----------------------------///
                 SettingsListTileWidget(
-                  en: "Language",
+                  label: "Language",
                   iconData: HugeIcons.strokeRoundedLanguageCircle,
                   onTap: () {
                     GoRouter.of(context).push(AppRoutes.languageRoute);
@@ -71,7 +70,7 @@ class _SettingPageState extends State<SettingPage> {
 
                 ///!-------------------Equalizer-----------------------------///
                 SettingsListTileWidget(
-                  en: "Equalizer",
+                  label: "Equalizer",
                   iconData: Icons.equalizer,
                   onTap: () {
                     // context.push(AppRoutes.equalizerRoute);
@@ -98,7 +97,7 @@ class _SettingPageState extends State<SettingPage> {
 
                 ///!-------------------Feedback-----------------------------///
                 SettingsListTileWidget(
-                  en: "Feedback",
+                  label: "Feedback",
                   iconData: Icons.feedback,
                   onTap: () {
                     _feedBackButtonOnTap();
@@ -109,7 +108,7 @@ class _SettingPageState extends State<SettingPage> {
 
                 ///!-------------------Privacy Policy-----------------------------///
                 SettingsListTileWidget(
-                  en: "Privacy Policy",
+                  label: "Privacy Policy",
                   iconData: Icons.policy,
                   onTap: () {
                     context.push(AppRoutes.privacyPolicyRoute);
@@ -125,7 +124,7 @@ class _SettingPageState extends State<SettingPage> {
 
                 ///!-------------------About-----------------------------///
                 SettingsListTileWidget(
-                  en: "About",
+                  label: "About",
                   iconData: HugeIcons.strokeRoundedInformationDiamond,
                   onTap: () {
                     context.push(AppRoutes.aboutRoute);

@@ -4,10 +4,6 @@ import 'dart:io';
 import 'package:path/path.dart' as pth;
 
 class FileService {
-  //-- Get File Extension
-  String _getFileExtension(String path) {
-    return path.split('.').last;
-  }
 
   //-- Delete a file at the specific path
   Future<void> deleteFile(String path) async {

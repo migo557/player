@@ -58,13 +58,12 @@ class AudioInfoSheetWidget extends StatelessWidget {
 
 class _Tile extends StatelessWidget {
   const _Tile({
-    super.key,
     required this.leading,
     required this.title,
   });
 
   final String leading;
-  final title;
+  final  title;
 
   @override
   Widget build(BuildContext context) {

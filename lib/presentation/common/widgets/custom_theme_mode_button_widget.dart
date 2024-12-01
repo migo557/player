@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_player/utils/extensions.dart';
 
 import '../../../logic/theme_cubit/theme_cubit.dart';
-import '../../../logic/theme_cubit/theme_state.dart';
 
 class CustomThemeModeButtonWidget extends StatelessWidget {
   const CustomThemeModeButtonWidget({super.key});
@@ -85,53 +85,49 @@ class CustomThemeModeButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final mq = MediaQuery.sizeOf(context);
     final toggleSize = mq.height * 0.035;
+    final isDark = context.themeCubit.state.isDarkMode;
 
-    return BlocSelector<ThemeCubit, ThemeState, bool>(
-      selector: (state) => state.isDarkMode,
-      builder: (context, isDark) {
-        return SizedBox(
-          width: mq.width * 0.18,
-          height: mq.height * 0.045,
-          child: GestureDetector(
-            onTap: () => context.read<ThemeCubit>().toggleThemeMode(),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOut,
-              padding: const EdgeInsets.all(3),
-              decoration: _getContainerDecoration(isDark, context),
-              child: Stack(
-                children: [
-                  // Optimized background elements using const where possible
-                  if (isDark) const _DarkModeStars(),
-                  if (!isDark) const _LightModeClouds(),
+    return SizedBox(
+      width: mq.width * 0.18,
+      height: mq.height * 0.045,
+      child: GestureDetector(
+        onTap: () => context.read<ThemeCubit>().toggleThemeMode(),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+          padding: const EdgeInsets.all(3),
+          decoration: _getContainerDecoration(isDark, context),
+          child: Stack(
+            children: [
+              // Optimized background elements using const where possible
+              if (isDark) const _DarkModeStars(),
+              if (!isDark) const _LightModeClouds(),
 
-                  // Sliding toggle
-                  AnimatedAlign(
+              // Sliding toggle
+              AnimatedAlign(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+                alignment:
+                    isDark ? Alignment.centerRight : Alignment.centerLeft,
+                child: Container(
+                  width: toggleSize,
+                  height: toggleSize,
+                  decoration: _getToggleDecoration(isDark),
+                  child: AnimatedRotation(
                     duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOut,
-                    alignment:
-                        isDark ? Alignment.centerRight : Alignment.centerLeft,
-                    child: Container(
-                      width: toggleSize,
-                      height: toggleSize,
-                      decoration: _getToggleDecoration(isDark),
-                      child: AnimatedRotation(
-                        duration: const Duration(milliseconds: 500),
-                        turns: isDark ? 0.5 : 0,
-                        child: Icon(
-                          isDark ? Icons.dark_mode : Icons.wb_sunny_rounded,
-                          color: isDark ? Colors.grey[300] : Colors.orange[800],
-                          size: 16,
-                        ),
-                      ),
+                    turns: isDark ? 0.5 : 0,
+                    child: Icon(
+                      isDark ? Icons.dark_mode : Icons.wb_sunny_rounded,
+                      color: isDark ? Colors.grey[300] : Colors.orange[800],
+                      size: 16,
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

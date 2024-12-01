@@ -4,13 +4,11 @@ import 'package:gap/gap.dart';
 import 'package:open_player/base/theme/colors_palates.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
-import 'package:open_player/presentation/common/widgets/texty.dart';
 
 class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
   const SettingCustomColorSelectionListTileWidget({
     super.key,
     required this.tileLabelEn,
-    this.translation,
     required this.isDefaultThemeColor,
     required this.customColor,
     required this.defaultThemeColor,
@@ -19,12 +17,11 @@ class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
   });
 
   final String tileLabelEn;
-  final Map<String, String>? translation;
 
   final bool isDefaultThemeColor;
   final Color defaultThemeColor;
   final Color? customColor;
-  final Function({required int colorCode}) selectColorOnTap;
+  final void Function({required int colorCode}) selectColorOnTap;
   final Function() resetToDefaultThemeColorButton;
 
   @override
@@ -34,9 +31,8 @@ class SettingCustomColorSelectionListTileWidget extends StatelessWidget {
         return Visibility(
           visible: !themeState.defaultTheme,
           child: ListTile(
-            title: Texty(
-              en: tileLabelEn,
-              translations: translation,
+            title: Text(
+               tileLabelEn,
             ),
             trailing: Container(
               height: 35,

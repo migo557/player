@@ -43,6 +43,7 @@ final class AudioPlayerServiceImpl implements AudioPlayerService {
           .catchError((error) {
         clog.error('Error loading audio source: $error');
         emit(AudioPlayerErrorState(errorMessage: error.toString()));
+        return error;
       });
 
       // Create a robust combined stream with error handling
@@ -138,9 +139,5 @@ final class AudioPlayerServiceImpl implements AudioPlayerService {
     }
   }
 
-  // Add dispose method to clean up resources
-  @override
-  Future<void> dispose() async {
-    await audioPlayer.dispose();
-  }
+
 }

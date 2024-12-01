@@ -1,10 +1,8 @@
 import 'dart:typed_data';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_player/base/assets/images/app_images.dart';
-
 import '../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 
 class AudioPlayerThumbnailCardWidget extends StatelessWidget {
@@ -44,7 +42,7 @@ class AudioPlayerThumbnailCardWidget extends StatelessWidget {
             },
             builder: (context, state) {
               if (state == null) {
-                return _DefaultThumbnailCard();
+                return defaultThumbnailCard();
               }
 
               return StreamBuilder(
@@ -75,7 +73,7 @@ class AudioPlayerThumbnailCardWidget extends StatelessWidget {
                             )),
                       );
                     }
-                    return _DefaultThumbnailCard();
+                    return defaultThumbnailCard();
                   });
             },
           ),
@@ -84,7 +82,9 @@ class AudioPlayerThumbnailCardWidget extends StatelessWidget {
     );
   }
 
-  Container _DefaultThumbnailCard() {
+  //------- Widgtes 
+
+  Container defaultThumbnailCard() {
     return Container(
       height: height,
       width: width,

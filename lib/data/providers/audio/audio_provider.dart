@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:isolate';
 import 'package:color_log/color_log.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as path;
 
 /// A provider class that handles audio file operations

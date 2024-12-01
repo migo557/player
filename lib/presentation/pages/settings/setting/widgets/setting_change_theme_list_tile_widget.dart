@@ -4,7 +4,6 @@ import 'package:open_player/presentation/pages/settings/change_accent_color/view
 
 import '../../../../../logic/theme_cubit/theme_cubit.dart';
 import '../../../../../logic/theme_cubit/theme_state.dart';
-import '../../../../common/widgets/texty.dart';
 
 class SettingChangeThemeSwitchListTileWidget extends StatelessWidget {
   const SettingChangeThemeSwitchListTileWidget({
@@ -19,8 +18,8 @@ class SettingChangeThemeSwitchListTileWidget extends StatelessWidget {
           visible: !state.defaultTheme,
           child: ListTile(
             leading: const Icon(Icons.color_lens),
-            title: const Texty(
-              en: "Change Theme",
+            title: const Text(
+               "Change Theme",
             ),
             trailing: CircleAvatar(
               radius: 15,

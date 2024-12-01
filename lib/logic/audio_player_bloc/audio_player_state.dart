@@ -51,7 +51,7 @@ class AudioPlayerSuccessState extends AudioPlayerState {
   }) {
     return AudioPlayerSuccessState(
       audioPlayer: audioPlayer ?? this.audioPlayer,
-      audiosource: playlist ?? this.audiosource,
+      audiosource: playlist ?? audiosource,
       isSeeking: isSeeking ?? this.isSeeking,
       seekingPosition: seekingPosition ?? this.seekingPosition,
       audioPlayerCombinedStream:

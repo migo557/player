@@ -7,7 +7,6 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
-import 'package:open_player/presentation/common/widgets/texty.dart';
 
 
 class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
@@ -17,12 +16,11 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mqSize = MediaQuery.sizeOf(context);
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, themeState) {
         return ExpansionTile(
-          title: const Texty(
-            en: "Bottom Navigation Bar",
+          title: const Text(
+             "Bottom Navigation Bar",
             style: TextStyle(
                 fontSize: 13,
                 fontFamily: AppFonts.poppins,
@@ -30,8 +28,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
           ),
           children: [
 
-            const Texty(
-              en: "Positions",
+            const Text(
+               "Positions",
               style: TextStyle(
                   fontFamily: AppFonts.poppins,
                   fontWeight: FontWeight.bold,
@@ -41,20 +39,17 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Texty(
-                  en: "Left",
-                  style: TextStyle(),
+                Text(
+                   "Left",
                 ),
-                Texty(
-                  en: "Right",
-                  style: TextStyle(),
+                Text(
+                   "Right",
                 ),
-                Texty(
-                  en: "Top",
-                  style: TextStyle(),
+                Text(
+                   "Top",
                 ),
-                Texty(
-                  en: "Bottom",
+                Text(
+                   "Bottom",
                 ),
               ],
             ),
@@ -105,9 +100,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
             const Gap(10),
             const Padding(
               padding: EdgeInsets.all(8.0),
-              child: Texty(
-                en: "Hold the circle slightly and move it vertically or horizontally",
-                style: TextStyle(),
+              child: Text(
+                 "Hold the circle slightly and move it vertically or horizontally",
               ),
             ),
             const Gap(10),
@@ -166,8 +160,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
               ),
             ),
             const Gap(20),
-            const Texty(
-              en: "Size",
+            const Text(
+               "Size",
               style: TextStyle(
                   fontFamily: AppFonts.poppins,
                   fontWeight: FontWeight.bold,
@@ -177,8 +171,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Texty(
-                  en: "Width",
+                const Text(
+                   "Width",
                   style: TextStyle(),
                 ),
                 Row(
@@ -187,9 +181,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                       onPressed: () {
                         context.read<ThemeCubit>().increaseBottomNavBarWidth();
                       },
-                      label: const Texty(
-                        en: "Increase",
-                        style: TextStyle(),
+                      label: const Text(
+                         "Increase",
                       ),
                       icon: const Icon(Icons.add),
                     ),
@@ -198,9 +191,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                       onPressed: () {
                         context.read<ThemeCubit>().decreaseBottomNavBarWidth();
                       },
-                      label: const Texty(
-                        en: "Decrease",
-                        style: TextStyle(),
+                      label: const Text(
+                         "Decrease",
                       ),
                       icon: const Icon(Icons.remove),
                     ),
@@ -212,9 +204,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Texty(
-                  en: "Height",
-                  style: TextStyle(),
+                const Text(
+                   "Height",
                 ),
                 Row(
                   children: [
@@ -222,9 +213,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                       onPressed: () {
                         context.read<ThemeCubit>().increaseBottomNavBarHeight();
                       },
-                      label: const Texty(
-                        en: "Increase",
-                        style: TextStyle(),
+                      label: const Text(
+                         "Increase",
                       ),
                       icon: const Icon(Icons.add),
                     ),
@@ -233,9 +223,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                       onPressed: () {
                         context.read<ThemeCubit>().decreaseBottomNavBarHeight();
                       },
-                      label: const Texty(
-                        en: "Decrease",
-                        style: TextStyle(),
+                      label: const Text(
+                         "Decrease",
                       ),
                       icon: const Icon(Icons.remove),
                     ),
@@ -247,8 +236,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
 
             ///------------------- Transform ----------------//
 
-            const Texty(
-              en: "Transform",
+            const Text(
+               "Transform",
               style: TextStyle(
                   fontFamily: AppFonts.poppins,
                   fontWeight: FontWeight.bold,
@@ -260,9 +249,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Texty(
-                    en: "Rotation",
-                    style: TextStyle(),
+                  const Text(
+                     "Rotation",
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -295,9 +283,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
             ),
 
             const Gap(20),
-            const Texty(
-              en: "Reset To default",
-              style: TextStyle(),
+            const Text(
+               "Reset To default",
             ),
             const Gap(10),
             Padding(
@@ -314,9 +301,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                           .read<ThemeCubit>()
                           .resetToDefaultBottomNavBarPosition();
                     },
-                    label: const Texty(
-                      en: "Position",
-                      style: TextStyle(),
+                    label: const Text(
+                      "Position",
                     ),
                     icon: const Icon(HugeIcons.strokeRoundedNavigation01),
                   ),
@@ -329,9 +315,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                           .read<ThemeCubit>()
                           .resetToDefaultBottomNavBarHeightAndWidth();
                     },
-                    label: const Texty(
-                      en: "Size",
-                      style: TextStyle(),
+                    label: const Text(
+                       "Size",
                     ),
                     icon: const Icon(HugeIcons.strokeRoundedResize01),
                   ),
@@ -344,9 +329,8 @@ class SettingBottomNavigationBarCustomizationWidget extends StatelessWidget {
                           .read<ThemeCubit>()
                           .resetToDefaultBottomNavBarRotation();
                     },
-                    label: const Texty(
-                      en: "Rotation",
-                      style: TextStyle(),
+                    label: const Text(
+                      "Rotation",
                     ),
                     icon: const Icon(Icons.rotate_90_degrees_cw_sharp),
                   ),

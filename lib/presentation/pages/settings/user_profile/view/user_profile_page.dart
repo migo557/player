@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_player/base/db/hive_service.dart';
@@ -9,31 +10,14 @@ import 'package:open_player/presentation/pages/settings/user_profile/widgets/use
 import 'package:open_player/presentation/pages/settings/user_profile/widgets/user_profile_page_save_button.dart';
 import 'package:open_player/presentation/pages/settings/user_profile/widgets/user_profile_text_field_widget.dart';
 
-class UserProfilePage extends StatefulWidget {
-  const UserProfilePage({super.key});
+class UserProfilePage extends HookWidget {
+  UserProfilePage({super.key});
 
-  @override
-  State<UserProfilePage> createState() => _UserProfilePageState();
-}
-
-class _UserProfilePageState extends State<UserProfilePage> {
-  late TextEditingController usernameController;
-  XFile? tempImage;
-
-  @override
-  void initState() {
-    usernameController = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    usernameController.dispose();
-    super.dispose();
-  }
+ final TextEditingController usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final ValueNotifier<XFile?> tempImage = useState(null);
     bool isLogin =
         MyHiveBoxes.user.get(MyHiveKeys.userIsLoggedIn, defaultValue: false);
     final Size mq = MediaQuery.sizeOf(context);
@@ -51,14 +35,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
               children: [
                 //-------- Circular  Profile Avatar --------------///
                 UserProfileCircleAvatarWidget(
-                  tempImage: tempImage,
+                  tempImage: tempImage.value,
                   //-------- Change Image Button Clicked ------------//
                   changeButtonOnPressed: () async {
                     final imagePicker = ImagePicker();
                     XFile? pickedImage = await imagePicker.pickImage(
                         source: ImageSource.gallery);
-                    tempImage = pickedImage;
-                    setState(() {});
+                    tempImage.value = pickedImage;
                   },
                 ),
                 const Gap(40),
@@ -69,7 +52,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 const Gap(20),
                 //-------------------- Save Button-------------------///
                 UserProfilePageSaveButton(
-                    tempImage: tempImage,
+                    tempImage: tempImage.value,
                     usernameController: usernameController,
                     isLogin: isLogin,
                     mq: mq),

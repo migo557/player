@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:open_player/base/strings/app_strings.dart';
-import 'package:open_player/logic/language_cubit/language_cubit.dart';
-import 'package:open_player/utils/context_extensions.dart';
+import 'package:open_player/utils/extensions.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import '../../../../base/router/router.dart';
 
 class VideoPageSliverAppBarWidget extends StatelessWidget {
@@ -14,9 +12,10 @@ class VideoPageSliverAppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final String lnCode = context.languageCubit.state.languageCode;
+    //------ Language Code Extension --- Defined in extension on BuildContext"
+    final String lc = context.languageCubit.state.languageCode;
     return SliverAppBar(
-      title: AppStrings.videos[lnCode]!.text.make(),
+      title: AppStrings.videos[lc]!.text.make(),
       floating: true,
       actions: [
         IconButton(

@@ -4,34 +4,34 @@ import 'package:flutter/material.dart';
 import '../../base/db/hive_service.dart';
 
 class ThemeState extends Equatable {
-  bool isDarkMode;
-  bool isBlackMode;
-  bool defaultTheme;
-  bool useMaterial3;
-  bool isDefaultScaffoldColor;
-  bool isDefaultAppBarColor;
-  bool isDefaultBottomNavBarBgColor;
-  bool isDefaultBottomNavBarPosition;
-  bool isDefaultBottomNavBarRotation;
-  bool isDefaultBottomNavBarIconRotation;
+ final bool isDarkMode;
+final  bool isBlackMode;
+final  bool defaultTheme;
+ final bool useMaterial3;
+final  bool isDefaultScaffoldColor;
+ final bool isDefaultAppBarColor;
+ final bool isDefaultBottomNavBarBgColor;
+ final bool isDefaultBottomNavBarPosition;
+ final bool isDefaultBottomNavBarRotation;
+ final bool isDefaultBottomNavBarIconRotation;
 
-  double contrastLevel;
-  VisualDensity visualDensity;
-  int? customScaffoldColor;
-  int? customAppBarColor;
-  int? customBottomNavBarBgColor;
-  int primaryColorListIndex;
-  int primaryColor;
-  double bottomNavBarPositionFromLeft;
-  double bottomNavBarPositionFromBottom;
-  double bottomNavBarWidth;
-  double bottomNavBarHeight;
-  double bottomNavBarRotation;
-  double bottomNavBarIconRotation;
+ final double contrastLevel;
+ final VisualDensity visualDensity;
+ final int? customScaffoldColor;
+ final int? customAppBarColor;
+ final int? customBottomNavBarBgColor;
+ final int primaryColorListIndex;
+ final int primaryColor;
+ final double bottomNavBarPositionFromLeft;
+ final double bottomNavBarPositionFromBottom;
+  final double bottomNavBarWidth;
+  final double bottomNavBarHeight;
+ final  double bottomNavBarRotation;
+ final double bottomNavBarIconRotation;
 
-  bool isHoldBottomNavBarCirclePositionButton;
+ final bool isHoldBottomNavBarCirclePositionButton;
 
-  ThemeState({
+  const ThemeState({
     required this.isBlackMode,
     required this.isDarkMode,
     required this.useMaterial3,

@@ -4,7 +4,6 @@ import 'package:open_player/base/router/router.dart';
 import 'package:open_player/data/models/album_model.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
 import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
-import 'package:open_player/presentation/pages/audio/sub/albums/view/albums_page.dart';
 
 class AlbumCard extends StatelessWidget {
   final AlbumModel album;

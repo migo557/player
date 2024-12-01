@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:open_player/presentation/pages/audio/sub/albums/view/album_preview_page.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_next_button_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_position_and_duration_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_previous_button_widget.dart';

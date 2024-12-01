@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/strings/app_strings.dart';
-import 'package:open_player/utils/context_extensions.dart';
+import 'package:open_player/utils/extensions.dart';
 import '../../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 
 class AudioPageTabBarWidget extends StatelessWidget {

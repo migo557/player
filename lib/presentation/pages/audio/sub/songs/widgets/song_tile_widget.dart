@@ -1,4 +1,3 @@
-import 'package:color_log/color_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -6,7 +5,6 @@ import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/base/assets/images/app_images.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
-import 'package:open_player/presentation/common/widgets/custom_video_tile_widget.dart';
 import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/song_tile_more_button_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/view/audio_player.dart';

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:open_player/base/assets/fonts/styles.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_bottom_navigation_bar_customization_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_change_app_bar_color_background_tile_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_change_scaffold_color_tile_widget.dart';
-import 'package:open_player/presentation/pages/settings/setting/widgets/setting_contrast_level_widget.dart';
+import 'package:velocity_x/velocity_x.dart';
 
-import '../../../../common/widgets/texty.dart';
+import '../../../../../logic/theme_cubit/theme_state.dart';
 
 class SettingVisualCustomizationWidget extends StatelessWidget {
   const SettingVisualCustomizationWidget({
@@ -14,34 +15,29 @@ class SettingVisualCustomizationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ExpansionTile(
-        title: Texty(
-            en: "Customization",
-),
-        children: [
-          ExpansionTile(
-            title: Texty(
-              en: "Visual Customization",
-        
-              style: TextStyle(
-                  fontSize: 13,
-                  fontFamily: AppFonts.poppins,
-                  fontWeight: FontWeight.bold),
-            ),
-            children: [
-              //--------- Contrast Level
-              SettingContrastLevelWidget(),
-
-              //--------- Change Scaffold Color
-              SettingChangeScaffoldColorTileWidget(),
-
-              //--------- Change App Bar Color
-              SettingChangeAppBarColorBackgroundTileWidget(),
-            ],
-          ),
-
-          //----------- Bottom Navigation Bar
-          SettingBottomNavigationBarCustomizationWidget(),
-        ]);
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
+        return Visibility(
+          visible: !state.defaultTheme,
+          child: ExpansionTile(
+              title: "Customization".text.make(),
+              children: [
+                ExpansionTile(
+                  title: "Colors".text.bold.make(),
+                  children: [
+                    //--------- Change Scaffold Color
+                    SettingChangeScaffoldColorTileWidget(),
+          
+                    //--------- Change App Bar Color
+                    SettingChangeAppBarColorBackgroundTileWidget(),
+                  ],
+                ),
+          
+                //----------- Bottom Navigation Bar
+                SettingBottomNavigationBarCustomizationWidget(),
+              ]),
+        );
+      },
+    );
   }
 }

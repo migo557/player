@@ -17,7 +17,7 @@ class SongsPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedFilter = useState(SongsFiltered.name);
+    final selectedFilter = useState(SongsFiltered.all);
     final mq = MediaQuery.sizeOf(context);
 
     return BlocBuilder<ThemeCubit, ThemeState>(
@@ -28,7 +28,7 @@ class SongsPage extends HookWidget {
               if (audioState.songs.isNotEmpty) {
                 final fvrKeys = MyHiveBoxes.favoriteAudios.keys;
 
-                final songsByName = audioState.songs
+                final allsongsByName = audioState.songs
                     .where((audio) => !audio.title.startsWith('.'))
                     .toList()
                   ..sort((a, b) => a.title.compareTo(b.title));
@@ -53,7 +53,7 @@ class SongsPage extends HookWidget {
                   ..sort((a, b) => a.size.compareTo(b.size));
 
                 final filteredSongs = _returnSongs(favoriteSongs, recentlyAdded,
-                    songsByName, hiddenSongs, selectedFilter);
+                    allsongsByName, hiddenSongs, selectedFilter);
 
                 int songsLength = filteredSongs.length;
 
@@ -126,11 +126,11 @@ class SongsPage extends HookWidget {
   List<AudioModel> _returnSongs(
       List<AudioModel> favorites,
       List<AudioModel> recents,
-      List<AudioModel> name,
+      List<AudioModel> all,
       List<AudioModel> hidden,
       ValueNotifier<SongsFiltered> selectedFilter) {
-    if (selectedFilter.value == SongsFiltered.name) {
-      return name;
+    if (selectedFilter.value == SongsFiltered.all) {
+      return all;
     } else if (selectedFilter.value == SongsFiltered.favorites) {
       return favorites;
     } else if (selectedFilter.value == SongsFiltered.recents) {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:open_player/base/strings/app_strings.dart';
+import 'package:open_player/utils/context_extensions.dart';
 import '../../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 
 class AudioPageTabBarWidget extends StatelessWidget {
@@ -8,7 +10,8 @@ class AudioPageTabBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    //------ Language Code Extension --- Defined in extension on BuildContext"
+    final String lc = context.languageCubit.state.languageCode;
     return BlocSelector<AudioPlayerBloc, AudioPlayerState,
         AudioPlayerSuccessState?>(
       selector: (state) {
@@ -26,25 +29,25 @@ class AudioPageTabBarWidget extends StatelessWidget {
                 onTap: (value) {},
                 tabs: [
                   Tab(
-                    text: "Songs",
+                    text: AppStrings.songs[lc],
                     icon: const Icon(HugeIcons.strokeRoundedMusicNoteSquare02),
                   ),
             
                   Tab(
-                    text: "Artists",
+                    text: AppStrings.artists[lc],
                     icon: const Icon(HugeIcons.strokeRoundedMusicNoteSquare01),
                   ),
                   Tab(
-                    text: "Albums",
+                    text: AppStrings.albums[lc],
                     icon: const Icon(Icons.album),
                   ),
                   Tab(
-                    text: "Playlists",
+                    text: AppStrings.playlists[lc],
                     icon: const Icon(HugeIcons.strokeRoundedPlayList),
                   ),
 
                   Tab(
-                    text: "Folders",
+                    text: AppStrings.folders[lc],
                     icon: const Icon(HugeIcons.strokeRoundedFolder01),
                   ),
                 ],

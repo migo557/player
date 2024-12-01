@@ -162,7 +162,6 @@ class AppGreetingString {
         "se": "Buorre eahket",
         "tw": "Meda wo akye",
         "tl": "Magandang Hapon",
-        "xh": "Ubusuku obuhle",
       }
     },
     {

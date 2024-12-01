@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:open_player/base/strings/app_strings.dart';
+import 'package:velocity_x/velocity_x.dart';
 import '../../../../../base/strings/app_disclaimer_licenses_strings.dart';
-import '../../../../common/widgets/texty.dart';
 import 'settings_list_tile_widget.dart';
 
 class LicenseWidget extends StatelessWidget {
@@ -11,59 +12,48 @@ class LicenseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.sizeOf(context);
     return SettingsListTileWidget(
       en: "License",
       iconData: Icons.description,
       onTap: () {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Texty(
-              en: "Licenses",
-              style: TextStyle(),
-            ),
-            content: const SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'MIT License:\n',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Texty(
-                    en: AppDisclaimerAndLicensesStrings.mitLicensesEn,
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  // Add more licenses as needed
-                ],
+        VxDialog.showCustom(context,
+            child: [
+              SizedBox(
+                height: mq.height * 0.7,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    'MIT License:\n'.text.size(16).white.bold.make(),
+                    AppDisclaimerAndLicensesStrings.mitLicensesEn.text
+                        .size(16)
+                        .white
+                        .make(),
+                    // Add more licenses as needed
+                  ],
+                ).scrollVertical(),
               ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (p0) => const AboutDialog(
-                            applicationVersion: AppStrings.appVersion,
-                          ));
-                },
-                child: const Texty(
-                  en: "More Licenses",
-                  style: TextStyle(),
+              [
+                CupertinoButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (p0) => const AboutDialog(
+                              applicationVersion: AppStrings.appVersion,
+                            ));
+                  },
+                  child: "More Licenses".text.white.make(),
                 ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Texty(
-                  en: "Close",
-                  style: TextStyle(),
+                CupertinoButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: "Close".text.white.make(),
                 ),
-              ),
-            ],
-          ),
-        );
+              ].row()
+            ].column().p16().scrollVertical().glassMorphic(
+                width: mq.width * 0.85, height: mq.height * 0.8, blur: 12),
+            barrierDismissible: false);
       },
     );
   }

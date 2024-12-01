@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-enum SongsFiltered { name, favorites, recents, hidden }
+enum SongsFiltered { all, favorites, recents, hidden }
 
 class SongsTopBarButtonsWidget extends HookWidget {
   const SongsTopBarButtonsWidget(

@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:open_player/presentation/common/widgets/custom_video_tile_widget.dart';
-import 'package:open_player/presentation/common/widgets/texty.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_black_mode_switch_list_tile_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_change_theme_list_tile_widget.dart';
 import 'package:open_player/presentation/pages/settings/setting/widgets/setting_dark_mode_button_widget.dart';
@@ -21,10 +19,7 @@ class SettingAppearanceSectionWidget extends StatelessWidget {
     return ExpansionTile(
       initiallyExpanded: true,
       title: [
-        const Texty(
-          en: "APPEARANCE",
-          style: TextStyle(fontSize: 20, letterSpacing: 1),
-        ),
+        "APPEARANCE".text.size(20).make(),
         Icon(
           CupertinoIcons.color_filter,
           color: Theme.of(context).primaryColor,

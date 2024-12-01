@@ -15,6 +15,7 @@ import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_icon_button_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 // import '../../../../../data/services/picture_in_picture_service/picture_in_picture_service.dart';
+import '../../../../../data/services/favorites_video_hive_service/favorites_video_hive_service.dart';
 import '../../../../common/methods/set_orientation_potrait.dart';
 import '../../../../common/methods/system_ui_mode.dart';
 import 'video_player_audios_selector_widget.dart';
@@ -28,7 +29,9 @@ class VideoPlayerTopBarWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+    final isFavorite = useState(
+        FavoritesVideoHiveService().getFavoriteStatus(state.playingVideoPath));
+
     final showMoreIcons = useState(false);
     return SafeArea(
       top: true,
@@ -39,12 +42,12 @@ class VideoPlayerTopBarWidget extends HookWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
         child: Column(
           children: [
-            
             //----------------- Top Menu ----------------//
             if (!cState.lockScreenTapping && cState.showVideoControls)
               FadeInDown(
                 child: Row(
                   children: [
+                    //------ Back Button
                     IconButton(
                       icon:
                           const Icon(Icons.arrow_back_ios, color: Colors.white),
@@ -54,6 +57,8 @@ class VideoPlayerTopBarWidget extends HookWidget {
                         context.pop();
                       },
                     ),
+
+                    //---------- Video Title
                     Expanded(
                       child: Text(
                         "Now Playing",
@@ -66,7 +71,21 @@ class VideoPlayerTopBarWidget extends HookWidget {
                       ),
                     ),
 
-                   
+                    //--------- Favorite/Like Button
+
+                    IconButton(
+                      color: Colors.white,
+                      onPressed: () async {
+                        
+                        //-------- Update the favorite status and retrun it
+                        final favorite = await FavoritesVideoHiveService()
+                            .toggleFavorite(state.playingVideoPath);
+                        isFavorite.value = favorite;
+                      },
+                      icon: Icon(isFavorite.value
+                          ? CupertinoIcons.heart_fill
+                          : CupertinoIcons.heart),
+                    )
                   ],
                 ),
               ),
@@ -132,15 +151,12 @@ class VideoPlayerTopBarWidget extends HookWidget {
                             // // Attempt to enable PiP
                             // await pipService.enablePictureInPicture(context);
 
-
-
-                              // TODO: Implement file subtitle addition
+                            // TODO: Implement file subtitle addition
                             showCupertinoDialog(
                               context: context,
                               builder: (context) => CupertinoAlertDialog(
                                 title: const Text('Picture in Picture'),
-                                content:
-                                    const Text('Coding in progress...'),
+                                content: const Text('Coding in progress...'),
                                 actions: [
                                   CupertinoDialogAction(
                                     child: const Text('OK'),
@@ -162,14 +178,13 @@ class VideoPlayerTopBarWidget extends HookWidget {
                                 .read<ControlsVisibilityCubit>()
                                 .toggleVideoControlsVisibilty();
 
-
-
-                              // TODO: Implement file subtitle addition
+                            // TODO: Implement file subtitle addition
                             showCupertinoDialog(
                               context: context,
                               builder: (context) => CupertinoAlertDialog(
                                 title: const Text('Background Audio'),
-                                content: const Text('Its enabled by default, for disabling coding is in progress...'),
+                                content: const Text(
+                                    'Its enabled by default, for disabling coding is in progress...'),
                                 actions: [
                                   CupertinoDialogAction(
                                     child: const Text('OK'),

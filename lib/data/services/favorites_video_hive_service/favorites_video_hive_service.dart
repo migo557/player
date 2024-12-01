@@ -22,21 +22,24 @@ class FavoritesVideoHiveService {
     return _box.containsKey(key);
   }
 
- bool getFavoriteStatus(String filePath)  {
+  bool getFavoriteStatus(String filePath) {
     final key = generateKey(filePath);
-    bool v =  _box.get(key, defaultValue: false);
+    bool v = _box.get(key, defaultValue: false);
     return v;
   }
 
-  toggleFavorite(String filePath) async{
+Future<bool>  toggleFavorite(String filePath) async {
     if (_checkIsContain(filePath)) {
       if (getFavoriteStatus(filePath)) {
         _removeFromFavorite(filePath);
+        return false;
       } else {
         _addToFavorite(filePath);
+        return true;
       }
     } else {
       _addToFavorite(filePath);
+      return true;
     }
   }
 }

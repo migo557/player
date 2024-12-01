@@ -36,8 +36,8 @@ class AudioPlayerTopBarWidget extends StatelessWidget {
               showCupertinoDialog(
                 context: context,
                 builder: (context) => CupertinoAlertDialog(
-                  title: const Text('Eqaualizer, Visualization, 3D sound'),
-                  content: const Text('These features is on way'),
+                  title: const Text('Equalizer,Music Visualization, 3D sound, Synced Lyrics'),
+                  content: const Text('These features are on way...'),
                   actions: [
                     CupertinoDialogAction(
                       child: const Text('OK'),

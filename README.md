@@ -46,6 +46,7 @@ Player is a beautifully designed, feature-rich offline media player for Android,
 ![Player Screenshot 1](assets/screenshot1.jpg)
 ![Player Screenshot 2](assets/screenshot2.jpg)
 ![Player Screenshot 3](assets/screenshot3.jpg)
+![Player Screenshot 3](assets/screenshot4.jpg)
 
 ## 🛠 Installation
 

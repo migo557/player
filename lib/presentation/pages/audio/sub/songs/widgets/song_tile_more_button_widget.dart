@@ -13,13 +13,12 @@ import 'package:share_plus/share_plus.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SongTileMoreButtonWidget extends StatelessWidget {
-  const SongTileMoreButtonWidget({
-    super.key,
-    required this.path,
-    required this.audio,
-    required this.audios,
-    required this.isPlaying
-  });
+  const SongTileMoreButtonWidget(
+      {super.key,
+      required this.path,
+      required this.audio,
+      required this.audios,
+      required this.isPlaying});
   final bool isPlaying;
   final String path;
   final AudioModel audio;
@@ -39,16 +38,18 @@ class SongTileMoreButtonWidget extends StatelessWidget {
               _deleteMusic(
                 context,
                 path,
-                audios,
               ),
               _musicSetAsRingtone(),
               _more(context, audio),
               _share(audio),
             ]);
       },
-      child:  Padding(
+      child: Padding(
         padding: EdgeInsets.all(8.0),
-        child: Icon(HugeIcons.strokeRoundedMoreVerticalCircle01, color: isPlaying? Colors.white:null,),
+        child: Icon(
+          HugeIcons.strokeRoundedMoreVerticalCircle01,
+          color: isPlaying ? Colors.white : null,
+        ),
       ),
     );
   }
@@ -110,7 +111,7 @@ PopupMenuItem<dynamic> _renameMusic(
                         .renameFile(path, controller.text.trim())
                         .whenComplete(
                       () {
-                        context.read<AudiosBloc>().add(AudiosLoadEvent());
+                        context.read<AudiosBloc>().add(AudiosLoadAllEvent());
                         context.pop();
                       },
                     );
@@ -136,13 +137,12 @@ PopupMenuItem<dynamic> _renameMusic(
 PopupMenuItem<dynamic> _deleteMusic(
   BuildContext context,
   String path,
-  List<AudioModel> audios,
 ) {
   return PopupMenuItem(
     onTap: () {
       FileService().deleteFile(path).whenComplete(
         () {
-          context.read<AudiosBloc>().add(AudiosLoadEvent());
+          context.read<AudiosBloc>().add(AudiosLoadAllEvent());
 
           VxToast.show(context, msg: "Audio Deleted");
         },

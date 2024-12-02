@@ -1,4 +1,5 @@
 import 'package:color_log/color_log.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:open_player/data/services/audio/audio_player_services.dart';
@@ -25,7 +26,9 @@ initializeLocator() {
     clog.checkSuccess(true, "AudioProvider registred");
 
     // Register VideoProvider
-    locator.registerLazySingleton<VideoProvider>(() => VideoProvider(),);
+    locator.registerLazySingleton<VideoProvider>(
+      () => VideoProvider(),
+    );
     clog.checkSuccess(true, "VideoProvider registred");
 
     // Register AudioRepository
@@ -69,6 +72,11 @@ initializeLocator() {
     locator.registerLazySingleton<VideoPlaybackHiveService>(
         () => VideoPlaybackHiveService());
     clog.checkSuccess(true, "VideoPlayback Hive services registred");
+
+    // Register Songs Page ScrollController
+    locator.registerLazySingleton<ScrollController>(() => ScrollController(),
+        instanceName: "audios");
+    clog.checkSuccess(true, "Audios Page Scroll Controller registred");
 
     // Register Floating (Picture In Picture) Package
     // locator.registerLazySingleton<Floating>(() => Floating());

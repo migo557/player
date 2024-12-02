@@ -18,9 +18,10 @@ import '../../../pages/players/audio/view/audio_player.dart';
 import '../../../pages/players/audio/widgets/audio_player_play_pause_button_widget.dart';
 
 class MiniAudioPlayerWidget extends StatelessWidget {
-  const MiniAudioPlayerWidget({
-    super.key,
-  });
+  const MiniAudioPlayerWidget({super.key, this.height, this.color, this.shadowColor});
+  final double? height;
+  final Color? color;
+  final Color? shadowColor;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class MiniAudioPlayerWidget extends StatelessWidget {
         return FadeInDown(
           duration: const Duration(milliseconds: 500),
           child: SizedBox(
-            height: mq.height * 0.163,
+            height: height ?? mq.height * 0.163,
             width: mq.width,
             child: StreamBuilder(
                 stream: playerState.audioPlayerCombinedStream,
@@ -54,7 +55,8 @@ class MiniAudioPlayerWidget extends StatelessWidget {
                       );
                     },
                     child: Card(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: color ?? Theme.of(context).colorScheme.primary,
+                      shadowColor: shadowColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(0),

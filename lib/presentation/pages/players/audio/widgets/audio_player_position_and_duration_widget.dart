@@ -51,7 +51,7 @@ class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
                       //---       Position
                       if (showPosition)
                         Text(
-                          Formatter.    formatDuration(position),
+                          Formatter.formatDuration(position),
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: fontSize,
@@ -59,15 +59,15 @@ class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
                               shadows: [
                                 Shadow(
                                     color: Colors.black38,
-                                    blurRadius: 1,
-                                    offset: Offset(1, 1))
+                                    blurRadius: 2,
+                                    offset: Offset(0, 0))
                               ]),
                         ),
 
                       //--     Duration
                       if (showDuration)
                         Text(
-                           Formatter.   formatDuration(duration),
+                          Formatter.formatDuration(duration),
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: fontSize,
@@ -75,8 +75,8 @@ class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
                               shadows: [
                                 Shadow(
                                     color: Colors.black38,
-                                    blurRadius: 1,
-                                    offset: Offset(1, 1))
+                                    blurRadius: 2,
+                                    offset: Offset(0, 0))
                               ]),
                         ),
                     ],
@@ -90,6 +90,3 @@ class AudioPlayerPositionAndDurationWidget extends StatelessWidget {
     );
   }
 }
-
-
-

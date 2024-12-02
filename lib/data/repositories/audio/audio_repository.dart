@@ -13,7 +13,7 @@ class AudioRepository {
 
   AudioRepository(this.audioProvider);
 
-  Future<List<AudioModel>> getAudioFiles() async {
+  Future<List<AudioModel>> getAllAudioFiles() async {
     try {
       final bool hasPermission = await AppPermissionService.storagePermission();
 
@@ -44,6 +44,38 @@ class AudioRepository {
     }
   }
 
+
+    Future<List<AudioModel>> getAudioFilesFromSingleDirectory(Directory directory) async {
+    try {
+      final bool hasPermission = await AppPermissionService.storagePermission();
+
+      if (!hasPermission) {
+        clog.error('Storage permission not granted');
+        clog.warning(' Let;s Accessing it Storage permission again...');
+        await AppPermissionService.storagePermission().then(
+          (value) {
+            clog.error(' Again Storage permission not granted');
+          },
+        );
+        return [];
+      }
+
+      final List<String> audioPath =
+          await audioProvider.fetchAudioFilePathsFromSingleDirectory(directory);
+
+      final List<AudioModel> audios =
+          await Future.wait(audioPath.map((audioPath) async {
+        return await getAudioInfo(audioPath);
+      }));
+
+      clog.info('Found ${audios.length} audio');
+      return audios;
+    } catch (e) {
+      clog.error('Error fetching audio files: $e');
+      return [];
+    }
+  }
+
   Future<AudioModel> getAudioInfo(String audioPath) async {
     // Getting the image of a track can be heavy and slow the reading
     final metadata = readMetadata(File(audioPath), getImage: true);
@@ -54,7 +86,6 @@ class AudioRepository {
       sampleRate: metadata.sampleRate,
       // codec: metadata.format, // If available in your metadata
     );
-
 
     return AudioModel(
       title: path.basenameWithoutExtension(audioPath),
@@ -74,7 +105,6 @@ class AudioRepository {
       quality: quality,
       lastModified: File(audioPath).lastModifiedSync(),
       lastAccessed: File(audioPath).lastAccessedSync(),
-
     );
   }
 }

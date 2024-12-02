@@ -11,7 +11,7 @@ class UserProfilePreview extends StatelessWidget {
   const UserProfilePreview({super.key, this.file, this.bytes});
   final File? file;
   final Uint8List? bytes;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +21,7 @@ class UserProfilePreview extends StatelessWidget {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         title: IconButton(
+            color: Colors.white,
             onPressed: () {
               context.pop();
             },
@@ -31,7 +32,9 @@ class UserProfilePreview extends StatelessWidget {
         child: Center(
           child: file != null
               ? Image.file(file!)
-              :bytes!= null? Image.memory(bytes!): Image.asset(AppImages.defaultProfile),
+              : bytes != null
+                  ? Image.memory(bytes!)
+                  : Image.asset(AppImages.defaultProfile),
         ),
       ),
     );

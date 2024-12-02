@@ -79,7 +79,7 @@ class UserProfilePageSaveButton extends StatelessWidget {
   }
 
   loadMedia(BuildContext context) {
-    context.read<AudiosBloc>().add(AudiosLoadEvent());
+    context.read<AudiosBloc>().add(AudiosLoadAllEvent());
     context.read<VideosBloc>().add(VideosLoadEvent());
   }
 }

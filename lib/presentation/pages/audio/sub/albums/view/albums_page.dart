@@ -1,13 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_player/base/di/injection.dart';
 import 'package:open_player/data/models/album_model.dart';
 import 'package:open_player/presentation/pages/audio/sub/albums/widgets/album_card.dart';
+import 'package:velocity_x/velocity_x.dart';
 import '../../../../../../data/models/audio_model.dart';
 import '../../../../../../logic/audio_bloc/audios_bloc.dart';
 
 class AlbumsPage extends StatelessWidget {
-  const AlbumsPage({super.key});
+  AlbumsPage({super.key});
 
+  final ScrollController _controller =
+      locator<ScrollController>(instanceName: "audios");
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AudiosBloc, AudiosState>(
@@ -19,7 +24,7 @@ class AlbumsPage extends StatelessWidget {
         }
 
         if (state is AudiosSuccess) {
-          final albums = _getAlbumsFromAudios(state.songs);
+          final albums = _getAlbumsFromAudios(state.allSongs);
 
           if (albums.isEmpty) {
             return Center(
@@ -28,11 +33,11 @@ class AlbumsPage extends StatelessWidget {
           }
 
           return CustomScrollView(
-              physics: BouncingScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             slivers: [
               SliverPadding(
-                padding:
-                     EdgeInsets.only(left: 16.0, right: 16.0, bottom: 100, top: 40),
+                padding: EdgeInsets.only(
+                    left: 16.0, right: 16.0, bottom: 5, top: 40),
                 sliver: SliverGrid(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -48,6 +53,22 @@ class AlbumsPage extends StatelessWidget {
                     childCount: albums.length,
                   ),
                 ),
+              ),
+
+              //--- Scroll Top
+           if(albums.length>10)   SliverToBoxAdapter(
+                child: TextButton.icon(
+                  onPressed: () {
+                    _controller.animToTop();
+                  },
+                  label: "Scroll Top".text.make(),
+                  icon: Icon(CupertinoIcons.chevron_up),
+                ),
+              ),
+
+              //------- Padding
+              SliverPadding(
+                padding: EdgeInsets.only(bottom: 100),
               ),
             ],
           );

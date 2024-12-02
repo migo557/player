@@ -72,7 +72,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   void fetchMedia(bool isLoggedIn) {
     if (isLoggedIn) {
-      context.read<AudiosBloc>().add(AudiosLoadEvent());
+      context.read<AudiosBloc>().add(AudiosLoadAllEvent());
       context.read<VideosBloc>().add(VideosLoadEvent());
     }
   }

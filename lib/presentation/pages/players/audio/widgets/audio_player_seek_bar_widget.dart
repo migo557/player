@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
-
 import '../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 
 class AudioPlayerSeekBarWidget extends StatelessWidget {
@@ -28,7 +27,7 @@ class AudioPlayerSeekBarWidget extends StatelessWidget {
                     Duration.zero;
 
                 return Slider(
-                  
+                  activeColor: Colors.white,
                   onChangeEnd: (p) {
                     context
                         .read<AudioPlayerBloc>()

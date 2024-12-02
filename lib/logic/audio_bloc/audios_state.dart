@@ -12,12 +12,18 @@ class AudiosInitial extends AudiosState {}
 class AudiosLoading extends AudiosState {}
 
 class AudiosSuccess extends AudiosState {
-  final List<AudioModel> songs;
+  final List<AudioModel> allSongs;
+  final List<AudioModel> dirSongs;
 
-  const AudiosSuccess({required this.songs});
+  const AudiosSuccess({required this.allSongs, required this.dirSongs});
+
+  AudiosSuccess copyWith(
+      List<AudioModel>? allSongs, List<AudioModel>? dirSongs) {
+    return AudiosSuccess(allSongs: allSongs??this.allSongs, dirSongs: dirSongs??this.dirSongs);
+  }
 
   @override
-  List<Object> get props => [songs];
+  List<Object> get props => [allSongs, dirSongs];
 }
 
 class AudiosFailure extends AudiosState {

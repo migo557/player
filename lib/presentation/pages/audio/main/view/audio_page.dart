@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_player/base/di/injection.dart';
 import 'package:open_player/presentation/common/widgets/miniplayer/mini_audio_player_widget.dart';
 import 'package:open_player/presentation/pages/audio/sub/albums/view/albums_page.dart';
 import 'package:open_player/presentation/pages/audio/sub/artists/view/artists_page.dart';
@@ -21,6 +22,7 @@ class AudioPage extends StatelessWidget {
             child: DefaultTabController(
               length: 5,
               child: NestedScrollView(
+                controller: locator<ScrollController>(instanceName: "audios"),
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return [

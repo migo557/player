@@ -18,36 +18,33 @@ class VideoPlayerResumeButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<VideoPlaybackHiveBloc, VideoPlaybackHiveState>(
       builder: (context, state) {
-        return Visibility(
-          visible: state.showResumeButton,
-          child: FadeInLeft(
-            child: GestureDetector(
-              onTap: () {
-                widget.videoPlayerReadyState.vlcPlayerController
-                    .seekTo(Duration(seconds: state.position));
-                context
-                    .read<VideoPlaybackHiveBloc>()
-                    .add(HideVideoPlaybackResumeButtonEvent());
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: [
-                  "Resume ".text.black.make(),
-                  Icon(
-                    HugeIcons.strokeRoundedPlay,
-                    color: Colors.black,
-                  )
-                ].row(
-                  axisSize: MainAxisSize.min,
-                ),
+        return FadeInLeft(
+          child: GestureDetector(
+            onTap: () {
+              widget.videoPlayerReadyState.vlcPlayerController
+                  .seekTo(Duration(seconds: state.position));
+              context
+                  .read<VideoPlaybackHiveBloc>()
+                  .add(HideVideoPlaybackResumeButtonEvent());
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
               ),
-            ).p8(),
-          ),
-        ).positioned(top: 150, left: 0);
+              child: [
+                "Resume ".text.black.make(),
+                Icon(
+                  HugeIcons.strokeRoundedPlay,
+                  color: Colors.black,
+                )
+              ].row(
+                axisSize: MainAxisSize.min,
+              ),
+            ),
+          ).p8(),
+        ).hide(isVisible: state.showResumeButton,).positioned(top: 150, left: 0);
       },
     );
   }

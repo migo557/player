@@ -8,6 +8,13 @@ sealed class AudiosEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AudiosLoadEvent extends AudiosEvent {}
+class AudiosLoadAllEvent extends AudiosEvent {}
 
+class AudiosLoadFromDirectoryEvent extends AudiosEvent {
+  final Directory directory;
 
+  const AudiosLoadFromDirectoryEvent({required this.directory});
+
+  @override
+  List<Object> get props => [directory];
+}

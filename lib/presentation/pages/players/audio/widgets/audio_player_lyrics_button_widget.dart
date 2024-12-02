@@ -13,15 +13,18 @@ class AudioPlayerLyricsButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton.icon(
+            style: TextButton.styleFrom(
+              iconColor: Colors.white,
+            ),
             onPressed: () {
               showLyrics.value = !showLyrics.value;
             },
-            icon: Icon(showLyrics.value
+            icon: Icon(!showLyrics.value
                 ? CupertinoIcons.chevron_down
                 : CupertinoIcons.chevron_up),
             label: showLyrics.value
-                ? "Close Lyrics".text.make()
-                : "Show Lyrics".text.make())
+                ? "Close Lyrics".text.white.make()
+                : "Show Lyrics".text.white.make())
         .positioned(bottom: 0, left: 0, right: 0);
   }
 }

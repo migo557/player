@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:open_player/presentation/common/widgets/custom_video_tile_widget.dart';
 import 'package:open_player/utils/extensions.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class CustomBrightnessBoxWidget extends StatelessWidget {
   const CustomBrightnessBoxWidget({super.key, this.boxHeight, this.boxWidth});
@@ -43,39 +45,36 @@ class CustomBrightnessBoxWidget extends StatelessWidget {
 
     return Align(
       alignment: Alignment.center,
-      child: Visibility(
-        visible: bState.showBrightnessBox,
-        child: Card(
-          elevation: 8,
-          color: Colors.black.withOpacity(0.6),
-          child: SizedBox(
-            height: boxHeight ?? 80,
-            width: boxWidth ?? 80,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    brightnessLabel,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Icon(
-                    HugeIcons.strokeRoundedBulb,
+      child: Card(
+        elevation: 8,
+        color: Colors.black.withOpacity(0.6),
+        child: SizedBox(
+          height: boxHeight ?? 80,
+          width: boxWidth ?? 80,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  brightnessLabel,
+                  style: TextStyle(
                     color: Colors.white,
-                    size: 25,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 8),
+                Icon(
+                  HugeIcons.strokeRoundedBulb,
+                  color: Colors.white,
+                  size: 25,
+                ),
+              ],
             ),
           ),
         ),
-      ),
+      ).hide(isVisible: bState.showBrightnessBox),
     );
   }
 }

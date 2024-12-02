@@ -59,7 +59,7 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                             .white
                             .minFontSize(25)
                             .fontFamily(AppFonts.poppins)
-                            .shadow(1, 1, 3, Colors.black38)
+                            .shadow(0, 0, 3, Colors.black38)
                             .make()
                             .scrollHorizontal(),
 
@@ -71,7 +71,7 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                               .maxFontSize(12)
                               .fontFamily(AppFonts.poppins)
                               .maxLines(1)
-                              .shadow(1, 1, 1, Colors.black26)
+                              .shadow(0, 0, 2, Colors.black26)
                               .make()
                               .flexible(),
                           Gap(5),

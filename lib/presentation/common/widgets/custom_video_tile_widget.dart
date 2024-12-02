@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
@@ -43,63 +44,137 @@ class CustomVideoTileWidget extends StatelessWidget {
       leading: const Icon(HugeIcons.strokeRoundedFileVideo),
       trailing: IconButton(
         onPressed: () {
-          final isFavorite =
-              FavoritesVideoHiveService().getFavoriteStatus(video.path);
-
           VxBottomSheet.bottomSheetView(context,
               child: Card(
                 child: Column(
                   children: [
-                    ListTile(
-                      onTap: () {
-                        FavoritesVideoHiveService().toggleFavorite(video.path);
-                        context.pop();
-                      },
-                      title: Text(
-                        isFavorite
-                            ? "Remove from Favorites"
-                            : "Add to Favorite",
-                      ),
-                      trailing: Icon(isFavorite
-                          ? Icons.favorite
-                          : HugeIcons.strokeRoundedFavourite),
-                    ),
-                    const ListTile(
-                      title: Text(
-                        "Rename",
-                      ),
-                      trailing: Icon(Icons.text_snippet),
-                    ),
-                    ListTile(
-                      onTap: () {
-                        FileService().deleteFile(video.path).whenComplete(
-                          () {
-                            context.read<VideosBloc>().add(VideosLoadEvent());
-                            context.pop();
-
-                            VxToast.show(context, msg: "Video Deleted");
-                          },
-                        );
-                      },
-                      title: Text(
-                        "Delete",
-                      ),
-                      trailing: Icon(Icons.delete),
-                    ),
-                    ListTile(
-                      onTap: () async {
-                        await Share.shareXFiles([XFile(video.path)]);
-                      },
-                      title: Text(
-                        "Share",
-                      ),
-                      trailing: Icon(HugeIcons.strokeRoundedShare01),
-                    ),
+                    _videoAddToFavorite(video.path),
+                    //--------- Rename Button
+                    _renameVideo(context, video.path, videoTitle),
+                    _deleteVideo(context, video.path),
+                    _share(video),
                   ],
                 ),
               ));
         },
         icon: const Icon(HugeIcons.strokeRoundedMoreVerticalCircle01),
+      ),
+    );
+  }
+
+//----------------------------------------------------//
+  ///-----------------  Widgets  --------------------///
+  ///-------------------------------------------------///
+
+  ///--------------- A D D  T O  F A V O R I T E
+  PopupMenuItem<dynamic> _videoAddToFavorite(path) {
+    final isFavorite = FavoritesVideoHiveService().getFavoriteStatus(path);
+    return PopupMenuItem(
+      onTap: () {
+        FavoritesVideoHiveService().toggleFavorite(path);
+      },
+      child: ListTile(
+        title: Text(
+          isFavorite ? "Remove from Favorites" : "Add to Favorite",
+        ),
+        trailing: Icon(
+            isFavorite ? Icons.favorite : HugeIcons.strokeRoundedFavourite),
+      ),
+    );
+  }
+
+  ///--------------- R E N A M E
+  PopupMenuItem<dynamic> _renameVideo(
+      BuildContext context, String path, String title) {
+    final oldFileName = title;
+    final controller = TextEditingController(text: oldFileName);
+    return PopupMenuItem(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              //-------- Column
+              child: [
+                Gap(5),
+                "Rename".text.bold.xl2.make(),
+                VxTextField(
+                  controller: controller,
+                ),
+                Gap(10),
+
+                ///------ Buttons Row
+                [
+                  ElevatedButton(
+                    onPressed: () {
+                      context.pop();
+                    },
+                    child: Text("Cancel"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await FileService()
+                          .renameFile(path, controller.text.trim())
+                          .whenComplete(
+                        () {
+                          context.read<VideosBloc>().add(VideosLoadEvent());
+                          context.pop();
+                        },
+                      );
+                    },
+                    child: Text("Rename"),
+                  ),
+                ].row(alignment: MainAxisAlignment.spaceBetween),
+              ].column(axisSize: MainAxisSize.min),
+            ),
+          ),
+        );
+      },
+      child: const ListTile(
+        title: Text(
+          "Rename",
+        ),
+        trailing: Icon(Icons.text_snippet),
+      ),
+    );
+  }
+
+  ///--------------- D E L E T E
+  PopupMenuItem<dynamic> _deleteVideo(
+    BuildContext context,
+    String path,
+  ) {
+    return PopupMenuItem(
+      onTap: () {
+        FileService().deleteFile(path).whenComplete(
+          () {
+            context.read<VideosBloc>().add(VideosLoadEvent());
+
+            VxToast.show(context, msg: "Video Deleted");
+          },
+        );
+      },
+      child: const ListTile(
+        title: Text(
+          "Delete",
+        ),
+        trailing: Icon(Icons.delete),
+      ),
+    );
+  }
+
+  ///--------------- Share
+  PopupMenuItem<dynamic> _share(VideoModel video) {
+    return PopupMenuItem(
+      onTap: () async {
+        await Share.shareXFiles([XFile(video.path)]);
+      },
+      child: const ListTile(
+        title: Text(
+          "Share",
+        ),
+        trailing: Icon(HugeIcons.strokeRoundedShare01),
       ),
     );
   }

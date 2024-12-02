@@ -55,6 +55,23 @@ class AudioProvider {
     return audioFiles;
   }
 
+  /// Fetches all audio file paths from given Directory
+  /// Returns a list of audio file paths
+  Future<List<String>> fetchAudioFilePathsFromSingleDirectory(Directory directory) async {
+    List<String> audioFiles = [];
+
+    try {
+      clog.info("ExternalStorageDirectory Path: ${directory.path}");
+      final result = await _scanInIsolate(directory.path);
+
+      audioFiles.addAll(result);
+    } catch (e) {
+      clog.error('Error in fetchAudioilePaths: ${e.toString()}');
+    }
+
+    return audioFiles;
+  }
+
   /// Creates an isolate to scan for audio files in the given directory
   /// Returns a future that completes with the list of audio paths
   Future<List<String>> _scanInIsolate(String directoryPath) async {

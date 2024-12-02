@@ -17,7 +17,7 @@ class SearchAudioPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-        //-- Language Code
+    //-- Language Code
     final String lc = context.languageCubit.state.languageCode;
     final query = useState("");
     final selectedFilter = useState(SearchFilter.all);
@@ -87,7 +87,8 @@ class SearchAudioPage extends HookWidget {
               builder: (context, state) {
                 if (state == null) return nothing;
 
-                final filteredAudios = filterAudios(state.songs, query.value);
+                final filteredAudios =
+                    filterAudios(state.allSongs, query.value);
 
                 if (filteredAudios.isEmpty) {
                   return SliverToBoxAdapter(

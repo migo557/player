@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:open_player/base/di/injection.dart';
 import 'package:open_player/data/models/audio_model.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/song_tile_widget.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/songs_top_bar_buttons_widget.dart';
@@ -11,26 +13,27 @@ import '../../../../../../data/services/favorite_audio_hive_service/audio_hive_s
 import '../../../../../../logic/audio_bloc/audios_bloc.dart';
 
 class SongsPage extends HookWidget {
-  const SongsPage({super.key});
+  SongsPage({super.key});
 
+  final ScrollController _controller =
+      locator<ScrollController>(instanceName: "audios");
   @override
   Widget build(BuildContext context) {
     final selectedFilter = useState(SongsFiltered.all);
     final mq = MediaQuery.sizeOf(context);
-   
 
-   return BlocBuilder<AudiosBloc, AudiosState>(
+    return BlocBuilder<AudiosBloc, AudiosState>(
       builder: (context, audioState) {
         if (audioState is AudiosSuccess) {
-          if (audioState.songs.isNotEmpty) {
+          if (audioState.allSongs.isNotEmpty) {
             final fvrKeys = MyHiveBoxes.favoriteAudios.keys;
 
-            final allsongsByName = audioState.songs
+            final allsongsByName = audioState.allSongs
                 .where((audio) => !audio.title.startsWith('.'))
                 .toList()
               ..sort((a, b) => a.title.compareTo(b.title));
 
-            List<AudioModel> favoriteSongs = audioState.songs
+            List<AudioModel> favoriteSongs = audioState.allSongs
                 .where((audio) =>
                     fvrKeys.contains(
                         FavoritesAudioHiveService.generateKey(audio.path)) &&
@@ -38,12 +41,12 @@ class SongsPage extends HookWidget {
                 .toList()
               ..sort((a, b) => a.title.compareTo(b.title));
 
-            final recentlyAdded = audioState.songs
+            final recentlyAdded = audioState.allSongs
                 .where((audio) => !audio.title.startsWith('.'))
                 .toList()
               ..sort((a, b) => a.lastModified.compareTo(b.lastModified));
 
-            final hiddenSongs = audioState.songs
+            final hiddenSongs = audioState.allSongs
                 .where((audio) => audio.title.startsWith('.'))
                 .toList()
               ..sort((a, b) => a.size.compareTo(b.size));
@@ -53,38 +56,57 @@ class SongsPage extends HookWidget {
 
             int songsLength = filteredSongs.length;
 
-            return RefreshIndicator(
-              onRefresh: () async {
-                context.read<AudiosBloc>().add(AudiosLoadEvent());
-              },
-              child: CustomScrollView(
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                slivers: [
-                  // Songs Length, Sort Chips
-                  SliverToBoxAdapter(
-                    child: SongsTopBarButtonsWidget(
-                      songsLength: songsLength,
-                      selectedFilter: selectedFilter,
-                    ),
-                  ),
+            return Stack(
+              children: [
+                //------------ Songs List
+                RefreshIndicator(
+                  onRefresh: () async {
+                    context.read<AudiosBloc>().add(AudiosLoadAllEvent());
+                  },
+                  child: CustomScrollView(
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    slivers: [
+                      // Songs Length, Sort Chips
+                      SliverToBoxAdapter(
+                        child: SongsTopBarButtonsWidget(
+                          songsLength: songsLength,
+                          selectedFilter: selectedFilter,
+                        ),
+                      ),
 
-                  SliverPadding(
-                    padding: EdgeInsets.only(bottom: mq.height * 0.1),
-                    sliver: SliverList.builder(
-                      addAutomaticKeepAlives: true,
-                      itemCount: songsLength,
-                      itemBuilder: (context, index) {
-                        return SongTileWidget(
-                          audios: filteredSongs,
-                          index: index,
-                          state: audioState,
-                        );
-                      },
-                    ),
+                      //---- SongTiles List
+                      SliverList.builder(
+                        addAutomaticKeepAlives: true,
+                        itemCount: songsLength,
+                        itemBuilder: (context, index) {
+                          return SongTileWidget(
+                            audios: filteredSongs,
+                            index: index,
+                            state: audioState,
+                          );
+                        },
+                      ),
+
+                      //--- Scroll Top
+                     if(selectedFilter.value == SongsFiltered.all && allsongsByName.length>10) SliverToBoxAdapter(
+                        child: TextButton.icon(
+                          onPressed: () {
+                            _controller.animToTop();
+                          },
+                          label: "Scroll Top".text.make(),
+                          icon: Icon(CupertinoIcons.chevron_up),
+                        ),
+                      ),
+
+                      //------- Padding
+                      SliverPadding(
+                        padding: EdgeInsets.only(bottom: mq.height * 0.1),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             );
           } else {
             return Center(
@@ -92,7 +114,7 @@ class SongsPage extends HookWidget {
                 "No Audios found".text.make(),
                 IconButton(
                   onPressed: () {
-                    context.read<AudiosBloc>().add(AudiosLoadEvent());
+                    context.read<AudiosBloc>().add(AudiosLoadAllEvent());
                   },
                   icon: const Icon(HugeIcons.strokeRoundedRefresh),
                 ),

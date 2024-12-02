@@ -74,6 +74,7 @@ class VideoPlayerTopBarWidget extends HookWidget {
                     //--------- Favorite/Like Button
 
                     IconButton(
+                      iconSize: 28,
                       color: Colors.white,
                       onPressed: () async {
                         

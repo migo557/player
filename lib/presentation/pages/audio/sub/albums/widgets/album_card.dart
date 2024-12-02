@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:open_player/base/assets/images/app_images.dart';
 import 'package:open_player/base/router/router.dart';
 import 'package:open_player/data/models/album_model.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
@@ -8,11 +9,7 @@ import 'package:open_player/presentation/common/widgets/quality_badge/quality_ba
 class AlbumCard extends StatelessWidget {
   final AlbumModel album;
 
-  const AlbumCard({
-    super.key,
-    required this.album,
-    required this.state
-  });
+  const AlbumCard({super.key, required this.album, required this.state});
 
   final AudiosSuccess state;
 
@@ -27,7 +24,7 @@ class AlbumCard extends StatelessWidget {
         onTap: () {
           // Navigate to album details with songs
           // You can implement navigation here
-          context.push(AppRoutes.albumPreviewRoute,extra: [album, state]);
+          context.push(AppRoutes.albumPreviewRoute, extra: [album, state]);
         },
         borderRadius: BorderRadius.circular(15),
         child: Column(
@@ -37,22 +34,17 @@ class AlbumCard extends StatelessWidget {
             Expanded(
               flex: 3,
               child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(15)),
-                child: album.thumbnail.isNotEmpty
-                    ? Image.memory(
-                        album.thumbnail.first.bytes,
-                        fit: BoxFit.cover,
-                      )
-                    : Container(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        child: Icon(
-                          Icons.album,
-                          size: 64,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-              ),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(15)),
+                  child: album.thumbnail.isNotEmpty
+                      ? Image.memory(
+                          album.thumbnail.first.bytes,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          AppImages.defaultProfile,
+                          fit: BoxFit.cover,
+                        )),
             ),
             // Album Info
             Expanded(

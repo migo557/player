@@ -8,6 +8,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/base/assets/svgs/app_svgs.dart';
 import 'package:open_player/presentation/common/widgets/social_media_icon_button.dart/social_media_icon_button.dart';
+import 'package:url_launcher/link.dart';
 import '../../../../../base/strings/app_strings.dart';
 
 class AboutPage extends StatelessWidget {
@@ -57,9 +58,18 @@ class AboutPage extends StatelessWidget {
                       duration: const Duration(milliseconds: 1000),
                       child: Hero(
                         tag: 'app_logo',
-                        child: SvgPicture.asset(
-                          appLogo,
-                          height: mq.height * 0.25,
+                        child: Link(
+                          uri: Uri.parse("https://frkudn.github.io/player/"),
+                          target: LinkTarget.blank,
+                          builder: (context, followLink) => InkWell(
+                            onTap: () {
+                              followLink!();
+                            },
+                            child: SvgPicture.asset(
+                              appLogo,
+                              height: mq.height * 0.25,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -125,7 +135,7 @@ class AboutPage extends StatelessWidget {
 
                     const Gap(32),
 
-                    // GitHub Section
+                    // GitHub/Website Section
                     FadeInUp(
                       delay: const Duration(milliseconds: 800),
                       duration: const Duration(milliseconds: 800),

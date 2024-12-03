@@ -3,52 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player | Reimagine Your Media Experience</title>
+    <title>Player | Reimagine Media</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(45deg, #3b82f6, #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
 </head>
 <body class="bg-black text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav class="flex justify-between items-center py-6">
             <div class="flex items-center">
                 <img src="https://github.com/frkudn/player/raw/main/assets/svgs/logo.svg" alt="Player Logo" class="h-16 w-16 md:h-20 md:w-20 mr-3">
+            
             </div>
             <div>
-                <a href="https://github.com/frkudn/player" target="_blank" class="bg-white text-black px-4 py-2 rounded-full hover:bg-gray-200 transition">GitHub</a>
+                <a href="https://github.com/frkudn/player" target="_blank" class="bg-white text-black px-4 py-2 rounded-full hover:bg-gray-200 transition">
+                    GitHub
+                </a>
             </div>
         </nav>
 
         <main class="mt-16 sm:mt-24">
             <div class="text-center">
-                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
+                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight gradient-text">
                     Media Reimagined
                 </h1>
                 <p class="mt-6 text-xl text-gray-300 max-w-3xl mx-auto">
                     A next-generation multimedia player that puts you in complete control of your audio and video experience.
                 </p>
                 <div class="mt-10 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-5">
-                    <a href="#" class="bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition">
+                    <a href="#" class="bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-blue-500/50">
                         Download for Android
                     </a>
-                    <a href="https://github.com/frkudn/player" target="_blank" class="border border-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-white hover:text-black transition">
+                    <a href="https://github.com/frkudn/player" target="_blank" class="border border-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-white hover:text-black transition shadow-lg hover:shadow-white/50">
                         View on GitHub
                     </a>
                 </div>
             </div>
 
             <div class="mt-24 grid sm:grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 hover:border-blue-600 transition">
                     <h3 class="text-2xl font-bold mb-4 text-blue-400">Zero Compromises</h3>
                     <p class="text-gray-300">No ads. No tracking. Pure media experience designed with your privacy in mind.</p>
                 </div>
-                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 hover:border-green-600 transition">
                     <h3 class="text-2xl font-bold mb-4 text-green-400">Full Control</h3>
                     <p class="text-gray-300">Customize your playback with advanced equalizer, themes, and comprehensive media management.</p>
                 </div>
-                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 hover:border-purple-600 transition">
                     <h3 class="text-2xl font-bold mb-4 text-purple-400">High Performance</h3>
                     <p class="text-gray-300">Built with Flutter. Smooth, efficient rendering across your entire media library.</p>
                 </div>
             </div>
+
+            <section class="mt-24">
+                <h2 class="text-4xl font-bold text-center mb-12 gradient-text">
+                    App Preview
+                </h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="md:col-span-1 lg:col-span-1 rounded-xl overflow-hidden shadow-2xl transform hover:scale-105 transition duration-300">
+                        <img src="https://github.com/frkudn/player/raw/main/assets/screenshot1.jpg" alt="Player App Screenshot 1" class="w-full object-cover">
+                    </div>
+                    <div class="md:col-span-1 lg:col-span-1 rounded-xl overflow-hidden shadow-2xl transform hover:scale-105 transition duration-300">
+                        <img src="https://github.com/frkudn/player/raw/main/assets/screenshot2.jpg" alt="Player App Screenshot 2" class="w-full object-cover">
+                    </div>
+                    <div class="md:col-span-2 lg:col-span-1 rounded-xl overflow-hidden shadow-2xl transform hover:scale-105 transition duration-300">
+                        <img src="https://github.com/frkudn/player/raw/main/assets/screenshot3.jpg" alt="Player App Screenshot 3" class="w-full object-cover">
+                    </div>
+                </div>
+            </section>
         </main>
 
         <footer class="mt-24 text-center text-gray-500 py-8">

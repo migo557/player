@@ -54,7 +54,7 @@ class SongsTopBarButtonsWidget extends HookWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: CustomFilterChip(
                       isSelected: selectedFilter.value == filter,
-                      label: filter.name.toUpperCase(),
+                      label: filter.displayName.toUpperCase(),
                       onSelected: () {
                         selectedFilter.value = filter;
                       },

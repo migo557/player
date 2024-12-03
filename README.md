@@ -1,4 +1,4 @@
-# Player - Elegant Offline Multimedia Player
+# Player - Elegant Multimedia Player
 
 ![Player App Logo](assets/svgs/logo.svg)
 
@@ -52,7 +52,7 @@ Player is a beautifully designed, feature-rich offline media player for Android,
 
 ### Requirements
 - Android Device
-- Minimum Android Version: [Specify]
+- Minimum Android Version: 7.0
 
 ### Download
 - [Direct APK Download](link-to-release)
@@ -82,7 +82,7 @@ Interested in contributing? Great! Check out our [Contribution Guidelines](CONTR
 
 ## 📄 License
 
-Distributed under [Your Chosen License]. See `LICENSE` for details.
+Distributed under MIT License. See `LICENSE` for details.
 
 ---
 

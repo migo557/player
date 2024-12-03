@@ -39,11 +39,11 @@ class SongsTopBarButtonsWidget extends HookWidget {
         child: Row(
           children: [
             //-----Songs Length
-            "$songsLength songs"
-                .text
-                .size(5)
-                .color(Theme.of(context).primaryColor)
-                .make(),
+            // "$songsLength songs"
+            //     .text
+            //     .size(5)
+            //     .color(Theme.of(context).primaryColor)
+            //     .make(),
 
             //----- Sorting Button
             Padding(

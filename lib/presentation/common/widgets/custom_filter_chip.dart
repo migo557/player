@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:open_player/presentation/common/widgets/custom_video_tile_widget.dart';
+import 'package:open_player/utils/extensions.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class CustomFilterChip extends StatelessWidget {
   final String label;
@@ -14,6 +17,7 @@ class CustomFilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = context.themeCubit.state.isDarkMode;
     return GestureDetector(
       onTap: onSelected,
       child: AnimatedContainer(
@@ -21,12 +25,15 @@ class CustomFilterChip extends StatelessWidget {
         curve: Curves.easeInOut,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? Theme.of(context).primaryColor : Colors.grey.shade800,
+          color: isSelected
+              ? Theme.of(context).primaryColor
+              : isDarkMode? Colors.grey.shade800: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(20),
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: Colors.deepPurple.shade700.withOpacity(0.5),
+                    color:
+                        Colors.grey.withOpacity(0.5),
                     blurRadius: 10,
                     spreadRadius: 2,
                   )

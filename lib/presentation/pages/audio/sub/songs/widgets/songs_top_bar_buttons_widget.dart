@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:open_player/presentation/common/widgets/custom_filter_chip.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 enum SongsFiltered { all, favorites, recents, hidden }
+
+// Extension to provide custom display names
+extension SongsFilterExtension on SongsFiltered {
+  String get displayName {
+    switch (this) {
+      case SongsFiltered.all:
+        return 'All';
+      case SongsFiltered.recents:
+        return 'Recently Added';
+      case SongsFiltered.favorites:
+        return 'Favorites';
+      case SongsFiltered.hidden:
+        return 'Hidden';
+    }
+  }
+}
 
 class SongsTopBarButtonsWidget extends HookWidget {
   const SongsTopBarButtonsWidget(
@@ -35,11 +52,10 @@ class SongsTopBarButtonsWidget extends HookWidget {
                 children: SongsFiltered.values.map((filter) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: FilterChip(
-                      labelStyle: TextStyle(fontSize: 10),
-                      selected: selectedFilter.value == filter,
-                      label: Text(filter.name.toUpperCase()),
-                      onSelected: (selected) {
+                    child: CustomFilterChip(
+                      isSelected: selectedFilter.value == filter,
+                      label: filter.name.toUpperCase(),
+                      onSelected: () {
                         selectedFilter.value = filter;
                       },
                     ),

@@ -1,8 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:open_player/presentation/common/widgets/custom_filter_chip.dart';
 
-enum VideoFilter { all, recents, favorites, hidden }
+enum VideoFilter { all, recentlyAdded, favorites, hidden }
+
+// Extension to provide custom display names
+extension VideoFilterExtension on VideoFilter {
+  String get displayName {
+    switch (this) {
+      case VideoFilter.all:
+        return 'All';
+      case VideoFilter.recentlyAdded:
+        return 'Recently Added';
+      case VideoFilter.favorites:
+        return 'Favorites';
+      case VideoFilter.hidden:
+        return 'Hidden';
+    }
+  }
+}
 
 class VideoPageTitleAndSortingButtonWidget extends HookWidget {
   const VideoPageTitleAndSortingButtonWidget({
@@ -17,29 +33,22 @@ class VideoPageTitleAndSortingButtonWidget extends HookWidget {
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: Row(
-          children: [
-            Row(
-              children: VideoFilter.values.map((filter) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: FilterChip(
-                    selected: selectedFilter.value == filter,
-                    label: Text(filter.name.toUpperCase()),
-                    onSelected: (selected) {
-                      selectedFilter.value = filter;
-                    },
-                  ),
-                );
-              }).toList(),
-            ).scrollHorizontal().expand(),
-
-            //----- Filter Button
-            // IconButton(
-            //   onPressed: () {},
-            //   icon: Icon(HugeIcons.strokeRoundedFilter),
-            // ),
-          ],
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: VideoFilter.values.map((filter) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: CustomFilterChip(
+                  label: filter.displayName,
+                  isSelected: selectedFilter.value == filter,
+                  onSelected: () {
+                    selectedFilter.value = filter;
+                  },
+                ),
+              );
+            }).toList(),
+          ),
         ),
       ),
     );

@@ -153,7 +153,7 @@ class VideoPageAllVideosViewWidget extends HookWidget {
         return hiddenVideos;
       case VideoFilter.favorites:
         return favoriteVideos;
-      case VideoFilter.recents:
+      case VideoFilter.recentlyAdded:
         return recentVideos;
       default:
         return allVideos;

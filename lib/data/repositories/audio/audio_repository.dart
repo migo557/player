@@ -44,8 +44,8 @@ class AudioRepository {
     }
   }
 
-
-    Future<List<AudioModel>> getAudioFilesFromSingleDirectory(Directory directory) async {
+  Future<List<AudioModel>> getAudioFilesFromSingleDirectory(
+      Directory directory) async {
     try {
       final bool hasPermission = await AppPermissionService.storagePermission();
 
@@ -79,7 +79,6 @@ class AudioRepository {
   Future<AudioModel> getAudioInfo(String audioPath) async {
     // Getting the image of a track can be heavy and slow the reading
     final metadata = readMetadata(File(audioPath), getImage: true);
-
     // Calculate audio quality
     final quality = AudioQualityCalculator.calculateQuality(
       bitrate: metadata.bitrate,

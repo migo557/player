@@ -15,27 +15,7 @@ class AudioFoldersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: _buildAppBar(),
-      body: _buildFoldersList(context),
-    );
-  }
-
-  /// Creates a custom AppBar for the Audio Folders page
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      title: Text(
-        'Audio Folders',
-        style: TextStyle(
-          fontFamily: AppFonts.poppins,
-          fontWeight: FontWeight.w600,
-          color: Colors.black87,
-        ),
-      ),
-    );
+    return _buildFoldersList(context);
   }
 
   /// Builds the list of audio folders using BlocSelector
@@ -57,7 +37,6 @@ class AudioFoldersPage extends StatelessWidget {
           itemCount: folders.length,
           separatorBuilder: (context, index) => Divider(
             height: 1,
-            color: Colors.grey.shade200,
           ),
           itemBuilder: (context, index) =>
               _buildFolderListTile(context, folders[index], state),
@@ -91,23 +70,22 @@ class AudioFoldersPage extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       onTap: () => _navigateToFolderSongs(context, dirName, dirPath),
-      leading: _buildFolderIcon(),
+      leading: _buildFolderIcon(context),
       title: _buildFolderTitle(dirName),
       trailing: _buildSongCountBadge(songsInFolder),
     );
   }
 
   /// Creates a folder icon container
-  Widget _buildFolderIcon() {
+  Widget _buildFolderIcon(context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.blue.shade50,
         borderRadius: BorderRadius.circular(10),
       ),
       padding: EdgeInsets.all(10),
       child: Icon(
         HugeIcons.strokeRoundedFolder02,
-        color: Colors.blue.shade400,
+        color: Theme.of(context).primaryColor,
         size: 28,
       ),
     );
@@ -121,7 +99,6 @@ class AudioFoldersPage extends StatelessWidget {
         fontFamily: AppFonts.poppins,
         fontWeight: FontWeight.w500,
         fontSize: 16,
-        color: Colors.black87,
       ),
     );
   }
@@ -131,7 +108,7 @@ class AudioFoldersPage extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
+        color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Text(

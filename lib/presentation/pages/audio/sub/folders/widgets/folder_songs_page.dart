@@ -23,7 +23,6 @@ class FolderSongsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: _buildAppBar(context),
       body: _buildBody(context),
     );
@@ -32,13 +31,11 @@ class FolderSongsPage extends StatelessWidget {
   /// Creates a custom AppBar with back navigation
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
       elevation: 0,
       leading: IconButton(
         onPressed: () => context.pop(),
         icon: Icon(
           CupertinoIcons.back,
-          color: Colors.black87,
         ),
       ),
       title: Text(
@@ -46,7 +43,6 @@ class FolderSongsPage extends StatelessWidget {
         style: TextStyle(
           fontFamily: AppFonts.poppins,
           fontWeight: FontWeight.w600,
-          color: Colors.black87,
         ),
       ),
     );
@@ -103,7 +99,6 @@ class FolderSongsPage extends StatelessWidget {
   Widget _buildSongsHeader(BuildContext context, int songsLength) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: Colors.grey.shade50,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -122,7 +117,7 @@ class FolderSongsPage extends StatelessWidget {
             },
             icon: Icon(
               HugeIcons.strokeRoundedRefresh,
-              color: Colors.blue.shade400,
+              color: Theme.of(context).primaryColor,
             ),
           ),
         ],

@@ -64,7 +64,7 @@ class VideoPageAllVideosViewWidget extends HookWidget {
               )
               .toList()
               .sortedByNum(
-                (element) => element.lastModified.day,
+                (element) => element.lastModified.microsecondsSinceEpoch,
               )
               .reversed
               .toList();

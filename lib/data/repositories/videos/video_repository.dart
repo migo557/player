@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:color_log/color_log.dart';
 import 'package:open_player/data/providers/videos/video_provider.dart';
+import 'package:video_compress/video_compress.dart';
 import '../../../base/services/permissions/app_permission_service.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as path;
@@ -45,23 +46,21 @@ class VideoRepository {
   }
 
   Future<VideoModel> getVideoInfo(String videoPath) async {
-
     //------- Get Thumbnail from Video -------------------//
-    //  final Uint8List uint8list = await VideoThumbnail.thumbnailData(
-    //   video: videoPath,
-    //   quality: 25,
-    // );
+    final uint8list = await VideoCompress.getByteThumbnail(videoPath,
+        quality: 50, // default(100)
+        position: -1 // default(-1)
+        );
 
-  
+
     return VideoModel(
       title: path.basenameWithoutExtension(videoPath),
       ext: path.extension(videoPath),
       path: videoPath,
       fileSize: File(videoPath).statSync().size,
-      lastAccessed : File(videoPath).lastAccessedSync(),
+      lastAccessed: File(videoPath).lastAccessedSync(),
       lastModified: File(videoPath).lastModifiedSync(),
-
-      thumbnail: null,
+      thumbnail: uint8list,
     );
   }
 }

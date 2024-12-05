@@ -39,7 +39,7 @@ class ElegantVideoTileWidget extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
-          color: isDarkMode? Colors.black54: Colors.white,
+          color: isDarkMode ? Colors.black54 : Colors.white,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
@@ -51,7 +51,7 @@ class ElegantVideoTileWidget extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Video Icon
+            // Video Thubnail
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               padding: const EdgeInsets.all(10),
@@ -61,16 +61,29 @@ class ElegantVideoTileWidget extends StatelessWidget {
               ),
               child: Stack(
                 children: [
-                  Icon(
-                    HugeIcons.strokeRoundedVideoReplay,
-                    color: Theme.of(context).primaryColor,
-                    size: 24,
-                  ),
-
+                  video.thumbnail == null
+                      ? Icon(
+                          HugeIcons.strokeRoundedVideoReplay,
+                          color: Theme.of(context).primaryColor,
+                          size: 24,
+                        )
+                      : Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                            image: MemoryImage(video.thumbnail!),
+                          )),
+                        ),
                   CircleAvatar(
-                    backgroundColor: isDarkMode? Colors.white:Colors.black,
+                    backgroundColor: isDarkMode ? Colors.white : Colors.black,
                     radius: 6,
-                    child: Text((index+1).toString(),style: TextStyle(fontSize: 8, color:  isDarkMode?Colors.black: Colors.white),),
+                    child: Text(
+                      (index + 1).toString(),
+                      style: TextStyle(
+                          fontSize: 8,
+                          color: isDarkMode ? Colors.black : Colors.white),
+                    ),
                   ).positioned(bottom: 0, right: 0)
                 ],
               ),
@@ -82,9 +95,9 @@ class ElegantVideoTileWidget extends StatelessWidget {
                 videoTitle,
                 style: TextStyle(
                   fontFamily: AppFonts.poppins,
-                  fontSize: 14,
+                  fontSize: 13,
                   fontWeight: FontWeight.w500,
-                  color: isDarkMode?null :Colors.black87,
+                  color: isDarkMode ? null : Colors.black87,
                 ),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
@@ -95,7 +108,7 @@ class ElegantVideoTileWidget extends StatelessWidget {
             IconButton(
               icon: Icon(
                 CupertinoIcons.ellipsis,
-                color:isDarkMode? null: Colors.grey.shade600,
+                color: isDarkMode ? null : Colors.grey.shade600,
               ),
               onPressed: () => _showVideoOptions(context),
             ),

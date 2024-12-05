@@ -55,8 +55,8 @@ Player is a beautifully designed, feature-rich offline media player for Android,
 - Minimum Android Version: 7.0
 
 ### Download
-- [Direct APK Download](link-to-release)
-- Available on [GitHub Releases](link-to-releases)
+- [Direct APK Download](https://github.com/frkudn/player/releases/download/v1.0.0/player.-v1.0.1.apk)
+- Available on [GitHub Releases](https://github.com/frkudn/player/releases)
 
 ## 🤝 Contributing
 

@@ -155,6 +155,16 @@ class ElegantVideoTileWidget extends StatelessWidget {
             onPressed: () => _renameVideo(context),
           ),
 
+          // Hide/Unhide Option
+          _buildActionSheetAction(
+            context,
+            text: FileService().isFileHidden(video.path) ? 'Unhide' : 'Hide',
+            icon: FileService().isFileHidden(video.path) 
+                ? CupertinoIcons.eye 
+                : CupertinoIcons.eye_slash,
+            onPressed: () => _toggleHideVideo(context),
+          ),
+
           // Delete Option
           _buildActionSheetAction(
             context,
@@ -277,6 +287,12 @@ class ElegantVideoTileWidget extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _toggleHideVideo(BuildContext context) {
+    FileService().toggleHideFile(video.path).whenComplete(() {
+      context.read<VideosBloc>().add(VideosLoadEvent());
+    });
   }
 
   void _deleteVideo(BuildContext context) {

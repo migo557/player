@@ -35,6 +35,7 @@ class SongTileMoreButtonWidget extends StatelessWidget {
             items: [
               _musicAddToFavorite(path),
               _renameMusic(context, path, audio.title),
+              _toggleHideMusic(context, path),
               _deleteMusic(
                 context,
                 path,
@@ -129,6 +130,23 @@ PopupMenuItem<dynamic> _renameMusic(
         "Rename",
       ),
       trailing: Icon(Icons.text_snippet),
+    ),
+  );
+}
+
+///--------------- T O G G L E  H I D E
+PopupMenuItem<dynamic> _toggleHideMusic(BuildContext context, String path) {
+  final isHidden = FileService().isFileHidden(path);
+  return PopupMenuItem(
+    onTap: () async {
+      await FileService().toggleHideFile(path);
+      context.read<AudiosBloc>().add(AudiosLoadAllEvent());
+    },
+    child: ListTile(
+      title: Text(
+        isHidden ? "Unhide" : "Hide",
+      ),
+      trailing: Icon(isHidden ? Icons.visibility : Icons.visibility_off),
     ),
   );
 }

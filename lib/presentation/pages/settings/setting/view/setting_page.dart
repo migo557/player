@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -152,13 +153,13 @@ class _SettingPageState extends State<SettingPage> {
 
   // /!------------ Feedback On Tap
   Future<void> _feedBackButtonOnTap() async {
-    // final Email sendEmail = Email(
-    //   body: 'your feed back?',
-    //   subject: 'Player Feedback',
-    //   recipients: ['furqanuddin@programmer.net'],
-    //   isHTML: false,
-    // );
+    final Email sendEmail = Email(
+      body: 'your feed back?',
+      subject: 'Player App Feedback',
+      recipients: ['furqanuddin@programmer.net'],
+      isHTML: false,
+    );
 
-    // await FlutterEmailSender.send(sendEmail);
+    await FlutterEmailSender.send(sendEmail);
   }
 }

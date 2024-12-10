@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:open_player/presentation/common/widgets/ElegantVideoTileWidget.dart';
+import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 import 'package:open_player/utils/extensions.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CustomFilterChip extends StatelessWidget {
   final String label;
+  final Widget? sideWidget;
   final bool isSelected;
   final VoidCallback onSelected;
 
@@ -12,6 +14,7 @@ class CustomFilterChip extends StatelessWidget {
     super.key,
     required this.label,
     required this.isSelected,
+    this.sideWidget,
     required this.onSelected,
   });
 
@@ -27,27 +30,35 @@ class CustomFilterChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected
               ? Theme.of(context).primaryColor
-              : isDarkMode? Colors.grey.shade800: Colors.grey.shade200,
+              : isDarkMode
+                  ? Colors.grey.shade800
+                  : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(20),
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color:
-                        Colors.grey.withOpacity(0.5),
+                    color: Colors.grey.withOpacity(0.5),
                     blurRadius: 10,
                     spreadRadius: 2,
                   )
                 ]
               : [],
         ),
-        child: Text(
-          label.toUpperCase(),
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.grey.shade400,
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.5,
-          ),
+        child: Row(
+          children: [
+            Text(
+              label.toUpperCase(),
+              style: TextStyle(
+                color: isSelected ? Colors.white : Colors.grey.shade400,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+              ),
+            ),
+            
+
+            sideWidget??nothing
+          ],
         ),
       ),
     );

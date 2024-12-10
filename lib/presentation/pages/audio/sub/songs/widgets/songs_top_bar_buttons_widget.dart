@@ -38,13 +38,6 @@ class SongsTopBarButtonsWidget extends HookWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 1),
         child: Row(
           children: [
-            //-----Songs Length
-            // "$songsLength songs"
-            //     .text
-            //     .size(5)
-            //     .color(Theme.of(context).primaryColor)
-            //     .make(),
-
             //----- Sorting Button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
@@ -52,12 +45,19 @@ class SongsTopBarButtonsWidget extends HookWidget {
                 children: SongsFiltered.values.map((filter) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: CustomFilterChip(
-                      isSelected: selectedFilter.value == filter,
-                      label: filter.displayName.toUpperCase(),
-                      onSelected: () {
-                        selectedFilter.value = filter;
-                      },
+                    child: Stack(
+                      children: [
+                        CustomFilterChip(
+                          isSelected: selectedFilter.value == filter,
+                          label: filter.displayName.toUpperCase(),
+                          sideWidget: selectedFilter.value == filter
+                              ? songsLength.text.white.xs.make().pOnly(left: 2)
+                              : null,
+                          onSelected: () {
+                            selectedFilter.value = filter;
+                          },
+                        ),
+                      ],
                     ),
                   );
                 }).toList(),

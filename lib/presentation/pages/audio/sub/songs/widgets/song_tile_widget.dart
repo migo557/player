@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -150,18 +151,21 @@ class _SongTile extends StatelessWidget {
                   ),
                   child: [
                     //--------- Thumbnail
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: audio.thumbnail.isEmpty
-                          ? Image.asset(
-                              AppImages.defaultProfile,
-                            )
-                          : Image.memory(
-                              width: isPlaying ? 77 : 70,
-                              height: isPlaying ? 77 : 70,
-                              audio.thumbnail.last.bytes,
-                              fit: BoxFit.cover,
-                            ),
+                    SlideInLeft(
+                      animate: true,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: audio.thumbnail.isEmpty
+                            ? Image.asset(
+                                AppImages.defaultProfile,
+                              )
+                            : Image.memory(
+                                width: isPlaying ? 77 : 70,
+                                height: isPlaying ? 77 : 70,
+                                audio.thumbnail.last.bytes,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
                     ),
 
                     //------ Play Button Icon

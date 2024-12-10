@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:open_player/presentation/common/widgets/custom_filter_chip.dart';
@@ -31,24 +32,26 @@ class VideoPageTitleAndSortingButtonWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: VideoFilter.values.map((filter) {
-              final isSelected = selectedFilter.value == filter;
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: CustomFilterChip(
-                  label: filter.displayName,
-                  isSelected: isSelected ,
-                  onSelected: () {
-                    selectedFilter.value = filter;
-                  },
-                ),
-              );
-            }).toList(),
+      child: SlideInDown(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: VideoFilter.values.map((filter) {
+                final isSelected = selectedFilter.value == filter;
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: CustomFilterChip(
+                    label: filter.displayName,
+                    isSelected: isSelected ,
+                    onSelected: () {
+                      selectedFilter.value = filter;
+                    },
+                  ),
+                );
+              }).toList(),
+            ),
           ),
         ),
       ),

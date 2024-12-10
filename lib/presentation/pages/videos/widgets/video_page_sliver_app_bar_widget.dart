@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:open_player/base/strings/app_strings.dart';
@@ -18,11 +19,13 @@ class VideoPageSliverAppBarWidget extends StatelessWidget {
       title: AppStrings.videos[lc]!.text.make(),
       floating: true,
       actions: [
-        IconButton(
-          onPressed: () {
-            GoRouter.of(context).push(AppRoutes.searchVideosRoute);
-          },
-          icon: const Icon(Icons.search),
+        SlideInRight(
+          child: IconButton(
+            onPressed: () {
+              GoRouter.of(context).push(AppRoutes.searchVideosRoute);
+            },
+            icon: const Icon(Icons.search),
+          ),
         ),
       ],
     );

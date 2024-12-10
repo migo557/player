@@ -1,9 +1,9 @@
 class AppAccentColors {
   static const List colorHexCodesList = [
+    0xFFF43F5E, // Rose
     0xFF6366F1, // Indigo
     0xFF8B5CF6, // Purple
     0xFFEC4899, // Pink
-    0xFFF43F5E, // Rose
     0xFFF97316, // Orange
     0xFFEAB308, // Yellow
     0xFF22C55E, // Green

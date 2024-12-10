@@ -9,11 +9,17 @@ import '../../../base/services/permissions/app_permission_service.dart';
 import 'package:path/path.dart' as path;
 import '../../models/video_model.dart';
 
-class VideoRepository {
+abstract class VideoRepositoryBase {
+  Future<List<VideoModel>> getVideoFiles();
+  Future<VideoModel> getVideoInfo(String videoPath);
+}
+
+class VideoRepository implements VideoRepositoryBase {
   final VideoProvider videoProvider;
 
   VideoRepository(this.videoProvider);
 
+  @override
   Future<List<VideoModel>> getVideoFiles() async {
     try {
       final bool hasPermission = await AppPermissionService.storagePermission();
@@ -45,6 +51,7 @@ class VideoRepository {
     }
   }
 
+  @override
   Future<VideoModel> getVideoInfo(String videoPath) async {
     //------- Get Thumbnail from Video -------------------//
     // final uint8list = await _VideoThumbnailIsolate.generateThumbnail(videoPath);

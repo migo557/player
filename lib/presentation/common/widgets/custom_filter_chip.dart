@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:open_player/presentation/common/widgets/ElegantVideoTileWidget.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 import 'package:open_player/utils/extensions.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class CustomFilterChip extends StatelessWidget {
   final String label;

@@ -8,7 +8,7 @@ import 'package:open_player/data/models/video_model.dart';
 import '../../../logic/video_player_bloc/video_player_bloc.dart';
 
 /// Abstract repository for video player services.
-abstract class VideoPlayerService {
+abstract class VideoPlayerServiceBase {
   FutureOr<void> videoInitialization(
       VideoInitializeEvent event, Emitter<VideoPlayerState> emit);
   FutureOr<void> videoStop(
@@ -18,8 +18,8 @@ abstract class VideoPlayerService {
       VideoPlayPauseToggleEvent event, Emitter<VideoPlayerState> emit);
 }
 
-/// Implementation of the [VideoPlayerService] using VLC Player.
-final class VideoPlayerServiceImpl implements VideoPlayerService {
+/// Implementation of the [VideoPlayerServiceBase] using VLC Player.
+final class VideoPlayerService implements VideoPlayerServiceBase {
   late VlcPlayerController vlcPlayerController;
 
   @override

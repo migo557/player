@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/di/injection.dart';
 import 'package:open_player/data/models/audio_model.dart';
-import 'package:open_player/presentation/pages/audio/sub/songs/widgets/song_tile_widget.dart';
+import 'package:open_player/presentation/common/widgets/audio_tile_widget.dart';
 import 'package:open_player/presentation/pages/audio/sub/songs/widgets/songs_top_bar_buttons_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../../../../../../base/db/hive_service.dart';
@@ -80,7 +80,7 @@ class SongsPage extends HookWidget {
                         addAutomaticKeepAlives: true,
                         itemCount: songsLength,
                         itemBuilder: (context, index) {
-                          return SongTileWidget(
+                          return AudioTileWidget(
                             audios: filteredSongs,
                             index: index,
                             state: audioState,
@@ -89,15 +89,17 @@ class SongsPage extends HookWidget {
                       ),
 
                       //--- Scroll Top
-                     if(selectedFilter.value == SongsFiltered.all && allsongsByName.length>10) SliverToBoxAdapter(
-                        child: TextButton.icon(
-                          onPressed: () {
-                            _controller.animToTop();
-                          },
-                          label: "Scroll Top".text.make(),
-                          icon: Icon(CupertinoIcons.chevron_up),
+                      if (selectedFilter.value == SongsFiltered.all &&
+                          allsongsByName.length > 10)
+                        SliverToBoxAdapter(
+                          child: TextButton.icon(
+                            onPressed: () {
+                              _controller.animToTop();
+                            },
+                            label: "Scroll Top".text.make(),
+                            icon: Icon(CupertinoIcons.chevron_up),
+                          ),
                         ),
-                      ),
 
                       //------- Padding
                       SliverPadding(

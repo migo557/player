@@ -42,7 +42,7 @@ initializeLocator() {
     clog.checkSuccess(true, "VideoRepository registred");
 
     // Register UserRepository
-    locator.registerLazySingleton<UserServiceImpl>(() => UserServiceImpl());
+    locator.registerLazySingleton<UserService>(() => UserService());
     clog.checkSuccess(true, "UserRepository registred");
 
     // Register AudioPlayer
@@ -50,13 +50,13 @@ initializeLocator() {
     clog.checkSuccess(true, "JustAudio Player is registred");
 
     // Register AudioPlayer Services Repository
-    locator.registerLazySingleton<AudioPlayerServiceImpl>(
-        () => AudioPlayerServiceImpl(audioPlayer: locator<AudioPlayer>()));
+    locator.registerLazySingleton<AudioPlayerService>(
+        () => AudioPlayerService(audioPlayer: locator<AudioPlayer>()));
     clog.checkSuccess(true, "AudioPlayer Services Class is registred");
 
     // Register VideoPlayer Services Repository
-    locator.registerLazySingleton<VideoPlayerServiceImpl>(
-        () => VideoPlayerServiceImpl());
+    locator
+        .registerLazySingleton<VideoPlayerService>(() => VideoPlayerService());
     clog.checkSuccess(true, "VideoPlayer Services Class is registred");
 
     // Register Language Cubit

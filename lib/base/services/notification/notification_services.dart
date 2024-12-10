@@ -1,13 +1,30 @@
+// ignore_for_file: annotate_overrides
+
 import 'dart:developer';
 import 'package:color_log/color_log.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 
-class NotificationService {
+abstract class NotificationServicesBase {
+  Future<void> initializeAll();
+  Future<void> initLocalNotification();
+  Future<void> initJustAUdioBackgroundNotification();
+  NotificationDetails notificationDetails();
+  Future showNotification(
+      {int id = 0, String? title, String? body, String? payload});
+}
+
+class NotificationServices implements NotificationServicesBase {
   final FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  Future<void> initNotification() async {
+  @override
+  Future<void> initializeAll() async {
+    initLocalNotification();
+    initJustAUdioBackgroundNotification();
+  }
+
+  Future<void> initLocalNotification() async {
     try {
       clog.debug('Starting initNotification');
       const AndroidInitializationSettings initializationSettingsAndroid =

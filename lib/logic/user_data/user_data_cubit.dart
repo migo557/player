@@ -11,11 +11,11 @@ import 'user_data_state.dart';
 
 /// Manages user data state and operations using BLoC pattern
 class UserDataCubit extends Cubit<UserDataState> {
-  final UserServiceImpl _userRepository;
+  final UserService _userRepository;
   final StorageService _storageService;
 
   UserDataCubit({
-    required UserServiceImpl userRepository,
+    required UserService userRepository,
     required StorageService storageService,
   })  : _userRepository = userRepository,
         _storageService = storageService,

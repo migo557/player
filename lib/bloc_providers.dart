@@ -27,7 +27,6 @@ blocProviders() {
     BlocProvider(
       create: (context) => BottomNavBarCubit(),
     ),
- 
     BlocProvider(
       create: (context) => ThemeCubit(),
     ),
@@ -48,7 +47,7 @@ blocProviders() {
     ),
     BlocProvider(
       create: (context) => UserDataCubit(
-          userRepository: locator<UserServiceImpl>(),
+          userRepository: locator<UserService>(),
           storageService: StorageService()),
     ),
     BlocProvider(

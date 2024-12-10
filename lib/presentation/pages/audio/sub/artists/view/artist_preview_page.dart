@@ -9,10 +9,11 @@ import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../../../base/assets/images/app_images.dart';
 import '../../../../../common/widgets/custom_back_button.dart';
-import '../../songs/widgets/song_tile_widget.dart';
+import '../../../../../common/widgets/audio_tile_widget.dart';
 
 class ArtistPreviewPage extends StatelessWidget {
-  const ArtistPreviewPage({super.key, required this.artist, required this.state});
+  const ArtistPreviewPage(
+      {super.key, required this.artist, required this.state});
 
   final ArtistModel artist;
   final AudiosSuccess state;
@@ -26,14 +27,17 @@ class ArtistPreviewPage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _AppBar(artist: artist, scaffoldColor: scaffoldColor, textColor: textColor),
+          _AppBar(
+              artist: artist,
+              scaffoldColor: scaffoldColor,
+              textColor: textColor),
 
           //------------- Music List ------///
           SliverList.builder(
             addAutomaticKeepAlives: true,
             itemCount: artist.songCount,
             itemBuilder: (context, index) {
-              return SongTileWidget(
+              return AudioTileWidget(
                 audios: artist.songs,
                 index: index,
                 state: state,
@@ -41,17 +45,15 @@ class ArtistPreviewPage extends StatelessWidget {
             },
           ),
 
-
-
           //-------- Bottom Space -----//
-          SliverPadding(padding: EdgeInsets.only(bottom: 200),),
-      
+          SliverPadding(
+            padding: EdgeInsets.only(bottom: 200),
+          ),
         ],
       ),
     );
   }
 }
-
 
 //------------ AppBar --------------//
 class _AppBar extends StatelessWidget {
@@ -102,9 +104,9 @@ class _AppBar extends StatelessWidget {
               )),
             ),
           ),
-    
+
           ///--------- Album Thumbnail & Title Row ----------///
-    
+
           [
             Container(
               height: 100,
@@ -112,7 +114,7 @@ class _AppBar extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
-                  image:  artist.picture != null
+                  image: artist.picture != null
                       ? FileImage(
                           File(artist.picture!.file.path),
                         )
@@ -130,7 +132,6 @@ class _AppBar extends StatelessWidget {
                     .fontFamily(AppFonts.poppins)
                     .fontWeight(FontWeight.w500)
                     .make(),
-             
                 "${artist.songCount} songs"
                     .text
                     .color(textColor.withOpacity(0.5))
@@ -138,7 +139,7 @@ class _AppBar extends StatelessWidget {
               ],
             ).centered()
           ].row().p12().positioned(bottom: 50),
-    
+
           //-------- Back Button
           CustomBackButton().safeArea(),
         ].stack(),

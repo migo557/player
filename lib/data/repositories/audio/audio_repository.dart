@@ -8,11 +8,21 @@ import 'package:path/path.dart' as path;
 import '../../models/audio_model.dart';
 import '../../providers/audio/audio_provider.dart';
 
-class AudioRepository {
+abstract class AudioRepositoryBase {
+  Future<List<AudioModel>> getAllAudioFiles();
+
+  Future<List<AudioModel>> getAudioFilesFromSingleDirectory(
+      Directory directory);
+
+  Future<AudioModel> getAudioInfo(String audioPath);
+}
+
+class AudioRepository implements AudioRepositoryBase {
   final AudioProvider audioProvider;
 
   AudioRepository(this.audioProvider);
 
+  @override
   Future<List<AudioModel>> getAllAudioFiles() async {
     try {
       final bool hasPermission = await AppPermissionService.storagePermission();
@@ -44,6 +54,7 @@ class AudioRepository {
     }
   }
 
+  @override
   Future<List<AudioModel>> getAudioFilesFromSingleDirectory(
       Directory directory) async {
     try {
@@ -76,6 +87,7 @@ class AudioRepository {
     }
   }
 
+  @override
   Future<AudioModel> getAudioInfo(String audioPath) async {
     // Getting the image of a track can be heavy and slow the reading
     final metadata = readMetadata(File(audioPath), getImage: true);

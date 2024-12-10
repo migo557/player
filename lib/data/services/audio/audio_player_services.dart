@@ -8,7 +8,7 @@ import 'package:rxdart/rxdart.dart';
 import '../../../logic/audio_player_bloc/audio_player_bloc.dart';
 import '../../models/audioplayercombinedstream_model.dart';
 
-abstract class AudioPlayerService {
+abstract class AudioPlayerServiceBase {
   Future<void> playPauseTrack();
   Future<void> initializePlayer(
       Emitter<AudioPlayerState> emit, AudioPlayerInitializeEvent event);
@@ -20,8 +20,8 @@ abstract class AudioPlayerService {
       Emitter<AudioPlayerState> emit, AudioPlayerSeekEvent event);
 }
 
-final class AudioPlayerServiceImpl implements AudioPlayerService {
-  AudioPlayerServiceImpl({required this.audioPlayer});
+final class AudioPlayerService implements AudioPlayerServiceBase {
+  AudioPlayerService({required this.audioPlayer});
 
   final AudioPlayer audioPlayer;
 
@@ -138,6 +138,4 @@ final class AudioPlayerServiceImpl implements AudioPlayerService {
       clog.error('Error seeking to position: $e');
     }
   }
-
-
 }

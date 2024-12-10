@@ -11,8 +11,7 @@ part 'audio_player_state.dart';
 
 class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
   final AudioPlayer audioPlayer = locator.get<AudioPlayer>();
-  final AudioPlayerServiceImpl audioServices =
-      locator.get<AudioPlayerServiceImpl>();
+  final AudioPlayerService audioServices = locator.get<AudioPlayerService>();
   AudioPlayerBloc() : super(AudioPlayerInitialState()) {
     on<AudioPlayerInitializeEvent>(_audioPlayerInitializeEvent);
     on<AudioPlayerPlayPauseToggleEvent>(_audioPlayerPauseToggle);

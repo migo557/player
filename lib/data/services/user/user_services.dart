@@ -1,7 +1,7 @@
 // user_repository.dart
 import 'package:open_player/base/db/hive_service.dart';
 
-abstract class UserServices {
+abstract class UserServicesBase {
   Future<void> updateProfilePicture(String path);
   Future<void> updateUsername(String username);
   Future<void> updateLoginStatus(bool status);
@@ -11,7 +11,7 @@ abstract class UserServices {
   bool getLoginStatus();
 }
 
-class UserServiceImpl implements UserServices {
+class UserService implements UserServicesBase {
   @override
   Future<void> updateProfilePicture(String path) async {
     await MyHiveBoxes.user.put(MyHiveKeys.userProfilePicture, path);

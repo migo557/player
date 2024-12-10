@@ -1,8 +1,7 @@
-import 'package:color_log/color_log.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_player/base/db/hive_service.dart';
+import 'package:open_player/base/services/system/system_service.dart';
 import 'package:open_player/base/theme/themes_data.dart';
 import 'package:open_player/base/di/injection.dart';
 import 'package:open_player/base/router/router.dart';
@@ -18,21 +17,16 @@ void main() async {
   await initializeLocator();
 
   // Initialize Hive database and register custom adapters
-  await MyHiveDB.initializeHive();
+  await MyHiveDatabase.initializeHive();
 
   // Set up notification services
-  await NotificationService().initNotification();
+  await NotificationServices().initializeAll();
 
-  // Set up JustAudioBackground services
-  await NotificationService().initJustAUdioBackgroundNotification();
+  // Set Orientation To Portrait
+  await SystemService.setOrientationPortraitOnly();
 
-  // Set preferred screen orientations
-  clog.info('Setting preferred orientations');
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-  clog.checkSuccess(true, 'Preferred orientations set to Potrait Up Only');
+  // Set UIMode To EdgeToEdge
+  await SystemService.setUIModeEdgeToEdge();
 
   runApp(const MyApp());
 }
@@ -59,6 +53,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-

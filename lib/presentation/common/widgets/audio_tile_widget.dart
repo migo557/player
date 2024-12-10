@@ -12,10 +12,10 @@ import 'package:open_player/presentation/pages/players/audio/view/audio_player.d
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_play_pause_button_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../../../../data/models/audio_model.dart';
+import '../../../data/models/audio_model.dart';
 
-class SongTileWidget extends StatelessWidget {
-  const SongTileWidget({
+class AudioTileWidget extends StatelessWidget {
+  const AudioTileWidget({
     super.key,
     required this.index,
     required this.state,
@@ -36,7 +36,7 @@ class SongTileWidget extends StatelessWidget {
       },
       builder: (context, playerState) {
         if (playerState == null) {
-          return _SongTile(
+          return _AudioTile(
             songPath: audio.path,
             state: state,
             audios: audios,
@@ -65,7 +65,7 @@ class SongTileWidget extends StatelessWidget {
               bool? isSelected = currentIndex != null
                   ? playerState.audios[currentIndex].path == audio.path
                   : null;
-              return _SongTile(
+              return _AudioTile(
                 songPath: audio.path,
                 audios: audios,
                 state: state,
@@ -100,8 +100,8 @@ class SongTileWidget extends StatelessWidget {
   }
 }
 
-class _SongTile extends StatelessWidget {
-  const _SongTile(
+class _AudioTile extends StatelessWidget {
+  const _AudioTile(
       {required this.songPath,
       required this.state,
       required this.audio,
@@ -229,7 +229,11 @@ class _SongTile extends StatelessWidget {
 
               //-------- More Button
               SongTileMoreButtonWidget(
-                  audios: audios, path: songPath, audio: audio,isPlaying: isPlaying,),
+                audios: audios,
+                path: songPath,
+                audio: audio,
+                isPlaying: isPlaying,
+              ),
             ],
           ),
         ),

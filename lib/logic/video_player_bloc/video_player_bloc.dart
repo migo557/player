@@ -11,8 +11,7 @@ part 'video_player_state.dart';
 /// BLoC for managing video player state and functionality
 class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
   Timer? buttonVisibility;
-  VideoPlayerServiceImpl videoPlayerServices =
-      locator<VideoPlayerServiceImpl>();
+  VideoPlayerService videoPlayerServices = locator<VideoPlayerService>();
 
   VideoPlayerBloc() : super(const VideoPlayerInitialState()) {
     on<VideoInitializeEvent>(_videoInitialization);
@@ -32,6 +31,4 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
 
   FutureOr<void> _videoPlayPause(
       VideoPlayPauseToggleEvent event, Emitter<VideoPlayerState> emit) {}
-
-
 }

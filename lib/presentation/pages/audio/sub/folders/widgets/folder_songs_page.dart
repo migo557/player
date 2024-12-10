@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
-import 'package:open_player/presentation/pages/audio/sub/songs/widgets/song_tile_widget.dart';
+import 'package:open_player/presentation/common/widgets/audio_tile_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 /// Represents the page displaying songs within a specific folder
@@ -84,7 +84,7 @@ class FolderSongsPage extends StatelessWidget {
         Expanded(
           child: ListView.builder(
             itemCount: songs.length,
-            itemBuilder: (context, index) => SongTileWidget(
+            itemBuilder: (context, index) => AudioTileWidget(
               audios: songs,
               index: index,
               state: state,

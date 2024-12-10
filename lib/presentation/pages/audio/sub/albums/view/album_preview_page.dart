@@ -8,7 +8,7 @@ import 'package:open_player/presentation/common/widgets/custom_back_button.dart'
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../settings/user_profile/widgets/user_profile_preview.dart';
-import '../../songs/widgets/song_tile_widget.dart';
+import '../../../../../common/widgets/audio_tile_widget.dart';
 
 class AlbumPreviewPage extends StatelessWidget {
   const AlbumPreviewPage({super.key, required this.album, required this.state});
@@ -31,7 +31,7 @@ class AlbumPreviewPage extends StatelessWidget {
             addAutomaticKeepAlives: true,
             itemCount: album.songCount,
             itemBuilder: (context, index) {
-              return SongTileWidget(
+              return AudioTileWidget(
                 audios: album.songs,
                 index: index,
                 state: state,

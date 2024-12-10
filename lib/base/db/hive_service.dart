@@ -3,7 +3,7 @@ import 'package:color_log/color_log.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
-class MyHiveDB {
+class MyHiveDatabase {
   static Future<void> initializeHive() async {
     try {
       clog.info('Initializing Hive');
@@ -27,11 +27,10 @@ class MyHiveDB {
         //! Favorite Audio
         Hive.openBox("favorites_audios"),
 
-          //! Favorite Video
+        //! Favorite Video
         Hive.openBox("favorites_videos"),
 
         Hive.openBox("recently_played_videos")
-
       ]).then(
         (value) {
           MyHiveBoxes.theme = value[0];
@@ -41,8 +40,6 @@ class MyHiveDB {
           MyHiveBoxes.favoriteAudios = value[4];
           MyHiveBoxes.favoriteVideos = value[5];
           MyHiveBoxes.recentlyPlayedVideos = value[6];
-          
-
         },
       );
 
@@ -64,8 +61,6 @@ class MyHiveBoxes {
   static late Box favoriteAudios;
   static late Box favoriteVideos;
   static late Box recentlyPlayedVideos;
-
-
 }
 
 ///!---------------      MyHive Keys

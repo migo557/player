@@ -1,8 +1,10 @@
 # Player - Elegant Multimedia Player
 
-![Player App Logo](assets/svgs/logo.svg)
+[![Player App Logo](assets/svgs/logo.svg)](https://frkudn.github.io/player/)
 
 Player is a beautifully designed, feature-rich offline media player for Android, offering a premium multimedia experience without ads, subscriptions, or privacy compromises. Crafted with Flutter, Player delivers smooth playback for both audio and video files stored locally on your device.
+
+[![Visit Official Site](https://img.shields.io/badge/Visit-Official%20Site-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://frkudn.github.io/player/)
 
 ## 🌟 Key Highlights
 

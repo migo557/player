@@ -10,7 +10,6 @@ import 'package:open_player/presentation/pages/players/audio/widgets/audio_playe
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_title_artist_favorite_button_row_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_top_bar_widget.dart';
 
-
 class AudioPlayerPage extends HookWidget {
   const AudioPlayerPage({
     super.key,
@@ -31,7 +30,9 @@ class AudioPlayerPage extends HookWidget {
 
         //----------------- [Thumbnail Image] [Gestures Boxes] [Lyrics Box] [Volume Box] [Position Box] ---------------//
 
-         AudioPlayerCenterStackWidget(showLyrics: showLyrics,),
+        AudioPlayerCenterStackWidget(
+          showLyrics: showLyrics,
+        ),
 
         //------------- Player Glassophate ----------------//
         [
@@ -39,7 +40,13 @@ class AudioPlayerPage extends HookWidget {
           AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget(),
 
           //------------ Seek Bar
-          AudioPlayerSeekBarWidget(),
+          AudioPlayerSeekBarWidget(
+            enableTrackHeightOnSeeking: true,
+            trackHeight: 16,
+            activeTrackColor: Colors.white,
+            thumbColor: Colors.white,
+            overlayColor: Colors.transparent,
+          ),
 
           //------------ Position & Duration
           AudioPlayerPositionAndDurationWidget(),
@@ -57,8 +64,6 @@ class AudioPlayerPage extends HookWidget {
               width: mq.width * 0.88,
               left: mq.width * 0.06,
             ),
-
-    
 
         //--- Show Lyrics Button
         AudioPlayerLyricsButtonWidget(showLyrics: showLyrics),

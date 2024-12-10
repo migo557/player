@@ -147,14 +147,7 @@ class MiniAudioPlayerWidget extends StatelessWidget {
 
                                     //----------- Slider
                                     Flexible(
-                                      child: SliderTheme(
-                                          data: SliderThemeData(
-                                            activeTrackColor: Colors.white,
-                                            thumbShape: RoundSliderThumbShape(
-                                                enabledThumbRadius: 6),
-                                            thumbColor: Colors.white,
-                                          ),
-                                          child: AudioPlayerSeekBarWidget()),
+                                      child: AudioPlayerSeekBarWidget(enabledThumbRadius: 6,activeTrackColor: Colors.white,thumbColor: Colors.white,),
                                     ),
 
                                     //------- Duration

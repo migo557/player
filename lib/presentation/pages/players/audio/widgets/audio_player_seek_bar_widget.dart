@@ -4,9 +4,21 @@ import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 import '../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 
 class AudioPlayerSeekBarWidget extends StatelessWidget {
-  const AudioPlayerSeekBarWidget({
-    super.key,
-  });
+  const AudioPlayerSeekBarWidget(
+      {super.key,
+      this.activeTrackColor,
+      this.enabledThumbRadius,
+      this.thumbColor,
+      this.trackHeight,
+      this.overlayColor,
+      this.enableTrackHeightOnSeeking = false});
+
+  final Color? activeTrackColor;
+  final Color? thumbColor;
+  final double? enabledThumbRadius;
+  final double? trackHeight;
+  final bool enableTrackHeightOnSeeking;
+  final Color? overlayColor;
 
   @override
   Widget build(BuildContext context) {
@@ -26,32 +38,45 @@ class AudioPlayerSeekBarWidget extends StatelessWidget {
                     successState.audioPlayer.duration ??
                     Duration.zero;
 
-                return Slider(
-                  activeColor: Colors.white,
-                  onChangeEnd: (p) {
-                    context
-                        .read<AudioPlayerBloc>()
-                        .add(AudioPlayerSeekEvent(position: p));
-                    context.read<AudioPlayerBloc>().add(
-                          AudioPlayerIsSeekingToggleEvent(
-                              position: p,
-                              isSeeking: false,
-                              state: successState),
-                        );
-                  },
-                  min: 0,
-                  max: duration.inSeconds.toDouble(),
-                  value: successState.isSeeking
-                      ? successState.seekingPosition
-                      : position.inSeconds.toDouble(),
-                  onChanged: (p) {
-                    context.read<AudioPlayerBloc>().add(
-                          AudioPlayerIsSeekingToggleEvent(
-                              position: p,
-                              isSeeking: true,
-                              state: successState),
-                        );
-                  },
+                return SliderTheme(
+                  data: SliderThemeData(
+                    overlayColor: overlayColor,
+                    activeTrackColor: activeTrackColor,
+                    trackHeight: enableTrackHeightOnSeeking
+                        ? successState.isSeeking
+                            ? trackHeight
+                            : null
+                        : null,
+                    thumbShape: RoundSliderThumbShape(
+                        enabledThumbRadius: enabledThumbRadius ?? 10.0),
+                    thumbColor: thumbColor,
+                  ),
+                  child: Slider(
+                    onChangeEnd: (p) {
+                      context
+                          .read<AudioPlayerBloc>()
+                          .add(AudioPlayerSeekEvent(position: p));
+                      context.read<AudioPlayerBloc>().add(
+                            AudioPlayerIsSeekingToggleEvent(
+                                position: p,
+                                isSeeking: false,
+                                state: successState),
+                          );
+                    },
+                    min: 0,
+                    max: duration.inSeconds.toDouble(),
+                    value: successState.isSeeking
+                        ? successState.seekingPosition
+                        : position.inSeconds.toDouble(),
+                    onChanged: (p) {
+                      context.read<AudioPlayerBloc>().add(
+                            AudioPlayerIsSeekingToggleEvent(
+                                position: p,
+                                isSeeking: true,
+                                state: successState),
+                          );
+                    },
+                  ),
                 );
               });
         } else {

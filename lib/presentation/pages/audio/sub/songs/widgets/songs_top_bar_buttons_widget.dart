@@ -43,15 +43,16 @@ class SongsTopBarButtonsWidget extends HookWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
               child: Row(
                 children: SongsFiltered.values.map((filter) {
+                  final isSelected =  selectedFilter.value == filter;
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Stack(
                       children: [
                         CustomFilterChip(
-                          isSelected: selectedFilter.value == filter,
+                          isSelected: isSelected,
                           label: filter.displayName.toUpperCase(),
-                          sideWidget: selectedFilter.value == filter
-                              ? songsLength.text.white.xs.make().pOnly(left: 2)
+                          sideWidget: isSelected
+                              ? songsLength.text.white.xs.make().pSymmetric(h: 4).glassMorphic().pOnly(left: 4)
                               : null,
                           onSelected: () {
                             selectedFilter.value = filter;

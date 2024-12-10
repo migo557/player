@@ -37,11 +37,12 @@ class VideoPageTitleAndSortingButtonWidget extends HookWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: VideoFilter.values.map((filter) {
+              final isSelected = selectedFilter.value == filter;
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: CustomFilterChip(
                   label: filter.displayName,
-                  isSelected: selectedFilter.value == filter,
+                  isSelected: isSelected ,
                   onSelected: () {
                     selectedFilter.value = filter;
                   },

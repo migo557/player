@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:open_player/data/models/audio_playlist_model.dart';
 import 'package:open_player/presentation/pages/audio/sub/albums/view/album_preview_page.dart';
 import 'package:open_player/presentation/pages/audio/sub/artists/view/artist_preview_page.dart';
+import 'package:open_player/presentation/pages/audio/sub/playlists/view/audio_playlist_preview_page.dart';
 import 'package:open_player/presentation/pages/players/audio/view/audio_player.dart';
 import 'package:open_player/presentation/pages/players/video/view/video_player.dart';
 import 'package:open_player/presentation/pages/settings/about/view/about_page.dart';
@@ -34,7 +36,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: AppRoutes.userProfileRoute,
       name: AppRoutes.userProfileRoute,
-      builder: (context, state) =>  UserProfilePage(),
+      builder: (context, state) => UserProfilePage(),
     ),
     GoRoute(
       path: AppRoutes.changeThemeRoute,
@@ -82,18 +84,25 @@ final GoRouter router = GoRouter(
       path: AppRoutes.viewDirectoryRoute,
       builder: (context, state) => const ViewDirectoryPage(),
     ),
-
     GoRoute(
       name: AppRoutes.equalizerRoute,
       path: AppRoutes.equalizerRoute,
       builder: (context, state) => const EqualizerPage(),
     ),
     GoRoute(
+        name: AppRoutes.playlistPreviewRoute,
+        path: AppRoutes.playlistPreviewRoute,
+        builder: (context, state) {
+
+           AudioPlaylistModel extra = state.extra as AudioPlaylistModel;
+         return AudioPlaylistPreviewPage(playlist: extra);
+        }),
+    GoRoute(
         name: AppRoutes.artistPreviewRoute,
         path: AppRoutes.artistPreviewRoute,
         builder: (context, state) {
-            List extra = state.extra as List;
-        return  ArtistPreviewPage(
+          List extra = state.extra as List;
+          return ArtistPreviewPage(
             artist: extra[0],
             state: extra[1],
           );
@@ -136,5 +145,5 @@ class AppRoutes {
   static const artistPreviewRoute = "/artist_preview";
   static const albumPreviewRoute = "/album_preview";
   static const equalizerRoute = "/equalizer";
-
+  static const playlistPreviewRoute = "/playlist_preview";
 }

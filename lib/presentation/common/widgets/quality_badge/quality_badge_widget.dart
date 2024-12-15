@@ -3,51 +3,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-enum Quality {
-  DSD, // Digital Stream Digital (Highest)
-  MQ, // Master Quality
-  HQ, // High Quality
-  SQ, // Standard Quality
-  LQ // Low Quality
-}
+// enum Quality {
+//   DSD, // Digital Stream Digital (Highest)
+//   MQ, // Master Quality
+//   HQ, // High Quality
+//   SQ, // Standard Quality
+//   LQ // Low Quality
+// }
 
 // Extension to add properties to Quality enum
-extension QualityProps on Quality {
-  String get label => name;
+// extension QualityProps on Quality {
+//   String get label => name;
 
-  String get description {
-    switch (this) {
-      case Quality.DSD:
-        return 'Audiophile Grade (DSD)';
-      case Quality.MQ:
-        return 'Studio Master Quality';
-      case Quality.HQ:
-        return 'CD Quality or Better';
-      case Quality.SQ:
-        return 'High-Quality Streaming';
-      case Quality.LQ:
-        return 'Basic Quality';
-    }
-  }
+//   String get description {
+//     switch (this) {
+//       case Quality.DSD:
+//         return 'Audiophile Grade (DSD)';
+//       case Quality.MQ:
+//         return 'Studio Master Quality';
+//       case Quality.HQ:
+//         return 'CD Quality or Better';
+//       case Quality.SQ:
+//         return 'High-Quality Streaming';
+//       case Quality.LQ:
+//         return 'Basic Quality';
+//     }
+//   }
 
-  Color get baseColor {
-    switch (this) {
-      case Quality.DSD:
-        return const Color(0xFFFF6B6B);
-      case Quality.MQ:
-        return const Color(0xFF9C27B0);
-      case Quality.HQ:
-        return const Color(0xFF2196F3);
-      case Quality.SQ:
-        return const Color(0xFF4CAF50);
-      case Quality.LQ:
-        return Colors.grey;
-    }
-  }
-}
+//   Color get baseColor {
+//     switch (this) {
+//       case "DSD":
+//         return const Color(0xFFFF6B6B);
+//       case "MQ":
+//         return const Color(0xFF9C27B0);
+//       case "HQ":
+//         return const Color(0xFF2196F3);
+//       case "SQ":
+//         return const Color(0xFF4CAF50);
+//       case "LQ":
+//         return Colors.grey;
+//     }
+//   }
+// }
 
 class QualityBadge extends HookWidget {
-  final Quality quality;
+  final String quality;
   final bool isDark;
   final double size;
   final bool showAnimation;
@@ -55,7 +55,7 @@ class QualityBadge extends HookWidget {
 
   const QualityBadge({
     super.key,
-    this.quality = Quality.SQ,
+    this.quality = "LQ",
     this.isDark = false,
     this.size = 12,
     this.showAnimation = true,
@@ -114,14 +114,14 @@ class QualityBadge extends HookWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  quality.baseColor,
-                  quality.baseColor.withOpacity(0.8),
-                  quality.baseColor.withOpacity(0.9),
+                  baseColor(quality),
+                  baseColor(quality).withOpacity(0.8),
+                  baseColor(quality).withOpacity(0.9),
                 ],
               ),
               boxShadow: [
                 BoxShadow(
-                  color: quality.baseColor.withOpacity(
+                  color: baseColor(quality).withOpacity(
                     showAnimation ? glowAnimation : 0.3,
                   ),
                   blurRadius: size * 0.333,
@@ -137,7 +137,7 @@ class QualityBadge extends HookWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  quality.label,
+                  quality,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: size * 0.6,
@@ -158,5 +158,22 @@ class QualityBadge extends HookWidget {
         ),
       ),
     );
+  }
+
+  Color baseColor(String quality) {
+    switch (quality) {
+      case "DSD":
+        return const Color(0xFFFF6B6B);
+      case "MQ":
+        return const Color(0xFF9C27B0);
+      case "HQ":
+        return const Color(0xFF2196F3);
+      case "SQ":
+        return const Color(0xFF4CAF50);
+      case "LQ":
+        return Colors.grey;
+      default:
+        return Colors.grey;
+    }
   }
 }

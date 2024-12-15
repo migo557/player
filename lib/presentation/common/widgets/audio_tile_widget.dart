@@ -230,12 +230,12 @@ class _AudioTile extends StatelessWidget {
 
                     Gap(2),
 
-                    if (isPlaying)
-                      QualityBadge(
-                        quality: audio.quality,
-                        isDark: true,
-                        size: 10,
-                      ),
+                    // if (isPlaying)
+                      // QualityBadge(
+                      //   quality: audio.quality,
+                      //   isDark: true,
+                      //   size: 10,
+                      // ),
                   ],
                 ),
               ),

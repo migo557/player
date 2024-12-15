@@ -10,7 +10,7 @@ class AlbumModel {
   final List<AudioModel> songs;
   final Uint8List thumbnail;
   final DateTime? year;
-  final Quality quality;
+  final String quality;
 
   AlbumModel({
     required this.name,

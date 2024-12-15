@@ -4,7 +4,6 @@ import 'package:open_player/base/assets/images/app_images.dart';
 import 'package:open_player/base/router/router.dart';
 import 'package:open_player/data/models/album_model.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
-import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 
 class AlbumCard extends StatelessWidget {
   final AlbumModel album;
@@ -83,7 +82,7 @@ class AlbumCard extends StatelessWidget {
                           '${album.songCount} songs',
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
-                        QualityBadge(quality: album.quality),
+                        // QualityBadge(quality: album.quality),
                       ],
                     ),
                   ],

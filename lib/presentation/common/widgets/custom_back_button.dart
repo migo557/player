@@ -13,7 +13,10 @@ class CustomBackButton extends StatelessWidget {
       onPressed: () {
         context.pop();
       },
-      icon: Icon(CupertinoIcons.back),
+      icon: Icon(
+        CupertinoIcons.back,
+        color: Colors.white,
+      ),
     );
   }
 }

@@ -76,7 +76,6 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
       context.read<AudiosBloc>().add(AudiosLoadAllEvent());
       context.read<VideosBloc>().add(VideosLoadEvent());
       context.read<AudioPlaylistBloc>().add(LoadPlaylistsEvent());
-
     }
   }
 }

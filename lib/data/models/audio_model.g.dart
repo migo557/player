@@ -30,17 +30,16 @@ class AudioModelAdapter extends TypeAdapter<AudioModel> {
       sampleRate: fields[10] as int?,
       language: fields[11] as String?,
       year: fields[12] as DateTime?,
-      file: fields[13] as File,
-      quality: fields[14] as Quality,
-      lastModified: fields[15] as DateTime,
-      lastAccessed: fields[16] as DateTime,
+      quality: fields[15] as String,
+      lastModified: fields[13] as DateTime,
+      lastAccessed: fields[14] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, AudioModel obj) {
     writer
-      ..writeByte(17)
+      ..writeByte(16)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -68,13 +67,11 @@ class AudioModelAdapter extends TypeAdapter<AudioModel> {
       ..writeByte(12)
       ..write(obj.year)
       ..writeByte(13)
-      ..write(obj.file)
-      ..writeByte(14)
-      ..write(obj.quality)
-      ..writeByte(15)
       ..write(obj.lastModified)
-      ..writeByte(16)
-      ..write(obj.lastAccessed);
+      ..writeByte(14)
+      ..write(obj.lastAccessed)
+      ..writeByte(15)
+      ..write(obj.quality);
   }
 
   @override

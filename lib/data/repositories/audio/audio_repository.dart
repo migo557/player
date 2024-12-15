@@ -98,16 +98,19 @@ class AudioRepository implements AudioRepositoryBase {
       sampleRate: metadata.sampleRate,
       // codec: metadata.format, // If available in your metadata
     );
+
+    //----Thumbnail <I Made this My Custom PictureModel instead of using metadata package inbuilt Picture class for to compaitable with Hive>
     final List<PictureModel> thumbnails = metadata.pictures.map(
       (e) {
         return PictureModel(
-            bytes: e.bytes, mimetype: e.mimetype,);
+          bytes: e.bytes,
+          mimetype: e.mimetype,
+        );
       },
     ).toList();
 
     return AudioModel(
       title: path.basenameWithoutExtension(audioPath),
-      file: metadata.file,
       ext: path.extension(audioPath),
       path: audioPath,
       size: File(audioPath).statSync().size,

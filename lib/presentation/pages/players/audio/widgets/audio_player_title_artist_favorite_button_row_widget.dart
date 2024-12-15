@@ -38,9 +38,9 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                     ? audioPlayerState.audios[currentIndex].artists
                     : "";
 
-                Quality audioQuality = currentIndex != null
+                String audioQuality = currentIndex != null
                     ? audioPlayerState.audios[currentIndex].quality
-                    : Quality.MQ;
+                    : "MQ";
 
                 String currentFilePath = currentIndex != null
                     ? audioPlayerState.audios[currentIndex].path
@@ -62,7 +62,6 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                             .shadow(0, 0, 3, Colors.black38)
                             .make()
                             .scrollHorizontal(),
-
 
                         //------------------- ARTISTS ------------------//
                         [

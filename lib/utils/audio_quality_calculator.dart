@@ -1,42 +1,41 @@
-import '../presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 
 class AudioQualityCalculator {
   static const int _dsd64SampleRate = 2822400;
   static const int _dsd128SampleRate = 5644800;
   static const int _dsd256SampleRate = 11289600;
 
-  static Quality calculateQuality({
+  static String calculateQuality({
     required int? bitrate,
     required int? sampleRate,
     String? codec,
     int? bitDepth,
   }) {
-    if (bitrate == null || sampleRate == null) return Quality.LQ;
+    if (bitrate == null || sampleRate == null) return "LQ";
 
     final kbps = _normalizeKbps(bitrate);
     final khz = _normalizeKhz(sampleRate);
 
     // DSD Check with enhanced codec detection
     if (_isDSDQuality(codec, sampleRate)) {
-      return Quality.DSD;
+      return "DSD";
     }
 
     // Master Quality check with bit depth consideration
     if (_isMasterQuality(khz, kbps, bitDepth)) {
-      return Quality.MQ;
+      return "MQ";
     }
 
     // High Quality check
     if (_isHighQuality(khz, kbps, codec)) {
-      return Quality.HQ;
+      return "HQ";
     }
 
     // Standard Quality check
     if (_isStandardQuality(khz, kbps)) {
-      return Quality.SQ;
+      return "SQ";
     }
 
-    return Quality.LQ;
+    return "LQ";
   }
 
   static bool _isDSDQuality(String? codec, int sampleRate) {

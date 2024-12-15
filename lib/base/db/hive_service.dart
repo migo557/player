@@ -17,17 +17,17 @@ class MyHiveDatabase {
       Hive.init(appDocumentDirectory.path);
 
       Hive.registerAdapter(AudioModelAdapter());
-      final audioModel = Hive.isAdapterRegistered(AudioModelAdapter().typeId);
-      clog.checkSuccess(audioModel, "'AudioModelAdapter is registered ");
+      final isAudioModelRegistered = Hive.isAdapterRegistered(AudioModelAdapter().typeId);
+      clog.checkSuccess(isAudioModelRegistered, "'AudioModelAdapter is registered ");
       Hive.registerAdapter(PictureModelAdapter());
-      final pictureModel =
+      final isPictureModelRegistered =
           Hive.isAdapterRegistered(PictureModelAdapter().typeId);
-      clog.checkSuccess(pictureModel, "'PictureModelAdapter is registered ");
+      clog.checkSuccess(isPictureModelRegistered, "'PictureModelAdapter is registered ");
       Hive.registerAdapter(AudioPlaylistModelAdapter());
-      final audioPlaylistModel =
+      final isAudioPlaylistModelRegistered =
           Hive.isAdapterRegistered(AudioPlaylistModelAdapter().typeId);
       clog.checkSuccess(
-          audioPlaylistModel, "'AudioPlaylistModelAdapter is registered ");
+          isAudioPlaylistModelRegistered, "'AudioPlaylistModelAdapter is registered ");
 
       await Future.wait([
         //! Open the library box

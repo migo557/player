@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:hive/hive.dart';
 import 'package:open_player/data/models/picture_model.dart';
 import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
@@ -33,14 +32,13 @@ class AudioModel extends HiveObject {
   final String? language;
    @HiveField(12)
   final DateTime? year;
+
    @HiveField(13)
-  final File file;
-   @HiveField(14)
-  final Quality quality;
-   @HiveField(15)
   final DateTime lastModified;
-   @HiveField(16)
+   @HiveField(14)
   final DateTime lastAccessed;
+     @HiveField(15)
+  final String quality;
 
 
   AudioModel({
@@ -57,7 +55,6 @@ class AudioModel extends HiveObject {
     required this.sampleRate,
     required this.language,
     required this.year,
-    required this.file,
     required this.quality,
     required this.lastModified,
     required this.lastAccessed,

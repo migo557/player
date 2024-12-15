@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -6,7 +5,6 @@ import 'package:open_player/data/models/audio_playlist_model.dart';
 import 'package:open_player/logic/audio_playlist_bloc/audio_playlist_bloc.dart';
 import 'package:open_player/utils/formater.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import '../../../../../../base/assets/fonts/styles.dart';
 import '../../../../../../base/assets/images/app_images.dart';
 import '../../../../../../logic/audio_bloc/audios_bloc.dart';
@@ -31,38 +29,49 @@ class AudioPlaylistPreviewPage extends StatelessWidget {
         },
         builder: (context, audioState) {
           if (audioState == null) return "No Audios found".text.make();
-          return CustomScrollView(
-            slivers: [
-              _AppBar(
-                  playlist: playlist,
-                  scaffoldColor: scaffoldColor,
-                  textColor: textColor),
+          return BlocBuilder<AudioPlaylistBloc, AudioPlaylistState>(
+            builder: (context, state) {
+              final AudioPlaylistModel currentPlaylist =
+                  state.playlists.firstWhere(
+                (element) => element.name == playlist.name,
+              );
+              return CustomScrollView(
+                slivers: [
+                  _AppBar(
+                      playlist: currentPlaylist,
+                      scaffoldColor: scaffoldColor,
+                      textColor: textColor),
 
-              //------------- Music List ------///
-              if (playlist.audios.isNotEmpty)
-                SliverList.builder(
-                  addAutomaticKeepAlives: true,
-                  itemCount: playlist.audios.length,
-                  itemBuilder: (context, index) {
-                    return AudioTileWidget(
-                      audios: playlist.audios,
-                      index: index,
-                      state: audioState,
-                      showRemoveFromPlaylistButton: true,
-                      playlistRemoveOnTap: () {
-                        context.read<AudioPlaylistBloc>().add(
-                            RemoveAudioFromPlaylistEvent(
-                                playlist, playlist.audios[index]));
+                  //------------- Music List ------///
+                  if (playlist.audios.isNotEmpty)
+                    SliverList.builder(
+                      addAutomaticKeepAlives: true,
+                      itemCount: currentPlaylist.audios.length,
+                      itemBuilder: (context, index) {
+                        return AudioTileWidget(
+                          audios: currentPlaylist.audios,
+                          index: index,
+                          state: audioState,
+                          showRemoveFromPlaylistButton: true,
+                          playlistRemoveOnTap: () {
+                            context.read<AudioPlaylistBloc>().add(
+                                RemoveAudioFromPlaylistEvent(currentPlaylist,
+                                    currentPlaylist.audios[index]));
+                            VxToast.show(context,
+                                msg:
+                                    "${currentPlaylist.audios[index].title} is removed from ${currentPlaylist.name}");
+                          },
+                        );
                       },
-                    );
-                  },
-                ),
+                    ),
 
-              if (playlist.audios.isEmpty)
-                SliverToBoxAdapter(
-                  child: "Empty Playlist".text.makeCentered(),
-                )
-            ],
+                  if (playlist.audios.isEmpty)
+                    SliverToBoxAdapter(
+                      child: "Empty Playlist".text.makeCentered(),
+                    )
+                ],
+              );
+            },
           );
         },
       ),
@@ -97,7 +106,7 @@ class _AppBar extends StatelessWidget {
               image: AssetImage(AppImages.defaultProfile), fit: BoxFit.cover),
         ),
         child: [
-          //------------- Album Background ----------//
+          //------------- Playlist Background ----------//
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -115,8 +124,9 @@ class _AppBar extends StatelessWidget {
             ),
           ),
 
-          ///--------- Album Thumbnail & Title Row ----------///
+          ///---------  Playlist Title  ----------///
           [
+            //----- Thumbnail
             GestureDetector(
               onTap: () {},
               child: Container(
@@ -132,6 +142,8 @@ class _AppBar extends StatelessWidget {
               ),
             ),
             Gap(20),
+
+            //--------- Title, Songs Length, Created & Modified
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

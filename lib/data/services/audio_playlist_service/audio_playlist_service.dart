@@ -65,7 +65,10 @@ class AudioPlaylistService {
     // Prevent duplicate audio entries
     if (!_checkIfPlaylistAlreadyHaveAudio(playlist, audio)) {
       // Create a new list to avoid modifying the original
-      final updatedAudios = playlist.audios..add(audio);
+      final updatedAudios = List<AudioModel>.from(playlist.audios)
+        ..add(audio);
+
+ 
 
       // Create an updated playlist model
       final AudioPlaylistModel updatedPlaylist = AudioPlaylistModel(

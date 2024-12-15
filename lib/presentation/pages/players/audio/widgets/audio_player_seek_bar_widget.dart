@@ -47,9 +47,13 @@ class AudioPlayerSeekBarWidget extends StatelessWidget {
                             ? trackHeight
                             : null
                         : null,
+                        
                     thumbShape: RoundSliderThumbShape(
-                        enabledThumbRadius: enabledThumbRadius ?? 10.0),
+                      elevation: successState.isSeeking? 0:2,
+                      pressedElevation: 0,
+                        enabledThumbRadius:enabledThumbRadius ?? 10.0,),
                     thumbColor: thumbColor,
+                  
                   ),
                   child: Slider(
                     onChangeEnd: (p) {

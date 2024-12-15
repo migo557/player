@@ -25,10 +25,11 @@ class PlaylistTile extends StatelessWidget {
       onTap: () {
         context.push(AppRoutes.playlistPreviewRoute, extra: playlist);
       },
+      visualDensity: VisualDensity.adaptivePlatformDensity,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       leading: Container(
-        width: 60,
-        height: 60,
+        width: 80,
+        height: 80,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(

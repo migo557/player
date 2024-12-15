@@ -5,7 +5,6 @@ import 'package:open_player/logic/audio_playlist_bloc/audio_playlist_bloc.dart';
 import 'package:open_player/presentation/pages/audio/sub/playlists/widgets/playlist_floating_button.dart';
 import 'package:open_player/presentation/pages/audio/sub/playlists/widgets/playlist_tile.dart';
 
-
 class PlaylistsPage extends StatelessWidget {
   const PlaylistsPage({super.key});
 
@@ -17,6 +16,7 @@ class PlaylistsPage extends StatelessWidget {
         builder: (context, state) {
           return CustomScrollView(
             slivers: [
+              SliverPadding(padding: EdgeInsets.only(top: 12)),
               // Playlist Items
               SliverList.separated(
                 itemCount: state.playlists.length,
@@ -32,6 +32,8 @@ class PlaylistsPage extends StatelessWidget {
                   indent: 80,
                 ),
               ),
+
+              SliverPadding(padding: EdgeInsets.only(bottom: 20)),
             ],
           );
         },

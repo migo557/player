@@ -29,8 +29,12 @@ class MyHiveDatabase {
 
         //! Favorite Video
         Hive.openBox("favorites_videos"),
-
-        Hive.openBox("recently_played_videos")
+           
+        //! Recently Played Videos    
+        Hive.openBox("recently_played_videos"),
+        
+        //! Audio Playlist
+        Hive.openBox("audio_playlist"),
       ]).then(
         (value) {
           MyHiveBoxes.theme = value[0];
@@ -40,6 +44,7 @@ class MyHiveDatabase {
           MyHiveBoxes.favoriteAudios = value[4];
           MyHiveBoxes.favoriteVideos = value[5];
           MyHiveBoxes.recentlyPlayedVideos = value[6];
+          MyHiveBoxes.audioPlaylist = value[7];
         },
       );
 
@@ -61,6 +66,7 @@ class MyHiveBoxes {
   static late Box favoriteAudios;
   static late Box favoriteVideos;
   static late Box recentlyPlayedVideos;
+  static late Box audioPlaylist;
 }
 
 ///!---------------      MyHive Keys

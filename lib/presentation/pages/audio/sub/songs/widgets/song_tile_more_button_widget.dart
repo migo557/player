@@ -105,22 +105,31 @@ PopupMenuItem<dynamic> _musicAddToPlaylist(
                               final playlist = state.playlists[index];
                               return ListTile(
                                 title: state.playlists[index].name.text.make(),
-                                leading:
-                                    Icon(HugeIcons.strokeRoundedPlayListAdd),
+                                leading: Icon(HugeIcons.strokeRoundedPlayList),
+                                trailing: !AudioPlaylistService()
+                                        .checkIfPlaylistAlreadyHaveAudio(
+                                            playlist, audio)
+                                    ? Icon(Icons.playlist_add)
+                                    : null,
                                 onTap: () {
-                                  clog.debug("${playlist.name} is clicked");
-                                  context.read<AudioPlaylistBloc>().add(
-                                      AddAudioToPlaylistEvent(playlist, audio));
+                                  if (!AudioPlaylistService()
+                                      .checkIfPlaylistAlreadyHaveAudio(
+                                          playlist, audio)) {
+                                    clog.debug("${playlist.name} is clicked");
+                                    context.read<AudioPlaylistBloc>().add(
+                                        AddAudioToPlaylistEvent(
+                                            playlist, audio));
 
+                                    VxToast.show(context,
+                                        msg:
+                                            "${audio.title} is added to the ${playlist.name} Playlist");
+                                  }
                                   context.pop();
-                                  VxToast.show(context,
-                                      msg:
-                                          "${audio.title} is added to the ${playlist.name} Playlist");
                                 },
                                 subtitle: AudioPlaylistService()
                                         .checkIfPlaylistAlreadyHaveAudio(
                                             playlist, audio)
-                                    ? "Audio already exist".text.make()
+                                    ? "Audio already exists".text.make()
                                     : null,
                               );
                             }),

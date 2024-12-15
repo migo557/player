@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:open_player/data/models/audio_playlist_model.dart';
+import 'package:open_player/logic/audio_playlist_bloc/audio_playlist_bloc.dart';
+import 'package:open_player/utils/formater.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../../../base/assets/fonts/styles.dart';
@@ -10,7 +12,6 @@ import '../../../../../../base/assets/images/app_images.dart';
 import '../../../../../../logic/audio_bloc/audios_bloc.dart';
 import '../../../../../common/widgets/audio_tile_widget.dart';
 import '../../../../../common/widgets/custom_back_button.dart';
-import '../../../../settings/user_profile/widgets/user_profile_preview.dart';
 
 class AudioPlaylistPreviewPage extends StatelessWidget {
   const AudioPlaylistPreviewPage({super.key, required this.playlist});
@@ -29,7 +30,7 @@ class AudioPlaylistPreviewPage extends StatelessWidget {
           return audiosState is AudiosSuccess ? audiosState : null;
         },
         builder: (context, audioState) {
-          if (audioState == null) return "Empty Playlist".text.make();
+          if (audioState == null) return "No Audios found".text.make();
           return CustomScrollView(
             slivers: [
               _AppBar(
@@ -38,17 +39,29 @@ class AudioPlaylistPreviewPage extends StatelessWidget {
                   textColor: textColor),
 
               //------------- Music List ------///
-              SliverList.builder(
-                addAutomaticKeepAlives: true,
-                itemCount: playlist.audios.length,
-                itemBuilder: (context, index) {
-                  return AudioTileWidget(
-                    audios: playlist.audios,
-                    index: index,
-                    state: audioState,
-                  );
-                },
-              ),
+              if (playlist.audios.isNotEmpty)
+                SliverList.builder(
+                  addAutomaticKeepAlives: true,
+                  itemCount: playlist.audios.length,
+                  itemBuilder: (context, index) {
+                    return AudioTileWidget(
+                      audios: playlist.audios,
+                      index: index,
+                      state: audioState,
+                      showRemoveFromPlaylistButton: true,
+                      playlistRemoveOnTap: () {
+                        context.read<AudioPlaylistBloc>().add(
+                            RemoveAudioFromPlaylistEvent(
+                                playlist, playlist.audios[index]));
+                      },
+                    );
+                  },
+                ),
+
+              if (playlist.audios.isEmpty)
+                SliverToBoxAdapter(
+                  child: "Empty Playlist".text.makeCentered(),
+                )
             ],
           );
         },
@@ -81,8 +94,7 @@ class _AppBar extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(AppImages.defaultProfile),
-              fit: BoxFit.cover),
+              image: AssetImage(AppImages.defaultProfile), fit: BoxFit.cover),
         ),
         child: [
           //------------- Album Background ----------//
@@ -106,16 +118,14 @@ class _AppBar extends StatelessWidget {
           ///--------- Album Thumbnail & Title Row ----------///
           [
             GestureDetector(
-              onTap: () {
-                
-              },
+              onTap: () {},
               child: Container(
                 height: 100,
                 width: 100,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
-                    image:AssetImage(AppImages.defaultProfile),
+                    image: AssetImage(AppImages.defaultProfile),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -133,7 +143,17 @@ class _AppBar extends StatelessWidget {
                 "${playlist.audios.length} songs"
                     .text
                     .color(textColor.withOpacity(0.5))
-                    .make()
+                    .make(),
+                "${Formatter.formatDate(playlist.created)} created"
+                    .text
+                    .xs
+                    .gray500
+                    .make(),
+                "${Formatter.formatDateCustom(playlist.modified)} (${playlist.modified.hour}:${playlist.modified.minute}: ${playlist.modified.second} Time) \n last Modified"
+                    .text
+                    .xs
+                    .gray500
+                    .make(),
               ],
             ).centered()
           ].row().p12().positioned(bottom: 50),

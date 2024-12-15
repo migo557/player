@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/base/assets/images/app_images.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
@@ -15,16 +16,19 @@ import 'package:velocity_x/velocity_x.dart';
 import '../../../data/models/audio_model.dart';
 
 class AudioTileWidget extends StatelessWidget {
-  const AudioTileWidget({
-    super.key,
-    required this.index,
-    required this.state,
-    required this.audios,
-  });
+  const AudioTileWidget(
+      {super.key,
+      required this.index,
+      required this.state,
+      required this.audios,
+      this.showRemoveFromPlaylistButton = false,
+      this.playlistRemoveOnTap});
   final int index;
   final List<AudioModel> audios;
 
   final AudiosSuccess state;
+  final bool showRemoveFromPlaylistButton;
+  final Function()? playlistRemoveOnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +45,8 @@ class AudioTileWidget extends StatelessWidget {
             state: state,
             audios: audios,
             audio: audio,
+            showRemoveFromPlaylistButton: showRemoveFromPlaylistButton,
+            playlistRemoveOnTap: playlistRemoveOnTap,
             onTap: () {
               context.read<AudioPlayerBloc>().add(AudioPlayerInitializeEvent(
                   initialMediaIndex: index, audioList: audios));
@@ -71,6 +77,8 @@ class AudioTileWidget extends StatelessWidget {
                 state: state,
                 audio: audio,
                 isSelected: isSelected,
+                showRemoveFromPlaylistButton: showRemoveFromPlaylistButton,
+                playlistRemoveOnTap: playlistRemoveOnTap,
                 onTap: () {
                   if (isSelected != null && !isSelected) {
                     context.read<AudioPlayerBloc>().add(
@@ -101,14 +109,17 @@ class AudioTileWidget extends StatelessWidget {
 }
 
 class _AudioTile extends StatelessWidget {
-  const _AudioTile(
-      {required this.songPath,
-      required this.state,
-      required this.audio,
-      required this.color,
-      required this.onTap,
-      required this.audios,
-      this.isSelected});
+  const _AudioTile({
+    required this.songPath,
+    required this.state,
+    required this.audio,
+    required this.color,
+    required this.onTap,
+    required this.audios,
+    this.isSelected,
+    this.showRemoveFromPlaylistButton = false,
+    this.playlistRemoveOnTap,
+  });
 
   final String songPath;
   final AudiosSuccess state;
@@ -119,6 +130,8 @@ class _AudioTile extends StatelessWidget {
 
   final Color color;
   final bool? isSelected;
+  final bool showRemoveFromPlaylistButton;
+  final Function()? playlistRemoveOnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +175,7 @@ class _AudioTile extends StatelessWidget {
                             : Image.memory(
                                 width: isPlaying ? 77 : 70,
                                 height: isPlaying ? 77 : 70,
-                                audio.thumbnail.last.bytes,
+                                audio.thumbnail.first.bytes,
                                 fit: BoxFit.cover,
                               ),
                       ),
@@ -228,12 +241,18 @@ class _AudioTile extends StatelessWidget {
               ),
 
               //-------- More Button
-              SongTileMoreButtonWidget(
-                audios: audios,
-                path: songPath,
-                audio: audio,
-                isPlaying: isPlaying,
-              ),
+              if (!showRemoveFromPlaylistButton)
+                SongTileMoreButtonWidget(
+                  audios: audios,
+                  path: songPath,
+                  audio: audio,
+                  isPlaying: isPlaying,
+                ),
+
+              if (showRemoveFromPlaylistButton)
+                IconButton(
+                    onPressed: playlistRemoveOnTap,
+                    icon: Icon(Icons.playlist_remove))
             ],
           ),
         ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:color_log/color_log.dart';
 import 'package:hive/hive.dart';
+import 'package:open_player/data/models/picture_model.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 import '../../data/models/audio_model.dart';
@@ -15,10 +16,18 @@ class MyHiveDatabase {
           await path_provider.getApplicationDocumentsDirectory();
       Hive.init(appDocumentDirectory.path);
 
-            Hive.registerAdapter(AudioModelAdapter());
-      clog.checkSuccess(true, "'AudioModelAdapter is registered ");
+      Hive.registerAdapter(AudioModelAdapter());
+      final audioModel = Hive.isAdapterRegistered(AudioModelAdapter().typeId);
+      clog.checkSuccess(audioModel, "'AudioModelAdapter is registered ");
+      Hive.registerAdapter(PictureModelAdapter());
+      final pictureModel =
+          Hive.isAdapterRegistered(PictureModelAdapter().typeId);
+      clog.checkSuccess(pictureModel, "'PictureModelAdapter is registered ");
       Hive.registerAdapter(AudioPlaylistModelAdapter());
-      clog.checkSuccess(true, "'AudioPlaylistModelAdapter is registered ");
+      final audioPlaylistModel =
+          Hive.isAdapterRegistered(AudioPlaylistModelAdapter().typeId);
+      clog.checkSuccess(
+          audioPlaylistModel, "'AudioPlaylistModelAdapter is registered ");
 
       await Future.wait([
         //! Open the library box
@@ -37,12 +46,12 @@ class MyHiveDatabase {
 
         //! Favorite Video
         Hive.openBox("favorites_videos"),
-           
-        //! Recently Played Videos    
+
+        //! Recently Played Videos
         Hive.openBox("recently_played_videos"),
-        
+
         //! Audio Playlist
-        Hive.openBox("audio_playlist"),
+        Hive.openBox<AudioPlaylistModel>("audio_playlist"),
       ]).then(
         (value) {
           MyHiveBoxes.theme = value[0];

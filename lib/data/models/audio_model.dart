@@ -1,12 +1,12 @@
 import 'dart:io';
-import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:hive/hive.dart';
+import 'package:open_player/data/models/picture_model.dart';
 import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 
 part 'audio_model.g.dart';
 
 @HiveType(typeId: 1)
-class AudioModel {
+class AudioModel extends HiveObject {
   @HiveField(0)
   final String title;
    @HiveField(1)
@@ -24,7 +24,7 @@ class AudioModel {
    @HiveField(7)
   final int? bitrate;
    @HiveField(8)
-  final List<Picture> thumbnail;
+  final List<PictureModel> thumbnail;
    @HiveField(9)
   final String? lyrics;
    @HiveField(10)

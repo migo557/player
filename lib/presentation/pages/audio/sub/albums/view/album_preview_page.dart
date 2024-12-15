@@ -70,7 +70,7 @@ class _AppBar extends StatelessWidget {
           image: DecorationImage(
               image: album.thumbnail.isNotEmpty
                   ? MemoryImage(
-                      album.thumbnail.first.bytes,
+                      album.thumbnail,
                     )
                   : AssetImage(AppImages.defaultProfile),
               fit: BoxFit.cover),
@@ -102,7 +102,7 @@ class _AppBar extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => UserProfilePreview(
-                      bytes: album.thumbnail.first.bytes,
+                      bytes: album.thumbnail,
                     ),
                   ),
                 );
@@ -115,7 +115,7 @@ class _AppBar extends StatelessWidget {
                   image: DecorationImage(
                     image: album.thumbnail.isNotEmpty
                         ? MemoryImage(
-                            album.thumbnail.first.bytes,
+                            album.thumbnail,
                           )
                         : AssetImage(AppImages.defaultProfile),
                     fit: BoxFit.cover,

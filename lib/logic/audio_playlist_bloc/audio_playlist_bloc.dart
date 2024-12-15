@@ -94,7 +94,7 @@ class AudioPlaylistBloc extends Bloc<AudioPlaylistEvent, AudioPlaylistState> {
       AddAudioToPlaylistEvent event, Emitter<AudioPlaylistState> emit) async {
     emit(state.copyWith(status: PlaylistStatus.updating));
     try {
-          await _playlistService.addAudio(event.playlist, event.audio);
+      await _playlistService.addAudio(event.playlist, event.audio);
 
       // Reload playlists to ensure consistency
       final updatedPlaylists = await _playlistService.getAllPlaylists();
@@ -112,7 +112,7 @@ class AudioPlaylistBloc extends Bloc<AudioPlaylistEvent, AudioPlaylistState> {
       Emitter<AudioPlaylistState> emit) async {
     emit(state.copyWith(status: PlaylistStatus.updating));
     try {
-          await _playlistService.removeAudio(event.playlist, event.audio);
+      await _playlistService.removeAudio(event.playlist, event.audio);
 
       // Reload playlists to ensure consistency
       final updatedPlaylists = await _playlistService.getAllPlaylists();

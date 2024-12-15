@@ -21,7 +21,7 @@ class AudioModelAdapter extends TypeAdapter<AudioModel> {
       ext: fields[4] as String,
       path: fields[5] as String,
       size: fields[6] as int,
-      thumbnail: (fields[8] as List).cast<Picture>(),
+      thumbnail: (fields[8] as List).cast<PictureModel>(),
       artists: fields[1] as String,
       album: fields[2] as String,
       genre: (fields[3] as List).cast<String>(),

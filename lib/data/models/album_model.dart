@@ -1,4 +1,5 @@
-import 'package:audio_metadata_reader/audio_metadata_reader.dart';
+import 'dart:typed_data';
+
 import 'package:open_player/data/models/audio_model.dart';
 import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 
@@ -7,7 +8,7 @@ class AlbumModel {
   final String artist;
   final int songCount;
   final List<AudioModel> songs;
-  final List<Picture> thumbnail;
+  final Uint8List thumbnail;
   final DateTime? year;
   final Quality quality;
 

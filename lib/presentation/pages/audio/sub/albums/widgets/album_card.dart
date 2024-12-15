@@ -38,7 +38,7 @@ class AlbumCard extends StatelessWidget {
                       const BorderRadius.vertical(top: Radius.circular(15)),
                   child: album.thumbnail.isNotEmpty
                       ? Image.memory(
-                          album.thumbnail.first.bytes,
+                          album.thumbnail,
                           fit: BoxFit.cover,
                         )
                       : Image.asset(

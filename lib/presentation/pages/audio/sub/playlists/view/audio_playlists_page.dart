@@ -10,6 +10,8 @@ import 'package:open_player/data/models/audio_playlist_model.dart';
 import 'package:open_player/logic/audio_playlist_bloc/audio_playlist_bloc.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../../../../../../utils/app_menu.dart';
+
 class PlaylistsPage extends StatelessWidget {
   const PlaylistsPage({super.key});
 
@@ -25,7 +27,7 @@ class PlaylistsPage extends StatelessWidget {
               SliverList.separated(
                 itemCount: state.playlists.length,
                 itemBuilder: (context, index) => PlaylistTile(
-                  title: "${state.playlists[index].name}",
+                  title: state.playlists[index].name,
                   trackCount: "${state.playlists[index].audios.length} tracks",
                   imageAsset: AppImages.defaultProfile,
                   playlist: state.playlists[index],
@@ -49,13 +51,12 @@ class PlaylistTile extends StatelessWidget {
   final String trackCount;
   final String imageAsset;
   final AudioPlaylistModel playlist;
-  const PlaylistTile({
-    super.key,
-    required this.title,
-    required this.trackCount,
-    required this.imageAsset,
-    required this.playlist
-  });
+  const PlaylistTile(
+      {super.key,
+      required this.title,
+      required this.trackCount,
+      required this.imageAsset,
+      required this.playlist});
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +84,36 @@ class PlaylistTile extends StatelessWidget {
         trackCount,
         style: TextStyle(color: Colors.grey.shade500, fontSize: 14),
       ),
-      trailing: IconButton(
-        icon: Icon(HugeIcons.strokeRoundedCodeCircle,
-            color: Colors.grey.shade500),
-        onPressed: () {
-          // TODO: Implement more options
+      trailing: GestureDetector(
+        onTapDown: (details) {
+          Offset position = details.globalPosition;
+          AppMenuHelper.showPopMenuAtPosition(
+              context: context,
+              position: position,
+              items: [
+                _deletePlaylist(context, playlist),
+              ]);
         },
+        child: Icon(HugeIcons.strokeRoundedMoreVertical,
+            color: Colors.grey.shade500),
+      ),
+    );
+  }
+
+  //----------------------------------------------------//
+  ///-----------------  Widgets  --------------------///
+  ///-------------------------------------------------///
+
+  ///--------------- Delete a Playlist
+  PopupMenuItem<dynamic> _deletePlaylist(
+      BuildContext context, AudioPlaylistModel playlist) {
+    return PopupMenuItem(
+      onTap: () {
+        context.read<AudioPlaylistBloc>().add(DeletePlaylistEvent(playlist));
+      },
+      child: ListTile(
+        title: Text("Delete"),
+        trailing: Icon(Icons.delete),
       ),
     );
   }
@@ -102,61 +127,66 @@ class PlaylistFloatingButton extends HookWidget {
     final ValueNotifier<String> playlistName = useState("");
     return FloatingActionButton(
       onPressed: () {
-        showGeneralDialog(
-          context: context,
-          pageBuilder: (context, animation, secondaryAnimation) => Dialog(
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  "Create Playlist".text.xl2.bold.make(),
-                  Gap(15),
-                  TextField(
-                    onChanged: (v) {
-                      playlistName.value = v.trim();
-                    },
-                    decoration: InputDecoration(
-                        suffixIcon: Icon(HugeIcons.strokeRoundedPlayList),
-                        hintText: "Your playlist name"),
-                  ),
-                  Gap(10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            context.pop();
-                          },
-                          child: Text("Cancel"),
-                        ),
-                      ),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            context.read<AudioPlaylistBloc>().add(
-                                CreatePlaylistEvent(AudioPlaylistModel(
-                                    name: playlistName.value,
-                                    created: DateTime.now(),
-                                    modified: DateTime.now(),
-                                    audios: [])));
-                            context.pop();
-                          },
-                          child: Text("Create"),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        );
+        showCreateAudioPlaylistDialog(context, playlistName);
       },
       child: Icon(
         HugeIcons.strokeRoundedPlayListAdd,
       ),
     ).pOnly(bottom: 100, right: 10);
   }
+}
+
+Future<Object?> showCreateAudioPlaylistDialog(
+    BuildContext context, ValueNotifier<String> playlistName) {
+  return showGeneralDialog(
+    context: context,
+    pageBuilder: (context, animation, secondaryAnimation) => Dialog(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            "Create Playlist".text.xl2.bold.make(),
+            Gap(15),
+            TextField(
+              onChanged: (v) {
+                playlistName.value = v.trim();
+              },
+              decoration: InputDecoration(
+                  suffixIcon: Icon(HugeIcons.strokeRoundedPlayList),
+                  hintText: "Your playlist name"),
+            ),
+            Gap(10),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.pop();
+                    },
+                    child: Text("Cancel"),
+                  ),
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.read<AudioPlaylistBloc>().add(CreatePlaylistEvent(
+                          AudioPlaylistModel(
+                              name: playlistName.value,
+                              created: DateTime.now(),
+                              modified: DateTime.now(),
+                              audios: [])));
+                      context.pop();
+                    },
+                    child: Text("Create"),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    ),
+  );
 }

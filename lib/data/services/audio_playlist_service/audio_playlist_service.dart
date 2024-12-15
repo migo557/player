@@ -1,10 +1,10 @@
-import 'package:hive/hive.dart';
+import 'package:color_log/color_log.dart';
 import 'package:open_player/base/db/hive_service.dart';
 import 'package:open_player/data/models/audio_playlist_model.dart';
 import 'package:open_player/data/models/audio_model.dart';
 
 class AudioPlaylistService {
-  final Box _playlistBox = MyHiveBoxes.audioPlaylist;
+  final _playlistBox = MyHiveBoxes.audioPlaylist;
 
   /// Creates a new playlist
   ///
@@ -65,17 +65,28 @@ class AudioPlaylistService {
     // Prevent duplicate audio entries
     if (!_checkIfPlaylistAlreadyHaveAudio(playlist, audio)) {
       // Create a new list to avoid modifying the original
-      final updatedAudios = List<AudioModel>.from(playlist.audios)..add(audio);
+      final updatedAudios = playlist.audios..add(audio);
 
       // Create an updated playlist model
-      final updatedPlaylist = AudioPlaylistModel(
+      final AudioPlaylistModel updatedPlaylist = AudioPlaylistModel(
           name: playlist.name,
           audios: updatedAudios,
           created: playlist.created,
           modified: DateTime.now());
+  
 
       // Save the updated playlist
-      await _playlistBox.put(playlist.name, updatedPlaylist);
+      await _playlistBox.put(playlist.name, updatedPlaylist).whenComplete(
+        () {
+          clog.debug("${audio.title} added to the ${playlist.name}");
+        },
+      ).onError(
+        (error, stackTrace) {
+          clog.debug("Adding audio to playlist error : ${error.toString()}");
+          clog.debug(
+              "Adding audio to playlist stackTrace : ${stackTrace.toString()}");
+        },
+      );
 
       return updatedPlaylist;
     }
@@ -108,7 +119,18 @@ class AudioPlaylistService {
           modified: DateTime.now());
 
       // Save the updated playlist
-      await _playlistBox.put(playlist.name, updatedPlaylist);
+      await _playlistBox.put(playlist.name, updatedPlaylist).whenComplete(
+        () {
+          clog.debug("${audio.title} removed from ${playlist.name}");
+        },
+      ).onError(
+        (error, stackTrace) {
+          clog.debug("Removing audio to playlist error : ${error.toString()}");
+          clog.debug(
+              "Removing audio to playlist stackTrace : ${stackTrace.toString()}");
+        },
+      );
+      ;
 
       return updatedPlaylist;
     }

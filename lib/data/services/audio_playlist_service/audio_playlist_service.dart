@@ -63,7 +63,7 @@ class AudioPlaylistService {
     }
 
     // Prevent duplicate audio entries
-    if (!_checkIfPlaylistAlreadyHaveAudio(playlist, audio)) {
+    if (!checkIfPlaylistAlreadyHaveAudio(playlist, audio)) {
       // Create a new list to avoid modifying the original
       final updatedAudios = List<AudioModel>.from(playlist.audios)
         ..add(audio);
@@ -109,7 +109,7 @@ class AudioPlaylistService {
     }
 
     // Check if audio exists in playlist
-    if (_checkIfPlaylistAlreadyHaveAudio(playlist, audio)) {
+    if (checkIfPlaylistAlreadyHaveAudio(playlist, audio)) {
       // Create a new list to avoid modifying the original
       final updatedAudios = List<AudioModel>.from(playlist.audios)
         ..remove(audio);
@@ -145,7 +145,7 @@ class AudioPlaylistService {
   /// Checks if an audio is already in the playlist
   ///
   /// Uses path as a unique identifier to prevent duplicates
-  bool _checkIfPlaylistAlreadyHaveAudio(
+  bool checkIfPlaylistAlreadyHaveAudio(
       AudioPlaylistModel playlist, AudioModel audio) {
     return playlist.audios
         .any((existingAudio) => existingAudio.path == audio.path);

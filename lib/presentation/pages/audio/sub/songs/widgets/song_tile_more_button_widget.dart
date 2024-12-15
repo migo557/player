@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/data/models/audio_model.dart';
+import 'package:open_player/data/services/audio_playlist_service/audio_playlist_service.dart';
 import 'package:open_player/data/services/favorite_audio_hive_service/audio_hive_service.dart';
 import 'package:open_player/data/services/file_service/file_service.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
@@ -99,24 +100,30 @@ PopupMenuItem<dynamic> _musicAddToPlaylist(
                     builder: (context, state) {
                       return Expanded(
                         child: ListView.builder(
-                          itemCount: state.playlists.length,
-                          itemBuilder: (context, index) => ListTile(
-                            title: state.playlists[index].name.text.make(),
-                            leading: Icon(HugeIcons.strokeRoundedPlayListAdd),
-                            onTap: () {
-                              clog.debug(
-                                  "${state.playlists[index].name} is clicked");
-                              context.read<AudioPlaylistBloc>().add(
-                                  AddAudioToPlaylistEvent(
-                                      state.playlists[index], audio));
+                            itemCount: state.playlists.length,
+                            itemBuilder: (context, index) {
+                              final playlist = state.playlists[index];
+                              return ListTile(
+                                title: state.playlists[index].name.text.make(),
+                                leading:
+                                    Icon(HugeIcons.strokeRoundedPlayListAdd),
+                                onTap: () {
+                                  clog.debug("${playlist.name} is clicked");
+                                  context.read<AudioPlaylistBloc>().add(
+                                      AddAudioToPlaylistEvent(playlist, audio));
 
-                              context.pop();
-                              VxToast.show(context,
-                                  msg:
-                                      "${audio.title} is added to the ${state.playlists[index].name} Playlist");
-                            },
-                          ),
-                        ),
+                                  context.pop();
+                                  VxToast.show(context,
+                                      msg:
+                                          "${audio.title} is added to the ${playlist.name} Playlist");
+                                },
+                                subtitle: AudioPlaylistService()
+                                        .checkIfPlaylistAlreadyHaveAudio(
+                                            playlist, audio)
+                                    ? "Audio already exist".text.make()
+                                    : null,
+                              );
+                            }),
                       );
                     },
                   ),

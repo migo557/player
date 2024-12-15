@@ -3,6 +3,9 @@ import 'package:color_log/color_log.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
+import '../../data/models/audio_model.dart';
+import '../../data/models/audio_playlist_model.dart';
+
 class MyHiveDatabase {
   static Future<void> initializeHive() async {
     try {
@@ -11,6 +14,11 @@ class MyHiveDatabase {
       final Directory appDocumentDirectory =
           await path_provider.getApplicationDocumentsDirectory();
       Hive.init(appDocumentDirectory.path);
+
+            Hive.registerAdapter(AudioModelAdapter());
+      clog.checkSuccess(true, "'AudioModelAdapter is registered ");
+      Hive.registerAdapter(AudioPlaylistModelAdapter());
+      clog.checkSuccess(true, "'AudioPlaylistModelAdapter is registered ");
 
       await Future.wait([
         //! Open the library box

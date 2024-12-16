@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class AudioPlayerTopBarWidget extends StatelessWidget {
   const AudioPlayerTopBarWidget({
@@ -29,29 +29,41 @@ class AudioPlayerTopBarWidget extends StatelessWidget {
           ),
           const Spacer(),
 
-          //--- More Button ---///
+          //--- Side Dialog ---///
           IconButton(
             onPressed: () {
-              // TODO: Implement
-              showCupertinoDialog(
-                context: context,
-                builder: (context) => CupertinoAlertDialog(
-                  title: const Text(
-                      'Equalizer, Music Visualization, 3D sound system, Synced Lyrics'),
-                  content: const Text('These features are on way...'),
-                  actions: [
-                    CupertinoDialogAction(
-                      child: const Text('OK'),
-                      onPressed: () => Navigator.pop(context),
+              VxDialog.showCustom(
+                context,
+                child: SizedBox(
+                  height: 150,
+                  width: mq.width * 0.25,
+                  child: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.equalizer,
+                        color: Colors.white,
+                      ),
                     ),
-                  ],
-                ),
+                    "Equalizer".text.white.xs.make(),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.playlist_add_outlined,
+                        color: Colors.white,
+                      ),
+                    ),
+                        "Add to Playlist".text.xs.white.make(),
+                  ].column(
+                    alignment: MainAxisAlignment.center,
+                  ).scrollVertical(),
+                ).glassMorphic().pOnly(left: mq.width * 0.75),
               );
             },
             color: Colors.white,
             iconSize: 25,
             tooltip: "More",
-            icon: const Icon(Icons.more_vert),
+            icon: const Icon(HugeIcons.strokeRoundedArrowLeft01),
           ),
         ],
       ),

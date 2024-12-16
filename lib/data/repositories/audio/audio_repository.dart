@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:color_log/color_log.dart';
+import 'package:open_player/data/models/picture_model.dart';
 import 'package:open_player/utils/audio_quality_calculator.dart';
 import '../../../base/services/permissions/app_permission_service.dart';
 // ignore: depend_on_referenced_packages
@@ -98,13 +99,22 @@ class AudioRepository implements AudioRepositoryBase {
       // codec: metadata.format, // If available in your metadata
     );
 
+    //----Thumbnail <I Made this My Custom PictureModel instead of using metadata package inbuilt Picture class for to compaitable with Hive>
+    final List<PictureModel> thumbnails = metadata.pictures.map(
+      (e) {
+        return PictureModel(
+          bytes: e.bytes,
+          mimetype: e.mimetype,
+        );
+      },
+    ).toList();
+
     return AudioModel(
       title: path.basenameWithoutExtension(audioPath),
-      file: metadata.file,
       ext: path.extension(audioPath),
       path: audioPath,
       size: File(audioPath).statSync().size,
-      thumbnail: metadata.pictures,
+      thumbnail: thumbnails,
       album: metadata.album ?? "unknown",
       artists: metadata.artist ?? "unknown",
       genre: metadata.genres,

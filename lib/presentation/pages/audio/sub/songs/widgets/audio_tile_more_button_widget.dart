@@ -7,13 +7,14 @@ import 'package:open_player/data/models/audio_model.dart';
 import 'package:open_player/data/services/favorite_audio_hive_service/audio_hive_service.dart';
 import 'package:open_player/data/services/file_service/file_service.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
+import 'package:open_player/presentation/common/methods/show_add_to_playlist_modal_bottom_sheet.dart';
 import 'package:open_player/presentation/common/widgets/audio_info_sheet/audio_info_sheet_widget.dart';
 import 'package:open_player/utils/app_menu.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class SongTileMoreButtonWidget extends StatelessWidget {
-  const SongTileMoreButtonWidget(
+class AudioTileMoreButtonWidget extends StatelessWidget {
+  const AudioTileMoreButtonWidget(
       {super.key,
       required this.path,
       required this.audio,
@@ -34,6 +35,7 @@ class SongTileMoreButtonWidget extends StatelessWidget {
             position: position,
             items: [
               _musicAddToFavorite(path),
+              _musicAddToPlaylist(context, audio),
               _renameMusic(context, path, audio.title),
               _toggleHideMusic(context, path),
               _deleteMusic(
@@ -73,6 +75,22 @@ PopupMenuItem<dynamic> _musicAddToFavorite(path) {
       ),
       trailing:
           Icon(isFavorite ? Icons.favorite : HugeIcons.strokeRoundedFavourite),
+    ),
+  );
+}
+
+///--------------- A D D  T O  P L A Y L I S T
+PopupMenuItem<dynamic> _musicAddToPlaylist(
+    BuildContext context, AudioModel audio) {
+  return PopupMenuItem(
+    onTap: () {
+      showAddToPlaylistModalBottomSheet(context, audio);
+    },
+    child: ListTile(
+      title: Text(
+        "Add to Playlist",
+      ),
+      trailing: Icon(Icons.playlist_add),
     ),
   );
 }

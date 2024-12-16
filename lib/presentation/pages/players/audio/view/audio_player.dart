@@ -42,7 +42,7 @@ class AudioPlayerPage extends HookWidget {
           //------------ Seek Bar
           AudioPlayerSeekBarWidget(
             enableTrackHeightOnSeeking: true,
-            trackHeight: 16,
+            trackHeight: 18,
             activeTrackColor: Colors.white,
             thumbColor: Colors.white,
             overlayColor: Colors.transparent,

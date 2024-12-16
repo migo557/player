@@ -70,7 +70,7 @@ class _AppBar extends StatelessWidget {
           image: DecorationImage(
               image: album.thumbnail.isNotEmpty
                   ? MemoryImage(
-                      album.thumbnail.first.bytes,
+                      album.thumbnail,
                     )
                   : AssetImage(AppImages.defaultProfile),
               fit: BoxFit.cover),
@@ -102,7 +102,7 @@ class _AppBar extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => UserProfilePreview(
-                      bytes: album.thumbnail.first.bytes,
+                      bytes: album.thumbnail,
                     ),
                   ),
                 );
@@ -115,7 +115,7 @@ class _AppBar extends StatelessWidget {
                   image: DecorationImage(
                     image: album.thumbnail.isNotEmpty
                         ? MemoryImage(
-                            album.thumbnail.first.bytes,
+                            album.thumbnail,
                           )
                         : AssetImage(AppImages.defaultProfile),
                     fit: BoxFit.cover,
@@ -131,7 +131,7 @@ class _AppBar extends StatelessWidget {
                     .color(textColor)
                     .fontFamily(AppFonts.poppins)
                     .fontWeight(FontWeight.w500)
-                    .make(),
+                    .make().scrollHorizontal(),
                 album.artist.text.color(textColor.withOpacity(0.8)).make(),
                 "${album.songCount} songs"
                     .text

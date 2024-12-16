@@ -49,7 +49,8 @@ class AudioFoldersPage extends StatelessWidget {
   List<String> _extractUniqueFolders(AudiosSuccess state) {
     final List<String> folders = [];
     state.allSongs.every((element) {
-      final dirPath = element.file.parent.path;
+      final file = File(element.path);
+      final dirPath = file.parent.path;
       if (!folders.contains(dirPath)) {
         folders.add(dirPath);
       }
@@ -64,8 +65,11 @@ class AudioFoldersPage extends StatelessWidget {
   Widget _buildFolderListTile(
       BuildContext context, String dirPath, AudiosSuccess state) {
     final dirName = path.basename(dirPath);
-    final songsInFolder =
-        state.allSongs.where((song) => song.file.parent.path == dirPath).length;
+
+    final songsInFolder = state.allSongs.where((song) {
+      final file = File(song.path);
+      return file.parent.path == dirPath;
+    }).length;
 
     return ListTile(
       contentPadding: EdgeInsets.zero,

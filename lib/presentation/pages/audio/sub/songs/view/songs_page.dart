@@ -63,49 +63,51 @@ class SongsPage extends HookWidget {
                   onRefresh: () async {
                     context.read<AudiosBloc>().add(AudiosLoadAllEvent());
                   },
-                  child: CustomScrollView(
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    slivers: [
-                      // Songs Length, Sort Chips
-                      SliverToBoxAdapter(
-                        child: SongsTopBarButtonsWidget(
-                          songsLength: songsLength,
-                          selectedFilter: selectedFilter,
-                        ),
-                      ),
-
-                      //---- SongTiles List
-                      SliverList.builder(
-                        addAutomaticKeepAlives: true,
-                        itemCount: songsLength,
-                        itemBuilder: (context, index) {
-                          return AudioTileWidget(
-                            audios: filteredSongs,
-                            index: index,
-                            state: audioState,
-                          );
-                        },
-                      ),
-
-                      //--- Scroll Top
-                      if (selectedFilter.value == SongsFiltered.all &&
-                          allsongsByName.length > 10)
+                  child: Scrollbar(
+                    child: CustomScrollView(
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      slivers: [
+                        // Songs Length, Sort Chips
                         SliverToBoxAdapter(
-                          child: TextButton.icon(
-                            onPressed: () {
-                              _controller.animToTop();
-                            },
-                            label: "Scroll Top".text.make(),
-                            icon: Icon(CupertinoIcons.chevron_up),
+                          child: SongsTopBarButtonsWidget(
+                            songsLength: songsLength,
+                            selectedFilter: selectedFilter,
                           ),
                         ),
-
-                      //------- Padding
-                      SliverPadding(
-                        padding: EdgeInsets.only(bottom: mq.height * 0.1),
-                      ),
-                    ],
+                    
+                        //---- SongTiles List
+                        SliverList.builder(
+                          addAutomaticKeepAlives: true,
+                          itemCount: songsLength,
+                          itemBuilder: (context, index) {
+                            return AudioTileWidget(
+                              audios: filteredSongs,
+                              index: index,
+                              state: audioState,
+                            );
+                          },
+                        ),
+                    
+                        //--- Scroll Top
+                        if (selectedFilter.value == SongsFiltered.all &&
+                            allsongsByName.length > 10)
+                          SliverToBoxAdapter(
+                            child: TextButton.icon(
+                              onPressed: () {
+                                _controller.animToTop();
+                              },
+                              label: "Scroll Top".text.make(),
+                              icon: Icon(CupertinoIcons.chevron_up),
+                            ),
+                          ),
+                    
+                        //------- Padding
+                        SliverPadding(
+                          padding: EdgeInsets.only(bottom: mq.height * 0.1),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

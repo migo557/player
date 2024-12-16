@@ -40,6 +40,11 @@ class AppThemes {
           backgroundColor: !themeState.isDefaultAppBarColor
               ? Color(themeState.customAppBarColor!)
               : null),
+      scrollbarTheme: ScrollbarThemeData(
+        thumbColor: WidgetStatePropertyAll(
+          Color(themeState.primaryColor),
+        ),
+      ),
     );
   }
 
@@ -75,6 +80,11 @@ class AppThemes {
             fontSize: 8,
             fontFamily: AppFonts.poppins,
             fontWeight: FontWeight.w500),
+      ),
+      scrollbarTheme: ScrollbarThemeData(
+        thumbColor: WidgetStatePropertyAll(
+          Color(themeState.primaryColor),
+        ),
       ),
     );
   }

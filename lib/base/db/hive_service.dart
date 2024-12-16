@@ -1,7 +1,11 @@
 import 'dart:io';
 import 'package:color_log/color_log.dart';
 import 'package:hive/hive.dart';
+import 'package:open_player/data/models/picture_model.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+
+import '../../data/models/audio_model.dart';
+import '../../data/models/audio_playlist_model.dart';
 
 class MyHiveDatabase {
   static Future<void> initializeHive() async {
@@ -11,6 +15,19 @@ class MyHiveDatabase {
       final Directory appDocumentDirectory =
           await path_provider.getApplicationDocumentsDirectory();
       Hive.init(appDocumentDirectory.path);
+
+      Hive.registerAdapter(AudioModelAdapter());
+      final isAudioModelRegistered = Hive.isAdapterRegistered(AudioModelAdapter().typeId);
+      clog.checkSuccess(isAudioModelRegistered, "'AudioModelAdapter is registered ");
+      Hive.registerAdapter(PictureModelAdapter());
+      final isPictureModelRegistered =
+          Hive.isAdapterRegistered(PictureModelAdapter().typeId);
+      clog.checkSuccess(isPictureModelRegistered, "'PictureModelAdapter is registered ");
+      Hive.registerAdapter(AudioPlaylistModelAdapter());
+      final isAudioPlaylistModelRegistered =
+          Hive.isAdapterRegistered(AudioPlaylistModelAdapter().typeId);
+      clog.checkSuccess(
+          isAudioPlaylistModelRegistered, "'AudioPlaylistModelAdapter is registered ");
 
       await Future.wait([
         //! Open the library box
@@ -30,7 +47,11 @@ class MyHiveDatabase {
         //! Favorite Video
         Hive.openBox("favorites_videos"),
 
-        Hive.openBox("recently_played_videos")
+        //! Recently Played Videos
+        Hive.openBox("recently_played_videos"),
+
+        //! Audio Playlist
+        Hive.openBox<AudioPlaylistModel>("audio_playlist"),
       ]).then(
         (value) {
           MyHiveBoxes.theme = value[0];
@@ -40,6 +61,7 @@ class MyHiveDatabase {
           MyHiveBoxes.favoriteAudios = value[4];
           MyHiveBoxes.favoriteVideos = value[5];
           MyHiveBoxes.recentlyPlayedVideos = value[6];
+          MyHiveBoxes.audioPlaylist = value[7];
         },
       );
 
@@ -61,6 +83,7 @@ class MyHiveBoxes {
   static late Box favoriteAudios;
   static late Box favoriteVideos;
   static late Box recentlyPlayedVideos;
+  static late Box audioPlaylist;
 }
 
 ///!---------------      MyHive Keys

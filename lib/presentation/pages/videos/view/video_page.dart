@@ -18,18 +18,20 @@ class VideosPage extends HookWidget {
              onRefresh: () async {
           context.read<VideosBloc>().add(VideosLoadEvent());
         },
-        child: CustomScrollView(
-          physics: BouncingScrollPhysics(),
-          slivers: [
-            //------------  AppBar -----------///
-            VideoPageSliverAppBarWidget(),
-        
-            //----------- Top Title And Sorting Button Row ---------///
-            VideoPageTitleAndSortingButtonWidget(selectedFilter: selectedFilter,),
-        
-            //----------- All Videos View -----------------///
-            VideoPageAllVideosViewWidget(selectedFilter: selectedFilter,),
-          ],
+        child: Scrollbar(
+          child: CustomScrollView(
+            physics: BouncingScrollPhysics(),
+            slivers: [
+              //------------  AppBar -----------///
+              VideoPageSliverAppBarWidget(),
+          
+              //----------- Top Title And Sorting Button Row ---------///
+              VideoPageTitleAndSortingButtonWidget(selectedFilter: selectedFilter,),
+          
+              //----------- All Videos View -----------------///
+              VideoPageAllVideosViewWidget(selectedFilter: selectedFilter,),
+            ],
+          ),
         ),
       ),
     );

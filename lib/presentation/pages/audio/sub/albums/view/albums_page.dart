@@ -105,7 +105,7 @@ class AlbumsPage extends StatelessWidget {
         artist: firstSong.artists,
         songCount: songs.length,
         songs: songs,
-        thumbnail: firstSong.thumbnail,
+        thumbnail: firstSong.thumbnail.first.bytes,
         year: firstSong.year,
         quality: firstSong.quality,
       );

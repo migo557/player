@@ -53,10 +53,25 @@ class AudioPlayerTopBarWidget extends StatelessWidget {
                       width: mq.width * 0.25,
                       child: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                              context.pop();
+                            VxDialog.showCustom(
+                              context,
+                              child: SizedBox(
+                                height: 100,
+                                width: 200,
+                                child: "Currently not available"
+                                    .text
+                                    .white
+                                    .makeCentered()
+                                    .p8(),
+                              ).glassMorphic(),
+                            );
+                          },
                           icon: Icon(
                             Icons.equalizer,
                             color: Colors.white,
+                            size: 35,
                           ),
                         ),
                         "Equalizer".text.white.xs.make(),
@@ -71,6 +86,7 @@ class AudioPlayerTopBarWidget extends StatelessWidget {
                               return IconButton(
                                 onPressed: () {
                                   if (audio != null) {
+                                    context.pop();
                                     showAddToPlaylistModalBottomSheet(
                                         context, audio);
                                   }
@@ -78,6 +94,7 @@ class AudioPlayerTopBarWidget extends StatelessWidget {
                                 icon: Icon(
                                   Icons.playlist_add_outlined,
                                   color: Colors.white,
+                                  size: 35,
                                 ),
                               );
                             }),

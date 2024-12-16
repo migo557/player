@@ -1,24 +1,20 @@
-import 'package:color_log/color_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/data/models/audio_model.dart';
-import 'package:open_player/data/services/audio_playlist_service/audio_playlist_service.dart';
 import 'package:open_player/data/services/favorite_audio_hive_service/audio_hive_service.dart';
 import 'package:open_player/data/services/file_service/file_service.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
+import 'package:open_player/presentation/common/methods/show_add_to_playlist_modal_bottom_sheet.dart';
 import 'package:open_player/presentation/common/widgets/audio_info_sheet/audio_info_sheet_widget.dart';
-import 'package:open_player/presentation/common/widgets/create_new_playlist_button.dart';
 import 'package:open_player/utils/app_menu.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../../../../logic/audio_playlist_bloc/audio_playlist_bloc.dart';
-
-class SongTileMoreButtonWidget extends StatelessWidget {
-  const SongTileMoreButtonWidget(
+class AudioTileMoreButtonWidget extends StatelessWidget {
+  const AudioTileMoreButtonWidget(
       {super.key,
       required this.path,
       required this.audio,
@@ -88,56 +84,7 @@ PopupMenuItem<dynamic> _musicAddToPlaylist(
     BuildContext context, AudioModel audio) {
   return PopupMenuItem(
     onTap: () {
-      showModalBottomSheet(
-          context: context,
-          builder: (context) => Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  "Playlist".text.xl3.bold.make(),
-                  Gap(10),
-                  CreateNewPlaylistButton(),
-                  BlocBuilder<AudioPlaylistBloc, AudioPlaylistState>(
-                    builder: (context, state) {
-                      return Expanded(
-                        child: ListView.builder(
-                            itemCount: state.playlists.length,
-                            itemBuilder: (context, index) {
-                              final playlist = state.playlists[index];
-                              return ListTile(
-                                title: state.playlists[index].name.text.make(),
-                                leading: Icon(HugeIcons.strokeRoundedPlayList),
-                                trailing: !AudioPlaylistService()
-                                        .checkIfPlaylistAlreadyHaveAudio(
-                                            playlist, audio)
-                                    ? Icon(Icons.playlist_add)
-                                    : null,
-                                onTap: () {
-                                  if (!AudioPlaylistService()
-                                      .checkIfPlaylistAlreadyHaveAudio(
-                                          playlist, audio)) {
-                                    clog.debug("${playlist.name} is clicked");
-                                    context.read<AudioPlaylistBloc>().add(
-                                        AddAudioToPlaylistEvent(
-                                            playlist, audio));
-
-                                    VxToast.show(context,
-                                        msg:
-                                            "${audio.title} is added to the ${playlist.name} Playlist");
-                                  }
-                                  context.pop();
-                                },
-                                subtitle: AudioPlaylistService()
-                                        .checkIfPlaylistAlreadyHaveAudio(
-                                            playlist, audio)
-                                    ? "Audio already exists".text.make()
-                                    : null,
-                              );
-                            }),
-                      );
-                    },
-                  ),
-                ],
-              ));
+      showAddToPlaylistModalBottomSheet(context, audio);
     },
     child: ListTile(
       title: Text(

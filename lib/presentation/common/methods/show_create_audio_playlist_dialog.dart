@@ -26,7 +26,7 @@ Future<Object?> showCreateAudioPlaylistDialog(
               },
               decoration: InputDecoration(
                   suffixIcon: Icon(HugeIcons.strokeRoundedPlayList),
-                  hintText: "Your playlist name"),
+                  hintText: "playlist name"),
             ),
             Gap(10),
             Row(
@@ -39,6 +39,7 @@ Future<Object?> showCreateAudioPlaylistDialog(
                     child: Text("Cancel"),
                   ),
                 ),
+                Gap(5),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {

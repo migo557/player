@@ -8,7 +8,7 @@ import 'package:open_player/base/assets/images/app_images.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
 import 'package:open_player/logic/audio_player_bloc/audio_player_bloc.dart';
 import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
-import 'package:open_player/presentation/pages/audio/sub/songs/widgets/song_tile_more_button_widget.dart';
+import 'package:open_player/presentation/pages/audio/sub/songs/widgets/audio_tile_more_button_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/view/audio_player.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_play_pause_button_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -230,19 +230,19 @@ class _AudioTile extends StatelessWidget {
 
                     Gap(2),
 
-                    // if (isPlaying)
-                      // QualityBadge(
-                      //   quality: audio.quality,
-                      //   isDark: true,
-                      //   size: 10,
-                      // ),
+                    if (isPlaying)
+                      QualityBadge(
+                        quality: audio.quality,
+                        isDark: true,
+                        size: 10,
+                      ),
                   ],
                 ),
               ),
 
               //-------- More Button
               if (!showRemoveFromPlaylistButton)
-                SongTileMoreButtonWidget(
+                AudioTileMoreButtonWidget(
                   audios: audios,
                   path: songPath,
                   audio: audio,

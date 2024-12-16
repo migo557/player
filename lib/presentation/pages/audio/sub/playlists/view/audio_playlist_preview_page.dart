@@ -151,7 +151,7 @@ class _AppBar extends StatelessWidget {
                     .color(textColor)
                     .fontFamily(AppFonts.poppins)
                     .fontWeight(FontWeight.w500)
-                    .make(),
+                    .make().scrollHorizontal(),
                 "${playlist.audios.length} songs"
                     .text
                     .color(textColor.withOpacity(0.5))

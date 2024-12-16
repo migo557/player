@@ -29,11 +29,11 @@ class PlaylistsPage extends StatelessWidget {
                 separatorBuilder: (context, index) => const Divider(
                   height: 1,
                   color: Colors.grey,
-                  indent: 80,
+                  indent: 100,
                 ),
               ),
 
-              SliverPadding(padding: EdgeInsets.only(bottom: 20)),
+              SliverPadding(padding: EdgeInsets.only(bottom: 10)),
             ],
           );
         },

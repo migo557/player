@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/base/router/router.dart';
 import 'package:open_player/data/models/audio_playlist_model.dart';
 import 'package:open_player/logic/audio_playlist_bloc/audio_playlist_bloc.dart';
@@ -40,7 +41,7 @@ class PlaylistTile extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: AppFonts.poppins),
       ),
       subtitle: Text(
         trackCount,

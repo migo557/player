@@ -131,7 +131,7 @@ class _AppBar extends StatelessWidget {
                     .color(textColor)
                     .fontFamily(AppFonts.poppins)
                     .fontWeight(FontWeight.w500)
-                    .make(),
+                    .make().scrollHorizontal(),
                 album.artist.text.color(textColor.withOpacity(0.8)).make(),
                 "${album.songCount} songs"
                     .text

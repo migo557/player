@@ -82,12 +82,14 @@ class FolderSongsPage extends StatelessWidget {
       children: [
         _buildSongsHeader(context, songs.length),
         Expanded(
-          child: ListView.builder(
-            itemCount: songs.length,
-            itemBuilder: (context, index) => AudioTileWidget(
-              audios: songs,
-              index: index,
-              state: state,
+          child: Scrollbar(
+            child: ListView.builder(
+              itemCount: songs.length,
+              itemBuilder: (context, index) => AudioTileWidget(
+                audios: songs,
+                index: index,
+                state: state,
+              ),
             ),
           ),
         ),

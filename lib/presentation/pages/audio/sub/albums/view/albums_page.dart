@@ -32,45 +32,47 @@ class AlbumsPage extends StatelessWidget {
             );
           }
 
-          return CustomScrollView(
-            physics: BouncingScrollPhysics(),
-            slivers: [
-              SliverPadding(
-                padding: EdgeInsets.only(
-                    left: 16.0, right: 16.0, bottom: 5, top: 40),
-                sliver: SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.65,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
+          return Scrollbar(
+            child: CustomScrollView(
+              physics: BouncingScrollPhysics(),
+              slivers: [
+                SliverPadding(
+                  padding: EdgeInsets.only(
+                      left: 16.0, right: 16.0, bottom: 5, top: 40),
+                  sliver: SliverGrid(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.65,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        final album = albums[index];
+                        return AlbumCard(album: album, state: state);
+                      },
+                      childCount: albums.length,
+                    ),
                   ),
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final album = albums[index];
-                      return AlbumCard(album: album, state: state);
+                ),
+            
+                //--- Scroll Top
+             if(albums.length>10)   SliverToBoxAdapter(
+                  child: TextButton.icon(
+                    onPressed: () {
+                      _controller.animToTop();
                     },
-                    childCount: albums.length,
+                    label: "Scroll Top".text.make(),
+                    icon: Icon(CupertinoIcons.chevron_up),
                   ),
                 ),
-              ),
-
-              //--- Scroll Top
-           if(albums.length>10)   SliverToBoxAdapter(
-                child: TextButton.icon(
-                  onPressed: () {
-                    _controller.animToTop();
-                  },
-                  label: "Scroll Top".text.make(),
-                  icon: Icon(CupertinoIcons.chevron_up),
+            
+                //------- Padding
+                SliverPadding(
+                  padding: EdgeInsets.only(bottom: 100),
                 ),
-              ),
-
-              //------- Padding
-              SliverPadding(
-                padding: EdgeInsets.only(bottom: 100),
-              ),
-            ],
+              ],
+            ),
           );
         }
 

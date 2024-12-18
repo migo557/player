@@ -97,7 +97,7 @@ class AboutPage extends StatelessWidget {
                       ),
                     ),
 
-                    const Gap(40),
+                    const Gap(20),
 
                     // Open Source Section
                     FadeInUp(
@@ -116,7 +116,7 @@ class AboutPage extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
-                            const Gap(16),
+                            const Gap(12),
                             Text(
                               "A powerful media player built with love and care, free from ads and tracking.",
                               textAlign: TextAlign.center,
@@ -180,7 +180,16 @@ class AboutPage extends StatelessWidget {
                           ),
                           const Gap(8),
                           Text(
-                            "Star on GitHub | GitLab",
+                            " ⭐ on",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                          Text(
+                            "GitHub | GitLab",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium

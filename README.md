@@ -8,7 +8,6 @@ Player is a beautifully designed, feature-rich offline media player for Android,
 
 ## 🌟 Key Highlights
 
-- 📱 **Full Offline Functionality**
 - 🎵 Audio & Video Playback
 - 🚫 Zero Ads
 - 🔒 Complete Privacy
@@ -21,6 +20,8 @@ Player is a beautifully designed, feature-rich offline media player for Android,
 - 🎵 Comprehensive Audio Playback
 - 📂 Local Media Library Management
 - 🖥️ Multiple Codec Support
+- 🗃️ Subtitles/Lyrics Support 
+- 🔉 Multi Audio Support
 
 ### Customization
 - 🌓 Dark and Light Themes
@@ -32,6 +33,7 @@ Player is a beautifully designed, feature-rich offline media player for Android,
 - 📋 Playlist Creation
 - 🔍 Powerful Media Search
 - 📝 Lyrics Display (for Audio)
+- 📱 Picture in Picture (PIP/Floating)
 - 📊 Playback History
 - 🎚️ Advanced Equalizer
 - 💾 Efficient Media Caching
@@ -120,20 +122,91 @@ Player is a beautifully designed, feature-rich offline media player for Android,
 
 **Your passion, code, and creativity propel Player forward!**
 
+## 🌐 Contributors Profiles
+
+### 🏆 Our Amazing Contributors
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="200">
+        <a href="https://github.com/frkudn">
+          <img src="https://github.com/frkudn.png" width="150" height="150" style="border-radius: 50%;" alt="frkudn"/>
+          <br/>
+          <strong>frkudn</strong>
+          <p>🚀 Project Creator</p>
+        </a>
+        <p>
+          <a href="https://github.com/frkudn">
+            <img src="https://img.shields.io/github/followers/frkudn?style=social" alt="GitHub Followers"/>
+          </a>
+        </p>
+        <details>
+          <summary>🔍 Contributor Details</summary>
+          
+          - 💻 **Role:** Lead Developer
+          - 🛠 **Skills:** Flutter, Dart
+          - 🌍 **Location:** Open Source
+          - 📦 **Contributions:** Core Architecture
+        </details>
+      </td>
+      <td align="center" width="200">
+        <a href="#">
+          <img src="https://ui-avatars.com/api/?name=Open+Slot&background=random" width="150" height="150" style="border-radius: 50%;" alt="Open Contributor"/>
+          <br/>
+          <strong>Open Contributor</strong>
+          <p>🤝 Your Space Here!</p>
+        </a>
+        <p>
+          <a href="#-contributing">
+            <img src="https://img.shields.io/badge/Contribute-Welcome-brightgreen?style=for-the-badge" alt="Contributions Welcome"/>
+          </a>
+        </p>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+
+
+#### Top Contributors
+1. [@frkudn](https://github.com/frkudn)
+   - **Contributions:** 
+     - 🏗️ Project Architecture
+     - 🎨 UI/UX Design
+     - 🚀 Core Development
+2. [@raj921](https://github.com/raj921)
+   - **Contributions:** 
+     - 😎 Fisrt Contributor
+     
+
+
+### 💡 How to Get Featured
+
+Want to see your profile here? 
+- 🍴 Fork the repository
+- 💻 Make meaningful contributions
+- 🚢 Submit a pull request
+- 🤝 Collaborate with the community
+
 ---
 
 <p align="center">
-  <img src="https://img.shields.io/github/contributors/frkudn/player?color=brightgreen&label=Total%20Contributors" alt="Contributors"/>
-  <img src="https://img.shields.io/badge/Open%20Source-❤️-brightgreen" alt="Open Source Love"/>
-  <img src="https://img.shields.io/github/last-commit/frkudn/player" alt="Last Commit"/>
+  <img src="https://img.shields.io/github/contributors/frkudn/player" alt="Contributors Count"/>
+  <img src="https://img.shields.io/github/commit-activity/m/frkudn/player" alt="Commit Activity"/>
 </p>
+
+**🌈 Every Contribution Matters! 🌈**
 
 
 ## 🗺️ Roadmap
 - [ ] Performance Optimizations
 - [ ] Additional Codec Support
 - [ ] Tablet UI Improvements
-- [ ] Network Streaming (Optional)
+- [ ] Desktop Version
+- [ ] Online Music Streaming 
+- [ ] Music Downloader
 
 ## 📞 Support
 

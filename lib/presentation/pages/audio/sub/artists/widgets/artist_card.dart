@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/data/models/artist_model.dart';
-import 'package:open_player/presentation/common/methods/show_create_audio_playlist_dialog.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ArtistCard extends StatelessWidget {
@@ -29,12 +27,10 @@ class ArtistCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(15)),
-              child: Container(
-                child: Icon(
-                  CupertinoIcons.person,
-                  size: 64,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+              child: Icon(
+                CupertinoIcons.person,
+                size: 64,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ),

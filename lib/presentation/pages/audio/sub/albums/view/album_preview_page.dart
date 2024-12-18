@@ -100,76 +100,78 @@ class _AppBar extends StatelessWidget {
 
           ///--------- Album Thumbnail & Title Row ----------///
           Align(
-              alignment: Alignment.bottomCenter,
-              child: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => UserProfilePreview(
-                          bytes: album.thumbnail,
+                  alignment: Alignment.bottomLeft,
+                  child: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserProfilePreview(
+                              bytes: album.thumbnail,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          image: DecorationImage(
+                            image: album.thumbnail.isNotEmpty
+                                ? MemoryImage(
+                                    album.thumbnail,
+                                  )
+                                : AssetImage(AppImages.defaultProfile),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    );
-                  },
-                  child: Container(
-                    height: 100,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      image: DecorationImage(
-                        image: album.thumbnail.isNotEmpty
-                            ? MemoryImage(
-                                album.thumbnail,
-                              )
-                            : AssetImage(AppImages.defaultProfile),
-                        fit: BoxFit.cover,
-                      ),
                     ),
-                  ),
-                ),
-                Gap(20),
-                [
-                  //------ Album Name
-                  album.name.text.xl3
-                      .color(textColor)
-                      .fontFamily(AppFonts.poppins)
-                      .fontWeight(FontWeight.w500)
-                      .make()
-                      .scrollHorizontal(),
+                    Gap(20),
+                    [
+                      //------ Album Name
+                      album.name.text.xl3
+                          .color(textColor)
+                          .fontFamily(AppFonts.poppins)
+                          .fontWeight(FontWeight.w500)
+                          .make()
+                          .scrollHorizontal(),
 
-                  //-------- Artist Name
-                  album.artist.text
-                      .color(isDarkMode ? Colors.white60 : Colors.black54)
-                      .make()
-                      .pSymmetric(h: 12, v: 4)
-                      .glassMorphic(
-                          border: Border.all(
-                            color: Colors.black26,
-                          ),
-                          circularRadius: 12),
+                      //-------- Artist Name
+                      album.artist.text
+                          .color(isDarkMode ? Colors.white60 : Colors.black54)
+                          .make()
+                          .pSymmetric(h: 12, v: 4)
+                          .glassMorphic(
+                              border: Border.all(
+                                color: Colors.black26,
+                              ),
+                              circularRadius: 12),
 
-                  Gap(3),
+                      Gap(3),
 
-                  //----- Songs Length
-                  "${album.songCount} songs"
-                      .text
-                      .color(Theme.of(context).primaryColor)
-                      .make()
-                      .pSymmetric(h: 12, v: 2)
-                      .glassMorphic(border: Border.all(color: Colors.black12))
-                ].column(
-                  crossAlignment: CrossAxisAlignment.start,
-                  alignment: MainAxisAlignment.center,
-                  axisSize: MainAxisSize.min,
-                )
-              ]
-                  .row(
-                      crossAlignment: CrossAxisAlignment.center,
-                      axisSize: MainAxisSize.min)
-                  .pOnly(bottom: 50, left: 12, right: 12)
-                  .scrollHorizontal()),
+                      //----- Songs Length
+                      "${album.songCount} songs"
+                          .text
+                          .color(Theme.of(context).primaryColor)
+                          .make()
+                          .pSymmetric(h: 12, v: 2)
+                          .glassMorphic(
+                              border: Border.all(color: Colors.black12))
+                    ].column(
+                      crossAlignment: CrossAxisAlignment.start,
+                      alignment: MainAxisAlignment.center,
+                      axisSize: MainAxisSize.min,
+                    )
+                  ]
+                      .row(
+                          crossAlignment: CrossAxisAlignment.center,
+                          alignment: MainAxisAlignment.start,
+                          axisSize: MainAxisSize.min)
+                      .scrollHorizontal())
+              .pOnly(bottom: 50, left: 12, right: 12),
 
           //-------- Back Button
           CustomBackButton().safeArea(),

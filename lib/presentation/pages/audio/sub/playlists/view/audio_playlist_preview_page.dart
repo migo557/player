@@ -110,7 +110,7 @@ class _AppBar extends StatelessWidget {
         child: [
           //------------- Bottom Gradient ----------//
           Align(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.bottomLeft,
             child: Container(
               height: 300,
               decoration: BoxDecoration(
@@ -119,7 +119,7 @@ class _AppBar extends StatelessWidget {
                 end: Alignment.topCenter,
                 colors: [
                   scaffoldColor,
-                  scaffoldColor.withOpacity(0.6),
+                  scaffoldColor.withOpacity(0.4),
                   scaffoldColor.withOpacity(0.1),
                 ],
               )),

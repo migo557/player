@@ -74,6 +74,7 @@ class _AppBar extends StatelessWidget {
       backgroundColor: Colors.transparent,
       expandedHeight: 300,
       floating: true,
+      //------------- Album Background ----------//
       flexibleSpace: Container(
         height: 300,
         width: double.infinity,
@@ -87,7 +88,7 @@ class _AppBar extends StatelessWidget {
               fit: BoxFit.cover),
         ),
         child: [
-          //------------- Album Background ----------//
+          //------------- Bottom Gradient Shade ----------//
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -107,38 +108,43 @@ class _AppBar extends StatelessWidget {
 
           ///--------- Album Thumbnail & Title Row ----------///
 
-          [
-            Container(
-              height: 100,
-              width: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                  image: artist.picture != null
-                      ? FileImage(
-                          File(artist.picture!.file.path),
-                        )
-                      : AssetImage(AppImages.defaultProfile),
-                  fit: BoxFit.cover,
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: [
+              Container(
+                height: 100,
+                width: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                    image: artist.picture != null
+                        ? FileImage(
+                            File(artist.picture!.file.path),
+                          )
+                        : AssetImage(AppImages.defaultProfile),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            Gap(20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                artist.name.text.xl3
-                    .color(textColor)
-                    .fontFamily(AppFonts.poppins)
-                    .fontWeight(FontWeight.w500)
-                    .make(),
-                "${artist.songCount} songs"
-                    .text
-                    .color(textColor.withOpacity(0.5))
-                    .make()
-              ],
-            ).centered()
-          ].row().p12().positioned(bottom: 50),
+              Gap(20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  artist.name.text.xl3
+                      .color(textColor)
+                      .fontFamily(AppFonts.poppins)
+                      .fontWeight(FontWeight.w500)
+                      .make(),
+                  "${artist.songCount} songs"
+                      .text
+                      .color(textColor.withOpacity(0.5))
+                      .make()
+                ],
+              )
+            ].row().pOnly(bottom: 50, left: 12, right: 12).scrollHorizontal(),
+          ),
 
           //-------- Back Button
           CustomBackButton().safeArea(),

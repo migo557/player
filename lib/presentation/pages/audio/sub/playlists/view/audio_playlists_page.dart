@@ -4,6 +4,7 @@ import 'package:open_player/base/assets/images/app_images.dart';
 import 'package:open_player/logic/audio_playlist_bloc/audio_playlist_bloc.dart';
 import 'package:open_player/presentation/pages/audio/sub/playlists/widgets/playlist_floating_button.dart';
 import 'package:open_player/presentation/pages/audio/sub/playlists/widgets/playlist_tile.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class PlaylistsPage extends StatelessWidget {
   const PlaylistsPage({super.key});
@@ -18,6 +19,12 @@ class PlaylistsPage extends StatelessWidget {
             slivers: [
               SliverPadding(padding: EdgeInsets.only(top: 12)),
               // Playlist Items
+
+              if (state.playlists.isEmpty)
+                SliverFillRemaining(
+                  child: "No Playlist found".text.makeCentered(),
+                ),
+
               SliverList.separated(
                 itemCount: state.playlists.length,
                 itemBuilder: (context, index) => PlaylistTile(

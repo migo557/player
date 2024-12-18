@@ -15,12 +15,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    ///------ Newly Added code for Media Kit -------------------///
-    packagingOptions {
-       // Fixes duplicate libraries build issue, 
-       // when your project uses more than one plugin that depend on C++ libs.
-        pickFirst 'lib/**/libc++_shared.so'
-    }  
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
@@ -58,11 +52,4 @@ flutter {
     source = "../.."
 }
 
-//-------------- New Code For Media Kit ------------------------///
-dependencies {
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.robolectric:robolectric:4.10.3'
-    testImplementation 'org.mockito:mockito-core:5.0.0'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-}
+

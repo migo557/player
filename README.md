@@ -48,7 +48,7 @@ Player is a beautifully designed, feature-rich offline media player for Android,
 ![Player Screenshot 1](assets/screenshot1.jpg)
 ![Player Screenshot 2](assets/screenshot2.jpg)
 ![Player Screenshot 3](assets/screenshot3.jpg)
-![Player Screenshot 3](assets/screenshot4.jpg)
+![Player Screenshot 4](assets/screenshot4.jpg)
 
 ## 🛠 Installation
 
@@ -62,17 +62,17 @@ Player is a beautifully designed, feature-rich offline media player for Android,
 
 ## 🌟 Contributors: The Minds Behind Player
 
-### Our Stellar Team
+### 🚀 Our Stellar Team
 
 <div align="center">
-  <table>
+  <table width="100%">
     <tr>
-      <td align="center" width="200">
+      <td align="center" width="50%">
         <a href="https://github.com/frkudn">
-          <img src="https://github.com/frkudn.png" width="120" height="120" alt="frkudn"/>
+          <img src="https://github.com/frkudn.png" width="150" height="150" style="border-radius: 50%;" alt="frkudn"/>
           <br/>
           <strong>frkudn</strong>
-          <p>🚀 Project Creator<br/>Flutter Developer</p>
+          <p>🏗️ Project Architect<br/>Flutter Innovator</p>
         </a>
         <p>
           <a href="https://github.com/frkudn">
@@ -80,12 +80,12 @@ Player is a beautifully designed, feature-rich offline media player for Android,
           </a>
         </p>
       </td>
-      <td align="center" width="200">
+      <td align="center" width="50%">
         <a href="#">
-          <img src="https://ui-avatars.com/api/?name=Contributor&background=random" width="120" height="120" alt="Placeholder Contributor"/>
+          <img src="https://ui-avatars.com/api/?name=Open+Contributor&background=random&color=fff" width="150" height="150" style="border-radius: 50%;" alt="Placeholder Contributor"/>
           <br/>
-          <strong>Open Slot</strong>
-          <p>🤝 Could Be You!<br/>Contribute Now</p>
+          <strong>Open Contributor Slot</strong>
+          <p>🤝 Your Opportunity Awaits!<br/>Be the Next Innovator</p>
         </a>
         <p>
           <a href="#-contributing">
@@ -97,33 +97,53 @@ Player is a beautifully designed, feature-rich offline media player for Android,
   </table>
 </div>
 
-### 🏆 Contribution Highlights
+### 🏆 Contribution Landscape
 
-| Contributor | Contributions | Impact |
-|------------|---------------|--------|
-| frkudn | 🎨 Core Development<br/>🚀 Architecture Design | 💯 Project Founder |
-| Community | 🐛 Bug Reports<br/>📝 Documentation | 🌐 Continuous Improvement |
+| 🌈 Contributor | 🛠 Contributions | 💡 Impact |
+|---------------|-----------------|-----------|
+| frkudn | 🎨 Core Development<br/>🚀 Architecture Design | 💯 Project Founder & Visionary |
+| Community | 🐛 Bug Reports<br/>📝 Documentation | 🌐 Collective Intelligence |
 
-### 🌈 How to Join Our Team
+### 🌟 How to Become a Player Contributor
 
-1. 🍴 **Fork the Repository**: Start your journey
-2. 💡 **Create a Feature Branch**: Innovate freely
-3. 🔧 **Implement Changes**: Solve real problems
-4. 🚢 **Submit Pull Request**: Share your genius
-5. 🤝 **Collaborate**: Grow together
+| Step | Action | Description |
+|------|--------|-------------|
+| 1. 🍴 | **Fork Repository** | Initiate your contribution journey |
+| 2. 💡 | **Create Branch** | Design your unique feature path |
+| 3. 🔧 | **Implement Changes** | Transform ideas into code |
+| 4. 🚢 | **Pull Request** | Share your innovative solution |
+| 5. 🤝 | **Collaborate** | Grow and learn together |
 
-### 💖 Special Thanks
+### 💖 Community Appreciation
 
-*To every contributor who believes in making media playback a delightful experience*
+*Celebrating every mind that transforms the multimedia experience*
 
-**Your code, creativity, and passion drive Player forward!**
+**Your passion, code, and creativity propel Player forward!**
 
 ---
 
 <p align="center">
-  <img src="https://img.shields.io/github/contributors/frkudn/player?color=brightgreen" alt="Contributors"/>
-  <img src="https://img.shields.io/badge/Open%20Source-%E2%9D%A4%EF%B8%8F-brightgreen" alt="Open Source Love"/>
+  <img src="https://img.shields.io/github/contributors/frkudn/player?color=brightgreen&label=Total%20Contributors" alt="Contributors"/>
+  <img src="https://img.shields.io/badge/Open%20Source-❤️-brightgreen" alt="Open Source Love"/>
+  <img src="https://img.shields.io/github/last-commit/frkudn/player" alt="Last Commit"/>
 </p>
+
+## 🤝 Contributing
+
+Interested in contributing? Great! Check out our [Contribution Guidelines](CONTRIBUTING.md).
+
+### Quick Contribution Steps
+1. Fork the Repository
+2. Create Feature Branch
+3. Commit Changes
+4. Push to Branch
+5. Open Pull Request
+
+## 🗺️ Roadmap
+- [ ] Performance Optimizations
+- [ ] Additional Codec Support
+- [ ] Tablet UI Improvements
+- [ ] Network Streaming (Optional)
 
 ## 📞 Support
 

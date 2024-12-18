@@ -36,67 +36,71 @@ class ArtistsPage extends StatelessWidget {
             );
           }
 
-          return CustomScrollView(
-            physics: BouncingScrollPhysics(),
-            slivers: [
-              SliverPadding(
-                padding: const EdgeInsets.only(
-                    left: 16.0, right: 16.0, bottom: 0, top: 40),
-                sliver: SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.85,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final artist = artists[index];
-                      return ArtistCard(
-                        artist: artist,
-                        onTap: () {
-                          // Navigate to artist details with filtered songs
-                          final artistSongs = state.allSongs.where((audio) {
-                            // Split the audio's artists and check if this artist is in the list
-                            final audioArtists = audio.artists
-                                .split(',')
-                                .map((a) => a.trim())
-                                .toList();
-                            return audioArtists.contains(artist.name);
-                          }).toList();
-                          // Navigate with artistSongs
+          return Scrollbar(
+            child: CustomScrollView(
+              physics: BouncingScrollPhysics(),
+              slivers: [
+                SliverPadding(
+                  padding: const EdgeInsets.only(
+                      left: 16.0, right: 16.0, bottom: 0, top: 40),
+                  sliver: SliverGrid(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.85,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        final artist = artists[index];
+                        return ArtistCard(
+                          artist: artist,
+                          onTap: () {
+                            // Navigate to artist details with filtered songs
+                            final artistSongs = state.allSongs.where((audio) {
+                              // Split the audio's artists and check if this artist is in the list
+                              final audioArtists = audio.artists
+                                  .split(',')
+                                  .map((a) => a.trim())
+                                  .toList();
+                              return audioArtists.contains(artist.name);
+                            }).toList();
+                            // Navigate with artistSongs
 
-                          final model = ArtistModel(
-                              name: artist.name,
-                              songCount: artistSongs.length,
-                              albumCount: artist.albumCount,
-                              songs: artistSongs);
-                          context.push(AppRoutes.artistPreviewRoute,
-                              extra: [model, state]);
-                        },
-                      );
-                    },
-                    childCount: artists.length,
+                            final model = ArtistModel(
+                                name: artist.name,
+                                songCount: artistSongs.length,
+                                albumCount: artist.albumCount,
+                                songs: artistSongs);
+                            context.push(AppRoutes.artistPreviewRoute,
+                                extra: [model, state]);
+                          },
+                        );
+                      },
+                      childCount: artists.length,
+                    ),
                   ),
                 ),
-              ),
 
-              //--- Scroll Top
-          if(artists.length>10)    SliverToBoxAdapter(
-                child: TextButton.icon(
-                  onPressed: () {
-                    _controller.animToTop();
-                  },
-                  label: "Scroll Top".text.make(),
-                  icon: Icon(CupertinoIcons.chevron_up),
+                //--- Scroll Top
+                if (artists.length > 10)
+                  SliverToBoxAdapter(
+                    child: TextButton.icon(
+                      onPressed: () {
+                        _controller.animToTop();
+                      },
+                      label: "Scroll Top".text.make(),
+                      icon: Icon(CupertinoIcons.chevron_up),
+                    ),
+                  ),
+
+                //------- Padding
+                SliverPadding(
+                  padding: EdgeInsets.only(bottom: 100),
                 ),
-              ),
-
-              //------- Padding
-              SliverPadding(
-                padding: EdgeInsets.only(bottom: 100),
-              ),
-            ],
+              ],
+            ),
           );
         }
 

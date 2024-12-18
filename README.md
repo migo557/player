@@ -128,16 +128,6 @@ Player is a beautifully designed, feature-rich offline media player for Android,
   <img src="https://img.shields.io/github/last-commit/frkudn/player" alt="Last Commit"/>
 </p>
 
-## 🤝 Contributing
-
-Interested in contributing? Great! Check out our [Contribution Guidelines](CONTRIBUTING.md).
-
-### Quick Contribution Steps
-1. Fork the Repository
-2. Create Feature Branch
-3. Commit Changes
-4. Push to Branch
-5. Open Pull Request
 
 ## 🗺️ Roadmap
 - [ ] Performance Optimizations

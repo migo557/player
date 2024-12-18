@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/data/models/audio_playlist_model.dart';
 import 'package:open_player/logic/audio_playlist_bloc/audio_playlist_bloc.dart';
 import 'package:open_player/utils/formater.dart';
@@ -101,12 +102,13 @@ class _AppBar extends StatelessWidget {
       flexibleSpace: Container(
         height: 300,
         width: double.infinity,
+        //------------- Playlist Background ----------//
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage(AppImages.defaultProfile), fit: BoxFit.cover),
         ),
         child: [
-          //------------- Playlist Background ----------//
+          //------------- Bottom Gradient ----------//
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -124,51 +126,93 @@ class _AppBar extends StatelessWidget {
             ),
           ),
 
-          ///---------  Playlist Title  ----------///
           [
             //----- Thumbnail
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                height: 100,
-                width: 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
-                    image: AssetImage(AppImages.defaultProfile),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
+            Icon(
+              HugeIcons.strokeRoundedPlaylist01,
+              color: Theme.of(context).primaryColor,
+              size: 45,
+            ).p24().glassMorphic(
+                blur: 5,
+                border: Border.all(color: Colors.black26),
+                circularRadius: 15),
             Gap(20),
 
             //--------- Title, Songs Length, Created & Modified
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                //-------- Playlist Name
                 playlist.name.text.xl3
                     .color(textColor)
                     .fontFamily(AppFonts.poppins)
                     .fontWeight(FontWeight.w500)
-                    .make().scrollHorizontal(),
-                "${playlist.audios.length} songs"
-                    .text
-                    .color(textColor.withOpacity(0.5))
                     .make(),
-                "${Formatter.formatDate(playlist.created)} created"
-                    .text
-                    .xs
-                    .gray500
-                    .make(),
-                "${Formatter.formatDateCustom(playlist.modified)} (${playlist.modified.hour}:${playlist.modified.minute}: ${playlist.modified.second} Time) \n last Modified"
-                    .text
-                    .xs
-                    .gray500
-                    .make(),
+
+                //------- Songs Length
+                [
+                  "${playlist.audios.length}"
+                      .text
+                      .color(textColor.withOpacity(0.5))
+                      .size(12)
+                      .bold
+                      .make(),
+                  " songs"
+                      .text
+                      .color(textColor.withOpacity(0.5))
+                      .size(12)
+                      .color(Theme.of(context).primaryColor)
+                      .bold
+                      .make()
+                ].row().pSymmetric(h: 12, v: 4).glassMorphic(
+                    blur: 10, border: Border.all(color: Colors.black26)),
+                Gap(5),
+                [
+                  //-------Created
+                  [
+                    Formatter.formatDate(playlist.created)
+                        .text
+                        .xs
+                        .size(1)
+                        .gray500
+                        .make(),
+                    " created"
+                        .text
+                        .xs
+                        .color(Theme.of(context).primaryColor)
+                        .size(2)
+                        .make()
+                  ].row(),
+
+                  //-------- Last Modified
+                  [
+                    "${Formatter.formatDateCustom(playlist.modified)} (${playlist.modified.hour}:${playlist.modified.minute}: ${playlist.modified.second} Time)"
+                        .text
+                        .xs
+                        .size(1)
+                        .gray500
+                        .make(),
+                    " last Modified"
+                        .text
+                        .xs
+                        .color(Theme.of(context).primaryColor)
+                        .size(2)
+                        .make()
+                  ].row(),
+                ]
+                    .column(crossAlignment: CrossAxisAlignment.start)
+                    .pSymmetric(h: 12, v: 5)
+                    .glassMorphic(
+                        blur: 3,
+                        shadowStrength: 1,
+                        border: Border.all(color: Colors.black12),
+                        circularRadius: 8)
+                    .scrollHorizontal(),
               ],
-            ).centered()
-          ].row().p12().positioned(bottom: 50),
+            ).scrollHorizontal().centered()
+          ].row().p12().positioned(
+                bottom: 50,
+              ),
 
           //-------- Back Button
           CustomBackButton().safeArea(),

@@ -126,93 +126,95 @@ class _AppBar extends StatelessWidget {
             ),
           ),
 
-          [
-            //----- Thumbnail
-            Icon(
-              HugeIcons.strokeRoundedPlaylist01,
-              color: Theme.of(context).primaryColor,
-              size: 45,
-            ).p24().glassMorphic(
-                blur: 5,
-                border: Border.all(color: Colors.black26),
-                circularRadius: 15),
-            Gap(20),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: [
+              //----- Thumbnail
+              Icon(
+                HugeIcons.strokeRoundedPlaylist01,
+                color: Theme.of(context).primaryColor,
+                size: 45,
+              ).p24().glassMorphic(
+                  blur: 5,
+                  border: Border.all(color: Colors.black26),
+                  circularRadius: 15),
+              Gap(20),
 
-            //--------- Title, Songs Length, Created & Modified
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //-------- Playlist Name
-                playlist.name.text.xl3
-                    .color(textColor)
-                    .fontFamily(AppFonts.poppins)
-                    .fontWeight(FontWeight.w500)
-                    .make(),
-
-                //------- Songs Length
-                [
-                  "${playlist.audios.length}"
-                      .text
-                      .color(textColor.withOpacity(0.5))
-                      .size(12)
-                      .bold
+              //--------- Title, Songs Length, Created & Modified
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  //-------- Playlist Name
+                  playlist.name.text.xl3
+                      .color(textColor)
+                      .fontFamily(AppFonts.poppins)
+                      .fontWeight(FontWeight.w500)
                       .make(),
-                  " songs"
-                      .text
-                      .color(textColor.withOpacity(0.5))
-                      .size(12)
-                      .color(Theme.of(context).primaryColor)
-                      .bold
-                      .make()
-                ].row().pSymmetric(h: 12, v: 4).glassMorphic(
-                    blur: 10, border: Border.all(color: Colors.black26)),
-                Gap(5),
-                [
-                  //-------Created
-                  [
-                    Formatter.formatDate(playlist.created)
-                        .text
-                        .xs
-                        .size(1)
-                        .gray500
-                        .make(),
-                    " created"
-                        .text
-                        .xs
-                        .color(Theme.of(context).primaryColor)
-                        .size(2)
-                        .make()
-                  ].row(),
 
-                  //-------- Last Modified
+                  //------- Songs Length
                   [
-                    "${Formatter.formatDateCustom(playlist.modified)} (${playlist.modified.hour}:${playlist.modified.minute}: ${playlist.modified.second} Time)"
+                    "${playlist.audios.length}"
                         .text
-                        .xs
-                        .size(1)
-                        .gray500
+                        .color(textColor.withOpacity(0.5))
+                        .size(12)
+                        .bold
                         .make(),
-                    " last Modified"
+                    " songs"
                         .text
-                        .xs
+                        .color(textColor.withOpacity(0.5))
+                        .size(12)
                         .color(Theme.of(context).primaryColor)
-                        .size(2)
+                        .bold
                         .make()
-                  ].row(),
-                ]
-                    .column(crossAlignment: CrossAxisAlignment.start)
-                    .pSymmetric(h: 12, v: 5)
-                    .glassMorphic(
-                        blur: 3,
-                        shadowStrength: 1,
-                        border: Border.all(color: Colors.black12),
-                        circularRadius: 8)
-                    .scrollHorizontal(),
-              ],
-            ).scrollHorizontal().centered()
-          ].row().p12().positioned(
-                bottom: 50,
-              ),
+                  ].row().pSymmetric(h: 12, v: 4).glassMorphic(
+                      blur: 10, border: Border.all(color: Colors.black26)),
+                  Gap(5),
+                  [
+                    //-------Created
+                    [
+                      Formatter.formatDate(playlist.created)
+                          .text
+                          .xs
+                          .size(1)
+                          .gray500
+                          .make(),
+                      " created"
+                          .text
+                          .xs
+                          .color(Theme.of(context).primaryColor)
+                          .size(2)
+                          .make()
+                    ].row(),
+
+                    //-------- Last Modified
+                    [
+                      "${Formatter.formatDateCustom(playlist.modified)} (${playlist.modified.hour}:${playlist.modified.minute}: ${playlist.modified.second} Time)"
+                          .text
+                          .xs
+                          .size(1)
+                          .gray500
+                          .make(),
+                      " last Modified"
+                          .text
+                          .xs
+                          .color(Theme.of(context).primaryColor)
+                          .size(2)
+                          .make()
+                    ].row(),
+                  ]
+                      .column(crossAlignment: CrossAxisAlignment.start)
+                      .pSymmetric(h: 12, v: 5)
+                      .glassMorphic(
+                          blur: 3,
+                          shadowStrength: 1,
+                          border: Border.all(color: Colors.black12),
+                          circularRadius: 8)
+                      .scrollHorizontal(),
+                ],
+              )
+            ].row().pOnly(bottom: 50, left: 12, right: 12).scrollHorizontal(),
+          ),
 
           //-------- Back Button
           CustomBackButton().safeArea(),

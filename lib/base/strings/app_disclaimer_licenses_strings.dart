@@ -32,9 +32,8 @@ class AppDisclaimerAndLicensesStrings {
 
   ///!------  Licenses
   static const mitLicensesEn = """
-Copyright (c) 2024 Player
-Developer: Furqan Uddin
-Email: frkudn@protonmail.com
+Copyright (c) 2025 Player
+frkudn@protonmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -16,7 +16,7 @@ class UserDataState extends Equatable {
 
   /// Creates initial state with default values
   factory UserDataState.initial() => UserDataState(
-        username: MyHiveBoxes.user.get(MyHiveKeys.userUsername) ?? 'User',
+        username: MyHiveBoxes.user.get(MyHiveKeys.userUsername) ?? 'Dear user!',
         profileImagePath: MyHiveBoxes.user.get(MyHiveKeys.userProfilePicture),
         isLoggedIn: MyHiveBoxes.user.get(MyHiveKeys.userIsLoggedIn) ?? false,
       );

@@ -141,22 +141,46 @@ class AboutPage extends StatelessWidget {
                       duration: const Duration(milliseconds: 800),
                       child: Column(
                         children: [
-                          Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color:
-                                  Theme.of(context).cardColor.withOpacity(0.1),
-                              shape: BoxShape.circle,
-                            ),
-                            child: const SocialMediaIconButton(
-                              url: "https://github.com/frkudn/player",
-                              icon: HugeIcons.strokeRoundedGithub,
-                              iconSize: 40.0,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              //---- GitHub
+                              Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .cardColor
+                                      .withOpacity(0.1),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const SocialMediaIconButton(
+                                  url: "https://github.com/frkudn/player",
+                                  icon: HugeIcons.strokeRoundedGithub,
+                                  iconSize: 40.0,
+                                ),
+                              ),
+                              Gap(5),
+                              //---- GitLab
+                              Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .cardColor
+                                      .withOpacity(0.1),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const SocialMediaIconButton(
+                                  url: "https://gitlab.com/frkudn/player",
+                                  icon: HugeIcons.strokeRoundedGitlab,
+                                  iconSize: 40.0,
+                                ),
+                              ),
+                            ],
                           ),
                           const Gap(8),
                           Text(
-                            "Star on GitHub",
+                            "Star on GitHub | GitLab",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium

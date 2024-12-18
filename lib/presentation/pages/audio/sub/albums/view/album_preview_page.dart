@@ -5,6 +5,7 @@ import 'package:open_player/base/assets/images/app_images.dart';
 import 'package:open_player/data/models/album_model.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';
 import 'package:open_player/presentation/common/widgets/custom_back_button.dart';
+import 'package:open_player/utils/extensions.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../settings/user_profile/widgets/user_profile_preview.dart';
@@ -58,11 +59,14 @@ class _AppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = context.themeCubit.state.isDarkMode;
+
     return SliverAppBar(
       backgroundColor: Colors.transparent,
       automaticallyImplyLeading: false,
       expandedHeight: 300,
       floating: true,
+      //------------- Album Background ----------//
       flexibleSpace: Container(
         height: 300,
         width: double.infinity,
@@ -76,7 +80,7 @@ class _AppBar extends StatelessWidget {
               fit: BoxFit.cover),
         ),
         child: [
-          //------------- Album Background ----------//
+          //------------- Bottom Gradient ----------//
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -87,7 +91,7 @@ class _AppBar extends StatelessWidget {
                 end: Alignment.topCenter,
                 colors: [
                   scaffoldColor,
-                  scaffoldColor.withOpacity(0.6),
+                  scaffoldColor.withOpacity(0.3),
                   scaffoldColor.withOpacity(0.1),
                 ],
               )),
@@ -95,51 +99,77 @@ class _AppBar extends StatelessWidget {
           ),
 
           ///--------- Album Thumbnail & Title Row ----------///
-          [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UserProfilePreview(
-                      bytes: album.thumbnail,
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserProfilePreview(
+                          bytes: album.thumbnail,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                        image: album.thumbnail.isNotEmpty
+                            ? MemoryImage(
+                                album.thumbnail,
+                              )
+                            : AssetImage(AppImages.defaultProfile),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                );
-              },
-              child: Container(
-                height: 100,
-                width: 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
-                    image: album.thumbnail.isNotEmpty
-                        ? MemoryImage(
-                            album.thumbnail,
-                          )
-                        : AssetImage(AppImages.defaultProfile),
-                    fit: BoxFit.cover,
-                  ),
                 ),
-              ),
-            ),
-            Gap(20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                album.name.text.xl3
-                    .color(textColor)
-                    .fontFamily(AppFonts.poppins)
-                    .fontWeight(FontWeight.w500)
-                    .make().scrollHorizontal(),
-                album.artist.text.color(textColor.withOpacity(0.8)).make(),
-                "${album.songCount} songs"
-                    .text
-                    .color(textColor.withOpacity(0.5))
-                    .make()
-              ],
-            ).centered()
-          ].row().p12().positioned(bottom: 50),
+                Gap(20),
+                [
+                  //------ Album Name
+                  album.name.text.xl3
+                      .color(textColor)
+                      .fontFamily(AppFonts.poppins)
+                      .fontWeight(FontWeight.w500)
+                      .make()
+                      .scrollHorizontal(),
+
+                  //-------- Artist Name
+                  album.artist.text
+                      .color(isDarkMode ? Colors.white60 : Colors.black54)
+                      .make()
+                      .pSymmetric(h: 12, v: 4)
+                      .glassMorphic(
+                          border: Border.all(
+                            color: Colors.black26,
+                          ),
+                          circularRadius: 12),
+
+                  Gap(3),
+
+                  //----- Songs Length
+                  "${album.songCount} songs"
+                      .text
+                      .color(Theme.of(context).primaryColor)
+                      .make()
+                      .pSymmetric(h: 12, v: 2)
+                      .glassMorphic(border: Border.all(color: Colors.black12))
+                ].column(
+                  crossAlignment: CrossAxisAlignment.start,
+                  alignment: MainAxisAlignment.center,
+                  axisSize: MainAxisSize.min,
+                )
+              ]
+                  .row(
+                      crossAlignment: CrossAxisAlignment.center,
+                      axisSize: MainAxisSize.min)
+                  .pOnly(bottom: 50, left: 12, right: 12)
+                  .scrollHorizontal()),
 
           //-------- Back Button
           CustomBackButton().safeArea(),

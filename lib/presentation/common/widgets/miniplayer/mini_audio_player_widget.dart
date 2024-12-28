@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:open_player/presentation/common/widgets/animated_auto_scroll_text_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_next_button_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_position_and_duration_widget.dart';
 import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_previous_button_widget.dart';
@@ -18,7 +19,8 @@ import '../../../pages/players/audio/view/audio_player.dart';
 import '../../../pages/players/audio/widgets/audio_player_play_pause_button_widget.dart';
 
 class MiniAudioPlayerWidget extends StatelessWidget {
-  const MiniAudioPlayerWidget({super.key, this.height, this.color, this.shadowColor});
+  const MiniAudioPlayerWidget(
+      {super.key, this.height, this.color, this.shadowColor});
   final double? height;
   final Color? color;
   final Color? shadowColor;
@@ -104,10 +106,8 @@ class MiniAudioPlayerWidget extends StatelessWidget {
 
                                   ///--------------- Music Title ------------------//
                                   Expanded(
-                                    child: Text(
+                                    child: AnimatedAutoScrollTextWidget(
                                       title,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                         fontFamily: AppFonts.poppins,
                                         color: Colors.white,
@@ -147,7 +147,11 @@ class MiniAudioPlayerWidget extends StatelessWidget {
 
                                     //----------- Slider
                                     Flexible(
-                                      child: AudioPlayerSeekBarWidget(enabledThumbRadius: 6,activeTrackColor: Colors.white,thumbColor: Colors.white,),
+                                      child: AudioPlayerSeekBarWidget(
+                                        enabledThumbRadius: 6,
+                                        activeTrackColor: Colors.white,
+                                        thumbColor: Colors.white,
+                                      ),
                                     ),
 
                                     //------- Duration

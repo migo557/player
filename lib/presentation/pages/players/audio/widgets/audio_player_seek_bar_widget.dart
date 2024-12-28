@@ -42,6 +42,7 @@ class AudioPlayerSeekBarWidget extends StatelessWidget {
                   data: SliderThemeData(
                     overlayColor: overlayColor,
                     activeTrackColor: activeTrackColor,
+                    inactiveTrackColor: Colors.black26,
                     trackHeight: enableTrackHeightOnSeeking
                         ? successState.isSeeking
                             ? trackHeight

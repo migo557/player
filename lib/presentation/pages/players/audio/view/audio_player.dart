@@ -46,6 +46,7 @@ class AudioPlayerPage extends HookWidget {
             activeTrackColor: Colors.white,
             thumbColor: Colors.white,
             overlayColor: Colors.transparent,
+            
           ),
 
           //------------ Position & Duration

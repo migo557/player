@@ -149,21 +149,7 @@ Player is a beautifully designed, feature-rich offline media player for Android,
           - 🌍 **Location:** Open Source
           - 📦 **Contributions:** Core Architecture
         </details>
-      </td>
-      <td align="center" width="200">
-        <a href="#">
-          <img src="https://ui-avatars.com/api/?name=Open+Slot&background=random" width="150" height="150" style="border-radius: 50%;" alt="Open Contributor"/>
-          <br/>
-          <strong>Open Contributor</strong>
-          <p>🤝 Your Space Here!</p>
-        </a>
-        <p>
-          <a href="#-contributing">
-            <img src="https://img.shields.io/badge/Contribute-Welcome-brightgreen?style=for-the-badge" alt="Contributions Welcome"/>
-          </a>
-        </p>
-      </td>
-    </tr>
+    
   </table>
 </div>
 
@@ -179,6 +165,8 @@ Player is a beautifully designed, feature-rich offline media player for Android,
 2. [@raj921](https://github.com/raj921)
    - **Contributions:** 
      - 😎 Fisrt Contributor
+     - Hide media button feature
+       
      
 
 
@@ -203,7 +191,6 @@ Want to see your profile here?
 ## 🗺️ Roadmap
 - [ ] Performance Optimizations
 - [ ] Additional Codec Support
-- [ ] Tablet UI Improvements
 - [ ] Desktop Version
 - [ ] Online Music Streaming 
 - [ ] Music Downloader

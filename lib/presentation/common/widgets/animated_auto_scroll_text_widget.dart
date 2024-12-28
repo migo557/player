@@ -33,7 +33,7 @@ class AnimatedAutoScrollTextWidget extends StatelessWidget {
               showFadingOnlyWhenScrolling: false,
               startAfter: Duration(seconds: 3),
               crossAxisAlignment: CrossAxisAlignment.start,
-
+              velocity: 30,
             ));
       } else {
         return SizedBox(

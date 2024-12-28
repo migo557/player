@@ -2,8 +2,10 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:marquee/marquee.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/data/services/favorite_audio_hive_service/audio_hive_service.dart';
+import 'package:open_player/presentation/common/widgets/animated_auto_scroll_text_widget.dart';
 import 'package:open_player/presentation/common/widgets/like_button/animated_like_button.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
@@ -54,14 +56,18 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                     Expanded(
                       child: [
                         //------------- TITLE ----------------//
-                        "$title    "
-                            .text
-                            .white
-                            .minFontSize(25)
-                            .fontFamily(AppFonts.poppins)
-                            .shadow(0, 0, 3, Colors.black38)
-                            .make()
-                            .scrollHorizontal(),
+                        AnimatedAutoScrollTextWidget(
+                          title,
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.white,
+                              shadows: [
+                                Shadow(
+                                    blurRadius: 3,
+                                    offset: Offset(0, 0),
+                                    color: Colors.black38),
+                              ]),
+                        ),
 
                         //------------------- ARTISTS ------------------//
                         [

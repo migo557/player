@@ -100,6 +100,7 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                       size: 40,
                       initialLiked: isFavorite, // Control the initial state
                       activeColor: Color(themeState.primaryColor),
+                      inactiveColor: Colors.white24,
                       bubbleColors: [
                         Color(themeState.primaryColor).withValues(alpha: 0.1),
                         Color(themeState.primaryColor).withValues(alpha: 0.3),

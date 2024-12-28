@@ -2,13 +2,13 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:marquee/marquee.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/data/services/favorite_audio_hive_service/audio_hive_service.dart';
 import 'package:open_player/presentation/common/widgets/animated_auto_scroll_text_widget.dart';
-import 'package:open_player/presentation/common/widgets/like_button/animated_like_button.dart';
 import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
 import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
+import 'package:open_player/presentation/common/widgets/reaction_button/reaction_button.dart';
+import 'package:open_player/utils/extensions.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 
@@ -20,6 +20,7 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
   @override
   Widget build(BuildContext context) {
     final Size mq = MediaQuery.sizeOf(context);
+    final themeState = context.themeCubit.state;
 
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -95,14 +96,22 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                     ),
 
                     //------------- Like Button -------------//
-                    AnimatedLikeButton(
-                      isLike: isFavorite,
-                      activeColor: Theme.of(context).primaryColor,
+                    ReactionButton(
+                      size: 40,
+                      initialLiked: isFavorite, // Control the initial state
+                      activeColor: Color(themeState.primaryColor),
+                      bubbleColors: [
+                        Color(themeState.primaryColor).withValues(alpha: 0.1),
+                        Color(themeState.primaryColor).withValues(alpha: 0.3),
+                        Color(themeState.primaryColor).withValues(alpha: 0.6),
+                        Color(themeState.primaryColor).withValues(alpha: 0.9),
+                      ],
+
                       onTap: () {
                         FavoritesAudioHiveService()
                             .toggleFavorite(currentFilePath);
                       },
-                    ).pOnly(left: 5)
+                    ).pOnly(left: 5, bottom: 5),
                   ],
                 );
               },

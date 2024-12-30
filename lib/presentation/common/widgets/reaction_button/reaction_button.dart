@@ -7,14 +7,14 @@ class ReactionButton extends StatefulWidget {
   final Color activeColor;
   final Color inactiveColor;
   final VoidCallback onTap; // The callback to be triggered on tap
-  final bool initialLiked; // Initial state for liking
+  final bool liked; // Initial state for liking
   final List<Color> bubbleColors;
 
   const ReactionButton({
     super.key,
     this.size = 30,
     required this.onTap, // The callback on tap
-    required this.initialLiked, // Initial liked state
+    required this.liked, // Initial liked state
     this.activeColor = const Color(0xFFFF5252),
     this.inactiveColor = Colors.grey,
     this.bubbleColors = const [
@@ -33,12 +33,10 @@ class _ReactionButtonState extends State<ReactionButton>
     with TickerProviderStateMixin {
   late AnimationController _bubblesController;
   late AnimationController _scaleController;
-  bool _isLiked = false; // Internal state for liked state
 
   @override
   void initState() {
     super.initState();
-    _isLiked = widget.initialLiked;
 
     _bubblesController = AnimationController(
       duration: const Duration(milliseconds: 1000),
@@ -75,14 +73,12 @@ class _ReactionButtonState extends State<ReactionButton>
 
   // Handle the heart like and bubble animation
   void _onTap() {
-    setState(() {
-      _isLiked = !_isLiked; // Toggle the liked state
-    });
+    setState(() {});
 
     // Trigger external onTap callback
     widget.onTap();
 
-    if (_isLiked) {
+    if (widget.liked) {
       // Start bubble animation when liked
       _bubblesController.forward(from: 0);
     }
@@ -102,7 +98,7 @@ class _ReactionButtonState extends State<ReactionButton>
       ),
     );
 
-    final bubbles = _isLiked ? _generateInitialBubbles() : [];
+    final bubbles = widget.liked ? _generateInitialBubbles() : [];
 
     return GestureDetector(
       onTap: _onTap,
@@ -112,7 +108,7 @@ class _ReactionButtonState extends State<ReactionButton>
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            if (_isLiked) // Show bubbles only when liked
+            if (widget.liked) // Show bubbles only when liked
               AnimatedBuilder(
                 animation: _bubblesController,
                 builder: (context, _) {
@@ -153,18 +149,23 @@ class _ReactionButtonState extends State<ReactionButton>
               child: Stack(
                 children: [
                   Icon(
-                    CupertinoIcons.heart,
+                    widget.liked
+                        ? CupertinoIcons.heart_fill
+                        : CupertinoIcons.heart,
                     size: widget.size,
                     color: Colors.grey.withValues(alpha: 0.3),
                   ),
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 200),
                     child: Icon(
-                      _isLiked? CupertinoIcons.heart_fill:CupertinoIcons.heart,
-                      key: ValueKey(_isLiked),
+                      widget.liked
+                          ? CupertinoIcons.heart_fill
+                          : CupertinoIcons.heart,
+                      key: ValueKey(widget.liked),
                       size: widget.size,
-                      color:
-                          _isLiked ? widget.activeColor : widget.inactiveColor,
+                      color: widget.liked
+                          ? widget.activeColor
+                          : widget.inactiveColor,
                     ),
                   ),
                 ],

@@ -98,7 +98,7 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                     //------------- Like Button -------------//
                     ReactionButton(
                       size: 40,
-                      initialLiked: isFavorite, // Control the initial state
+                      liked: isFavorite, // Control the initial state
                       activeColor: Color(themeState.primaryColor),
                       inactiveColor: Colors.white24,
                       bubbleColors: [

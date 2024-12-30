@@ -27,7 +27,7 @@ class VideoPageAllVideosViewWidget extends HookWidget {
         } else if (state is VideosSuccess) {
           if (state.videos.isEmpty) {
             // Display a message when no videos are found.
-            return SliverToBoxAdapter(
+            return SliverFillRemaining(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -85,9 +85,9 @@ class VideoPlayerBottomWidget extends StatelessWidget {
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
         colors: [
-          Colors.black12.withOpacity(0.6),
-          Colors.black12.withOpacity(0.5),
-          Colors.black12.withOpacity(0.07),
+          Colors.black12.withValues(alpha: 0.6),
+          Colors.black12.withValues(alpha: 0.5),
+          Colors.black12.withValues(alpha: 0.07),
    
         ],
       ),

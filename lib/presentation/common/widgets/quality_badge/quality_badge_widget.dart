@@ -115,13 +115,14 @@ class QualityBadge extends HookWidget {
                 end: Alignment.bottomRight,
                 colors: [
                   baseColor(quality),
-                  baseColor(quality).withOpacity(0.8),
-                  baseColor(quality).withOpacity(0.9),
+                  baseColor(quality).withValues(alpha: 0.8),
+                  baseColor(quality).withValues(alpha: 0.9),
                 ],
               ),
               boxShadow: [
                 BoxShadow(
-                  color: baseColor(quality).withOpacity(
+                  color: baseColor(quality).withValues(
+                    alpha:
                     showAnimation ? glowAnimation : 0.3,
                   ),
                   blurRadius: size * 0.333,
@@ -129,7 +130,7 @@ class QualityBadge extends HookWidget {
                 ),
               ],
               border: Border.all(
-                color: Colors.white.withOpacity(0.2),
+                color: Colors.white.withValues(alpha: 0.2),
                 width: 0.5,
               ),
             ),
@@ -145,7 +146,7 @@ class QualityBadge extends HookWidget {
                     letterSpacing: 0.5,
                     shadows: [
                       Shadow(
-                        color: Colors.black.withOpacity(0.3),
+                        color: Colors.black.withValues(alpha: 0.3),
                         blurRadius: 2,
                         offset: const Offset(0, 1),
                       ),

@@ -35,7 +35,7 @@ class CustomFilterChip extends StatelessWidget {
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
+                    color: Colors.grey.withValues(alpha:0.5),
                     blurRadius: 10,
                     spreadRadius: 2,
                   )

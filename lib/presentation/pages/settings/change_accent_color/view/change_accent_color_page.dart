@@ -56,8 +56,8 @@ class ChangeAccentColorPage extends HookWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Color(state.primaryColor).withOpacity(0.8),
-                  Color(state.primaryColor).withOpacity(0.2),
+                  Color(state.primaryColor).withValues(alpha: 0.8),
+                  Color(state.primaryColor).withValues(alpha: 0.2),
                 ],
               ),
             ),
@@ -73,7 +73,7 @@ class ChangeAccentColorPage extends HookWidget {
                     borderRadius: BorderRadius.circular(25),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(state.primaryColor).withOpacity(0.3),
+                        color: Color(state.primaryColor).withValues(alpha: 0.3),
                         blurRadius: 15,
                         offset: const Offset(0, 8),
                       ),
@@ -124,7 +124,7 @@ class ChangeAccentColorPage extends HookWidget {
                       decoration: BoxDecoration(
                         color: currentPage.value.round() == index
                             ? Color(state.primaryColor)
-                            : Color(state.primaryColor).withOpacity(0.3),
+                            : Color(state.primaryColor).withValues(alpha: 0.3),
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),

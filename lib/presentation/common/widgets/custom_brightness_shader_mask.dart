@@ -16,9 +16,10 @@ class CustomBrightnessShaderMask extends StatelessWidget {
             // Applying a linear gradient based on brightness value
             return LinearGradient(
               colors: [
-                Colors.black.withOpacity(1 -
+                Colors.black.withValues(alpha:  1 -
                     state.videoPlayerBrightness), // Top half of the gradient
-                Colors.black.withOpacity(1 -
+                Colors.black.withValues(
+                    alpha: 1 -
                     state.videoPlayerBrightness), // Bottom half of the gradient
               ],
               begin: Alignment.topCenter,

@@ -44,14 +44,14 @@ class CustomThemeModeButtonWidget extends StatelessWidget {
       boxShadow: [
         BoxShadow(
           color: isDark
-              ? Colors.black.withOpacity(0.3)
-              : Colors.blue[300]!.withOpacity(0.5),
+              ? Colors.black.withValues(alpha: 0.3)
+              : Colors.blue[300]!.withValues(alpha: 0.5),
           blurRadius: 8,
           spreadRadius: 1,
         ),
         if (!isDark)
           BoxShadow(
-            color: Colors.pink[200]!.withOpacity(0.3),
+            color: Colors.pink[200]!.withValues(alpha: 0.3),
             blurRadius: 12,
             spreadRadius: 2,
             offset: const Offset(4, 4),
@@ -66,13 +66,13 @@ class CustomThemeModeButtonWidget extends StatelessWidget {
       gradient: isDark ? _darkToggleGradient : _lightToggleGradient,
       boxShadow: [
         BoxShadow(
-          color: isDark ? Colors.black38 : Colors.orange.withOpacity(0.3),
+          color: isDark ? Colors.black38 : Colors.orange.withValues(alpha: 0.3),
           blurRadius: 4,
           spreadRadius: 1,
         ),
         if (!isDark)
           BoxShadow(
-            color: Colors.yellow[200]!.withOpacity(0.5),
+            color: Colors.yellow[200]!.withValues(alpha: 0.5),
             blurRadius: 8,
             spreadRadius: 2,
             offset: const Offset(2, 2),

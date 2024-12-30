@@ -52,7 +52,7 @@ class VideoPlayerVolumeControllerWidget extends HookWidget {
               child: Container(
                 decoration: BoxDecoration(
                     color: showSplash.value
-                        ? Colors.white.withOpacity(0.1)
+                        ? Colors.white.withValues(alpha: 0.1)
                         : Colors.transparent,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(300),

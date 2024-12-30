@@ -41,7 +41,7 @@ class AboutPage extends StatelessWidget {
             end: Alignment.bottomCenter,
             colors: [
               Theme.of(context).scaffoldBackgroundColor,
-              Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8),
+              Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.8),
             ],
           ),
         ),
@@ -84,7 +84,7 @@ class AboutPage extends StatelessWidget {
                           vertical: 8,
                         ),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).cardColor.withOpacity(0.1),
+                          color: Theme.of(context).cardColor.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
@@ -151,7 +151,7 @@ class AboutPage extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .cardColor
-                                      .withOpacity(0.1),
+                                      .withValues(alpha: 0.1),
                                   shape: BoxShape.circle,
                                 ),
                                 child: const SocialMediaIconButton(
@@ -167,7 +167,7 @@ class AboutPage extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .cardColor
-                                      .withOpacity(0.1),
+                                      .withValues(alpha: 0.1),
                                   shape: BoxShape.circle,
                                 ),
                                 child: const SocialMediaIconButton(

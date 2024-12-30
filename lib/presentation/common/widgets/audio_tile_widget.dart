@@ -2,7 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
 import 'package:open_player/base/assets/images/app_images.dart';
 import 'package:open_player/logic/audio_bloc/audios_bloc.dart';

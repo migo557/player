@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:open_player/data/models/audio_model.dart';
-import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 
 class AlbumModel {
   final String name;

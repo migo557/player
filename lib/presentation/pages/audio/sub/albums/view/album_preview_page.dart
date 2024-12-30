@@ -91,8 +91,8 @@ class _AppBar extends StatelessWidget {
                 end: Alignment.topCenter,
                 colors: [
                   scaffoldColor,
-                  scaffoldColor.withOpacity(0.3),
-                  scaffoldColor.withOpacity(0.1),
+                  scaffoldColor.withValues(alpha: 0.3),
+                  scaffoldColor.withValues(alpha: 0.1),
                 ],
               )),
             ),

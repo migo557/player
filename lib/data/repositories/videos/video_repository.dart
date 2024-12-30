@@ -1,10 +1,7 @@
 // video_repository.dart
 import 'dart:io';
-import 'dart:isolate';
-import 'dart:typed_data';
 import 'package:color_log/color_log.dart';
 import 'package:open_player/data/providers/videos/video_provider.dart';
-import 'package:video_compress/video_compress.dart';
 import '../../../base/services/permissions/app_permission_service.dart';
 import 'package:path/path.dart' as path;
 import '../../models/video_model.dart';
@@ -70,51 +67,51 @@ class VideoRepository implements VideoRepositoryBase {
 
 //------ Get Video Thubnail In Isolation
 
-class _VideoThumbnailIsolate {
-  static Future<Uint8List?> generateThumbnail(String videoPath) async {
-    // Create a receive port to get results from the isolate
-    final receivePort = ReceivePort();
+// class _VideoThumbnailIsolate {
+//   static Future<Uint8List?> generateThumbnail(String videoPath) async {
+//     // Create a receive port to get results from the isolate
+//     final receivePort = ReceivePort();
 
-    try {
-      // Spawn the isolate
-      await Isolate.spawn(
-          _thumbnailGeneratorIsolate,
-          ThumbnailRequest(
-              sendPort: receivePort.sendPort, videoPath: videoPath));
+//     try {
+//       // Spawn the isolate
+//       await Isolate.spawn(
+//           _thumbnailGeneratorIsolate,
+//           ThumbnailRequest(
+//               sendPort: receivePort.sendPort, videoPath: videoPath));
 
-      // Wait for the result from the isolate
-      final result = await receivePort.first;
+//       // Wait for the result from the isolate
+//       final result = await receivePort.first;
 
-      // Return the thumbnail or null
-      return result as Uint8List?;
-    } catch (e) {
-      clog.error('Thumbnail generation error: $e');
-      return null;
-    }
-  }
+//       // Return the thumbnail or null
+//       return result as Uint8List?;
+//     } catch (e) {
+//       clog.error('Thumbnail generation error: $e');
+//       return null;
+//     }
+//   }
 
-  // Static method to run in the isolate
-  static void _thumbnailGeneratorIsolate(ThumbnailRequest request) async {
-    try {
-      // Generate thumbnail
-      final thumbnail = await VideoCompress.getByteThumbnail(
-        request.videoPath,
-        quality: 30, // Adjust quality as needed
-      );
+//   // Static method to run in the isolate
+//   static void _thumbnailGeneratorIsolate(ThumbnailRequest request) async {
+//     try {
+//       // Generate thumbnail
+//       final thumbnail = await VideoCompress.getByteThumbnail(
+//         request.videoPath,
+//         quality: 30, // Adjust quality as needed
+//       );
 
-      // Send the result back to the main isolate
-      request.sendPort.send(thumbnail);
-    } catch (e) {
-      // Send null if thumbnail generation fails
-      request.sendPort.send(null);
-    }
-  }
-}
+//       // Send the result back to the main isolate
+//       request.sendPort.send(thumbnail);
+//     } catch (e) {
+//       // Send null if thumbnail generation fails
+//       request.sendPort.send(null);
+//     }
+//   }
+// }
 
 // Helper class to pass data to the isolate
-class ThumbnailRequest {
-  final SendPort sendPort;
-  final String videoPath;
+// class ThumbnailRequest {
+//   final SendPort sendPort;
+//   final String videoPath;
 
-  ThumbnailRequest({required this.sendPort, required this.videoPath});
-}
+//   ThumbnailRequest({required this.sendPort, required this.videoPath});
+// }

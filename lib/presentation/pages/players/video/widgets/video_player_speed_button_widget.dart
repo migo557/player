@@ -168,9 +168,9 @@ class _SpeedControlSheetState extends State<_SpeedControlSheet> {
             child: SliderTheme(
               data: SliderTheme.of(context).copyWith(
                 activeTrackColor: Colors.blue,
-                inactiveTrackColor: Colors.blue.withOpacity(0.2),
+                inactiveTrackColor: Colors.blue.withValues(alpha: 0.2),
                 thumbColor: Colors.blue,
-                overlayColor: Colors.blue.withOpacity(0.1),
+                overlayColor: Colors.blue.withValues(alpha: 0.1),
                 thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
                 overlayShape: const RoundSliderOverlayShape(overlayRadius: 16),
               ),

@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import 'package:open_player/data/models/picture_model.dart';
-import 'package:open_player/presentation/common/widgets/quality_badge/quality_badge_widget.dart';
 
 part 'audio_model.g.dart';
 

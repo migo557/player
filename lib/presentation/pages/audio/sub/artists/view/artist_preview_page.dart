@@ -99,8 +99,8 @@ class _AppBar extends StatelessWidget {
                 end: Alignment.topCenter,
                 colors: [
                   scaffoldColor,
-                  scaffoldColor.withOpacity(0.6),
-                  scaffoldColor.withOpacity(0.1),
+                  scaffoldColor.withValues(alpha: 0.6),
+                  scaffoldColor.withValues(alpha: 0.1),
                 ],
               )),
             ),
@@ -139,7 +139,7 @@ class _AppBar extends StatelessWidget {
                       .make(),
                   "${artist.songCount} songs"
                       .text
-                      .color(textColor.withOpacity(0.5))
+                      .color(textColor.withValues(alpha: 0.5))
                       .make()
                 ],
               )

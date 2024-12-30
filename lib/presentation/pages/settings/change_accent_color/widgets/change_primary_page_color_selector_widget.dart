@@ -42,7 +42,7 @@ class ChangePrimaryPageColorSelectorWidget extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: isSelected
                         ? Border.all(
-                            color: Color(color).withOpacity(0.5),
+                            color: Color(color).withValues(alpha: 0.5),
                             width: 3,
                           )
                         : null,

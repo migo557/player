@@ -46,7 +46,7 @@ class CustomBrightnessBoxWidget extends StatelessWidget {
       alignment: Alignment.center,
       child: Card(
         elevation: 8,
-        color: Colors.black.withOpacity(0.6),
+        color: Colors.black.withValues(alpha: 0.6),
         child: SizedBox(
           height: boxHeight ?? 80,
           width: boxWidth ?? 80,

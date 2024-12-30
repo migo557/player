@@ -35,8 +35,7 @@ class SearchAudioPage extends HookWidget {
             return audio.genre
                 .any((g) => g.toLowerCase().contains(searchQuery));
           case SearchFilter.all:
-          default:
-            return audio.matchesSearch(searchQuery);
+          return audio.matchesSearch(searchQuery);
         }
       }).toList();
     }

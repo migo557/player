@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ReactionButton extends StatefulWidget {
@@ -152,14 +153,14 @@ class _ReactionButtonState extends State<ReactionButton>
               child: Stack(
                 children: [
                   Icon(
-                    Icons.favorite,
+                    CupertinoIcons.heart,
                     size: widget.size,
                     color: Colors.grey.withValues(alpha: 0.3),
                   ),
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 200),
                     child: Icon(
-                      Icons.favorite,
+                      _isLiked? CupertinoIcons.heart_fill:CupertinoIcons.heart,
                       key: ValueKey(_isLiked),
                       size: widget.size,
                       color:

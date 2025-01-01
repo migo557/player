@@ -18,6 +18,9 @@ abstract class AudioPlayerServiceBase {
       Emitter<AudioPlayerState> emit, AudioPlayerPreviousEvent event);
   Future<void> seekToPosition(
       Emitter<AudioPlayerState> emit, AudioPlayerSeekEvent event);
+
+  Future<void> changeSpeed(
+      Emitter<AudioPlayerState> emit, AudioPlayerChangeSpeedEvent event);
 }
 
 final class AudioPlayerService implements AudioPlayerServiceBase {
@@ -136,6 +139,16 @@ final class AudioPlayerService implements AudioPlayerServiceBase {
       await audioPlayer.seek(Duration(seconds: event.position.toInt()));
     } catch (e) {
       clog.error('Error seeking to position: $e');
+    }
+  }
+
+  @override
+  Future<void> changeSpeed(
+      Emitter<AudioPlayerState> emit, AudioPlayerChangeSpeedEvent event) async {
+    try {
+      await audioPlayer.setSpeed(event.value);
+    } catch (e) {
+      clog.error('Error audio player speed change: $e');
     }
   }
 }

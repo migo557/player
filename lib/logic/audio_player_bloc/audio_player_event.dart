@@ -6,12 +6,12 @@ sealed class AudioPlayerEvent extends Equatable {
 
 class AudioPlayerInitializeEvent extends AudioPlayerEvent {
   const AudioPlayerInitializeEvent(
-      { required this.initialMediaIndex, required this.audioList});
+      {required this.initialMediaIndex, required this.audioList});
   final int initialMediaIndex;
   final List<AudioModel> audioList;
 
   @override
-  List<Object?> get props => [ initialMediaIndex, audioList];
+  List<Object?> get props => [initialMediaIndex, audioList];
 }
 
 class AudioPlayerPlayPauseToggleEvent extends AudioPlayerEvent {
@@ -62,7 +62,13 @@ class AudioPlayerPreviousEvent extends AudioPlayerEvent {
   List<Object?> get props => [];
 }
 
+class AudioPlayerChangeSpeedEvent extends AudioPlayerEvent {
+  final double value;
 
+ const AudioPlayerChangeSpeedEvent({required this.value});
+  @override
+  List<Object?> get props => [value];
+}
 
 class AudioPlayerDisposeEvent extends AudioPlayerEvent {
   @override

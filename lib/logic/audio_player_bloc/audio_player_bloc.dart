@@ -25,6 +25,7 @@ class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
     on<AudioPlayerBackwardEvent>(_audioPlayerBackwardEvent);
     on<AudioPlayerStopEvent>(_audioPlayerStopEvent);
     on<AudioPlayerDisposeEvent>(_audioPlayerDispose);
+    on<AudioPlayerChangeSpeedEvent>(_audioPlayerChangeSpeedEvent);
   }
 
   /// Method to handle MusicPlayerInitializeEvent and Play Audio.
@@ -106,6 +107,11 @@ class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
   FutureOr<void> _audioPlayerStopEvent(
       AudioPlayerStopEvent event, Emitter<AudioPlayerState> emit) async {
     await audioPlayer.stop();
+  }
+
+  FutureOr<void> _audioPlayerChangeSpeedEvent(
+      AudioPlayerChangeSpeedEvent event, Emitter<AudioPlayerState> emit) {
+    audioServices.changeSpeed(emit, event);
   }
 
   FutureOr<void> _audioPlayerDispose(

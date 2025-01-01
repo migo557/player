@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:color_log/color_log.dart';
 import 'package:hive/hive.dart';
 import 'package:open_player/data/models/picture_model.dart';
+import 'package:open_player/data/models/video_model.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 import '../../data/models/audio_model.dart';
@@ -17,17 +18,25 @@ class MyHiveDatabase {
       Hive.init(appDocumentDirectory.path);
 
       Hive.registerAdapter(AudioModelAdapter());
-      final isAudioModelRegistered = Hive.isAdapterRegistered(AudioModelAdapter().typeId);
-      clog.checkSuccess(isAudioModelRegistered, "'AudioModelAdapter is registered ");
+      final isAudioModelRegistered =
+          Hive.isAdapterRegistered(AudioModelAdapter().typeId);
+      clog.checkSuccess(
+          isAudioModelRegistered, "'AudioModelAdapter is registered ");
       Hive.registerAdapter(PictureModelAdapter());
       final isPictureModelRegistered =
           Hive.isAdapterRegistered(PictureModelAdapter().typeId);
-      clog.checkSuccess(isPictureModelRegistered, "'PictureModelAdapter is registered ");
+      clog.checkSuccess(
+          isPictureModelRegistered, "'PictureModelAdapter is registered ");
       Hive.registerAdapter(AudioPlaylistModelAdapter());
       final isAudioPlaylistModelRegistered =
           Hive.isAdapterRegistered(AudioPlaylistModelAdapter().typeId);
+      clog.checkSuccess(isAudioPlaylistModelRegistered,
+          "AudioPlaylistModelAdapter is registered ");
+      Hive.registerAdapter(VideoModelAdapter());
+      final isVideoModelRegistered =
+          Hive.isAdapterRegistered(VideoModelAdapter().typeId);
       clog.checkSuccess(
-          isAudioPlaylistModelRegistered, "'AudioPlaylistModelAdapter is registered ");
+          isVideoModelRegistered, "VideoModelAdapter is registered ");
 
       await Future.wait([
         //! Open the library box
@@ -115,4 +124,5 @@ class MyHiveKeys {
   static const String bottomNavBarWidth = "bnbw";
   static const String bottomNavBarHeight = "bnbh";
   static const String isHoldBottomNavBarCirclePositionButton = "hbnbcpb";
+  static const String lastPlayedVideo = "lpv";
 }

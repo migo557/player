@@ -1,9 +1,11 @@
+import 'package:color_log/color_log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:open_player/base/assets/fonts/styles.dart';
+import 'package:open_player/base/db/hive_service.dart';
 import 'package:open_player/base/router/router.dart';
 import 'package:open_player/data/models/video_model.dart';
 import 'package:open_player/data/services/favorites_video_hive_service/favorites_video_hive_service.dart';
@@ -118,11 +120,19 @@ class ElegantVideoTileWidget extends StatelessWidget {
   }
 
   void _playVideo(BuildContext context) {
-    context.read<AudioPlayerBloc>().add(AudioPlayerStopEvent());
-    context.read<VideoPlayerBloc>().add(
-          VideoInitializeEvent(videoIndex: index, playlist: filteredVideos),
-        );
-    GoRouter.of(context).push(AppRoutes.videoPlayerRoute);
+    try {
+      context.read<AudioPlayerBloc>().add(AudioPlayerStopEvent());
+      context.read<VideoPlayerBloc>().add(
+            VideoInitializeEvent(videoIndex: index, playlist: filteredVideos),
+          );
+      GoRouter.of(context).push(AppRoutes.videoPlayerRoute);
+
+      //---- Saving last played video in hive
+      MyHiveBoxes.videoPlayback
+          .put(MyHiveKeys.lastPlayedVideo, filteredVideos[index]);
+    } catch (e) {
+      clog.error(e.toString());
+    }
   }
 
   void _showVideoOptions(BuildContext context) {
@@ -158,8 +168,8 @@ class ElegantVideoTileWidget extends StatelessWidget {
           _buildActionSheetAction(
             context,
             text: FileService().isFileHidden(video.path) ? 'Unhide' : 'Hide',
-            icon: FileService().isFileHidden(video.path) 
-                ? CupertinoIcons.eye 
+            icon: FileService().isFileHidden(video.path)
+                ? CupertinoIcons.eye
                 : CupertinoIcons.eye_slash,
             onPressed: () => _toggleHideVideo(context),
           ),

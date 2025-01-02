@@ -75,7 +75,7 @@ class VideoPlayerTopBarWidget extends HookWidget {
                       iconSize: 28,
                       color: Colors.white,
                       onPressed: () async {
-                        //-------- Update the favorite status and retrun it
+                        //-------- Update the favorite status and return it
                         final favorite = await FavoritesVideoHiveService()
                             .toggleFavorite(state.playingVideoPath);
                         isFavorite.value = favorite;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:open_player/data/models/audio_model.dart';
 import 'package:open_player/data/models/audio_playlist_model.dart';
 import 'package:open_player/logic/audio_playlist_bloc/audio_playlist_bloc.dart';
 import 'package:open_player/utils/formater.dart';
@@ -36,6 +37,8 @@ class AudioPlaylistPreviewPage extends StatelessWidget {
                   state.playlists.firstWhere(
                 (element) => element.name == playlist.name,
               );
+
+              final List<AudioModel> audios = currentPlaylist.audios..sort((a, b) => a.lastModified.compareTo(b.lastModified));
               return CustomScrollView(
                 slivers: [
                   _AppBar(
@@ -47,20 +50,20 @@ class AudioPlaylistPreviewPage extends StatelessWidget {
                   if (playlist.audios.isNotEmpty)
                     SliverList.builder(
                       addAutomaticKeepAlives: true,
-                      itemCount: currentPlaylist.audios.length,
+                      itemCount: audios.length,
                       itemBuilder: (context, index) {
                         return AudioTileWidget(
-                          audios: currentPlaylist.audios,
+                          audios: audios,
                           index: index,
                           state: audioState,
                           showRemoveFromPlaylistButton: true,
                           playlistRemoveOnTap: () {
                             context.read<AudioPlaylistBloc>().add(
                                 RemoveAudioFromPlaylistEvent(currentPlaylist,
-                                    currentPlaylist.audios[index]));
+                                    audios[index]));
                             VxToast.show(context,
                                 msg:
-                                    "${currentPlaylist.audios[index].title} is removed from ${currentPlaylist.name}");
+                                    "${audios[index].title} is removed from ${currentPlaylist.name}");
                           },
                         );
                       },
@@ -120,7 +123,7 @@ class _AppBar extends StatelessWidget {
                 colors: [
                   scaffoldColor,
                   scaffoldColor.withValues(alpha: 0.4),
-                  scaffoldColor.withValues(alpha:0.1),
+                  scaffoldColor.withValues(alpha: 0.1),
                 ],
               )),
             ),

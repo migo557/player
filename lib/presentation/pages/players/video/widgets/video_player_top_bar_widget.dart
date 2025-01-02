@@ -1,23 +1,19 @@
-// video_player/presentation/pages/video_player_page.dart
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:floating/floating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-// import 'package:open_player/base/di/injection.dart';
 import 'package:open_player/logic/Control_visibility/controls_visibility_cubit.dart';
 import 'package:open_player/logic/video_player_bloc/video_player_bloc.dart';
 import 'package:open_player/presentation/pages/players/video/widgets/video_player_icon_button_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
-// import '../../../../../data/services/picture_in_picture_service/picture_in_picture_service.dart';
 import '../../../../../data/services/favorites_video_hive_service/favorites_video_hive_service.dart';
 import '../../../../common/methods/set_orientation_potrait.dart';
 import '../../../../common/methods/system_ui_mode.dart';
+import '../../../../common/widgets/animated_auto_scroll_text_widget.dart';
 import 'video_player_audios_selector_widget.dart';
 
 class VideoPlayerTopBarWidget extends HookWidget {
@@ -58,26 +54,27 @@ class VideoPlayerTopBarWidget extends HookWidget {
                       },
                     ),
 
-                    //---------- Video Title
+                    //------------- TITLE ----------------//
                     Expanded(
-                      child: Text(
-                        "Now Playing",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        textAlign: TextAlign.center,
+                      child: AnimatedAutoScrollTextWidget(
+                        state.currentVideo.title,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                  blurRadius: 3,
+                                  offset: Offset(0, 0),
+                                  color: Colors.black38),
+                            ]),
                       ),
                     ),
 
                     //--------- Favorite/Like Button
-
                     IconButton(
                       iconSize: 28,
                       color: Colors.white,
                       onPressed: () async {
-                        
                         //-------- Update the favorite status and retrun it
                         final favorite = await FavoritesVideoHiveService()
                             .toggleFavorite(state.playingVideoPath);

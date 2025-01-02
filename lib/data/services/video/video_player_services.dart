@@ -41,6 +41,7 @@ final class VideoPlayerService implements VideoPlayerServiceBase {
         VideoPlayerReadyState(
           vlcPlayerController: vlcPlayerController,
           playingVideoPath: videos[videoIndex].path,
+          currentVideo: videos[videoIndex],
         ),
       );
     } catch (e) {

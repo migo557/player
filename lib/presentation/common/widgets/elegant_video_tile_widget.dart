@@ -52,7 +52,7 @@ class ElegantVideoTileWidget extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Video Thubnail
+            // Video Thumbnail
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               padding: const EdgeInsets.all(10),

@@ -40,13 +40,6 @@ class VideoPlayerPage extends StatelessWidget {
                     ),
                   );
                 } else if (state is VideoPlayerReadyState) {
-                  // return PiPSwitcher(
-                  //   childWhenDisabled:
-                  //    VideoContentWidget(
-                  //     videoPlayerReadyState: state,
-                  //   ), childWhenEnabled:  VideoViewWidget(state: state),
-                  // );
-
                   return VideoContentWidget(
                     videoPlayerReadyState: state,
                   );

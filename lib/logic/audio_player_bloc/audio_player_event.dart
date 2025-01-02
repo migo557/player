@@ -63,9 +63,17 @@ class AudioPlayerPreviousEvent extends AudioPlayerEvent {
 }
 
 class AudioPlayerChangeSpeedEvent extends AudioPlayerEvent {
+  const AudioPlayerChangeSpeedEvent({required this.value});
   final double value;
 
- const AudioPlayerChangeSpeedEvent({required this.value});
+  @override
+  List<Object?> get props => [value];
+}
+
+class AudioPlayerChangePitchEvent extends AudioPlayerEvent {
+  const AudioPlayerChangePitchEvent({required this.value});
+  final double value;
+
   @override
   List<Object?> get props => [value];
 }

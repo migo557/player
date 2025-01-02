@@ -326,14 +326,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-  circular_slider:
-    dependency: "direct main"
-    description:
-      name: circular_slider
-      sha256: e51ccce97eb52aa67bcc095903e16f190b77494c3193fe736307912d479a8fe7
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.4"
   clock:
     dependency: transitive
     description:

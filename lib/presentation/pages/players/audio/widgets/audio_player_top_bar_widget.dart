@@ -1,14 +1,14 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:open_player/data/models/audio_model.dart';
-import 'package:open_player/presentation/common/methods/show_add_to_playlist_modal_bottom_sheet.dart';
-import 'package:open_player/presentation/common/widgets/nothing_widget.dart';
+import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_add_to_playlist_button_widget.dart';
+import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_equalizer_button_widget.dart';
+import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_more_button.dart';
+import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_pitch_changer_button_widget.dart';
+import 'package:open_player/presentation/pages/players/audio/widgets/audio_player_speed_changer_button_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../../../logic/audio_player_bloc/audio_player_bloc.dart';
 
 class AudioPlayerTopBarWidget extends StatelessWidget {
   const AudioPlayerTopBarWidget({
@@ -25,128 +25,62 @@ class AudioPlayerTopBarWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           //--- Back Button ---///
-          IconButton(
-            onPressed: () {
-              context.pop();
-            },
-            color: Colors.white,
-            iconSize: 30,
-            tooltip: "Back",
-            icon: const Icon(HugeIcons.strokeRoundedArrowDown01),
-          ),
+          _BackButton(),
           const Spacer(),
 
-          //--- Side Dialog ---///
-          BlocSelector<AudioPlayerBloc, AudioPlayerState,
-              AudioPlayerSuccessState?>(
-            selector: (state) {
-              return state is AudioPlayerSuccessState ? state : null;
-            },
-            builder: (context, state) {
-              if (state == null) return nothing;
+          //--- More Button ---///
+          AudioPlayerMoreButton(
+            onPressed: () {
+              //-------- Show Slide Dialog
+              VxDialog.showCustom(
+                context,
+                child: SlideInRight(
+                  child: Container(
+                    height: 300,
+                    width: mq.width * 0.25,
+                    alignment: Alignment.center,
+                    child: [
+                      //----- Add to Playlist
+                      AudioPlayerAddToPlaylistButtonWidget(),
 
-              return IconButton(
-                onPressed: () {
-                  VxDialog.showCustom(
-                    context,
-                    child: SlideInRight(
-                      child: SizedBox(
-                        height: 210,
-                        width: mq.width * 0.25,
-                        child: [
-                          //----- Add to Playlist
-                          StreamBuilder(
-                              stream: state.audioPlayer.currentIndexStream,
-                              builder: (context, snapshot) {
-                                final int? currentIndex = snapshot.data ??
-                                    state.audioPlayer.currentIndex;
-                                final AudioModel? audio = currentIndex != null
-                                    ? state.audios[currentIndex]
-                                    : null;
-                                return IconButton(
-                                  onPressed: () {
-                                    if (audio != null) {
-                                      context.pop();
-                                      showAddToPlaylistModalBottomSheet(
-                                          context, audio);
-                                    }
-                                  },
-                                  icon: Icon(
-                                    Icons.playlist_add_outlined,
-                                    color: Colors.white,
-                                    size: 35,
-                                  ),
-                                );
-                              }),
-                          "Add to Playlist".text.xs.white.make(),
+                      //------- Equalizer
+                      AudioPlayerEqualizerButtonWidget(),
 
-                          //------- Equalizer
-                          IconButton(
-                            onPressed: () {
-                              context.pop();
-                              VxDialog.showCustom(
-                                context,
-                                child: SizedBox(
-                                  height: 100,
-                                  width: 200,
-                                  child: "Currently not available"
-                                      .text
-                                      .white
-                                      .makeCentered()
-                                      .p8(),
-                                ).glassMorphic(),
-                              );
-                            },
-                            icon: Icon(
-                              Icons.equalizer,
-                              color: Colors.white,
-                              size: 35,
-                            ),
-                          ),
-                          "Equalizer".text.white.xs.make(),
+                      //------- Speed Changer
+                      AudioPlayerSpeedChangerButtonWidget(),
 
-                          //------- Speed Changer
-                          IconButton(
-                            onPressed: () {
-                              context.pop();
-                              VxDialog.showCustom(
-                                context,
-                                child: SizedBox(
-                                  height: 100,
-                                  width: 200,
-                                  child: "Currently not available"
-                                      .text
-                                      .white
-                                      .makeCentered()
-                                      .p8(),
-                                ).glassMorphic(),
-                              );
-                            },
-                            icon: Icon(
-                              Icons.speed,
-                              color: Colors.white,
-                              size: 35,
-                            ),
-                          ),
-                          "Speed".text.white.xs.make(),
-                        ]
-                            .column(
-                              alignment: MainAxisAlignment.center,
-                            )
-                            .scrollVertical(),
-                      ).glassMorphic().pOnly(left: mq.width * 0.75),
-                    ),
-                  );
-                },
-                color: Colors.white,
-                iconSize: 25,
-                tooltip: "More",
-                icon: const Icon(HugeIcons.strokeRoundedArrowLeft01),
+                      //----- Pitch Changer
+                      AudioPlayerPitchChangerButtonWidget(),
+                    ]
+                        .column(
+                          alignment: MainAxisAlignment.center,
+                        )
+                        .scrollVertical(),
+                  ).glassMorphic().pOnly(left: mq.width * 0.75),
+                ),
               );
             },
           ),
         ],
       ),
+    );
+  }
+}
+
+//---- Back Button
+class _BackButton extends StatelessWidget {
+  const _BackButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        context.pop();
+      },
+      color: Colors.white,
+      iconSize: 30,
+      tooltip: "Back",
+      icon: const Icon(HugeIcons.strokeRoundedArrowDown01),
     );
   }
 }

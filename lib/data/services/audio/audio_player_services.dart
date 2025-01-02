@@ -21,6 +21,9 @@ abstract class AudioPlayerServiceBase {
 
   Future<void> changeSpeed(
       Emitter<AudioPlayerState> emit, AudioPlayerChangeSpeedEvent event);
+
+  Future<void> changePitch(
+      Emitter<AudioPlayerState> emit, AudioPlayerChangePitchEvent event);
 }
 
 final class AudioPlayerService implements AudioPlayerServiceBase {
@@ -147,8 +150,19 @@ final class AudioPlayerService implements AudioPlayerServiceBase {
       Emitter<AudioPlayerState> emit, AudioPlayerChangeSpeedEvent event) async {
     try {
       await audioPlayer.setSpeed(event.value);
+      clog.debug("Speed : ${event.value}");
     } catch (e) {
       clog.error('Error audio player speed change: $e');
+    }
+  }
+  
+  @override
+  Future<void> changePitch(Emitter<AudioPlayerState> emit, AudioPlayerChangePitchEvent event) async{
+    try {
+      await audioPlayer.setPitch(event.value);
+      clog.debug("Pitch : ${event.value}");
+    } catch (e) {
+      clog.error('Error audio player pitch change: $e');
     }
   }
 }

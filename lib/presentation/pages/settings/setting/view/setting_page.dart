@@ -153,13 +153,21 @@ class _SettingPageState extends State<SettingPage> {
 
   // /!------------ Feedback On Tap
   Future<void> _feedBackButtonOnTap() async {
-    final Email sendEmail = Email(
-      body: 'your feed back?',
-      subject: 'Player App Feedback',
-      recipients: ['furqanuddin@programmer.net'],
-      isHTML: false,
-    );
+    try {
+      final Email sendEmail = Email(
+        body: 'your feed back?',
+        subject: 'Player App Feedback',
+        recipients: ['frkudn@protonmail.com'],
+        isHTML: false,
+      );
 
-    await FlutterEmailSender.send(sendEmail);
+      await FlutterEmailSender.send(sendEmail);
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to open email: $e')),
+        );
+      }
+    }
   }
 }

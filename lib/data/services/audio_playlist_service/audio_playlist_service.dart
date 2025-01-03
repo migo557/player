@@ -133,7 +133,6 @@ class AudioPlaylistService {
               "Removing audio to playlist stackTrace : ${stackTrace.toString()}");
         },
       );
-      ;
 
       return updatedPlaylist;
     }

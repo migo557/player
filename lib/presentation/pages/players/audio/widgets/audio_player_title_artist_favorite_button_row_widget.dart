@@ -45,12 +45,12 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                     ? audioPlayerState.audios[currentIndex].quality
                     : "MQ";
 
-                String currentFilePath = currentIndex != null
-                    ? audioPlayerState.audios[currentIndex].path
-                    : "";
+                int currentAudioId = currentIndex != null
+                    ? audioPlayerState.audios[currentIndex].id
+                    : 0;
 
                 bool isFavorite = FavoritesAudioHiveService()
-                    .getFavoriteStatus(currentFilePath);
+                    .getFavoriteStatus(currentAudioId);
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -110,7 +110,7 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
 
                       onTap: () {
                         FavoritesAudioHiveService()
-                            .toggleFavorite(currentFilePath);
+                            .toggleFavorite(currentAudioId);
                       },
                     ).pOnly(left: 5, bottom: 5),
                   ],

@@ -9,6 +9,8 @@ import '../../../base/services/permissions/app_permission_service.dart';
 import 'package:path/path.dart' as path;
 import '../../models/audio_model.dart';
 import '../../providers/audio/audio_provider.dart';
+  import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
 /// Abstract base class defining core functionality for audio file operations.
 /// Implementations must provide methods for retrieving audio files and their metadata.
@@ -163,6 +165,7 @@ class AudioRepository implements AudioRepositoryBase {
         quality: quality,
         lastModified: audioFile.lastModifiedSync(),
         lastAccessed: audioFile.lastAccessedSync(),
+        id:  generateAudioId(audioPath, DateTime.now()),
       );
     } catch (e) {
       clog.error('Error processing audio file $audioPath: $e');
@@ -291,6 +294,7 @@ class AudioRepository implements AudioRepositoryBase {
       sampleRate: 0,
       language: "",
       year: DateTime(0000),
+      id: generateAudioId(audioPath, DateTime.now()),
       quality: "unknown",
       lastModified: audioFile.existsSync()
           ? audioFile.lastModifiedSync()
@@ -300,4 +304,22 @@ class AudioRepository implements AudioRepositoryBase {
           : DateTime.now(),
     );
   }
+
+
+
+int generateAudioId(String audioPath, DateTime lastModified) {
+  // Combine path and timestamp for uniqueness
+  final String combinedString = '$audioPath${lastModified.millisecondsSinceEpoch}';
+  
+  // Generate SHA-256 hash
+  final bytes = utf8.encode(combinedString);
+  final hash = sha256.convert(bytes);
+  
+  // Convert first 8 bytes of hash to integer
+  final int id = hash.bytes.sublist(0, 8).fold<int>(0, 
+    (int prev, int byte) => (prev << 8) | byte);
+  
+  // Ensure positive value by using unsigned right shift
+  return id >>> 0;
+}
 }

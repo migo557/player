@@ -35,9 +35,7 @@ class SongsPage extends HookWidget {
 
             List<AudioModel> favoriteSongs = audioState.allSongs
                 .where((audio) =>
-                    fvrKeys.contains(
-                        FavoritesAudioHiveService.generateKey(audio.path)) &&
-                    FavoritesAudioHiveService().getFavoriteStatus(audio.path))
+                    FavoritesAudioHiveService().getFavoriteStatus(audio.id))
                 .toList()
               ..sort((a, b) => a.title.compareTo(b.title));
 
@@ -75,7 +73,7 @@ class SongsPage extends HookWidget {
                             selectedFilter: selectedFilter,
                           ),
                         ),
-                    
+
                         //---- SongTiles List
                         SliverList.builder(
                           addAutomaticKeepAlives: true,
@@ -88,7 +86,7 @@ class SongsPage extends HookWidget {
                             );
                           },
                         ),
-                    
+
                         //--- Scroll Top
                         if (selectedFilter.value == SongsFiltered.all &&
                             allsongsByName.length > 10)
@@ -101,7 +99,7 @@ class SongsPage extends HookWidget {
                               icon: Icon(CupertinoIcons.chevron_up),
                             ),
                           ),
-                    
+
                         //------- Padding
                         SliverPadding(
                           padding: EdgeInsets.only(bottom: mq.height * 0.1),
@@ -122,9 +120,7 @@ class SongsPage extends HookWidget {
                   },
                   icon: const Icon(HugeIcons.strokeRoundedRefresh),
                 ),
-              ].column(
-                alignment: MainAxisAlignment.center
-              ),
+              ].column(alignment: MainAxisAlignment.center),
             );
           }
         } else if (audioState is AudiosLoading) {

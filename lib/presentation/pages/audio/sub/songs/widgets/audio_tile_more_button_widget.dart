@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -42,7 +43,6 @@ class AudioTileMoreButtonWidget extends StatelessWidget {
                 context,
                 path,
               ),
-              _musicSetAsRingtone(),
               _more(context, audio),
               _share(audio),
             ]);
@@ -193,18 +193,7 @@ PopupMenuItem<dynamic> _deleteMusic(
   );
 }
 
-///--------------- S E T  A S  R I N G T O N E
-PopupMenuItem<dynamic> _musicSetAsRingtone() {
-  return PopupMenuItem(
-    onTap: () {},
-    child: const ListTile(
-      title: Text(
-        "Set as ringtone",
-      ),
-      trailing: Icon(Icons.call),
-    ),
-  );
-}
+
 
 ///--------------- Share
 PopupMenuItem<dynamic> _share(AudioModel audio) {

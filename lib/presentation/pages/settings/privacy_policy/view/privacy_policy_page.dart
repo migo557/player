@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -27,51 +26,67 @@ class PrivacyPolicyPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         child: ListView(
           children: [
-            _buildSectionTitle("Open Player Privacy Policy"),
-            _buildSectionDescription("Effective Date: November 2024", context),
+            _buildSectionTitle("Privacy Policy for Player"),
+            _buildSectionDescription("Effective Date: January 2025", context),
             _buildSectionTitle("Introduction"),
             _buildSectionDescription(
-              "Open Player is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and protect your personal information.",context
+              "Player is an open-source media player designed to provide a rich user experience while respecting your privacy. This Privacy Policy outlines the data we collect, how we use it, and how we protect your personal information.",
+              context,
             ),
-            _buildSectionTitle("Scope"),
+            _buildSectionTitle("Scope of this Privacy Policy"),
             _buildSectionDescription(
-              "This Privacy Policy applies to the Open Player mobile application (the \"App\") available on GitHub. By using the App, you consent to the terms of this Policy.",context
+              "This Privacy Policy applies to the Player mobile application (the 'App') available on GitHub and GitLab. By using this App, you consent to the practices outlined in this policy.",
+              context,
             ),
-            _buildSectionTitle("Personal Information"),
+            _buildSectionTitle("Information We Collect"),
             _buildSectionDescription(
-              "We collect minimal personal information to enhance your user experience: username and profile picture. This information is stored locally on your device  and is not shared with third parties.",context
+              "We collect only minimal personal information to improve your experience with Player. This includes user preferences, such as the username or profile picture you may choose to set, which is stored locally on your device. We do not store or share this information with third parties.",
+              context,
             ),
-            _buildSectionTitle("Data Collection and Use"),
+            _buildSectionTitle("Data We Do Not Collect"),
             _buildSectionDescription(
-              "We do not collect or store any sensitive information, including location data, contact information, browsing history, or audio/video playback history.",context
+              "Player does not collect or store any sensitive personal information. Specifically, we do not track location data, browsing history, audio/video playback history, or any other form of personally identifiable information.",
+              context,
             ),
-            _buildSectionTitle("Feedback"),
+            _buildSectionTitle("Usage of Collected Information"),
             _buildSectionDescription(
-              "The App includes a feedback feature that directs you to your email application for providing input directly to the developer.",context
+              "Any personal information you choose to provide (such as your username or profile picture) is stored solely for your local experience within the App. We do not use this data for any other purpose, nor do we share it with any third parties.",
+              context,
             ),
-            _buildSectionTitle("Protection of Information"),
+            _buildSectionTitle("Feedback and Support"),
             _buildSectionDescription(
-              "We employ industry-standard security measures to safeguard your data against unauthorized access or misuse.",context
+              "Player includes a feedback feature that allows users to send direct input or queries to the developers via email. This feature helps us improve the app but does not collect personal data beyond what you voluntarily provide when contacting us.",
+              context,
             ),
-            _buildSectionTitle("Distribution"),
+            _buildSectionTitle("Security of Your Information"),
             _buildSectionDescription(
-              "We do not distribute or share your personal information with third parties.",context
+              "We employ industry-standard security measures to protect the information stored locally on your device. However, no method of electronic storage or transmission is completely secure, and we cannot guarantee absolute security.",
+              context,
             ),
-            _buildSectionTitle("Contact"),
+            _buildSectionTitle("Sharing of Information"),
             _buildSectionDescription(
-              "For inquiries regarding this policy or the App, contact us at:\n\nPlayer\nDeveloper: Furqan Uddin\nEmail: furqanuddin@programmer.net",context
+              "We do not share, sell, or rent your personal information to third parties. We respect your privacy and are committed to maintaining the confidentiality of your data.",
+              context,
             ),
-            _buildSectionTitle("Changes to this Policy"),
+            _buildSectionTitle("Changes to this Privacy Policy"),
             _buildSectionDescription(
-              "We reserve the right to update this Policy. Changes will be posted on this page.",context
+              "Player reserves the right to update or modify this Privacy Policy at any time. Any changes will be reflected on this page with the updated effective date. We encourage users to review this Privacy Policy periodically.",
+              context,
             ),
-            _buildSectionTitle("Your Rights"),
+            _buildSectionTitle("Your Rights and Control over Your Data"),
             _buildSectionDescription(
-              "You have the right to access and modify your personal information, request deletion of your personal information, and opt-out of future data collection.",context
+              "You have the right to access, update, or delete any personal information stored locally on your device. You may also request that we delete any information associated with your profile. As the app does not collect any data remotely, any changes made are confined to your device.",
+              context,
+            ),
+            _buildSectionTitle("Contact Information"),
+            _buildSectionDescription(
+              "If you have any questions or concerns regarding this Privacy Policy, or if you wish to exercise any of your rights described herein, please contact us at:\n\nDeveloper: Furqan Uddin\nEmail: frkudn@protonmail.com",
+              context,
             ),
             _buildSectionTitle("Acknowledgement"),
             _buildSectionDescription(
-              "By using Open Player, you acknowledge that you have read, understood, and agree to be bound by this Privacy Policy.",context
+              "By using the Player app, you acknowledge that you have read, understood, and agree to be bound by the terms of this Privacy Policy.",
+              context,
             ),
           ],
         ),
@@ -99,10 +114,11 @@ class PrivacyPolicyPage extends StatelessWidget {
         text,
         style: TextStyle(
           fontSize: 16,
-          color:Theme.of(context).brightness == Brightness.dark?Colors.white54  : Colors.black54,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.white54
+              : Colors.black54,
         ),
       ),
     );
   }
 }
-

@@ -68,7 +68,7 @@ class AudioTileWidget extends StatelessWidget {
               int? currentIndex = snapshot.data?.currentIndex ??
                   playerState.audioPlayer.currentIndex;
               bool? isSelected = currentIndex != null
-                  ? playerState.audios[currentIndex].path == audio.path
+                  ? playerState.audios[currentIndex].id == audio.id
                   : null;
               return _AudioTile(
                 songPath: audio.path,

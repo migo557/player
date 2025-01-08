@@ -9,7 +9,7 @@ import '../../../base/services/permissions/app_permission_service.dart';
 import 'package:path/path.dart' as path;
 import '../../models/audio_model.dart';
 import '../../providers/audio/audio_provider.dart';
-  import 'dart:convert';
+import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
 /// Abstract base class defining core functionality for audio file operations.
@@ -165,7 +165,7 @@ class AudioRepository implements AudioRepositoryBase {
         quality: quality,
         lastModified: audioFile.lastModifiedSync(),
         lastAccessed: audioFile.lastAccessedSync(),
-        id:  generateAudioId(audioPath, DateTime.now()),
+        id: generateAudioId(audioPath, DateTime.now()),
       );
     } catch (e) {
       clog.error('Error processing audio file $audioPath: $e');
@@ -178,10 +178,8 @@ class AudioRepository implements AudioRepositoryBase {
   String _getSafeTitle(String audioPath, dynamic metadata) {
     try {
       final String fileName = path.basenameWithoutExtension(audioPath);
-      final String? metadataTitle = metadata.title;
-      return (metadataTitle != null && metadataTitle.trim().isNotEmpty)
-          ? _cleanupText(metadataTitle)
-          : _cleanupText(fileName);
+
+      return _cleanupText(fileName);
     } catch (e) {
       return path.basenameWithoutExtension(audioPath);
     }
@@ -305,9 +303,7 @@ class AudioRepository implements AudioRepositoryBase {
     );
   }
 
-
-
-/// Generates a unique integer ID for audio files based on path and modification time.
+  /// Generates a unique integer ID for audio files based on path and modification time.
   ///
   /// Takes [audioPath] and [lastModified] as inputs to create a deterministic but unique ID.
   /// The algorithm:

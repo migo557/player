@@ -307,19 +307,40 @@ class AudioRepository implements AudioRepositoryBase {
 
 
 
-int generateAudioId(String audioPath, DateTime lastModified) {
-  // Combine path and timestamp for uniqueness
-  final String combinedString = '$audioPath${lastModified.millisecondsSinceEpoch}';
-  
-  // Generate SHA-256 hash
-  final bytes = utf8.encode(combinedString);
-  final hash = sha256.convert(bytes);
-  
-  // Convert first 8 bytes of hash to integer
-  final int id = hash.bytes.sublist(0, 8).fold<int>(0, 
-    (int prev, int byte) => (prev << 8) | byte);
-  
-  // Ensure positive value by using unsigned right shift
-  return id >>> 0;
-}
+/// Generates a unique integer ID for audio files based on path and modification time.
+  ///
+  /// Takes [audioPath] and [lastModified] as inputs to create a deterministic but unique ID.
+  /// The algorithm:
+  /// 1. Combines file path and timestamp for uniqueness
+  /// 2. Creates SHA-256 hash of the combined string
+  /// 3. Takes first 8 bytes of hash and converts to positive integer
+  /// 4. Uses unsigned right shift to ensure positive value
+  ///
+  /// Benefits:
+  /// - Fast computation (single hash operation)
+  /// - Consistent results for same inputs
+  /// - Extremely low collision probability
+  /// - Returns positive integers suitable for database IDs
+  ///
+  /// Example:
+  /// ```dart
+  /// final id = generateAudioId("/path/to/song.mp3", DateTime.now());
+  /// ```
+  int generateAudioId(String audioPath, DateTime lastModified) {
+    // Combine path and timestamp for uniqueness
+    final String combinedString =
+        '$audioPath${lastModified.millisecondsSinceEpoch}';
+
+    // Generate SHA-256 hash for reliable distribution
+    final bytes = utf8.encode(combinedString);
+    final hash = sha256.convert(bytes);
+
+    // Extract first 8 bytes and convert to integer
+    final int id = hash.bytes
+        .sublist(0, 8)
+        .fold<int>(0, (int prev, int byte) => (prev << 8) | byte);
+
+    // Ensure positive value with unsigned right shift
+    return id >>> 0;
+  }
 }

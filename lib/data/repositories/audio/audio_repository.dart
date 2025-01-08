@@ -10,20 +10,34 @@ import 'package:path/path.dart' as path;
 import '../../models/audio_model.dart';
 import '../../providers/audio/audio_provider.dart';
 
+/// Abstract base class defining core functionality for audio file operations.
+/// Implementations must provide methods for retrieving audio files and their metadata.
 abstract class AudioRepositoryBase {
   Future<List<AudioModel>> getAllAudioFiles();
-
   Future<List<AudioModel>> getAudioFilesFromSingleDirectory(
       Directory directory);
-
   Future<AudioModel> getAudioInfo(String audioPath);
 }
 
+/// Implementation of [AudioRepositoryBase] that handles audio file discovery and metadata extraction.
+///
+/// This repository is responsible for:
+/// - Scanning for audio files in the device storage
+/// - Reading and parsing audio metadata
+/// - Creating standardized [AudioModel] objects
+/// - Handling error cases and providing fallback values
 class AudioRepository implements AudioRepositoryBase {
+  /// Provider that handles low-level audio file operations
   final AudioProvider audioProvider;
 
   AudioRepository(this.audioProvider);
 
+  /// Retrieves all audio files from the device storage.
+  ///
+  /// Returns an empty list if:
+  /// - Storage permissions are not granted
+  /// - No audio files are found
+  /// - An error occurs during file scanning
   @override
   Future<List<AudioModel>> getAllAudioFiles() async {
     try {
@@ -31,7 +45,7 @@ class AudioRepository implements AudioRepositoryBase {
 
       if (!hasPermission) {
         clog.error('Storage permission not granted');
-        clog.warning(' Let;s Accessing it Storage permission again...');
+        clog.warning(' Let\'s Accessing it Storage permission again...');
         await AppPermissionService.storagePermission().then(
           (value) {
             clog.error(' Again Storage permission not granted');
@@ -42,11 +56,11 @@ class AudioRepository implements AudioRepositoryBase {
 
       final List<String> audioPath =
           await audioProvider.fetchAllAudioFilePaths();
-
-      final List<AudioModel> audios =
-          await Future.wait(audioPath.map((audioPath) async {
-        return await getAudioInfo(audioPath);
-      }));
+      final List<AudioModel> audios = await Future.wait(
+        audioPath.map((audioPath) async {
+          return await getAudioInfo(audioPath);
+        }),
+      );
 
       clog.info('Found ${audios.length} audio');
       return audios;
@@ -56,6 +70,14 @@ class AudioRepository implements AudioRepositoryBase {
     }
   }
 
+  /// Retrieves audio files from a specific directory.
+  ///
+  /// [directory] The directory to scan for audio files.
+  ///
+  /// Returns an empty list if:
+  /// - Storage permissions are not granted
+  /// - The directory contains no audio files
+  /// - An error occurs during file scanning
   @override
   Future<List<AudioModel>> getAudioFilesFromSingleDirectory(
       Directory directory) async {
@@ -64,7 +86,7 @@ class AudioRepository implements AudioRepositoryBase {
 
       if (!hasPermission) {
         clog.error('Storage permission not granted');
-        clog.warning(' Let;s Accessing it Storage permission again...');
+        clog.warning(' Let\'s Accessing it Storage permission again...');
         await AppPermissionService.storagePermission().then(
           (value) {
             clog.error(' Again Storage permission not granted');
@@ -75,11 +97,11 @@ class AudioRepository implements AudioRepositoryBase {
 
       final List<String> audioPath =
           await audioProvider.fetchAudioFilePathsFromSingleDirectory(directory);
-
-      final List<AudioModel> audios =
-          await Future.wait(audioPath.map((audioPath) async {
-        return await getAudioInfo(audioPath);
-      }));
+      final List<AudioModel> audios = await Future.wait(
+        audioPath.map((audioPath) async {
+          return await getAudioInfo(audioPath);
+        }),
+      );
 
       clog.info('Found ${audios.length} audio');
       return audios;
@@ -88,16 +110,24 @@ class AudioRepository implements AudioRepositoryBase {
       return [];
     }
   }
-@override
+
+  /// Extracts metadata from an audio file and creates an [AudioModel].
+  ///
+  /// [audioPath] The path to the audio file.
+  ///
+  /// Returns a complete [AudioModel] with metadata if successful, or a placeholder
+  /// model if the file is inaccessible or metadata cannot be read.
+  ///
+  /// This method handles various error cases and ensures that a valid model is
+  /// always returned, maintaining application stability.
+  @override
   Future<AudioModel> getAudioInfo(String audioPath) async {
     try {
       final File audioFile = File(audioPath);
       if (!await audioFile.exists()) {
-        // Return a placeholder model instead of throwing to prevent bloc state disruption
         return _createPlaceholderAudioModel(audioPath);
       }
 
-      // Wrap metadata reading in try-catch to handle parsing errors
       dynamic metadata;
       try {
         metadata = readMetadata(audioFile, getImage: true);
@@ -106,7 +136,7 @@ class AudioRepository implements AudioRepositoryBase {
         return _createPlaceholderAudioModel(audioPath);
       }
 
-      // Safe extraction of metadata with null handling
+      // Extract metadata with safety checks
       final String title = _getSafeTitle(audioPath, metadata);
       final String artists = _getSafeArtist(metadata);
       final String album = _getSafeAlbum(metadata);
@@ -116,7 +146,6 @@ class AudioRepository implements AudioRepositoryBase {
       final String quality = _calculateSafeQuality(bitrate, sampleRate);
       final List<PictureModel> thumbnails = _getSafeThumbnails(metadata);
 
-      // Create the audio model with safe values
       return AudioModel(
         title: title,
         ext: path.extension(audioPath),
@@ -130,19 +159,19 @@ class AudioRepository implements AudioRepositoryBase {
         lyrics: metadata.lyrics?.trim() ?? "",
         sampleRate: sampleRate,
         language: metadata.language?.trim() ?? "",
-        year: metadata.year ?? 0,
+        year: metadata.year ?? DateTime(0000),
         quality: quality,
         lastModified: audioFile.lastModifiedSync(),
         lastAccessed: audioFile.lastAccessedSync(),
       );
     } catch (e) {
       clog.error('Error processing audio file $audioPath: $e');
-      // Return placeholder instead of throwing to maintain bloc state
       return _createPlaceholderAudioModel(audioPath);
     }
   }
 
-// Helper methods for safe value extraction
+  /// Safely extracts the title from metadata or falls back to filename.
+  /// Handles null values and cleanup of problematic characters.
   String _getSafeTitle(String audioPath, dynamic metadata) {
     try {
       final String fileName = path.basenameWithoutExtension(audioPath);
@@ -155,6 +184,8 @@ class AudioRepository implements AudioRepositoryBase {
     }
   }
 
+  /// Safely extracts artist information from metadata.
+  /// Returns "unknown" if no valid artist data is found.
   String _getSafeArtist(dynamic metadata) {
     try {
       final String? artist = metadata.artist;
@@ -166,6 +197,8 @@ class AudioRepository implements AudioRepositoryBase {
     }
   }
 
+  /// Safely extracts album information from metadata.
+  /// Returns "unknown" if no valid album data is found.
   String _getSafeAlbum(dynamic metadata) {
     try {
       final String? album = metadata.album;
@@ -177,6 +210,8 @@ class AudioRepository implements AudioRepositoryBase {
     }
   }
 
+  /// Safely extracts genre information from metadata.
+  /// Returns an empty list if no valid genre data is found.
   List<String> _getSafeGenre(dynamic metadata) {
     try {
       final genres = metadata.genres;
@@ -192,6 +227,8 @@ class AudioRepository implements AudioRepositoryBase {
     }
   }
 
+  /// Calculates audio quality based on bitrate and sample rate.
+  /// Returns "unknown" if values are invalid or calculation fails.
   String _calculateSafeQuality(int bitrate, int sampleRate) {
     try {
       if (bitrate > 0 && sampleRate > 0) {
@@ -206,6 +243,8 @@ class AudioRepository implements AudioRepositoryBase {
     }
   }
 
+  /// Safely extracts thumbnail data from metadata.
+  /// Returns an empty list if no valid thumbnail data is found or processing fails.
   List<PictureModel> _getSafeThumbnails(dynamic metadata) {
     try {
       if (metadata.pictures != null) {
@@ -223,14 +262,19 @@ class AudioRepository implements AudioRepositoryBase {
     }
   }
 
+  /// Cleans up text by removing problematic characters and whitespace.
+  /// Returns an empty string if input is null or empty.
   String _cleanupText(String? text) {
     if (text == null || text.trim().isEmpty) return "";
     return text
-        .replaceAll(RegExp(r'[\x00-\x1F\x7F]'), '')
+        .replaceAll(RegExp(r'[\x00-\x1F\x7F]'), '') // Remove control characters
         .trim()
-        .replaceAll(RegExp(r'[^\x20-\x7E\x80-\xFF]'), '');
+        .replaceAll(
+            RegExp(r'[^\x20-\x7E\x80-\xFF]'), ''); // Keep printable chars
   }
 
+  /// Creates a placeholder [AudioModel] for cases where metadata cannot be read.
+  /// Uses basic file information where available and provides default values.
   AudioModel _createPlaceholderAudioModel(String audioPath) {
     final File audioFile = File(audioPath);
     return AudioModel(

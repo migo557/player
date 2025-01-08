@@ -91,7 +91,7 @@ class AudioProvider {
       final result = await _scanInIsolate(directory.path);
       audioFiles.addAll(result);
     } catch (e) {
-      clog.error('Error in fetchAudioilePaths: ${e.toString()}');
+      clog.error('Error in fetchAudiofilePaths: ${e.toString()}');
     }
 
     return audioFiles;

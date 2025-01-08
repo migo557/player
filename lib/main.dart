@@ -8,6 +8,7 @@ import 'package:open_player/base/router/router.dart';
 import 'package:open_player/bloc_providers.dart';
 import 'package:open_player/logic/theme_cubit/theme_cubit.dart';
 import 'package:open_player/logic/theme_cubit/theme_state.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'base/services/notification/notification_services.dart';
 
 void main() async {
@@ -27,6 +28,9 @@ void main() async {
 
   // Set UIMode To EdgeToEdge
   await SystemService.setUIModeEdgeToEdge();
+
+  // The following line will enable the Android and iOS wakelock.
+  WakelockPlus.enable();
 
   runApp(const MyApp());
 }

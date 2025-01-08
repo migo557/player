@@ -4,25 +4,41 @@ import 'package:color_log/color_log.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as path;
 
-/// A provider class that handles audio file operations
+/// A provider class that handles audio file discovery and management.
+///
+/// This class is responsible for:
+/// - Scanning device storage for audio files
+/// - Managing file system operations in separate isolates
+/// - Filtering supported audio formats
+/// - Handling both single directory and full storage scans
 class AudioProvider {
-  /// A list of supported audio file formats.
+  /// A list of supported audio file extensions.
+  ///
+  /// These formats are checked when scanning directories to identify audio files.
+  /// Add new formats here to support additional audio file types.
   static const List<String> _supportedFormats = [
-    '.mp3',
-    '.flac',
-    '.wav',
-    '.m4a',
-    '.aac',
-    '.ogg',
-    '.wma'
+    '.mp3', // MPEG-1/2 Audio Layer III
+    '.flac', // Free Lossless Audio Codec
+    '.wav', // Waveform Audio File Format
+    '.m4a', // MPEG-4 Audio
+    '.aac', // Advanced Audio Coding
+    '.ogg', // Ogg Vorbis Audio
+    '.wma' // Windows Media Audio
   ];
 
-  /// Fetches all audio file paths from external storage directories
-  /// Returns a list of audio file paths
+  /// Scans all external storage locations for audio files.
+  ///
+  /// This method:
+  /// - Checks multiple storage locations (internal storage, SD card, etc.)
+  /// - Uses isolates for parallel scanning to improve performance
+  /// - Handles missing or inaccessible directories gracefully
+  ///
+  /// Returns a list of absolute paths to discovered audio files.
+  /// Returns an empty list if no files are found or if an error occurs.
   Future<List<String>> fetchAllAudioFilePaths() async {
     List<String> audioFiles = [];
 
-    // Define potential directories
+    // Common storage locations on Android devices
     List<Directory> directories = [
       Directory("/storage/emulated/0/"), // Internal storage
       Directory("/storage/sdcard1/"), // External storage
@@ -30,11 +46,11 @@ class AudioProvider {
     ];
 
     try {
-      // Create a list to store all futures from isolates
+      // Create parallel scanning tasks
       List<Future<List<String>>> futures = [];
 
       for (var directory in directories) {
-        // Check if the directory exists before scanning
+        // Only scan directories that exist
         if (await directory.exists()) {
           clog.info("ExternalStorageDirectory Path: ${directory.path}");
           futures.add(_scanInIsolate(directory.path));
@@ -43,7 +59,7 @@ class AudioProvider {
         }
       }
 
-      // Wait for all isolates to complete and combine results
+      // Combine results from all storage locations
       final results = await Future.wait(futures);
       for (var result in results) {
         audioFiles.addAll(result);
@@ -55,15 +71,24 @@ class AudioProvider {
     return audioFiles;
   }
 
-  /// Fetches all audio file paths from given Directory
-  /// Returns a list of audio file paths
-  Future<List<String>> fetchAudioFilePathsFromSingleDirectory(Directory directory) async {
+  /// Scans a specific directory for audio files.
+  ///
+  /// [directory] The directory to scan for audio files.
+  ///
+  /// This method is useful when you need to scan:
+  /// - A user-selected folder
+  /// - A specific music directory
+  /// - A temporary storage location
+  ///
+  /// Returns a list of absolute paths to discovered audio files.
+  /// Returns an empty list if no files are found or if an error occurs.
+  Future<List<String>> fetchAudioFilePathsFromSingleDirectory(
+      Directory directory) async {
     List<String> audioFiles = [];
 
     try {
       clog.info("ExternalStorageDirectory Path: ${directory.path}");
       final result = await _scanInIsolate(directory.path);
-
       audioFiles.addAll(result);
     } catch (e) {
       clog.error('Error in fetchAudioilePaths: ${e.toString()}');
@@ -72,8 +97,17 @@ class AudioProvider {
     return audioFiles;
   }
 
-  /// Creates an isolate to scan for audio files in the given directory
-  /// Returns a future that completes with the list of audio paths
+  /// Creates and manages an isolate for scanning audio files.
+  ///
+  /// [directoryPath] The path to scan for audio files.
+  ///
+  /// This method:
+  /// - Creates a new isolate for file system operations
+  /// - Sets up communication channels with the isolate
+  /// - Handles isolate lifecycle and cleanup
+  ///
+  /// Returns a Future that completes with the list of discovered audio paths.
+  /// The isolate is automatically terminated after scanning is complete.
   Future<List<String>> _scanInIsolate(String directoryPath) async {
     final receivePort = ReceivePort();
 
@@ -81,7 +115,7 @@ class AudioProvider {
       await Isolate.spawn(
           scanAudioFiles, [receivePort.sendPort, directoryPath]);
 
-      // Get the result from the isolate
+      // Wait for and return the isolate's results
       final result = await receivePort.first as List<String>;
       return result;
     } catch (e) {
@@ -93,8 +127,14 @@ class AudioProvider {
   }
 }
 
-/// The isolate worker function that scans for audio files
-/// Args should contain [SendPort, String] where String is the directory path
+/// Isolate worker function that performs the actual file system scanning.
+///
+/// [args] A list containing:
+/// - [0] SendPort: Port for communicating results back to the main isolate
+/// - [1] String: The directory path to scan
+///
+/// This function runs in a separate isolate to avoid blocking the main thread
+/// during intensive file system operations.
 void scanAudioFiles(List<dynamic> args) {
   List<String> audioFilePaths = [];
   SendPort sendPort = args[0];
@@ -108,8 +148,19 @@ void scanAudioFiles(List<dynamic> args) {
   }
 }
 
+/// Recursively scans a directory for audio files.
+///
+/// [directory] The directory to scan
+/// [audioFilePaths] List to store discovered audio file paths
+///
+/// This function:
+/// - Traverses directory structure recursively
+/// - Skips Android system directories
+/// - Checks file extensions against supported formats
+/// - Handles file system errors gracefully
 void _scanDirectory(Directory directory, List<String> audioFilePaths) {
   try {
+    // Skip Android system directories to improve performance
     if (directory.path.contains('/Android')) return;
 
     directory.listSync(recursive: false, followLinks: false).forEach((entity) {

@@ -9,8 +9,8 @@ import '../../../base/services/permissions/app_permission_service.dart';
 import 'package:path/path.dart' as path;
 import '../../models/audio_model.dart';
 import '../../providers/audio/audio_provider.dart';
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
+import 'dart:typed_data';
+import 'package:murmurhash/murmurhash.dart';
 
 /// Abstract base class defining core functionality for audio file operations.
 /// Implementations must provide methods for retrieving audio files and their metadata.
@@ -303,83 +303,61 @@ class AudioRepository implements AudioRepositoryBase {
     );
   }
 
-/// Generates a stable, unique ID for audio files based on content rather than filepath.
-  ///
-  /// This function creates a consistent ID that remains the same even if the file is renamed
-  /// or moved to a different location. The ID only changes if the actual audio content
-  /// is modified.
-  ///
-  /// The algorithm:
-  /// 1. Reads first 256KB of audio file data (optimal balance of speed and uniqueness)
-  /// 2. Combines this data with file size to create a unique fingerprint
-  /// 3. Generates SHA-256 hash of the fingerprint
-  /// 4. Converts hash to a positive integer suitable for database IDs
-  ///
-  /// Benefits:
-  /// - Stable: Same ID even after file rename/move
-  /// - Unique: Extremely low collision probability due to content-based hashing
-  /// - Efficient: Only reads beginning of file, not entire content
-  /// - Compatible: Returns positive integer IDs suitable for databases
-  /// - Reliable: Handles error cases gracefully
-  ///
-  /// Parameters:
-  /// - [audioPath]: String path to the audio file
-  ///
-  /// Returns:
-  /// - Positive integer ID based on file content
-  /// - Returns 0 if file cannot be read or other errors occur
-  ///
-  /// Example:
-  /// ```dart
-  /// final id = generateStableAudioId("/path/to/song.mp3");
-  /// // ID remains same even if file is renamed to "newsong.mp3"
-  /// ```
-  int generateStableAudioId(String audioPath) {
-    try {
-      final File audioFile = File(audioPath);
-      if (!audioFile.existsSync()) return 0;
 
-      // Read first 256KB of file for fingerprinting
-      // This size provides good balance between:
-      // - Processing speed (not reading entire file)
-      // - Uniqueness (enough data to differentiate files)
-      // - Memory efficiency (doesn't load too much into memory)
-      final RandomAccessFile raf = audioFile.openSync();
-      final Uint8List buffer = Uint8List(256 * 1024); // 256KB buffer
-      final int bytesRead = raf.readIntoSync(buffer);
-      raf.closeSync();
 
-      if (bytesRead == 0) return 0;
 
-      // Use actual read bytes for hashing
-      // Only include bytes that were actually read, not empty buffer space
-      final Uint8List actualBytes = buffer.sublist(0, bytesRead);
+/// Generates an ultra-fast stable ID for audio files.
+/// The ID remains same even if file is renamed, but changes if content changes.
+/// Uses MurmurHash for extremely fast hashing while maintaining good distribution.
+int generateStableAudioId(String audioPath) {
+  try {
+    final File audioFile = File(audioPath);
+    if (!audioFile.existsSync()) return 0;
+    
+    final int fileSize = audioFile.lengthSync();
+    if (fileSize == 0) return 0;
 
-      // Include file size in fingerprint for additional uniqueness
-      // This helps differentiate files that might have same starting content
-      final int fileSize = audioFile.lengthSync();
-
-      // Create unique fingerprint combining content sample and size
-      // base64 encoding provides efficient string representation of binary data
-      final String fingerprint =
-          base64Encode(actualBytes) + fileSize.toString();
-
-      // Generate SHA-256 hash for reliable distribution of IDs
-      final bytes = utf8.encode(fingerprint);
-      final hash = sha256.convert(bytes);
-
-      // Convert hash to integer:
-      // 1. Take first 8 bytes of hash
-      // 2. Fold bytes into single integer using bitwise operations
-      // 3. Ensure positive value with unsigned right shift
-      final int id = hash.bytes
-          .sublist(0, 8)
-          .fold<int>(0, (int prev, int byte) => (prev << 8) | byte);
-
-      return id >>> 0;
-    } catch (e) {
-      print('Error generating stable audio ID: $e');
-      return 0; // Return 0 as fallback for any errors
+    // Only read first 4KB for speed
+    final raf = audioFile.openSync();
+    final startBytes = Uint8List(4 * 1024);  // 4KB is enough for uniqueness
+    final int bytesRead = raf.readIntoSync(startBytes);
+    
+    // Also read last 1KB if file is big enough
+    Uint8List? endBytes;
+    int endBytesRead = 0;
+    if (fileSize > 8 * 1024) {  // If file is bigger than 8KB
+      raf.setPositionSync(fileSize - 1024);  // Last 1KB
+      endBytes = Uint8List(1024);
+      endBytesRead = raf.readIntoSync(endBytes);
     }
+    
+    raf.closeSync();
+
+    // Combine the important values for hashing
+    final StringBuffer keyBuffer = StringBuffer();
+    
+    // Add start bytes
+    keyBuffer.write(String.fromCharCodes(startBytes.sublist(0, bytesRead)));
+    
+    // Add file size
+    keyBuffer.write(fileSize.toString());
+    
+    // Add end bytes if available
+    if (endBytes != null) {
+      keyBuffer.write(String.fromCharCodes(endBytes.sublist(0, endBytesRead)));
+    }
+
+    // Generate hash using MurmurHash with a fixed seed
+    // Using 104729 as seed (a prime number) for good distribution
+    final int hash = MurmurHash.v3(keyBuffer.toString(), 104729);
+    
+    // MurmurHash can return negative values, make it positive
+    return hash & 0x7FFFFFFF;  // Ensure positive value
+
+  } catch (e) {
+    print('Error generating audio ID: $e');
+    return 0;
   }
+}
+
 }

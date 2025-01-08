@@ -3,40 +3,33 @@ import 'package:open_player/base/db/hive_service.dart';
 class FavoritesAudioHiveService {
   final _box = MyHiveBoxes.favoriteAudios;
 
-  static generateKey(String filePath) {
-    return '${filePath.hashCode}_${filePath.split('/').last}';
+
+  _addToFavorite(int audioId) async {
+    await _box.put(audioId, true);
   }
 
-  _addToFavorite(String filePath) async {
-    final key = generateKey(filePath);
-    await _box.put(key, true);
+  _removeFromFavorite(int audioId) async {
+    await _box.put(audioId, false);
   }
 
-  _removeFromFavorite(String filePath) async {
-    final key = generateKey(filePath);
-    await _box.put(key, false);
+  _checkIsContain(int audioId) {
+    return _box.containsKey(audioId);
   }
 
-  _checkIsContain(String filePath) {
-    final key = generateKey(filePath);
-    return _box.containsKey(key);
-  }
-
-  bool getFavoriteStatus(String filePath) {
-    final key = generateKey(filePath);
-    bool v = _box.get(key, defaultValue: false);
+  bool getFavoriteStatus(int audioId) {
+    bool v = _box.get(audioId, defaultValue: false);
     return v;
   }
 
-  toggleFavorite(String filePath) {
-    if (_checkIsContain(filePath)) {
-      if (getFavoriteStatus(filePath)) {
-        _removeFromFavorite(filePath);
+  toggleFavorite(int audioId) {
+    if (_checkIsContain(audioId)) {
+      if (getFavoriteStatus(audioId)) {
+        _removeFromFavorite(audioId);
       } else {
-        _addToFavorite(filePath);
+        _addToFavorite(audioId);
       }
     } else {
-      _addToFavorite(filePath);
+      _addToFavorite(audioId);
     }
   }
 }

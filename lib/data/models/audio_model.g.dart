@@ -33,13 +33,14 @@ class AudioModelAdapter extends TypeAdapter<AudioModel> {
       quality: fields[15] as String,
       lastModified: fields[13] as DateTime,
       lastAccessed: fields[14] as DateTime,
+      id: fields[16] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, AudioModel obj) {
     writer
-      ..writeByte(16)
+      ..writeByte(17)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -71,7 +72,9 @@ class AudioModelAdapter extends TypeAdapter<AudioModel> {
       ..writeByte(14)
       ..write(obj.lastAccessed)
       ..writeByte(15)
-      ..write(obj.quality);
+      ..write(obj.quality)
+      ..writeByte(16)
+      ..write(obj.id);
   }
 
   @override

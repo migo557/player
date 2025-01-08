@@ -122,7 +122,9 @@ class SongsPage extends HookWidget {
                   },
                   icon: const Icon(HugeIcons.strokeRoundedRefresh),
                 ),
-              ].column(),
+              ].column(
+                alignment: MainAxisAlignment.center
+              ),
             );
           }
         } else if (audioState is AudiosLoading) {

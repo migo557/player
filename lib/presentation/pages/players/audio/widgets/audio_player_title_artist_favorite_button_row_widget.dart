@@ -49,7 +49,7 @@ class AudioPlayerTitleArtistFavoriteButtonAudioQualityBadgeRowWidget
                     ? audioPlayerState.audios[currentIndex].id
                     : 0;
 
-                bool isFavorite = FavoritesAudioHiveService()
+                bool isFavorite =  FavoritesAudioHiveService()
                     .getFavoriteStatus(currentAudioId);
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.center,

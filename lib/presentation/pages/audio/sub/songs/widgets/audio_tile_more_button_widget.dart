@@ -1,4 +1,4 @@
-
+import 'package:color_log/color_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -35,7 +35,7 @@ class AudioTileMoreButtonWidget extends StatelessWidget {
             context: context,
             position: position,
             items: [
-              _musicAddToFavorite(path),
+              _musicAddToFavorite(audio.id),
               _musicAddToPlaylist(context, audio),
               _renameMusic(context, path, audio.title),
               _toggleHideMusic(context, path),
@@ -63,11 +63,11 @@ class AudioTileMoreButtonWidget extends StatelessWidget {
 ///-------------------------------------------------///
 
 ///--------------- A D D  T O  F A V O R I T E
-PopupMenuItem<dynamic> _musicAddToFavorite(path) {
-  final isFavorite = FavoritesAudioHiveService().getFavoriteStatus(path);
+PopupMenuItem<dynamic> _musicAddToFavorite(int id) {
+  final isFavorite = FavoritesAudioHiveService().getFavoriteStatus(id);
   return PopupMenuItem(
     onTap: () {
-      FavoritesAudioHiveService().toggleFavorite(path);
+      FavoritesAudioHiveService().toggleFavorite(id);
     },
     child: ListTile(
       title: Text(
@@ -126,14 +126,25 @@ PopupMenuItem<dynamic> _renameMusic(
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    await FileService()
-                        .renameFile(path, controller.text.trim())
-                        .whenComplete(
-                      () {
-                        context.read<AudiosBloc>().add(AudiosLoadAllEvent());
-                        context.pop();
-                      },
-                    );
+                    try {
+                      // Rename the file when the "Rename" button is pressed
+                      FileService()
+                          .renameFile(path, controller.text.trim(), context);
+
+                      // After renaming, refresh the list or UI
+                      context.read<AudiosBloc>().add(AudiosLoadAllEvent());
+                      context.pop(); // Close the dialog
+                    } catch (e) {
+                      // Handle any errors during the renaming process
+                      clog.error("Error renaming file: ${e.toString()}");
+
+                      VxToast.show(
+                        context,
+                        msg: "Error renaming file: ${e.toString()}",
+                        bgColor: Colors.red,
+                        textColor: Colors.white,
+                      );
+                    }
                   },
                   child: Text("Rename"),
                 ),
@@ -192,8 +203,6 @@ PopupMenuItem<dynamic> _deleteMusic(
     ),
   );
 }
-
-
 
 ///--------------- Share
 PopupMenuItem<dynamic> _share(AudioModel audio) {

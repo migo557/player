@@ -281,7 +281,7 @@ class ElegantVideoTileWidget extends StatelessWidget {
               isDestructiveAction: true,
               onPressed: () {
                 FileService()
-                    .renameFile(video.path, controller.text.trim())
+                    .renameFile(video.path, controller.text.trim(), context)
                     .whenComplete(() {
                   context.read<VideosBloc>().add(VideosLoadEvent());
                   Navigator.pop(context);
